@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="textSize14" format="dimension" />
+    <attr name="textSize12" format="dimension" />
+    <attr name="image7" format="dimension" />
+    <attr name="image11" format="dimension" />
+    <attr name="image22" format="dimension" />
+    <attr name="image40" format="dimension" />
+</resources>

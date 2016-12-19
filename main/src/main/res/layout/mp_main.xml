@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".home.ui.HomeActivity"
+    android:background="#ededed">
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip"
+        android:background="@color/colorPrimary"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerHorizontal="true"
+            android:text="首页" />
+
+        <ImageView
+            android:id="@+id/main_setting"
+            android:src="@mipmap/main_setting"
+            android:layout_width="44dip"
+            android:layout_height="44dip"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ripple_bg"
+            android:onClick="tosetting"/>
+
+        <ImageView
+            android:id="@+id/msgcount"
+            android:src="@mipmap/main_msg"
+            android:layout_width="44dip"
+            android:layout_height="44dip"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/main_setting"
+            android:background="@drawable/ripple_bg"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>
