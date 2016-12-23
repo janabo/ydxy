@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoTitle">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.NoTitle.Translucent">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
     <style name="MyDialog" parent="@android:style/Theme.DeviceDefault.DialogWhenLarge">
         <item name="android:windowFrame">@null</item>
         <!-- 边框 -->
@@ -55,29 +73,62 @@
 
     <style name="style_norm">
         <item name="textSize14">14sp</item>
+        <item name="textSize13">13sp</item>
         <item name="textSize12">12sp</item>
         <item name="image7">7dp</item>
+        <item name="image8">8dp</item>
+        <item name="image10">10dp</item>
         <item name="image11">11dp</item>
+        <item name="image16">16dp</item>
         <item name="image22">22dp</item>
+        <item name="image32">32dp</item>
         <item name="image40">40dp</item>
+        <item name="image42">42dp</item>
+        <item name="image44">44dp</item>
+        <item name="image45">45dp</item>
+        <item name="image60">60dp</item>
+        <item name="image71">71dp</item>
+        <item name="image80">80dp</item>
     </style>
 
     <style name="style_large">
         <item name="textSize14">16.1sp</item>
+        <item name="textSize13">14.95sp</item>
         <item name="textSize12">13.8sp</item>
         <item name="image7">8dp</item>
+        <item name="image8">9.2dp</item>
+        <item name="image10">11.5dp</item>
         <item name="image11">12.6dp</item>
+        <item name="image16">18.4dp</item>
         <item name="image22">25.3dp</item>
+        <item name="image32">36.8dp</item>
         <item name="image40">46dp</item>
+        <item name="image42">48.3dp</item>
+        <item name="image44">50.6dp</item>
+        <item name="image45">51.75dp</item>
+        <item name="image60">69dp</item>
+        <item name="image71">81.65dp</item>
+        <item name="image80">92dp</item>
     </style>
 
     <style name="style_big">
         <item name="textSize14">17.5sp</item>
+        <item name="textSize13">16.25sp</item>
         <item name="textSize12">15sp</item>
-        <item name="image7">10dp</item>
+        <item name="image7">8.75dp</item>
+        <item name="image8">10dp</item>
+        <item name="image10">12.5dp</item>
         <item name="image11">13.7dp</item>
+        <item name="image16">20dp</item>
         <item name="image22">27.5dp</item>
+        <item name="image32">40dp</item>
         <item name="image40">50dp</item>
+        <item name="image42">52.5dp</item>
+        <item name="image44">55dp</item>
+        <item name="image45">56.25dp</item>
+        <item name="image60">75dp</item>
+        <item name="image71">88.75dp</item>
+        <item name="image80">100dp</item>
     </style>
 
 </resources>

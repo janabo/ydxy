@@ -40,9 +40,9 @@ public abstract class MyActivity extends AppCompatActivity{
     protected void initTheme ( ) {
         preference = getSharedPreferences();
         String value = preference.getValue("font_type");
-        if("中号字".equals(value)) {
+        if("大".equals(value)) {
           this.setTheme(R.style.style_large);
-        }else if("大号字".equals(value)){
+        }else if("特大".equals(value)){
             this.setTheme(R.style.style_big);
         }else{
             this.setTheme(R.style.style_norm);

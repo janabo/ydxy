@@ -38,7 +38,8 @@
             android:layout_height="44dip"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/main_setting"
-            android:background="@drawable/ripple_bg"/>
+            android:background="@drawable/ripple_bg"
+            android:onClick="toxxxw"/>
     </RelativeLayout>
 
 

@@ -7,4 +7,5 @@
     <color name="white">#ffffff</color>
     <color name="transparent">#00000000</color>
     <color name="linecolor">#e5e5e5</color>
+    <color name="rcap_gray">#c9c9c9</color>
 </resources>

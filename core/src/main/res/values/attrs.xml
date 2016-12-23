@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="textSize14" format="dimension" />
+    <attr name="textSize13" format="dimension" />
     <attr name="textSize12" format="dimension" />
     <attr name="image7" format="dimension" />
+    <attr name="image8" format="dimension" />
+    <attr name="image10" format="dimension" />
     <attr name="image11" format="dimension" />
+    <attr name="image16" format="dimension" />
     <attr name="image22" format="dimension" />
+    <attr name="image32" format="dimension" />
     <attr name="image40" format="dimension" />
+    <attr name="image42" format="dimension" />
+    <attr name="image44" format="dimension" />
+    <attr name="image45" format="dimension" />
+    <attr name="image60" format="dimension" />
+    <attr name="image71" format="dimension" />
+    <attr name="image80" format="dimension" />
+
+    <declare-styleable name="IndentifyingCode">
+        <attr name="codeCount" format="integer|reference"></attr>
+        <attr name="textSize" format="dimension"></attr>
+        <attr name="text" format="string"></attr>
+    </declare-styleable>
+
 </resources>

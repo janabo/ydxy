@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Core</string>
+    <string name="rootUrl">http://ydoa.czlgj.com/yd/</string>
+
+    <string name="reload">点击重新加载</string>
+    <string name="transition__img">转场动画</string>
+
+    <string name="net_no2">暂无网络</string>
+    <string name="nodata">暂无数据</string>
+    <string name="data_fail">获取失败</string>
+    <string name="login_fail">登录失败</string>
 </resources>

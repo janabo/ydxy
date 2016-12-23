@@ -2,6 +2,7 @@ package com.dk.mp.main.setting.ui;
 
 import android.annotation.TargetApi;
 import android.app.ActivityOptions;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,8 +19,8 @@ import android.widget.TextView;
 import com.dk.mp.core.dialog.AlertDialog;
 import com.dk.mp.core.entity.User;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.BroadcastUtil;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
-import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.FileUtil;
 import com.dk.mp.core.util.SnackBarUtil;
 import com.dk.mp.main.R;
@@ -30,7 +31,7 @@ import com.dk.mp.main.login.LoginActivity;
  */
 public class SettingActivity extends MyActivity{
     private Context context = SettingActivity.this;
-    private TextView version_new, name,xm,bmhyx;
+    private TextView name,xm,bmhyx;
     private LinearLayout login;
     private CoreSharedPreferencesHelper helper;
     private LinearLayout xsxx;
@@ -38,7 +39,9 @@ public class SettingActivity extends MyActivity{
     private ScrollView setting_scro;
     private ImageView pesonphoto;
     private TextView font_txt;
-    private String selectFont="小号字";
+    private String selectFont="标准";
+    public static SettingActivity instance;
+
 
     @Override
     protected int getLayoutID() {
@@ -49,16 +52,32 @@ public class SettingActivity extends MyActivity{
     protected void initialize() {
         super.initialize();
         helper = getSharedPreferences();
+        instance = SettingActivity.this;
         initView();
         setTitle("设置");
-        version_new.setText("当前版本:" + DeviceUtil.getVersionName(context));
+//        version_new.setText("当前版本:" + DeviceUtil.getVersionName(context));
+        BroadcastUtil.registerReceiver(this, mRefreshBroadcastReceiver, new String[]{"login","user"});
+        setUser();
     }
+
+    private BroadcastReceiver mRefreshBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("user")) {
+                setUser();
+            }else if(action.equals("login")){
+                Intent in = new Intent(context,LoginActivity.class);
+                startActivity(in);
+            }
+        }
+    };
 
     public void initView(){
         font_txt = (TextView) findViewById(R.id.font_txt);
         setting_scro = (ScrollView) findViewById(R.id.setting_scro);
         name = (TextView) findViewById(R.id.name);
-        version_new = (TextView) findViewById(R.id.version_new);
+//        version_new = (TextView) findViewById(R.id.version_new);
         login = (LinearLayout) findViewById(R.id.login);
         xsxx = (LinearLayout) findViewById(R.id.xsxx);
         xm = (TextView) findViewById(R.id.xm);
@@ -73,8 +92,8 @@ public class SettingActivity extends MyActivity{
             }
         });
         String value = helper.getValue("font_type");
-        if(value == null || "小字号".equals(value)) {
-            font_txt.setText("小字号");
+        if(value == null || "标准".equals(value)) {
+            font_txt.setText("标准");
         }else{
             font_txt.setText(value);
         }
@@ -122,21 +141,21 @@ public class SettingActivity extends MyActivity{
 
     }
 
-    /**
-     * 检查版本更新
-     * @param v
-     */
-    public void toversion(View v){
-
-    }
+//    /**
+//     * 检查版本更新
+//     * @param v
+//     */
+//    public void toversion(View v){
+//
+//    }
 
     /**
      * 设置字体大小
      * @param v
      */
     public void tosetFontSize(View v){
-        final String[] fonts={"大号字","中号字","小号字"};
-        new AlertDialog(mContext).show("字体大小", fonts, new DialogInterface.OnClickListener(){
+        final String[] fonts={"特大","大","标准"};
+        new AlertDialog(mContext).show("设置字体大小", fonts, new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 selectFont = fonts[which];
@@ -162,6 +181,25 @@ public class SettingActivity extends MyActivity{
         } else {
             Intent in = new Intent(context,LoginActivity.class);
             startActivity(in);
+        }
+    }
+
+    private void setUser() {
+        User user = helper.getUser();
+        if (user != null) {
+            name.setVisibility(View.GONE);
+            xsxx.setVisibility(View.VISIBLE);
+            xm.setText(user.getUserName());
+            String departname = "null".equals(user.getDepartName())||user.getDepartName() == null ? "":user.getDepartName();
+            if("1".equals(user.getRoles())){
+                bmhyx.setText("部门："+departname);
+            }else{
+                bmhyx.setText("院系："+departname);
+            }
+        } else {
+            name.setText("点击登录");
+            name.setVisibility(View.VISIBLE);
+            xsxx.setVisibility(View.GONE);
         }
     }
 
