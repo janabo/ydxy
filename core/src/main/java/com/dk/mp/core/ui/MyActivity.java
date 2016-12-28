@@ -62,6 +62,35 @@ public abstract class MyActivity extends AppCompatActivity{
         setTitle(getReString(title));
     }
 
+    public void setRightText(String text, View.OnClickListener listener) {
+        try {
+            TextView right_txt = (TextView) findViewById(R.id.right_txt);
+            right_txt.setText(text);
+            right_txt.setVisibility(View.VISIBLE);
+            right_txt.setOnClickListener(listener);
+        } catch (Exception e) {
+        }
+    }
+
+    public void setRightTextColor(int color) {
+        try {
+            TextView right_txt = (TextView) findViewById(R.id.right_txt);
+            right_txt.setTextColor(color);
+        } catch (Exception e) {
+        }
+    }
+
+    public void setRightText(String text, int color, View.OnClickListener listener) {
+        try {
+            TextView right_txt = (TextView) findViewById(R.id.right_txt);
+            right_txt.setText(text);
+            right_txt.setVisibility(View.VISIBLE);
+            right_txt.setTextColor(color);
+            right_txt.setOnClickListener(listener);
+        } catch (Exception e) {
+        }
+    }
+
     /**
      * 获取string
      * @param string R.string.x

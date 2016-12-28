@@ -1,5 +1,7 @@
 package com.dk.mp.core.entity;
 
+import java.util.List;
+
 public class User {
 	private String userId ;//用户id
 	private String userName ;//用户名
@@ -14,6 +16,7 @@ public class User {
 	private String departName;//院系名称
 	private String departId;//院系id
 	private String roles;//权限
+	private List<App> apps;
 
 	public String getPhoto() {
 		return photo;
@@ -119,4 +122,11 @@ public class User {
 		this.roles = roles;
 	}
 
+	public List<App> getApps() {
+		return apps;
+	}
+
+	public void setApps(List<App> apps) {
+		this.apps = apps;
+	}
 }

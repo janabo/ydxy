@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Core</string>
-    <string name="rootUrl">http://ydoa.czlgj.com/yd/</string>
+    <string name="rootUrl">http://192.168.4.108:3000/</string>
 
     <string name="reload">点击重新加载</string>
     <string name="transition__img">转场动画</string>
@@ -9,4 +9,6 @@
     <string name="nodata">暂无数据</string>
     <string name="data_fail">获取失败</string>
     <string name="login_fail">登录失败</string>
+
+    <string name="defulicon">[{\"id\":\"1\",\"name\":\"学校新闻\",\"url\":\"\",\"idCat\":\"1\",\"icon\":\"app_xxxw\",\"packageName\":\"\",\"action\":\"xxxw\",\"nameCat\":\"生活\"},{\"id\":\"2\",\"name\":\"黄页\",\"url\":\"\",\"idCat\":\"1\",\"icon\":\"app_hy\",\"packageName\":\"\",\"action\":\"hy\",\"nameCat\":\"生活\"},{\"id\":\"3\",\"name\":\"通知公告\",\"url\":\"\",\"idCat\":\"1\",\"icon\":\"app_tzgg\",\"packageName\":\"\",\"action\":\"tzgg\",\"nameCat\":\"生活\"},{\"id\":\"4\",\"name\":\"学校概况\",\"url\":\"\",\"idCat\":\"1\",\"icon\":\"app_xxgk\",\"packageName\":\"\",\"action\":\"xxgk\",\"nameCat\":\"生活\"},{\"id\":\"6\",\"name\":\"校园风光\",\"url\":\"\",\"idCat\":\"1\",\"icon\":\"app_xyfg\",\"packageName\":\"\",\"action\":\"xyfg\",\"nameCat\":\"生活\"}]</string>
 </resources>
