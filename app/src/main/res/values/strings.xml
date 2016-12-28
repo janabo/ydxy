@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">刘高职</string>
 
-    <string name="rootUrl">http://ydoa.czlgj.com/yd/</string>
+    <string name="rootUrl">http://192.168.4.108:3000/</string>
 </resources>
