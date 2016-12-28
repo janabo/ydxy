@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ededed"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/nav_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        layout="@layout/core_title_back" >
+    </include>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_marginTop="10dip"
+            android:background="@color/white"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?attr/image45"
+                    android:gravity="center_vertical"
+                    android:text="日程主题" />
+
+                <TextView
+                    android:id="@+id/schedule_title"
+                    style="@style/detail_value"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="@color/linecolor" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?attr/image45"
+                    android:gravity="center_vertical"
+                    android:text="日程地点" />
+
+                <TextView
+                    android:id="@+id/schedule_place"
+                    style="@style/detail_value"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="@color/linecolor" />
+
+            <RelativeLayout
+                android:id="@+id/start_time_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="?attr/image45"
+                android:background="@color/white" >
+
+                <TextView
+                    android:id="@+id/aaa"
+                    style="@style/detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center"
+                    android:text="开始时间" />
+
+                <TextView
+                    android:id="@+id/show_starttime"
+                    style="@style/detail_value"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/aaa"
+                    android:gravity="center_vertical" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="@color/linecolor" />
+
+            <RelativeLayout
+                android:id="@+id/endtime_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="?attr/image45"
+                android:background="@color/white" >
+
+                <TextView
+                    android:id="@+id/bbb"
+                    style="@style/detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center"
+                    android:text="结束时间"/>
+
+                <TextView
+                    android:id="@+id/show_endtime"
+                    style="@style/detail_value"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dip"
+                    android:layout_toRightOf="@+id/bbb"
+                    android:gravity="center_vertical" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="@color/linecolor"/>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp">
+
+                <TextView
+                    android:textColor="#212121"
+                    android:textSize="?attr/textSize15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="日程描述"
+                    android:gravity="top"/>
+
+                <TextView
+                    android:id="@+id/schedule_content"
+                    android:layout_width="fill_parent"
+                    android:paddingLeft="20dp"
+                    android:textColor="#212121"
+                    android:textSize="?attr/textSize15"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:minHeight="?attr/image100"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/linecolor" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="?attr/image44"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+                <Button
+                    android:id="@+id/delete"
+                    android:layout_width="?attr/image60"
+                    android:layout_height="?attr/image30"
+                    android:text="删除"
+                    android:textColor="@color/white"
+                    android:textSize="?attr/textSize13"
+                    android:background="@drawable/ripple_bg_red"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+            <Button
+                android:id="@+id/edit"
+                android:layout_width="?attr/image60"
+                android:layout_height="?attr/image30"
+                android:text="编辑"
+                android:textColor="@color/white"
+                android:textSize="?attr/textSize13"
+                android:background="@drawable/ripple_bg"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

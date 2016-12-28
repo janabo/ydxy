@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:background="@drawable/dialog_bg"
+    android:minWidth="200dip"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_height="?attr/image154"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/dialog_gr_bg"
+        android:gravity="center">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_portrait"
+            android:layout_width="?attr/image62"
+            android:layout_height="?attr/image62"
+            android:src="@mipmap/txl_photo"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="2dip" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="?attr/textSize17"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:text="王大陆"/>
+
+        <TextView
+            android:id="@+id/department"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="?attr/textSize12"
+            android:textColor="@color/white"
+            android:layout_marginTop="7dp"
+            android:text="校长办公室"/>
+    </LinearLayout>
+
+    <View
+        android:layout_height="0.8dp"
+        android:layout_width="match_parent"
+        android:background="#5acbc9"/>
+
+    <LinearLayout
+        android:layout_height="?attr/image44"
+        android:layout_width="match_parent"
+        android:background="#13b5b1"
+        android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/xb_lin"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/ripple_bg_gr">
+
+                <ImageView
+                    android:id="@+id/xb_img"
+                    android:layout_height="?attr/image16"
+                    android:layout_width="?attr/image16"
+                    android:src="@drawable/sc_selector"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="星标同事"
+                    android:textSize="?attr/textSize12"
+                    android:textColor="#ffffff"
+                    android:layout_marginLeft="7dp">
+                    </TextView>
+            </LinearLayout>
+
+            <View
+                android:layout_height="match_parent"
+                android:layout_width="0.8dp"
+                android:background="#5acbc9"/>
+
+            <LinearLayout
+                android:id="@+id/expro_lin"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/ripple_bg_gr">
+
+                <ImageView
+                    android:id="@+id/expro_img"
+                    android:layout_height="?attr/image16"
+                    android:layout_width="?attr/image16"
+                    android:src="@drawable/exp_selector"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="导出号码"
+                    android:textSize="?attr/textSize12"
+                    android:textColor="#ffffff"
+                    android:layout_marginLeft="7dp">
+                </TextView>
+            </LinearLayout>
+        </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/mrecycler_view"
+        android:overScrollMode="never"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"/>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="fill_parent"
+        android:layout_height="0.8dp"
+        android:layout_above="@+id/bottom"
+        android:background="@color/linecolor" />
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="?attr/image44"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#212121"
+            android:textSize="?attr/textSize15"
+            android:text="关闭"
+            android:background="@drawable/ripple_txl_bg_while"/>
+
+</LinearLayout>

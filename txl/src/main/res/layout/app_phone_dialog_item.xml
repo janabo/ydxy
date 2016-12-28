@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?attr/image44"
+    android:background="@drawable/ripple_bg_while"
+    android:gravity="center"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/phone"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:textSize="?attr/textSize15"
+        android:textColor="#212121"
+        android:text="18988888888"/>
+
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_gravity="right"
+        android:gravity="center_vertical">
+        <ImageView
+            android:id="@+id/sendmsg"
+            android:layout_width="?attr/image22"
+            android:layout_height="?attr/image22"
+            android:src="@mipmap/icon_msg"
+            android:layout_marginRight="30dp"/>
+        <ImageView
+            android:id="@+id/callphone"
+            android:layout_width="?attr/image22"
+            android:layout_height="?attr/image22"
+            android:src="@mipmap/icon_phone"/>
+    </LinearLayout>
+</LinearLayout>

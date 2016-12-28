@@ -8,4 +8,9 @@
     <color name="transparent">#00000000</color>
     <color name="linecolor">#e5e5e5</color>
     <color name="rcap_gray">#c9c9c9</color>
+
+    <color name="arc_blue">#10a679</color>
+    <color name="color_fff">#ffffff</color>
+
+    <color name="colorPrimary50">#A8CEF9</color>
 </resources>

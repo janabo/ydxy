@@ -32,6 +32,10 @@ public abstract class MyActivity extends AppCompatActivity{
         initTheme();
         setContentView ( getLayoutID ( ) );
         initialize ( );
+
+        //在自己的应用初始Activity中加入如下两行代码
+//        RefWatcher refWatcher = MyApplication.getRefWatcher(this);
+//        refWatcher.watch(this);
     }
 
     /**

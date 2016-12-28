@@ -3,7 +3,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="10dip"
-    android:background="@color/transparent" >
+    android:background="@drawable/ripple_bg_while">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/image60"

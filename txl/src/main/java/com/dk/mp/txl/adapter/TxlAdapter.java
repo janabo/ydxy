@@ -1,5 +1,6 @@
 package com.dk.mp.txl.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -8,9 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.dk.mp.core.entity.Department;
+import com.dk.mp.core.entity.Jbxx;
 import com.dk.mp.txl.R;
-import com.dk.mp.txl.entity.Department;
-import com.dk.mp.txl.entity.Jbxx;
+import com.dk.mp.txl.ui.PhonesDialog;
 import com.dk.mp.txl.ui.TxlPersonsActivity;
 
 import java.util.List;
@@ -21,13 +23,15 @@ import java.util.List;
  * 作者：janabo on 2016/12/22 17:54
  */
 public class TxlAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    Activity activity;
     Context mContext;
     List mData;
     int type;//1,星标 2，部门
     LayoutInflater inflater;
 
-    public TxlAdapter(Context mContext,List mData, int type) {
+    public TxlAdapter(Context mContext,Activity activity,List mData, int type) {
         this.mContext = mContext;
+        this.activity = activity;
         this.mData = mData;
         this.type = type;
         inflater = LayoutInflater.from(mContext);
@@ -69,8 +73,13 @@ public class TxlAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     if(type == 2){
                         Intent intent = new Intent(mContext, TxlPersonsActivity.class);
                         Department j = (Department) mData.get(getLayoutPosition());
+                        intent.putExtra("id",j.getId());
                         intent.putExtra("title",j.getName());
                         mContext.startActivity(intent);
+                    }else{
+                        final PhonesDialog dlg = new PhonesDialog(mContext,activity);
+                        Jbxx j = (Jbxx) mData.get(getLayoutPosition());
+                        dlg.show(j);
                     }
                 }
             });

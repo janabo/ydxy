@@ -1,0 +1,243 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ededed"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip"
+        android:layout_alignParentTop="true"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="30dip"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:textSize="16dip"
+            android:text="取消"
+            android:textColor="#2196f3"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/title_txt"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="70dip"
+            android:layout_marginRight="70dip"
+            android:textColor="#212121"/>
+
+        <FrameLayout
+            android:id="@+id/rightView"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dip" >
+
+            <TextView
+                android:id="@+id/submit"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:paddingRight="5dip"
+                android:text="确定"
+                android:textColor="@color/colorPrimary50"
+                android:textSize="16dip" />
+        </FrameLayout>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="#c9c9c9"/>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:background="@color/white"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="#e5e5e5" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="?attr/image45"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="日程主题" />
+
+                <EditText
+                    android:id="@+id/schedule_title"
+                    style="@style/detail_value"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:hint="请输入日程主题（必填）"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="#e5e5e5" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="?attr/image45"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="日程地点" />
+
+                <EditText
+                    android:id="@+id/schedule_place"
+                    style="@style/detail_value"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:hint="请输入日程地点（必填）"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="#e5e5e5" />
+
+            <RelativeLayout
+                android:id="@+id/start_time_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="?attr/image45"
+                android:background="@color/white" >
+
+                <TextView
+                    android:id="@+id/aaa"
+                    style="@style/detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center"
+                    android:text="开始时间" />
+
+                <TextView
+                    android:id="@+id/show_starttime"
+                    style="@style/detail_value"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dip"
+                    android:layout_toRightOf="@+id/aaa"
+                    android:gravity="center_vertical"
+                    android:hint="添加开始时间" />
+                <ImageView
+                    android:layout_width="?attr/image7"
+                    android:layout_height="?attr/image11"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/into_icon"
+                    android:layout_marginRight="10dip"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="#e5e5e5" />
+
+            <RelativeLayout
+                android:id="@+id/endtime_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="?attr/image45"
+                android:background="@color/white" >
+
+                <TextView
+                    android:id="@+id/bbb"
+                    style="@style/detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center"
+                    android:text="结束时间" />
+
+                <TextView
+                    android:id="@+id/show_endtime"
+                    style="@style/detail_value"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dip"
+                    android:layout_toRightOf="@+id/bbb"
+                    android:gravity="center_vertical"
+                    android:hint="添加结束时间" />
+                <ImageView
+                    android:layout_width="?attr/image7"
+                    android:layout_height="?attr/image11"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/into_icon"
+                    android:layout_marginRight="10dip"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="#e5e5e5" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?attr/image45"
+                    android:text="日程描述" />
+
+                <EditText
+                    android:layout_marginBottom="20dip"
+                    android:id="@+id/schedule_content"
+                    style="@style/detail_value"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="?attr/image80"
+                    android:background="@color/white"
+                    android:gravity="top"
+                    android:hint="请输入日程描述（必填,500字以内）"
+                    android:maxLength="500"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="#e5e5e5" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -95,7 +95,12 @@ public class HttpUtil {
      * @param <T>
      */
     public <T> void gsonRequest(TypeToken<T> typeToken, String url, Map<String,Object> param, HttpListener<T> listener) {
-        HttpRequest httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.POST).addParam(param).build();
+        HttpRequest httpRequest;
+        if(param == null ||param.isEmpty()){
+            httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.GET).build();
+        }else{
+            httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.POST).addParam(param).build();
+        }
         GsonRequest<T> request = new GsonRequest<T>(typeToken,httpRequest,listener);
         mRequestQueue.add (request);
     }
@@ -114,7 +119,13 @@ public class HttpUtil {
     }
 
     public void postJsonObjectRequest(String url, Map<String,Object> param,HttpListener<JSONObject> listener) {
-        HttpRequest httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.POST).addParam(param).build();
+        HttpRequest httpRequest;
+        if(param == null ||param.isEmpty()){
+            httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.GET).build();
+        }else{
+            httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.POST).addParam(param).build();
+        }
+//        HttpRequest httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.POST).addParam(param).build();
         JsonObjectRequest request = new JsonObjectRequest(httpRequest, listener);
         mRequestQueue.add (request);
     }
