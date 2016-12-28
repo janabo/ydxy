@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/lgj.iml" filepath="$PROJECT_DIR$/lgj.iml" />
       <module fileurl="file://$PROJECT_DIR$/main/main.iml" filepath="$PROJECT_DIR$/main/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/schedule/schedule.iml" filepath="$PROJECT_DIR$/schedule/schedule.iml" />
       <module fileurl="file://$PROJECT_DIR$/txl/txl.iml" filepath="$PROJECT_DIR$/txl/txl.iml" />
       <module fileurl="file://$PROJECT_DIR$/xxxw/xxxw.iml" filepath="$PROJECT_DIR$/xxxw/xxxw.iml" />
     </modules>

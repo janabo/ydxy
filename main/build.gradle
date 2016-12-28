@@ -30,4 +30,5 @@ dependencies {
     compile project(':core')
     compile project(':xxxw')
     compile project(':txl')
+    compile project(':schedule')
 }

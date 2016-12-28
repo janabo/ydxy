@@ -1,4 +1,4 @@
-package com.dk.mp.txl.entity;
+package com.dk.mp.core.entity;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

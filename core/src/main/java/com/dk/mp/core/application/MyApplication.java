@@ -6,6 +6,8 @@ import android.content.Context;
 import com.dk.mp.core.db.RealmHelper;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.CrashHandler;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -47,6 +49,19 @@ public class MyApplication extends Application{
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(configuration);
+
+        //在自己的Application中添加如下代码
+        refWatcher = LeakCanary.install(this);
+    }
+
+    //在自己的Application中添加如下代码
+    private RefWatcher refWatcher;
+
+    //在自己的Application中添加如下代码
+    public static RefWatcher getRefWatcher(Context context) {
+        MyApplication application = (MyApplication) context
+                .getApplicationContext();
+        return application.refWatcher;
     }
 
 }

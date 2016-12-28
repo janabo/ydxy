@@ -21,6 +21,7 @@ public class SplashActivity extends MyActivity {
     @Override
     protected void initialize() {
         super.initialize();
+
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {

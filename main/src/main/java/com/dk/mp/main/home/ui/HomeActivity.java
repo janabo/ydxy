@@ -6,7 +6,7 @@ import android.view.View;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.main.R;
 import com.dk.mp.main.setting.ui.SettingActivity;
-import com.dk.mp.txl.ui.TxlDepartActivity;
+import com.dk.mp.schedule.RcapMainActivity;
 
 /**
  * 作者：janabo on 2016/12/14 15:25
@@ -21,7 +21,6 @@ public class HomeActivity extends MyActivity{
     @Override
     protected void initialize() {
         super.initialize();
-
     }
 
     /**
@@ -42,9 +41,13 @@ public class HomeActivity extends MyActivity{
 //        intent.putExtra("title","校园新闻");
 //        startActivity(intent);
 
-        Intent intent = new Intent(mContext, TxlDepartActivity.class);
-        intent.putExtra("title","通讯录");
-        startActivity(intent);
+//        Intent intent = new Intent(mContext, TxlDepartActivity.class);
+//        intent.putExtra("title","通讯录");
+//        startActivity(intent);
+
+          Intent intent = new Intent(mContext, RcapMainActivity.class);
+          intent.putExtra("title","通讯录");
+          startActivity(intent);
 
     }
 

@@ -9,4 +9,6 @@
     <string name="nodata">暂无数据</string>
     <string name="data_fail">获取失败</string>
     <string name="login_fail">登录失败</string>
+    <string name="search_nodata">搜索无结果</string>
+    <string name="search_fail">搜索失败</string>
 </resources>

@@ -152,9 +152,10 @@ public class NewsListActivity extends MyActivity implements View.OnClickListener
                     Intent intent = new Intent(mContext, NewsDetailActivity.class);
                     intent.putExtra("news", (Serializable) news);
                     ActivityOptionsCompat options =
-                            ActivityOptionsCompat.makeSceneTransitionAnimation((NewsListActivity) mContext,image,
+                            ActivityOptionsCompat.makeSceneTransitionAnimation((NewsListActivity) mContext,view,
                                     mContext.getString(R.string.transition__img));
                     ActivityCompat.startActivity((NewsListActivity) mContext,intent,options.toBundle());
+                    ((NewsListActivity) mContext).overridePendingTransition(R.anim.slide_up, R.anim.scale_down);
                 }
             });
         }
