@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#80000000" xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:id="@+id/pick_lin"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="vertical" >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="#c9c9c9"/>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <com.dk.mp.core.widget.WheelView
+                android:id="@+id/info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dip"
+                android:layout_marginTop="15dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/pick_button"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_above="@id/pick_lin"
+        android:background="@color/white">
+        <Button
+            android:id="@+id/cancel"
+            style="@style/pickTheme"
+            android:background="@drawable/dialog_btn_right_selector"
+            android:text="取消" />
+        <Button
+            android:id="@+id/set"
+            style="@style/pickTheme"
+            android:background="@drawable/dialog_btn_left_selector"
+            android:text="确定"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+</RelativeLayout>

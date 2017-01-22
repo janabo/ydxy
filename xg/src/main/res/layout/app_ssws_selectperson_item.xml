@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="@drawable/ripple_bg_while"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:id="@+id/checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_bg_while"
+        android:paddingTop="10dip"
+        android:paddingBottom="10dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/mRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.AppCompatRadioButton>
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="王大毛"
+            android:textColor="#212121"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+
+    <com.dk.mp.core.widget.ErrorLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/error_layout"
+        android:gravity="center"/>
+
+    <com.dk.mp.core.view.MyListView
+        android:id="@+id/oa_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+    </com.dk.mp.core.view.MyListView>
+
+
+</LinearLayout>

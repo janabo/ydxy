@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/linecolor"
+        android:layout_marginTop="10dp"/>
+    <LinearLayout
+        android:id="@+id/lin_lc"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/ripple_bg_while">
+        <TextView
+            android:id="@+id/ssl_fjh"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="啊哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈"
+            android:layout_marginTop="10dp"
+            android:textColor="#404040"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:id="@+id/ssq"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="啊哈哈哈哈哈哈哈哈哈"
+                android:textColor="#9a9a9a"
+                android:textSize="12sp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/fs"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="29分"
+                android:textColor="#d2d2d2"
+                android:textSize="12sp"/>
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/linecolor"/>
+</LinearLayout>

@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="#80000000">
+
+    <LinearLayout
+        android:id="@+id/bot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:background="@drawable/dialog_camera"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/tiaossq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple_bg_while"
+                android:gravity="center"
+                android:minHeight="50dip"
+                android:text="调宿申请"
+                android:textColor="#F19149"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dip"
+                android:background="@color/linecolor"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+
+            <Button
+                android:id="@+id/tuissq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple_bg_while"
+                android:gravity="center"
+                android:minHeight="50dip"
+                android:text="退宿申请"
+                android:textColor="#F19149"
+                android:textSize="14sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dip"
+                android:background="@color/linecolor"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+
+            <Button
+                android:id="@+id/tingssq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple_bg_while"
+                android:gravity="center"
+                android:minHeight="50dip"
+                android:text="停宿申请"
+                android:textColor="#F19149"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:background="@drawable/dialog_camera"
+            android:gravity="center"
+            android:minHeight="50dip"
+            android:text="取消"
+            android:textColor="#007BFF"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</RelativeLayout>
