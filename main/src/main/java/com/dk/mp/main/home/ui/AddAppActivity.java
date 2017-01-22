@@ -27,6 +27,7 @@ public class AddAppActivity extends MyActivity implements OnClickListener {
 
 	@Override
 	protected void initialize(){
+		super.initialize();
 		setTitle("显示应用");
 		setRightText("确定", Color.rgb(148,196,248), this);
 		addRecyclerView = (RecyclerView)findViewById(R.id.addview);

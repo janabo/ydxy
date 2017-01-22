@@ -4,6 +4,10 @@
         android:supportsRtl="true">
         <activity android:name=".ui.NewsListActivity"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="xxxw" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".ui.NewsDetailActivity"

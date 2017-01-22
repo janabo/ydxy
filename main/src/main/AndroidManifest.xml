@@ -15,6 +15,14 @@
         <activity android:name=".setting.ui.UserInfoActivity"
             android:screenOrientation="portrait">
         </activity>
+
+        <activity android:name="com.dk.mp.main.home.ui.AddAppActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="addapps" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

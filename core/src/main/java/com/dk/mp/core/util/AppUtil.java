@@ -4,6 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.dk.mp.core.entity.App;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppUtil {
 	private Context context;
@@ -16,6 +21,28 @@ public class AppUtil {
 	 * 打开activity.
 	 */
 	public void startActivity(App app) {
+		if (!app.getName().equals("显示应用")) {
+			CoreSharedPreferencesHelper helper = new CoreSharedPreferencesHelper(context);
+			Gson gson = new Gson();
+			List<App> apps = gson.fromJson(helper.getValue("preferenceItem"),new TypeToken<ArrayList<App>>() {}.getType());
+			if (apps == null) apps = new ArrayList<App>();
+			if (apps.size() != 0) {
+				for (App p : apps) {
+					if (p.getId().equals(app.getId())){
+						apps.remove(p);
+						break;
+					}
+				}
+				apps.add(0,app);
+				int length = apps.size() > 6 ? 6 : apps.size();
+				helper.setValue("preferenceItem",gson.toJson(apps.subList(0,length)));
+			} else {
+				apps.add(0,app);
+				int length = apps.size() > 6 ? 6 : apps.size();
+				helper.setValue("preferenceItem",gson.toJson(apps.subList(0,length)));
+			}
+		}
+
 		Intent intent = new Intent();
 		intent.putExtra("title", app.getName());
 		intent.setAction(app.getAction());

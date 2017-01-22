@@ -42,13 +42,30 @@
             android:onClick="toxxxw"/>
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <FrameLayout
         android:layout_below="@id/top"
-        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        style="@style/myRecyclerViewStyle"
-        android:background="#ffffff">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/myRecyclerViewStyle"
+            android:background="#ffffff">
+        </android.support.v7.widget.RecyclerView>
+
+        <ImageButton
+            android:id="@+id/cancelDelete"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom|right"
+            android:src="@mipmap/home_suspend"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="40dp"
+            android:scaleType="fitXY"
+            android:background="@null"
+            android:visibility="gone"/>
+
+    </FrameLayout>
 
 </RelativeLayout>

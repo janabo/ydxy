@@ -7,7 +7,6 @@ import com.dk.mp.core.entity.App;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -30,27 +29,21 @@ public class AppManager {
 		List<App> list = helper.getAllAppList();
 		List<App> notinlist = helper.getNotinList();
 
-		if (notinlist.size() != 0){
-			list.add(MyApplication.app);
-		}
-
 		//循环删除已经不再权限范围内的图标
-		List<App> notin_new = new ArrayList<App>();
 		Iterator<App> iter = list.iterator();
 		while(iter.hasNext()){
 			App app = iter.next();
 			for (App noapp : notinlist){
 				if(app.getId().equals(noapp.getId())){
-					notin_new.add(app);
 					iter.remove();
 				}
 			}
 		}
-		if(helper.getLoginMsg()!=null){
-			helper.setValue(helper.getLoginMsg().getUid()+"notinlist",gson.toJson(notin_new));
-		}else{
-			helper.setValue("notinlist",gson.toJson(notin_new));
+
+		if (notinlist.size() != 0){
+			list.add(MyApplication.app);
 		}
+
 		return list;
 	}
 
@@ -91,4 +84,16 @@ public class AppManager {
 		}
 	}
 
+	/**
+	 * 更新调整后的app图标顺序
+	 */
+	public static void saveAppIndex(Context context, List<App> apps){
+		Gson gson = new Gson();
+		CoreSharedPreferencesHelper helper = new CoreSharedPreferencesHelper(context);
+		if(helper.getLoginMsg()!=null){
+			helper.setValue(helper.getLoginMsg().getUid()+"appindex",gson.toJson(apps));
+		}else{
+			helper.setValue("appindex",gson.toJson(apps));
+		}
+	}
 }

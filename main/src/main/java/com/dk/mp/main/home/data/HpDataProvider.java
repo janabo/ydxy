@@ -19,6 +19,7 @@ package com.dk.mp.main.home.data;
 import com.dk.mp.core.entity.App;
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -192,7 +193,17 @@ public class HpDataProvider extends AbstractDataProvider {
 
         @Override
         public String getAppid() {
-            return mAppid;
+         return mAppid;
         }
+
+    }
+
+    public List<App> getmData() {
+        List<App> apps = new ArrayList<>();
+        for (ConcreteData data : mData){
+            App app = new App("", "", "", "", data.getAppid(), "", data.getIcon(), data.getAction());
+            apps.add(app);
+        }
+        return apps;
     }
 }

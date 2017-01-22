@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import com.dk.mp.core.application.MyApplication;
 import com.dk.mp.core.db.AppManager;
 import com.dk.mp.core.entity.App;
+import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.AppUtil;
 import com.dk.mp.core.util.DrawableUtils;
 import com.dk.mp.core.util.ImageUtil;
@@ -41,8 +44,11 @@ public class HpAdapter extends RecyclerView.Adapter<HpAdapter.MyViewHolder> impl
     private Vibrator mVibrator;
     private Context mContext;
 
-    private int index = -1;
     private int onclickPosition = -1;
+
+    private int showDel = View.GONE;
+
+    private ImageButton cancelDelete;
 
     // NOTE: Make accessible with short name
     private interface Draggable extends DraggableItemConstants {
@@ -50,7 +56,7 @@ public class HpAdapter extends RecyclerView.Adapter<HpAdapter.MyViewHolder> impl
 
     private AbstractDataProvider mProvider;
 
-    public static class MyViewHolder extends AbstractDraggableItemViewHolder {
+    public class MyViewHolder extends AbstractDraggableItemViewHolder {
         public FrameLayout mContainer;
         public ImageView imageView;
         public TextView mTextView;
@@ -93,11 +99,21 @@ public class HpAdapter extends RecyclerView.Adapter<HpAdapter.MyViewHolder> impl
         public void setAction(String action) {
             this.action = action;
         }
+
     }
 
     public HpAdapter(AbstractDataProvider dataProvider, Context context) {
         mProvider = dataProvider;
         mContext = context;
+        cancelDelete = (ImageButton) ((MyActivity)context).findViewById(R.id.cancelDelete);
+        cancelDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDel = View.GONE;
+                cancelDelete.setVisibility(View.GONE);
+                notifyDataSetChanged();
+            }
+        });
         // DraggableItemAdapter requires stable ID, and also
         // have to implement the getItemId() method appropriately.
         setHasStableIds(true);
@@ -123,23 +139,27 @@ public class HpAdapter extends RecyclerView.Adapter<HpAdapter.MyViewHolder> impl
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         final View v;
         if(viewType == 0){
-            v = inflater.inflate(R.layout.gridview_item, parent, false);
+            v = inflater.inflate(R.layout.gridview_item_main, parent, false);
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (index != -1){
-                        index = -1;
+                    if (showDel == View.VISIBLE) {
+                        cancelDelete.setVisibility(View.GONE);
+                        showDel = View.GONE;
                         notifyDataSetChanged();
                     } else {
-                        new AppUtil(mContext).checkApp(new App(
+                        new AppUtil(mContext).checkApp(
+                                new App(
                                 "",
                                 "",
                                 "",
                                 mProvider.getItem(onclickPosition).getText(),
                                 String.valueOf(mProvider.getItem(onclickPosition).getId()),
                                 "",
-                                "",
-                                mProvider.getItem(onclickPosition).getAction()));
+                                mProvider.getItem(onclickPosition).getIcon(),
+                                mProvider.getItem(onclickPosition).getAction()
+                                )
+                        );
                     }
                 }
             });
@@ -159,7 +179,7 @@ public class HpAdapter extends RecyclerView.Adapter<HpAdapter.MyViewHolder> impl
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final AbstractDataProvider.Data item = mProvider.getItem(position);
         if (getItemViewType(position) == 0){
             holder.mTextView.setText(item.getText());
@@ -167,12 +187,12 @@ public class HpAdapter extends RecyclerView.Adapter<HpAdapter.MyViewHolder> impl
             holder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+//                    holder.clearAnimation();
                     AppManager.updateNotin(mContext,mProvider.getItem(position).getAppid(),true);
                     mProvider.removeItem(position);
                     if(!mProvider.getItem(mProvider.getCount()-1).getText().equals("显示应用")){
                         mProvider.addItem(MyApplication.app);
                     }
-                    index = -1;
                     notifyDataSetChanged();
                 }
             });
@@ -184,39 +204,30 @@ public class HpAdapter extends RecyclerView.Adapter<HpAdapter.MyViewHolder> impl
             if (((dragState & Draggable.STATE_FLAG_IS_UPDATED) != 0)) {
                 if ((dragState & Draggable.STATE_FLAG_IS_ACTIVE) != 0) {
                     mVibrator.vibrate(50); //震动一下
+                    cancelDelete.setVisibility(View.VISIBLE);
                     // need to clear drawable state here to get correct appearance of the dragging item.
                     DrawableUtils.clearState(holder.mContainer.getForeground());
-
-                    index = position;
                     holder.mContainer.setBackgroundColor(Color.rgb(239,239,244));
-
                 } else if ((dragState & Draggable.STATE_FLAG_DRAGGING) != 0) {
-                    holder.mImageButton.setVisibility(View.GONE);
-                    holder.deleteButton.setVisibility(View.GONE);
                     holder.mContainer.setBackgroundResource(R.drawable.bg_item_dragging_state);
                 } else {
-                    if(index == position){
-                        holder.mImageButton.setVisibility(View.VISIBLE);
-                        holder.deleteButton.setVisibility(View.VISIBLE);
-                    }else{
-                        holder.mImageButton.setVisibility(View.GONE);
-                        holder.deleteButton.setVisibility(View.GONE);
-                    }
                     holder.mContainer.setBackgroundResource(R.drawable.bg_item_normal_state);
                 }
             } else {
-                if (index == -1){
-                    holder.mImageButton.setVisibility(View.GONE);
-                    holder.deleteButton.setVisibility(View.GONE);
-                }else{
-                    if(index == position){
-                        holder.mImageButton.setVisibility(View.VISIBLE);
-                        holder.deleteButton.setVisibility(View.VISIBLE);
-                    }else{
-                        holder.mImageButton.setVisibility(View.GONE);
-                        holder.deleteButton.setVisibility(View.GONE);
-                    }
+
+            }
+
+            if (!holder.getText().equals("显示应用")){
+                holder.mImageButton.setVisibility(showDel);
+                holder.deleteButton.setVisibility(showDel);
+                if (showDel == View.VISIBLE){
+                    setAnimation(holder.itemView , position);
+                } else {
+                    holder.itemView.clearAnimation();
                 }
+            } else {
+                holder.mImageButton.setVisibility(View.GONE);
+                holder.deleteButton.setVisibility(View.GONE);
             }
         }else{
 
@@ -233,7 +244,6 @@ public class HpAdapter extends RecyclerView.Adapter<HpAdapter.MyViewHolder> impl
         if (fromPosition == toPosition) {
             return;
         }
-        index = -1;
         if (mItemMoveMode == RecyclerViewDragDropManager.ITEM_MOVE_MODE_DEFAULT) {
             mProvider.moveItem(fromPosition, toPosition);
             notifyItemMoved(fromPosition, toPosition);
@@ -253,6 +263,9 @@ public class HpAdapter extends RecyclerView.Adapter<HpAdapter.MyViewHolder> impl
 
     @Override
     public ItemDraggableRange onGetItemDraggableRange(MyViewHolder holder, int position) {
+
+        showDel = View.VISIBLE;
+
         if(mProvider.getItem(mProvider.getCount()-1).getText().equals("显示应用")){
             return new ItemDraggableRange(1,mProvider.getCount() == 2 ? 1 : mProvider.getCount()-2);
         }
@@ -278,5 +291,28 @@ public class HpAdapter extends RecyclerView.Adapter<HpAdapter.MyViewHolder> impl
                 }
             });
         }
+    }
+
+    protected void setAnimation(View viewToAnimate, int position) {
+        Animation animation = AnimationUtils.loadAnimation(viewToAnimate.getContext(), R.anim.shake);
+        viewToAnimate.startAnimation(animation);
+    }
+
+
+
+    @Override
+    public void onViewDetachedFromWindow(MyViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.itemView.clearAnimation();
+    }
+
+    public void deleteItem(){
+        cancelDelete.setVisibility(showDel == View.GONE ? View.VISIBLE : View.GONE);
+        if (showDel == View.GONE){
+            showDel = View.VISIBLE;
+        } else {
+            showDel = View.GONE;
+        }
+        notifyDataSetChanged();
     }
 }

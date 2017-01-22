@@ -187,12 +187,37 @@ public class CoreSharedPreferencesHelper {
      */
     public List<App> getAllAppList(){
         String str = getValue("user_info");
+        String appindex;
+        List<App> list = new ArrayList<>();
         if (str != null) {//根据登录的信息获取用户的全部图标信息
-            return gson.fromJson(str,User.class).getApps();
+            User user = gson.fromJson(str,User.class);
+            list = user.getApps();
+            appindex = getValue(user.getUserId()+"appindex");
         }else{
             String deful = MyApplication.getContext().getString(R.string.defulicon);
-            return gson.fromJson(deful, new TypeToken<ArrayList<App>>() {}.getType());
+            list = gson.fromJson(deful, new TypeToken<ArrayList<App>>() {}.getType());
+            appindex = getValue("appindex");
         }
+
+        if (appindex == null || appindex.equals("")){
+            return list;
+        }
+
+        List<App> appindexlist = gson.fromJson(appindex,new TypeToken<ArrayList<App>>() {}.getType());
+        List<App> returnlist = new ArrayList<App>();
+        for (App app : appindexlist) {
+            for (App reapp : list) {
+                if (app.getId().equals(reapp.getId())){
+                    returnlist.add(reapp);
+                    list.remove(reapp);
+                    break;
+                }
+            }
+        }
+
+        returnlist.addAll(list);
+
+        return returnlist;
     }
 
     /**
