@@ -15,11 +15,11 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
-import com.dk.mp.core.adapter.AdapterInterface;
 import com.dk.mp.core.entity.PageMsg;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.AdapterInterface;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.SnackBarUtil;
 import com.dk.mp.core.view.MyListView;
@@ -111,7 +111,7 @@ public class NewsListActivity extends MyActivity implements View.OnClickListener
                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                 if(result.getList() != null && result.getList().size()>0) {
                     list.addAll(result.getList());
-                    myListView.addList(result.getList());
+                    myListView.flish();
                 }else{
                     if(myListView.pageNo == 1) {
                         mError.setErrorType(ErrorLayout.NODATA);

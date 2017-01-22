@@ -3,13 +3,20 @@ package com.dk.mp.core.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.dk.mp.core.R;
+import com.dk.mp.core.application.MyApplication;
+import com.dk.mp.core.entity.App;
 import com.dk.mp.core.entity.LoginMsg;
 import com.dk.mp.core.entity.User;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 本地简单的数据存储工具类
@@ -18,6 +25,7 @@ import org.json.JSONObject;
 public class CoreSharedPreferencesHelper {
     private static final String PREFS_NAME = "com.dk.mp.db";
     private Context context;
+    private Gson gson = new Gson();
 
     /**
      * 构造方法.
@@ -171,5 +179,63 @@ public class CoreSharedPreferencesHelper {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
         boolean hello = settings.getBoolean(key, false);
         return hello;
+    }
+
+    /**
+     * 获取全部应用图标
+     * @return
+     */
+    public List<App> getAllAppList(){
+        String str = getValue("user_info");
+        String appindex;
+        List<App> list = new ArrayList<>();
+        if (str != null) {//根据登录的信息获取用户的全部图标信息
+            User user = gson.fromJson(str,User.class);
+            list = user.getApps();
+            appindex = getValue(user.getUserId()+"appindex");
+        }else{
+            String deful = MyApplication.getContext().getString(R.string.defulicon);
+            list = gson.fromJson(deful, new TypeToken<ArrayList<App>>() {}.getType());
+            appindex = getValue("appindex");
+        }
+
+        if (appindex == null || appindex.equals("")){
+            return list;
+        }
+
+        List<App> appindexlist = gson.fromJson(appindex,new TypeToken<ArrayList<App>>() {}.getType());
+        List<App> returnlist = new ArrayList<App>();
+        for (App app : appindexlist) {
+            for (App reapp : list) {
+                if (app.getId().equals(reapp.getId())){
+                    returnlist.add(reapp);
+                    list.remove(reapp);
+                    break;
+                }
+            }
+        }
+
+        returnlist.addAll(list);
+
+        return returnlist;
+    }
+
+    /**
+     * 获取全部影藏的应用图标
+     * @return
+     */
+    public List<App> getNotinList(){
+        String str = getValue("user_info");
+        String notinstr = null;
+        if(getLoginMsg()!=null){
+            notinstr = getValue(getLoginMsg().getUid()+"notinlist");
+        }else{
+            notinstr = getValue("notinlist");
+        }
+        if(notinstr != null){//根据本地存储的信息获取用户影藏的图标信息
+            return gson.fromJson(notinstr, new TypeToken<ArrayList<App>>() {}.getType());
+        }else{
+            return new ArrayList<App>();
+        }
     }
 }

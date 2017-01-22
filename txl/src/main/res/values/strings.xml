@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Txl</string>
+
+    <string name="search_fail">搜索失败</string>
 </resources>

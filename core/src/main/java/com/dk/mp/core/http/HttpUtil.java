@@ -7,16 +7,20 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.dk.mp.core.R;
 import com.dk.mp.core.application.MyApplication;
+import com.dk.mp.core.entity.LoginMsg;
 import com.dk.mp.core.http.okhttp.OkHttp3Stack;
 import com.dk.mp.core.http.request.GsonRequest;
 import com.dk.mp.core.http.request.GsonRequestJson;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.http.request.HttpRequest;
 import com.dk.mp.core.http.request.JsonObjectRequest;
+import com.dk.mp.core.util.CoreSharedPreferencesHelper;
+import com.dk.mp.core.util.encrypt.Base64Utils;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.OkHttpClient;
@@ -29,6 +33,7 @@ import okhttp3.OkHttpClient;
 public class HttpUtil {
     public final String TAG = this.getClass ( ).getSimpleName ( );
     public static Context mContext = MyApplication.getContext();
+    public CoreSharedPreferencesHelper helper = new CoreSharedPreferencesHelper(MyApplication.getContext());
     private static HttpUtil httpUtil;
     private final RequestQueue mRequestQueue;
     OkHttpClient okHttpClient;
@@ -113,12 +118,6 @@ public class HttpUtil {
      * @param <T>
      */
     public <T> void gsonRequestJson(Class<T> tClass, String url, Map<String,Object> param, HttpListener<T> listener) {
-        HttpRequest httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.POST).addParam(param).build();
-        GsonRequestJson<T> request = new GsonRequestJson<T>(tClass,httpRequest,listener);
-        mRequestQueue.add (request);
-    }
-
-    public void postJsonObjectRequest(String url, Map<String,Object> param,HttpListener<JSONObject> listener) {
         HttpRequest httpRequest;
         if(param == null ||param.isEmpty()){
             httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.GET).build();
@@ -126,6 +125,23 @@ public class HttpUtil {
             httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.POST).addParam(param).build();
         }
 //        HttpRequest httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.POST).addParam(param).build();
+        GsonRequestJson<T> request = new GsonRequestJson<T>(tClass,httpRequest,listener);
+        mRequestQueue.add (request);
+    }
+
+    public void postJsonObjectRequest(String url, Map<String,Object> param,HttpListener<JSONObject> listener) {
+        if(param == null){
+//            httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.GET).build();
+            param = new HashMap<String,Object>();
+        }
+        LoginMsg loginMsg = helper.getLoginMsg();
+        param.put("test", "test");
+        if (loginMsg != null&&!"login".equals(url)) {
+            param.put("uid", loginMsg.getUid());
+            param.put("pwd", Base64Utils.getBase64(loginMsg.getPsw()));
+        }
+
+        HttpRequest httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.POST).addParam(param).build();
         JsonObjectRequest request = new JsonObjectRequest(httpRequest, listener);
         mRequestQueue.add (request);
     }

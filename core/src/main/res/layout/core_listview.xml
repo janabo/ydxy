@@ -10,5 +10,6 @@
         android:cacheColorHint="@null"
         android:scrollbars="vertical" >
     </android.support.v7.widget.RecyclerView>
+    <include layout="@layout/core_error"></include>
 </LinearLayout>
 
