@@ -105,8 +105,8 @@ public class CleanEditText extends EditText {
 				CleanEditText.this.setEditTextDrawable();
 			}
 		});
-		
-		
+
+
 		setOnFocusChangeListener(new OnFocusChangeListener() {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
