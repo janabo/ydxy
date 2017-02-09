@@ -25,7 +25,8 @@ public class ZssglMainActivity extends MyActivity{
     MyViewpager mViewpager;
     private LinearLayout dropdown;
     private FloatingActionButton addTiaos,addTuis,addTings;//新增调宿,退宿，停宿
-
+    ZssglFragment fragment1 = new ZssglFragment();
+    ZssglFragment fragment2 = new ZssglFragment();
     @Override
     protected int getLayoutID() {
         return R.layout.app_zssgl_main;
@@ -53,7 +54,8 @@ public class ZssglMainActivity extends MyActivity{
         addTiaos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(mContext,ZssglAddTiaoSuActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -73,7 +75,6 @@ public class ZssglMainActivity extends MyActivity{
                 startActivity(intent);
             }
         });
-
         setTitle("调宿申请");
     }
 
@@ -87,20 +88,18 @@ public class ZssglMainActivity extends MyActivity{
         List<String> titles = new ArrayList<>();
         titles.add("待我处理");
         titles.add("我已处理");
-
         for (int i = 0; i < titles.size(); i++) {
             mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(i)));
         }
-
         List<BaseFragment> fragments = new ArrayList<>();
-
-        fragments.add(ZssglFragment.newInstance("3"));
-        fragments.add(ZssglFragment.newInstance("3"));
-
+        fragments.add(fragment1);
+        fragments.add(fragment2);
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), fragments, titles);
         mViewpager.setOffscreenPageLimit(fragments.size());
         mViewpager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewpager);
+        fragment1.setType("3");
+        fragment2.setType("4");
     }
 
     @Override
@@ -113,6 +112,7 @@ public class ZssglMainActivity extends MyActivity{
                     String lmlb = data.getStringExtra("lmlb");
                     if(!"-1".equals(lmlb)){
                         setTitle(lmlbname);
+                        fragment1.setLmlb(lmlb);
                     }
                 }
                 break;

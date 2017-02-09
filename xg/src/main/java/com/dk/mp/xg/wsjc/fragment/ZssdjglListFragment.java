@@ -2,6 +2,7 @@ package com.dk.mp.xg.wsjc.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,13 +19,12 @@ import com.dk.mp.core.ui.BaseFragment;
 import com.dk.mp.core.util.AdapterInterface;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.SnackBarUtil;
-import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.view.MyListView;
 import com.dk.mp.core.view.RecycleViewDivider;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
-import com.dk.mp.xg.wsjc.entity.Zssgl;
-import com.dk.mp.xg.wsjc.ui.zssgl.ZssglDetailActivity;
+import com.dk.mp.xg.wsjc.entity.Zssdjgl;
+import com.dk.mp.xg.wsjc.ui.zssdjgl.ZssdjglDetailActivity;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -32,38 +32,38 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.dk.mp.xg.R.id.oa_list;
+import static com.dk.mp.xg.R.id.mList;
 
 /**
- * 作者：janabo on 2017/1/18 17:51
+ * 作者：janabo on 2017/2/7 17:46
  */
-public class ZssglFragment extends BaseFragment implements View.OnClickListener{
+public class ZssdjglListFragment extends BaseFragment implements View.OnClickListener{
+    public static final String ARGS_TABS = "args_tabs";
     private ErrorLayout mError;
     private MyListView myListView;
-    private List<Zssgl> mData = new ArrayList<>();
-    private String mType,lmlb="";
+    private String mType;
+    private List<Zssdjgl> mData = new ArrayList<>();
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.app_zssgl_fragment_detail;
+    public static ZssdjglListFragment newInstance(String type) {
+        Bundle args = new Bundle();
+        args.putString(ARGS_TABS,type);
+        ZssdjglListFragment fragment = new ZssdjglListFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mType = getArguments().getString(ARGS_TABS);
+    }
+
 
     @Override
     protected void initialize(View view) {
         super.initialize(view);
         mError = (ErrorLayout) view.findViewById(R.id.error_layout);
-        myListView = (MyListView)view.findViewById(oa_list);
+        myListView = (MyListView)view.findViewById(mList);
         mError.setOnLayoutClickListener(this);
-    }
-
-    public void setType(String type){
-        this.mType = type;
-    }
-
-    public void setLmlb(String lmlb) {
-        this.lmlb = lmlb;
-        mData.clear();
-        getData();
     }
 
     @Override
@@ -73,41 +73,28 @@ public class ZssglFragment extends BaseFragment implements View.OnClickListener{
     }
 
     public void initViews(){
-
         LinearLayoutManager manager = new LinearLayoutManager(mContext);
         myListView.setLayoutManager(manager);
         myListView.addItemDecoration(new RecycleViewDivider(mContext, GridLayoutManager.HORIZONTAL, 1, Color.rgb(201, 201, 201)));//添加分割线
-
         myListView.setAdapterInterface(mData, new AdapterInterface() {
             @Override
             public RecyclerView.ViewHolder setItemView(ViewGroup parent, int viewType) {
                 View view =  LayoutInflater.from(mContext).inflate(R.layout.app_wsjc_record_list_item, parent, false);// 设置要转化的layout文件
-                return new MyView(view);
+                return new ZssdjglListFragment.MyView(view);
             }
-
             @Override
             public void setItemValue(RecyclerView.ViewHolder holder, int position) {
-                String lmlbname;
-                if("1".equals(lmlb)){
-                    lmlbname="停宿申请";
-                }else if("3".equals(lmlb)){
-                    lmlbname="退宿申请";
-                }else{
-                    lmlbname="调宿申请";
-                }
-                ((MyView)holder).ssl_fjh.setText(lmlbname);
-                ((MyView)holder).ssq.setText(mData.get(position).getShzt());
-                ((MyView)holder).fs.setText(mData.get(position).getSqrq());
+                Zssdjgl zssdjgl = mData.get(position);
+                ((MyView)holder).ssl_fjh.setText(zssdjgl.getName());
+                ((MyView)holder).ssq.setText(zssdjgl.getRoom());
+                ((MyView)holder).fs.setText(zssdjgl.getTime());
             }
-
             @Override
             public void loadDatas() {
                 getData();
             }
         });
-
         getData();
-
     }
 
     public void getData(){
@@ -123,15 +110,14 @@ public class ZssglFragment extends BaseFragment implements View.OnClickListener{
     }
 
     public void getList(){
-        lmlb = StringUtils.isNotEmpty(lmlb)?lmlb:"2";
         myListView.startRefresh();
         Map<String,Object> map = new HashMap<>();
         map.put("pageNo",myListView.pageNo);
         map.put("type",mType);
-        map.put("lmlb", lmlb);
-        HttpUtil.getInstance().gsonRequest(new TypeToken<PageMsg<Zssgl>>(){}, "http://192.168.3.163:8082/mp-lgj/apps/zxzssgl/list", map, new HttpListener<PageMsg<Zssgl>>() {
+        map.put("role", "1");
+        HttpUtil.getInstance().gsonRequest(new TypeToken<PageMsg<Zssdjgl>>(){}, "http://192.168.3.163:8082/mp-lgj/apps/zsdjgl/xsList", map, new HttpListener<PageMsg<Zssdjgl>>() {
             @Override
-            public void onSuccess(PageMsg<Zssgl> result) {
+            public void onSuccess(PageMsg<Zssdjgl> result) {
                 myListView.stopRefresh(true);
                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                 if(result.getList() != null && result.getList().size()>0) {//是否获取到数据
@@ -166,10 +152,10 @@ public class ZssglFragment extends BaseFragment implements View.OnClickListener{
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Zssgl zssgl = mData.get(getLayoutPosition());
-                    Intent intent = new Intent(getActivity(), ZssglDetailActivity.class);
+                    Zssdjgl zssgl = mData.get(getLayoutPosition());
+                    Intent intent = new Intent(getActivity(), ZssdjglDetailActivity.class);
                     intent.putExtra("detailid",zssgl.getId());
-                    intent.putExtra("lmlb",lmlb);
+                    intent.putExtra("type",mType);
                     startActivity(intent);
                 }
             });
@@ -179,5 +165,10 @@ public class ZssglFragment extends BaseFragment implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         getData();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.app_zssdjgl_list;
     }
 }

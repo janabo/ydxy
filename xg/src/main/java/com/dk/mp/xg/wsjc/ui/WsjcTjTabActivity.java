@@ -288,7 +288,7 @@ public class WsjcTjTabActivity extends MyActivity {
                     fragment1.setMUrl("http://192.168.3.127:8082/mp-lgj/apps/sswsdftj/tj" +
                             "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
                 }
-            break;
+                break;
             case 2:
                 if(resultCode == RESULT_OK){
                     month = data.getStringExtra("date");

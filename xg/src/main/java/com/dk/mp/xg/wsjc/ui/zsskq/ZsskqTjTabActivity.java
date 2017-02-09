@@ -1,5 +1,7 @@
 package com.dk.mp.xg.wsjc.ui.zsskq;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,10 +23,12 @@ import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * 住宿生统计
@@ -41,6 +45,8 @@ public class ZsskqTjTabActivity extends MyActivity{
     private WsjcTjFragment fragment1 = new WsjcTjFragment();
     private WsjcTjFragment fragment2 = new WsjcTjFragment();
     private WsjcTjFragment fragment3 = new WsjcTjFragment();
+    private String weekid="";//选择的班级id
+    private String weekname="";//选择的班级名称
 
     @Override
     protected int getLayoutID() {
@@ -66,19 +72,16 @@ public class ZsskqTjTabActivity extends MyActivity{
         dropdown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-//                    if (mSemester.size() > 0 && mTemplet.size()>0) {
-//                        Intent intent = new Intent(mContext, WsjcTjSemesterPickActivity.class);
-//                        Bundle bundle = new Bundle();
-//                        bundle.putSerializable("xq", (Serializable) mSemester);
-//                        bundle.putSerializable("mb", (Serializable) mTemplet);
-//                        intent.putExtras(bundle);
-//                        startActivityForResult(intent, 3);
-//                        overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
-//                    }else{
-//                        showErrorMsg(mViewpager, "未获取到学期或模板选项");
-//                    }
-//                }
+                if (mClasses.size() > 0) {
+                    Intent intent = new Intent(mContext, ZsskqBjPickActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("kfs", (Serializable) mClasses);
+                    intent.putExtras(bundle);
+                    startActivityForResult(intent, 1);
+                    overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                } else {
+                    showErrorMsg(mViewpager, "未获取到班级或院系选项");
+                }
             }
         });
     }
@@ -103,18 +106,11 @@ public class ZsskqTjTabActivity extends MyActivity{
         mViewpager.setOffscreenPageLimit ( fragments.size ( ) );
         mViewpager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewpager);
-
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 tabSelect = tab.getPosition();
-                if(tabSelect == 0){
-
-                }else if(tabSelect == 1){
-
-                }else if(tabSelect == 2){
-
-                }
+                getTjUrl(weekid);
             }
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
@@ -145,6 +141,11 @@ public class ZsskqTjTabActivity extends MyActivity{
                             if(dfxxes.size()>0){//获取数据不为空
                                 mClasses.addAll(dfxxes);
                                 setTitle(mClasses.get(0).getName());
+                                if(dfxxes.size()>1){
+                                    dropdownimg.setVisibility(View.VISIBLE);
+                                }
+                                weekid = dfxxes.get(0).getId();
+                                getTjUrl(weekid);
                             }else{
                                 setTitle("住宿生考勤");
                             }
@@ -167,5 +168,29 @@ public class ZsskqTjTabActivity extends MyActivity{
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 1:
+                if(resultCode == RESULT_OK){
+                    weekid = data.getStringExtra("kfsid");
+                    weekname = data.getStringExtra("kfs");
+                    setTitle(weekname);
+                    getTjUrl(weekid);
+                }
+                break;
+        }
+    }
+
+    public void getTjUrl(String id){
+        if(tabSelect == 0){
+            fragment1.setMUrl("http://192.168.3.163:8082/mp-lgj/apps/zsskq/tj?type=today&id="+id+"&role="+type);
+        }else if(tabSelect == 1){
+            fragment2.setMUrl("http://192.168.3.163:8082/mp-lgj/apps/zsskq/tj?type=week&id="+id+"&role="+type);
+        }else if(tabSelect == 2){
+            fragment3.setMUrl("http://192.168.3.163:8082/mp-lgj/apps/zsskq/tj?type=month&id="+id+"&role="+type);
+        }
+    }
 
 }

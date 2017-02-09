@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.widget.NumericWheelAdapter;
 import com.dk.mp.core.widget.OnWheelScrollListener;
 import com.dk.mp.core.widget.WheelView;
@@ -21,19 +22,30 @@ public class SswzWjrqPickActivity extends Activity {
     private WheelView year;
     private WheelView month;
     private WheelView day;
+    private String rq="";
+    int curYear;
+    int curMonth;
+    int curDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_ssws_pick_date);
+        rq = getIntent().getStringExtra("date");
         getDatePick();
     }
 
     private void getDatePick(){
-        Calendar c = Calendar.getInstance();
-        final int curYear = c.get(Calendar.YEAR);
-        int curMonth = c.get(Calendar.MONTH) + 1;
-        int curDate = c.get(Calendar.DATE);
+        if(StringUtils.isNotEmpty(rq) && rq.length()>=10){
+            curYear = Integer.parseInt(rq.substring(0, 4));
+            curMonth = Integer.parseInt(rq.substring(5, 7));
+            curDate = Integer.parseInt(rq.substring(8, 10));
+        }else{
+            Calendar c = Calendar.getInstance();
+            curYear = c.get(Calendar.YEAR);
+            curMonth = c.get(Calendar.MONTH) + 1;
+            curDate = c.get(Calendar.DATE);
+        }
 
         year = (WheelView) findViewById(R.id.year);
         month = (WheelView) findViewById(R.id.month);
@@ -53,7 +65,7 @@ public class SswzWjrqPickActivity extends Activity {
         day.setLabel("日");
         day.setCyclic(true);
 
-        year.setCurrentItem(curYear - 1950);
+        year.setCurrentItem(curYear - 1956);
         month.setCurrentItem(curMonth - 1);
         day.setCurrentItem(curDate - 1);
 
@@ -96,7 +108,7 @@ public class SswzWjrqPickActivity extends Activity {
 
         @Override
         public void onScrollingFinished(WheelView wheel) {
-            int n_year = year.getCurrentItem() + 1950;//
+            int n_year = year.getCurrentItem() + 1951;//
             int n_month = month.getCurrentItem() + 1;//
             initDay(n_year,n_month);
         }

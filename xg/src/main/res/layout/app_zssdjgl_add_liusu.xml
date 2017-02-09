@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_bg"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/view_bg"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/layout_top"
+        layout="@layout/core_title_back" />
+
+    <ScrollView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:background="@color/white">
+        <include
+            layout="@layout/core_line"/>
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@drawable/ripple_bg_while"
+            android:padding="10dp"
+            android:onClick="toPickKsrq">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="留宿开始时间"
+                android:textColor="#212121"
+                android:textSize="15sp">
+            </TextView>
+            <TextView
+                android:id="@+id/ksrq_pick"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:textColor="#212121"
+                android:textSize="14sp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:hint="必填">
+            </TextView>
+            <ImageView
+                android:src="@mipmap/arrow_icon_xg"
+                android:layout_width="8dp"
+                android:layout_height="13dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+        <include
+            layout="@layout/core_line_padding" />
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@drawable/ripple_bg_while"
+            android:padding="10dp"
+            android:onClick="toPickJsrq">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="留宿结束时间"
+                android:textColor="#212121"
+                android:textSize="15sp">
+            </TextView>
+            <TextView
+                android:id="@+id/jsrq_pick"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:textColor="#212121"
+                android:textSize="14sp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:hint="必填">
+            </TextView>
+            <ImageView
+                android:src="@mipmap/arrow_icon_xg"
+                android:layout_width="8dp"
+                android:layout_height="13dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+        <include
+            layout="@layout/core_line"/>
+    </LinearLayout>
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:background="@color/white">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="@color/linecolor"/>
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="住宿人员"
+                    android:textColor="#212121"
+                    android:textSize="14sp"
+                    />
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="（点击头像可删除）"
+                    android:textColor="#9c9c9c"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="@color/linecolor"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="vertical">
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="15dp"
+                    android:id="@+id/person_recycle"/>
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/wjxs_img"-->
+                    <!--android:layout_width="34dp"-->
+                    <!--android:layout_height="34dp"-->
+                    <!--android:src="@mipmap/add_r"-->
+                    <!--android:onClick="addPersons"/>-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/wjxs_name"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:textColor="#212121"-->
+                    <!--android:textSize="14sp"-->
+                    <!--android:visibility="gone"-->
+                    <!--android:gravity="center_horizontal"/>-->
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="@color/linecolor"
+                />
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ok"
+        android:layout_width="fill_parent"
+        android:layout_height="?attr/image42"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="40dip"
+        android:layout_marginBottom="40dip"
+        android:elevation="2dp"
+        android:background="@color/rcap_gray"
+        android:onClick="submitLiusu"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/ok_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提交"
+            android:textColor="@color/white"
+            android:textSize="?attr/textSize14"/>
+
+        <com.dk.mp.core.view.DrawHookView
+            android:id="@+id/progress"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:visibility="gone">
+        </com.dk.mp.core.view.DrawHookView>
+
+        <com.dk.mp.core.view.DrawCheckMarkView
+            android:id="@+id/progress_check"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:visibility="gone">
+        </com.dk.mp.core.view.DrawCheckMarkView>
+
+        <com.dk.mp.core.view.DrawCrossMarkView
+            android:id="@+id/progress_cross"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:visibility="gone">
+        </com.dk.mp.core.view.DrawCrossMarkView>
+
+    </LinearLayout>
+        </LinearLayout>
+
+</ScrollView>
+</LinearLayout>

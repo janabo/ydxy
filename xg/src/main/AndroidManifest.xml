@@ -138,6 +138,44 @@
             android:name="com.dk.mp.xg.wsjc.ui.zsskq.ZsskqTjTabActivity"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.zsskq.ZsskqBjPickActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZssglAddTiaoSuActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZssglSelectPersonsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZssglDetailActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.zssdjgl.ZssdjglTabActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.zssdjgl.ZssdjglAddLiusuActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.zssdjgl.SelectPersonsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.zssdjgl.ZssdjglDetailActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.zssdjgl.ZssdjglEditActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
