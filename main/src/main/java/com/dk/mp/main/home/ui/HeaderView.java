@@ -6,6 +6,7 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
@@ -97,7 +98,7 @@ public class HeaderView {
             DraweeView view = new DraweeView(container.getContext());
 //            view.setScaleType(ImageView.ScaleType.CENTER_CROP);
             view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-//            view.setImageURI(Uri.parse(slideList.get(position).getImage()));
+            view.setImageURI(Uri.parse(slideList.get(position).getImage()));
             view.setTransitionName("headerimage");
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -109,8 +110,7 @@ public class HeaderView {
                 }
             });
 
-            GenericDraweeHierarchyBuilder builder =
-                    new GenericDraweeHierarchyBuilder(context.getResources());
+            GenericDraweeHierarchyBuilder builder = new GenericDraweeHierarchyBuilder(context.getResources());
             GenericDraweeHierarchy hierarchy = builder
                     .setFadeDuration(300)
                     .setPlaceholderImage(R.color.bg)
