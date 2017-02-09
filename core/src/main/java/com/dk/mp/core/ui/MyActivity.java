@@ -26,6 +26,7 @@ import com.dk.mp.core.entity.App;
 import com.dk.mp.core.util.AppUtil;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.ImageUtil;
+import com.dk.mp.core.util.SnackBarUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -262,5 +263,14 @@ public abstract class MyActivity extends AppCompatActivity{
         } else {
             return super.onKeyDown(keyCode, event);
         }
+    }
+
+    /**
+     * 显示snakebar 错误信息
+     * @param v
+     * @param msg
+     */
+    public void showErrorMsg(View v,String msg){
+        SnackBarUtil.showShort(v,msg);
     }
 }

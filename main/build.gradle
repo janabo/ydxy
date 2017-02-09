@@ -27,4 +27,5 @@ dependencies {
     compile project(':txl')
     compile project(':schedule')
     compile project(':xyfg')
+    compile project(':lsgl')
 }

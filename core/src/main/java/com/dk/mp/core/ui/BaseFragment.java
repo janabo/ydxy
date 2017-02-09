@@ -8,11 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+
 /**
  * 作者：janabo on 2017/1/4 14:27
  */
 public abstract class BaseFragment extends BaseLazyFragment {
     protected View mRootView;
+    private Gson gson;
 
     @Nullable
     @Override
@@ -42,5 +45,12 @@ public abstract class BaseFragment extends BaseLazyFragment {
     @Override
     public void onUserVisible ( ) {
         super.onUserVisible ( );
+    }
+
+    public Gson getGson() {
+        if (gson == null){
+            gson = new Gson();
+        }
+        return gson;
     }
 }
