@@ -38,4 +38,12 @@
         <item name="android:paddingLeft">20dip</item>
         <item name="android:paddingRight">10dip</item>
     </style>
+
+    <style name="CalendarTheme">
+        <item name="calendarViewStyle">@style/CalendarStyle</item>
+    </style>
+
+    <style name="CalendarStyle">
+        <item name="android:orientation">vertical</item>
+    </style>
 </resources>

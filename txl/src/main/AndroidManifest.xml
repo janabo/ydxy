@@ -6,20 +6,17 @@
 
         <activity
             android:name=".ui.TxlDepartActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoTitle">
+            android:screenOrientation="portrait">
             </activity>
 
         <activity
             android:name=".ui.TxlPersonsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoTitle">
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".ui.SearchActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoTitle"/>
+            android:screenOrientation="portrait"/>
 
     </application>
 

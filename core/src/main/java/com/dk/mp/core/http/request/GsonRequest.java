@@ -4,6 +4,7 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.dk.mp.core.util.Logger;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -41,6 +42,7 @@ public class GsonRequest<T> extends RequestWrapper<T> {
         String result = getResponseString(response);
         try {
             JSONObject jsonObject = new JSONObject(result);
+            Logger.info("json="+jsonObject.toString());
             if(result.startsWith("{\"json\"")){
                 jsonObject = jsonObject.optJSONObject("json");
             }

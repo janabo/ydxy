@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="oa_detail_footer_textview">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="oa_detail_footer_splictline">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">15dp</item>
+        <item name="android:background">#C9C9C9</item>
+    </style>
+</resources>

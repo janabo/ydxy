@@ -1,0 +1,19 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.dk.mp.newoa">
+
+    <application android:allowBackup="true" android:label="@string/app_name"
+        android:supportsRtl="true">
+
+        <activity android:name=".ui.TzggActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.TzggDetailActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.GzzbTabActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.OADetailActivity"
+            android:screenOrientation="portrait"/>
+    </application>
+
+</manifest>

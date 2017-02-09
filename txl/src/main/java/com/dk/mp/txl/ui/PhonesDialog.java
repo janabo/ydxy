@@ -26,6 +26,9 @@ import com.dk.mp.core.entity.XbPersons;
 import com.dk.mp.core.util.BroadcastUtil;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.StringUtils;
+import com.dk.mp.core.view.DrawCheckMarkView;
+import com.dk.mp.core.view.DrawCrossMarkView;
+import com.dk.mp.core.view.DrawHookView;
 import com.dk.mp.core.view.RecycleViewDivider;
 import com.dk.mp.txl.R;
 import com.dk.mp.txl.db.CursorDBHelper;
@@ -42,7 +45,6 @@ public class PhonesDialog{
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_CONTACTS,
             Manifest.permission.WRITE_CONTACTS};
-    Activity activity;
     Context context;
     Dialog dialog;
     RecyclerView mRecyclerView;
@@ -53,10 +55,13 @@ public class PhonesDialog{
     LinearLayout expro_lin,xb_lin;
     RealmHelper realmHelper;
     Jbxx jbxx;
+    TextView expro_txt;
+    DrawHookView progress;//导出进去条
+    DrawCheckMarkView progress_check;//导出成功标志
+    DrawCrossMarkView progress_cross;//导出失败标志
 
     public PhonesDialog(final Context context, final Activity activity){
         this.context = context;
-        this.activity = activity;
         dialog = new Dialog(context, R.style.MyDialog);
         Window window = dialog.getWindow();
         window.setContentView(R.layout.app_phone_dialog);
@@ -68,6 +73,10 @@ public class PhonesDialog{
         mExpro = (ImageView) window.findViewById(R.id.expro_img);
         expro_lin = (LinearLayout) window.findViewById(R.id.expro_lin);
         xb_lin = (LinearLayout) window.findViewById(R.id.xb_lin);
+        expro_txt = (TextView) window.findViewById(R.id.expro_txt);
+        progress = (DrawHookView) window.findViewById(R.id.progress);
+        progress_check = (DrawCheckMarkView) window.findViewById(R.id.progress_check);
+        progress_cross = (DrawCrossMarkView) window.findViewById(R.id.progress_cross);
         realmHelper = new RealmHelper(context);
         cancel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -151,6 +160,8 @@ public class PhonesDialog{
      * 导出电话簿
      */
     private void expPhones(){
+        mExpro.setVisibility(View.GONE);
+        progress.setVisibility(View.VISIBLE);
         String phones = jbxx.getPhones();
         String phone = "";
         if(StringUtils.isNotEmpty(phones)){
@@ -169,9 +180,13 @@ public class PhonesDialog{
             if (!CursorDBHelper.checkNumber(context, phone)) {
                 CursorDBHelper.insertPerson(context, jbxx.getName(), phone);
             }
-
-            mExpro.setImageResource(R.mipmap.icon_expr_success);
+            progress.setVisibility(View.GONE);
+            progress_check.setVisibility(View.VISIBLE);
+            expro_txt.setText("导出成功");
+ //           mExpro.setImageResource(R.mipmap.icon_expr_success);
         }else{
+            progress_cross.setVisibility(View.VISIBLE);
+            expro_txt.setText("导出失败");
             Toast.makeText(context,"该用户下没有电话号码，无法导出",Toast.LENGTH_SHORT).show();
         }
     }

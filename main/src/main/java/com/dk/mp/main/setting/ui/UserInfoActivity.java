@@ -40,6 +40,7 @@ public class UserInfoActivity extends MyActivity{
         h = new CoreSharedPreferencesHelper(this);
         setTitle("个人资料");
         findView();
+        dd();
     }
 
     /**

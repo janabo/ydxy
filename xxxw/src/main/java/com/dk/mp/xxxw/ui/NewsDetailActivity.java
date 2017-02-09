@@ -2,6 +2,7 @@ package com.dk.mp.xxxw.ui;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
@@ -41,6 +42,7 @@ public class NewsDetailActivity extends MyActivity{
         mProgressBar = (ProgressBar) findViewById(R.id.pb_new_detail);
         mWebView = (WebView) findViewById(R.id.webview_new_detail);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        ViewCompat.setTransitionName(mWebView, "detail_element");
         initData();
     }
 

@@ -53,7 +53,7 @@ public class SettingActivity extends MyActivity{
         super.initialize();
         helper = getSharedPreferences();
         instance = SettingActivity.this;
-        initView();
+        findView();
         setTitle("设置");
 //        version_new.setText("当前版本:" + DeviceUtil.getVersionName(context));
         BroadcastUtil.registerReceiver(this, mRefreshBroadcastReceiver, new String[]{"login","user"});
@@ -73,7 +73,7 @@ public class SettingActivity extends MyActivity{
         }
     };
 
-    public void initView(){
+    public void findView(){
         font_txt = (TextView) findViewById(R.id.font_txt);
         setting_scro = (ScrollView) findViewById(R.id.setting_scro);
         name = (TextView) findViewById(R.id.name);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -148,6 +149,8 @@ public class NewsListActivity extends MyActivity implements View.OnClickListener
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ViewCompat.setTransitionName(view, "detail_element");
+
                     News news = list.get(getLayoutPosition());
                     Intent intent = new Intent(mContext, NewsDetailActivity.class);
                     intent.putExtra("news", (Serializable) news);

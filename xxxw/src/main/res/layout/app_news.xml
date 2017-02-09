@@ -15,6 +15,7 @@
     <com.dk.mp.core.view.MyListView
         android:id="@+id/newslist"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
         </com.dk.mp.core.view.MyListView>
 </LinearLayout>

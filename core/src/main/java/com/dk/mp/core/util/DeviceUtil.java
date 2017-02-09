@@ -3,6 +3,8 @@ package com.dk.mp.core.util;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.net.ConnectivityManager;
 import android.view.WindowManager;
 
@@ -81,5 +83,20 @@ public class DeviceUtil {
             width = wm.getDefaultDisplay().getWidth();
         }
         return width;
+    }
+
+    public static int getTextHeight(Paint paint, String text){
+        if(paint == null) return 0;
+        Rect rect = new Rect();
+        paint.getTextBounds(text,0, 2, rect);
+        return rect.height();
+    }
+
+    /**
+     * 获取手机系统版本
+     */
+    public static String getOsType() {
+        String model = "Android " + android.os.Build.VERSION.RELEASE;
+        return model;
     }
 }

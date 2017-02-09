@@ -1,19 +1,8 @@
 package com.dk.mp.main.home.ui;
 
-import android.app.Service;
 import android.content.Intent;
-import android.graphics.Color;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.dk.mp.core.db.AppManager;
-import com.dk.mp.core.entity.App;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.view.RecycleViewDivider;
 import com.dk.mp.main.R;

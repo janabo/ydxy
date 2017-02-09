@@ -1,5 +1,7 @@
 package com.dk.mp.schedule;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
@@ -7,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.dk.mp.core.dialog.AlertDialog;
+import com.dk.mp.core.entity.Rcap;
 import com.dk.mp.core.entity.RcapDetail;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.BroadcastUtil;
@@ -35,7 +38,25 @@ public class RcapDetailActivity extends MyActivity implements View.OnClickListen
         realmHelper = new RealmHelper(this);
         setTitle(getIntent().getStringExtra("title"));
         initView();
+        BroadcastUtil.registerReceiver(this, mRefreshBroadcastReceiver, new String[]{"rcap_refresh"});
     }
+
+    private BroadcastReceiver mRefreshBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("rcap_refresh")) {
+                if(rcap != null) {
+                    Rcap r = realmHelper.qRcap(rcap.getRcid());
+                    title.setText(r.getTitle());
+                    content.setText(r.getContent());
+                    place.setText(r.getLocation());
+                    starttime.setText(r.getTime_start());
+                    endtime.setText(r.getTime_end());
+                }
+            }
+        }
+    };
 
     public void initView(){
         title = (TextView) findViewById(R.id.schedule_title);
@@ -56,6 +77,8 @@ public class RcapDetailActivity extends MyActivity implements View.OnClickListen
         endtime.setText(rcap.getTime_end());
 
     }
+
+
 
     @Override
     public void onClick(View v) {

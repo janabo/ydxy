@@ -25,6 +25,7 @@ import com.dk.mp.core.R;
 import com.dk.mp.core.entity.App;
 import com.dk.mp.core.util.AppUtil;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
+import com.dk.mp.core.util.SnackBarUtil;
 import com.dk.mp.core.util.ImageUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -48,15 +49,16 @@ public abstract class MyActivity extends AppCompatActivity{
     /**
      * @return 界面布局
      */
-    protected int getLayoutID(){
-        return 0;
-    }
-
+    protected abstract
+    @LayoutRes
+    int getLayoutID();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initTheme();
+        setContentView ( getLayoutID ( ) );
+        initView();
         classname = this.getClass().getName();
 
         setContentView (R.layout.core);
@@ -99,7 +101,11 @@ public abstract class MyActivity extends AppCompatActivity{
     /**
      * 初始化
      */
-    protected void initialize ( ) {initDock();}
+    protected void initView ( ) {}
+    /**
+     * 初始化
+     */
+    protected void initialize ( ) {}
 
     /**
      * 初始化皮肤.
@@ -169,7 +175,6 @@ public abstract class MyActivity extends AppCompatActivity{
         textView.setText(title);
         Button back = (Button) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             public void onClick(View v) {
                 back();
             }
@@ -179,10 +184,17 @@ public abstract class MyActivity extends AppCompatActivity{
     /**
      * 返回
      */
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void back() {
         onBackPressed();
-        finishAfterTransition();
+    }
+
+    /**
+     * 显示snakebar 错误信息
+     * @param v
+     * @param msg
+     */
+    public void showErrorMsg(View v,String msg){
+        SnackBarUtil.showShort(v,msg);
     }
 
     public void initDock(){

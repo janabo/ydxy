@@ -3,6 +3,10 @@ package com.dk.mp.txl.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +15,8 @@ import android.widget.TextView;
 
 import com.dk.mp.core.entity.Department;
 import com.dk.mp.core.entity.Jbxx;
+import com.dk.mp.core.util.BitmapUtil;
+import com.dk.mp.core.util.anni.TransitionHelper;
 import com.dk.mp.txl.R;
 import com.dk.mp.txl.ui.PhonesDialog;
 import com.dk.mp.txl.ui.TxlPersonsActivity;
@@ -71,11 +77,21 @@ public class TxlAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 @Override
                 public void onClick(View view) {
                     if(type == 2){
+                        ViewCompat.setTransitionName(view, "detail_element");
+                        ViewCompat.setTransitionName(activity.findViewById(R.id.fab), "fab");
+
+                        ActivityOptionsCompat options = TransitionHelper.makeOptionsCompat(activity,
+                                Pair.create(view,"detail_element"),Pair.create(activity.findViewById(R.id.fab), "fab"));
+
                         Intent intent = new Intent(mContext, TxlPersonsActivity.class);
                         Department j = (Department) mData.get(getLayoutPosition());
                         intent.putExtra("id",j.getId());
                         intent.putExtra("title",j.getName());
-                        mContext.startActivity(intent);
+                        View backgroundView = activity.findViewById(R.id.bm_recycle);
+                        if (backgroundView != null) BitmapUtil.storeBitmapInIntent(BitmapUtil.createBitmap(backgroundView), intent);
+
+                        ActivityCompat.startActivity(activity,intent,options.toBundle());
+                       activity.overridePendingTransition(R.anim.slide_up, R.anim.scale_down);
                     }else{
                         final PhonesDialog dlg = new PhonesDialog(mContext,activity);
                         Jbxx j = (Jbxx) mData.get(getLayoutPosition());

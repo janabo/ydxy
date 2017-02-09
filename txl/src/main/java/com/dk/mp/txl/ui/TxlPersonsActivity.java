@@ -2,6 +2,8 @@ package com.dk.mp.txl.ui;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -38,6 +40,7 @@ public class TxlPersonsActivity extends MyActivity{
     RecyclerView mRecyclerView;
     List<Jbxx> mList = new ArrayList<>();
     TxlAdapter mAdapter;
+    FloatingActionButton mFab;
     private RealmHelper mRealmHelper;
     private String bmname;//部门
     private String bmid;//部门id
@@ -50,7 +53,7 @@ public class TxlPersonsActivity extends MyActivity{
     @Override
     protected void initialize() {
         super.initialize();
-        initView();
+        findView();
         bmname = getIntent().getStringExtra("title");
         setTitle(bmname);
         bmid = getIntent().getStringExtra("id");
@@ -66,7 +69,7 @@ public class TxlPersonsActivity extends MyActivity{
     /**
      * 初始化樣式
      */
-    private void initView(){
+    private void findView(){
         mErrorLayout = (ErrorLayout) findViewById(R.id.error_layout);
         mRecyclerView = (RecyclerView) findViewById(R.id.bm_recycle);
         mdialog = (RelativeLayout) findViewById(R.id.mdialog);
@@ -75,6 +78,8 @@ public class TxlPersonsActivity extends MyActivity{
         mAdapter = new TxlAdapter( mContext, TxlPersonsActivity.this, mList,1);
         mRecyclerView.setAdapter ( mAdapter );
         mRecyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.HORIZONTAL, DeviceUtil.dip2px(mContext,0.8f), Color.rgb(229, 229, 229)));
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        ViewCompat.setTransitionName(mRecyclerView, "detail_element");
     }
 
     public void getData(){

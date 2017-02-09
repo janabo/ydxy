@@ -94,7 +94,29 @@
                     android:layout_width="?attr/image16"
                     android:src="@drawable/exp_selector"/>
 
+                <com.dk.mp.core.view.DrawHookView
+                    android:id="@+id/progress"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:visibility="gone">
+                </com.dk.mp.core.view.DrawHookView>
+
+                <com.dk.mp.core.view.DrawCheckMarkView
+                    android:id="@+id/progress_check"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:visibility="gone">
+                </com.dk.mp.core.view.DrawCheckMarkView>
+
+                <com.dk.mp.core.view.DrawCrossMarkView
+                    android:id="@+id/progress_cross"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:visibility="gone">
+                </com.dk.mp.core.view.DrawCrossMarkView>
+
                 <TextView
+                    android:id="@+id/expro_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="导出号码"
