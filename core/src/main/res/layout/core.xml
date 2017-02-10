@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="end">
+
+    <FrameLayout
+        android:id="@+id/id_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="end"
+        android:background="@color/white"
+        android:clickable="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:text="最近使用的应用"
+            android:textSize="9dp"
+            android:background="#ededed"
+            android:textColor="#212121"
+            android:gravity="center"/>
+
+
+        <LinearLayout
+            android:id="@+id/itemContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textColor="#ededed"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="-------------------------------------------------------------------------------"
+            android:layout_height="10dp"
+            android:gravity="top" />
+
+        <Button
+            android:id="@+id/homebutton"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="首页"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
+</android.support.v4.widget.DrawerLayout>
