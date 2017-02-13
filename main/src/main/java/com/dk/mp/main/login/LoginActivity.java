@@ -1,6 +1,5 @@
 package com.dk.mp.main.login;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
@@ -164,6 +163,7 @@ public class LoginActivity extends MyActivity implements View.OnClickListener{
                         preference.setLoginMsg(userId,Base64Utils.getBase64(pass));
                         preference.setUserInfo(result.getJSONObject("data").toString());
                         new Handler().postDelayed(new Runnable() {//等待成功动画结束
+                            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                             @Override
                             public void run() {
                                 ok.setEnabled(true);
@@ -217,8 +217,6 @@ public class LoginActivity extends MyActivity implements View.OnClickListener{
 
         }
 
-        @TargetApi(Build.VERSION_CODES.M)
-        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
         public void afterTextChanged(Editable s) {
             String userId = uid.getText().toString().trim();
@@ -226,9 +224,9 @@ public class LoginActivity extends MyActivity implements View.OnClickListener{
             String mYzm = yzm.getText().toString().trim();
             if(userId.length()>0 && pass.length()>0 && (yzm_lin.getVisibility()
                     == View.GONE || (yzm_lin.getVisibility() == View.VISIBLE && mYzm.length()>0))){
-                ok.setBackground(getDrawable(R.drawable.ripple_bg));
+                ok.setBackground(getResources().getDrawable(R.drawable.ripple_bg));
             }else{
-                ok.setBackgroundColor(getColor(R.color.rcap_gray));
+                ok.setBackgroundColor(getResources().getColor(R.color.rcap_gray));
             }
         }
     };
