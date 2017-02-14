@@ -118,7 +118,7 @@ public class ZssglAddTuiSuActivity extends MyActivity implements View.OnClickLis
 
         ok_text.setVisibility(View.GONE);
         progress.setVisibility(View.VISIBLE);
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zxzssgl/tuisusq", map, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/tuisusq", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result)  {
                 try {
@@ -194,7 +194,7 @@ public class ZssglAddTuiSuActivity extends MyActivity implements View.OnClickLis
      * 获取退宿原因
      */
     public void getTuisu(){
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zxzssgl/tzyyList", null, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/tzyyList", null, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {

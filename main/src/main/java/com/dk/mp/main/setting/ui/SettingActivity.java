@@ -1,12 +1,10 @@
 package com.dk.mp.main.setting.ui;
 
-import android.annotation.TargetApi;
 import android.app.ActivityOptions;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
@@ -171,13 +169,18 @@ public class SettingActivity extends MyActivity{
      * 登录 或者跳转到个人信息
      * @param v
      */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void tologin(View v){
         User user = helper.getUser();
         if (user != null) {
             Intent intent = new Intent(SettingActivity.this, UserInfoActivity.class);
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SettingActivity.this, pesonphoto, "personphoto");
-            ActivityCompat.startActivity(SettingActivity.this,intent, options.toBundle());
+            ActivityOptions options = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                options = ActivityOptions.makeSceneTransitionAnimation(SettingActivity.this, pesonphoto, "personphoto");
+                ActivityCompat.startActivity(SettingActivity.this,intent, options.toBundle());
+            }else{
+                startActivity(intent);
+            }
+
         } else {
             Intent in = new Intent(context,LoginActivity.class);
             startActivity(in);

@@ -55,6 +55,5 @@
     <com.dk.mp.core.widget.MyViewpager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"/>
+        android:layout_height="match_parent"/>
 </LinearLayout>

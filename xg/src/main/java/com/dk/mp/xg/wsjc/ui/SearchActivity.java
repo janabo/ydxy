@@ -139,7 +139,7 @@ public class SearchActivity extends MyActivity implements View.OnClickListener{
         Map<String, Object> map = new HashMap<>();
         map.put("key", mKeywords.getText().toString());
         map.put("pageNo",mRecycle.pageNo);
-        HttpUtil.getInstance().gsonRequest(new TypeToken<PageMsg<DfRecord>>(){}, "http://192.168.3.163:8082/mp-lgj/apps/sswzdf/ss", map, new HttpListener<PageMsg<DfRecord>>() {
+        HttpUtil.getInstance().gsonRequest(new TypeToken<PageMsg<DfRecord>>(){}, "apps/sswzdf/ss", map, new HttpListener<PageMsg<DfRecord>>() {
             @Override
             public void onSuccess(PageMsg<DfRecord> result) {
                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
@@ -148,9 +148,9 @@ public class SearchActivity extends MyActivity implements View.OnClickListener{
                     mRecycle.addList(result.getList());
                 }else{
                     if(mRecycle.pageNo == 1) {
-                        mError.setErrorType(ErrorLayout.NODATA);
+                        mError.setErrorType(ErrorLayout.SEARCHNODATA);
                     }else{
-                        SnackBarUtil.showShort(mRecycle,R.string.nodata);
+                        SnackBarUtil.showShort(mRecycle,R.string.searchnodata);
                     }
                 }
             }

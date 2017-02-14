@@ -68,7 +68,7 @@ public class ZssglDetailActivity extends MyActivity{
         Map<String,Object> map = new HashMap<>();
         map.put("id",detailid);
         map.put("lmlb",lmlb);
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zxzssgl/detail", map, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/detail", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {

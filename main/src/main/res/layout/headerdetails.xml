@@ -11,23 +11,23 @@
         android:text="New ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew ButtonNew "
         android:layout_gravity="center_horizontal" />
 
-    <com.dk.mp.core.view.DraweeView
-        android:id="@+id/imageview"
-        android:transitionName="headerimage"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        fresco:fadeDuration="300"
-        fresco:actualImageScaleType="centerCrop"
-        fresco:placeholderImage="@mipmap/photo"
-        fresco:placeholderImageScaleType="fitCenter"
-        fresco:failureImage="@mipmap/photo"
-        fresco:failureImageScaleType="centerInside"
-        fresco:retryImage="@mipmap/photo"
-        fresco:retryImageScaleType="centerCrop"
-        fresco:backgroundImage="@color/transparent"
-        fresco:overlayImage="@color/transparent"
-        fresco:pressedStateOverlayImage="@color/transparent" />
+    <!--<com.dk.mp.core.view.DraweeView-->
+        <!--android:id="@+id/imageview"-->
+        <!--android:transitionName="headerimage"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:layout_marginLeft="50dp"-->
+        <!--android:layout_marginRight="50dp"-->
+        <!--fresco:fadeDuration="300"-->
+        <!--fresco:actualImageScaleType="centerCrop"-->
+        <!--fresco:placeholderImage="@mipmap/photo"-->
+        <!--fresco:placeholderImageScaleType="fitCenter"-->
+        <!--fresco:failureImage="@mipmap/photo"-->
+        <!--fresco:failureImageScaleType="centerInside"-->
+        <!--fresco:retryImage="@mipmap/photo"-->
+        <!--fresco:retryImageScaleType="centerCrop"-->
+        <!--fresco:backgroundImage="@color/transparent"-->
+        <!--fresco:overlayImage="@color/transparent"-->
+        <!--fresco:pressedStateOverlayImage="@color/transparent" />-->
 
 </LinearLayout>

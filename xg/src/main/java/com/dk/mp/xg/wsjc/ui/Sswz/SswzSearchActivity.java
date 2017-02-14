@@ -123,6 +123,8 @@ public class SswzSearchActivity extends MyActivity implements View.OnClickListen
 
     public void getData(){
         if(DeviceUtil.checkNet()) {
+            mList.clear();
+            mRecycle.clearList();
             query();
         }else{
             if(mRecycle.pageNo == 1) {
@@ -134,11 +136,10 @@ public class SswzSearchActivity extends MyActivity implements View.OnClickListen
     }
 
     public void query(){
-        mRecycle.startRefresh();
         Map<String, Object> map = new HashMap<>();
         map.put("key", mKeywords.getText().toString());
         map.put("pageNo",mRecycle.pageNo);
-        HttpUtil.getInstance().gsonRequest(new TypeToken<PageMsg<Sswz>>(){}, "http://192.168.3.163:8082/mp-lgj/apps/sswzdj/ss", map, new HttpListener<PageMsg<Sswz>>() {
+        HttpUtil.getInstance().gsonRequest(new TypeToken<PageMsg<Sswz>>(){}, "apps/sswzdj/ss", map, new HttpListener<PageMsg<Sswz>>() {
             @Override
             public void onSuccess(PageMsg<Sswz> result) {
                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
@@ -147,9 +148,9 @@ public class SswzSearchActivity extends MyActivity implements View.OnClickListen
                     mRecycle.addList(result.getList());
                 }else{
                     if(mRecycle.pageNo == 1) {
-                        mError.setErrorType(ErrorLayout.NODATA);
+                        mError.setErrorType(ErrorLayout.SEARCHNODATA);
                     }else{
-                        SnackBarUtil.showShort(mRecycle,R.string.nodata);
+                        SnackBarUtil.showShort(mRecycle,R.string.searchnodata);
                     }
                 }
             }

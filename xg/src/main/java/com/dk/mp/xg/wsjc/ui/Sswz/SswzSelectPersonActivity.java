@@ -114,7 +114,7 @@ public class SswzSelectPersonActivity extends MyActivity implements View.OnClick
     public void getList(){
         Map<String,Object> map = new HashMap<>();
         map.put("fjh","111");
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/sswzdj/xsList", map, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/sswzdj/xsList", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {

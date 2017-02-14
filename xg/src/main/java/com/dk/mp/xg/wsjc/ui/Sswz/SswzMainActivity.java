@@ -8,6 +8,7 @@ import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.xg.R;
 
 /**
+ * 宿舍违章登记
  * 作者：janabo on 2017/1/16 16:50
  */
 public class SswzMainActivity extends MyActivity {

@@ -38,6 +38,7 @@ public class WsjcTjFragment extends BaseFragment{
         mWebView.removeAllViews();
         mWebView.clearCache(true);
         mWebView.loadUrl (url);
+        mWebView.reload();
     }
 
     private void setWebView ( ) {
@@ -47,7 +48,7 @@ public class WsjcTjFragment extends BaseFragment{
         settings.setSupportZoom ( true );          //支持缩放
         settings.setBlockNetworkImage ( false );  //设置图片最后加载
         settings.setDatabaseEnabled ( true );
-        settings.setCacheMode ( WebSettings.LOAD_CACHE_ELSE_NETWORK );
+        settings.setCacheMode ( WebSettings.LOAD_NO_CACHE );
         settings.setAppCacheEnabled ( true );
         settings.setJavaScriptEnabled ( true );    //启用JS脚本
     }

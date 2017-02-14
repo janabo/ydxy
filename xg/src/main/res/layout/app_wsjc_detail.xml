@@ -53,9 +53,9 @@
                     android:textColor="#9c9c9c"
                     android:textSize="14sp"/>
                 <TextView
+                    android:id="@+id/ssqName"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="A栋"
                     android:textColor="#212121"
                     android:textSize="14sp"/>
             </LinearLayout>
@@ -73,9 +73,9 @@
                     android:textColor="#9c9c9c"
                     android:textSize="14sp"/>
                 <TextView
+                    android:id="@+id/sslName"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="A2"
                     android:textColor="#212121"
                     android:textSize="14sp"/>
             </LinearLayout>
@@ -93,9 +93,9 @@
                     android:textColor="#9c9c9c"
                     android:textSize="14sp"/>
                 <TextView
+                    android:id="@+id/lcName"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="3"
                     android:textColor="#212121"
                     android:textSize="14sp"/>
             </LinearLayout>
@@ -113,9 +113,9 @@
                     android:textColor="#9c9c9c"
                     android:textSize="14sp"/>
                 <TextView
+                    android:id="@+id/fjhName"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="1008"
                     android:textColor="#212121"
                     android:textSize="14sp"/>
             </LinearLayout>
@@ -133,6 +133,7 @@
                     android:textColor="#9c9c9c"
                     android:textSize="14sp"/>
                 <TextView
+                    android:id="@+id/rzxbName"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="女"
@@ -153,9 +154,9 @@
                     android:textColor="#9c9c9c"
                     android:textSize="14sp"/>
                 <TextView
+                    android:id="@+id/cwsName"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="8"
                     android:textColor="#212121"
                     android:textSize="14sp"/>
             </LinearLayout>

@@ -25,6 +25,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -59,7 +60,7 @@ public class WsjcTjTabActivity extends MyActivity {
     @Override
     protected void initialize() {
         super.initialize();
-        type = getIntent().getStringExtra("type");
+        type = getIntent().getStringExtra("role");
         findView();
         initViewPager();
         getWeeks();
@@ -139,11 +140,11 @@ public class WsjcTjTabActivity extends MyActivity {
                         weekname = "第一周";
                     }
                     setTitle(weekname);
-                    fragment1.setMUrl("http://192.168.3.127:8082/mp-lgj/apps/sswsdftj/tj" +
+                    fragment1.setMUrl("apps/sswsdftj/tj" +
                             "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
                 }else if(tabSelect == 1){
                     setTitle(TimeUtils.getCurrMonth());
-                    fragment2.setMUrl("http://192.168.3.127:8082/mp-lgj/apps/sswsdftj/tj" +
+                    fragment2.setMUrl("apps/sswsdftj/tj" +
                             "?type=month&key="+TimeUtils.getCurrMonth()+"&role="+1+"&pfmb="+"&name="+TimeUtils.getCurrMonth());
                 }else if(tabSelect == 2){
                     if(mSemester.size()>0){
@@ -154,8 +155,8 @@ public class WsjcTjTabActivity extends MyActivity {
                         semestername= "第一学期";
                     }
                     setTitle(semestername);
-                    fragment3.setMUrl("http://192.168.3.127:8082/mp-lgj/apps/sswsdftj/tj" +
-                            "?type=year&key="+semesterid+"&role="+1+"&pfmb="+templetid+"&name="+semestername);
+                    fragment3.setMUrl("apps/sswsdftj/tj" +
+                            "?type=year&key="+semesterid+"&role="+1+"&pfmb="+templetid+"&name="+semestername+"&timestamp="+new Date().getTime());
                 }
             }
             @Override
@@ -173,7 +174,7 @@ public class WsjcTjTabActivity extends MyActivity {
      * 获取周次
      */
     public void getWeeks(){
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.127:8082/mp-lgj/apps/sswsdftj/week", null, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/sswsdftj/week", null, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -187,7 +188,7 @@ public class WsjcTjTabActivity extends MyActivity {
                                 weekname = dfxxes.get(0).getName();
                                 setTitle(weekname);
                                 weekid = dfxxes.get(0).getId();
-                                fragment1.setMUrl("http://192.168.3.127:8082/mp-lgj/apps/sswsdftj/tj" +
+                                fragment1.setMUrl("apps/sswsdftj/tj" +
                                         "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
                             }else{
 
@@ -212,7 +213,7 @@ public class WsjcTjTabActivity extends MyActivity {
      * 获取学期
      */
     public void getSemesters(){
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.127:8082/mp-lgj/apps/sswsdftj/year", null, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/sswsdftj/year", null, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -246,7 +247,7 @@ public class WsjcTjTabActivity extends MyActivity {
      * 获取模板
      */
     public void getTempl(){
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.127:8082/mp-lgj/apps/sswsdftj/pfmb", null, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/sswsdftj/pfmb", null, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -285,7 +286,7 @@ public class WsjcTjTabActivity extends MyActivity {
                     weekid = data.getStringExtra("kfsid");
                     weekname = data.getStringExtra("kfs");
                     setTitle(weekname);
-                    fragment1.setMUrl("http://192.168.3.127:8082/mp-lgj/apps/sswsdftj/tj" +
+                    fragment1.setMUrl("apps/sswsdftj/tj" +
                             "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
                 }
                 break;
@@ -293,7 +294,7 @@ public class WsjcTjTabActivity extends MyActivity {
                 if(resultCode == RESULT_OK){
                     month = data.getStringExtra("date");
                     setTitle(month);
-                    fragment2.setMUrl("http://192.168.3.127:8082/mp-lgj/apps/sswsdftj/tj" +
+                    fragment2.setMUrl("apps/sswsdftj/tj" +
                             "?type=month&key="+month+"&role="+1+"&pfmb="+"&name="+month);
                 }
                 break;
@@ -302,7 +303,7 @@ public class WsjcTjTabActivity extends MyActivity {
                     semesterid = data.getStringExtra("xqsid");
                     setTitle(data.getStringExtra("xqs"));
                     templetid = data.getStringExtra("mbs");
-                    fragment3.setMUrl("http://192.168.3.127:8082/mp-lgj/apps/sswsdftj/tj" +
+                    fragment3.setMUrl("apps/sswsdftj/tj" +
                             "?type=year&key="+semesterid+"&role="+1+"&pfmb="+templetid+"&name="+data.getStringExtra("xqs"));
                 }
                 break;

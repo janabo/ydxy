@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 
 /**
@@ -14,6 +15,8 @@ import java.util.UUID;
  * @author wangw
  */
 public class StringUtils {
+    private final static Pattern URL = Pattern
+            .compile("^(https|http)://.*?$(net|com|.com.cn|org|me|)");
 	
 	/**
 	 * 除法。
@@ -333,4 +336,16 @@ public class StringUtils {
 		final float scale = context.getResources().getDisplayMetrics().density;
 		return (int) (pxValue / scale + 0.5f);
 	}
+
+    /**
+     * 判断是否为一个合法的url地址
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isUrl(String str) {
+        if (str == null || str.trim().length() == 0)
+            return false;
+        return URL.matcher(str).matches();
+    }
 }

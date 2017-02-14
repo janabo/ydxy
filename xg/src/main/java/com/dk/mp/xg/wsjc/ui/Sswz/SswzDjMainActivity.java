@@ -270,7 +270,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
      * 获取违纪类别
      */
     public void getWjlbs(){
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/sswzdj/wjlb", null, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/sswzdj/wjlb", null, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -324,7 +324,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
         params.put("bz",bz);
         ok.setVisibility(View.GONE);
         progress.setVisibility(View.VISIBLE);
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/sswzdj/tjwz", params, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/sswzdj/tjwz", params, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {

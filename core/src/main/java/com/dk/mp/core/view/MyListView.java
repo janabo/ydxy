@@ -1,8 +1,6 @@
 package com.dk.mp.core.view;
 
 import android.content.Context;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,10 +11,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.ViewTreeObserver;
 
 import com.dk.mp.core.R;
 import com.dk.mp.core.adapter.MyAdapter;
@@ -33,10 +28,6 @@ public class MyListView extends SwipeRefreshLayout {
 
     private RecyclerView recyclerView;
     private Context context;
-
-    private LinearLayout zwsj;
-    private ImageView zwsj_icon;
-    private TextView zwsj_text;
     private boolean showprograss = true;
     private MyAdapter adapter;
     private boolean isLoadingMore = false;
@@ -47,21 +38,14 @@ public class MyListView extends SwipeRefreshLayout {
     public int pageNo = 1;
     private int pageSize = 20;
 
-    public enum Error {
-        NoNetwork,
-        NoDatas,
-        OnError
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public MyListView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
         LayoutInflater.from(context).inflate(R.layout.core_listview, this, true);
         recyclerView = (RecyclerView)findViewById(R.id.core_listview);
-        recyclerView.setOnScrollChangeListener(new OnScrollChangeListener() {
+        recyclerView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+            public void onScrollChanged() {
                 RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
                 int lastVisibleItemPosition = 0;
                 if (layoutManager instanceof LinearLayoutManager) {
@@ -78,7 +62,7 @@ public class MyListView extends SwipeRefreshLayout {
                         lastVisibleItemPosition = i > lastVisibleItemPosition ? i : lastVisibleItemPosition;
                     }
                 }
-                if ((lastVisibleItemPosition == adapter.getItemCount() - 3) && !isLoadingMore && !isRefreshing() && !isEnd) {
+                if (adapter != null && (lastVisibleItemPosition == adapter.getItemCount() - 3) && !isLoadingMore && !isRefreshing() && !isEnd) {
                     setEnabled(false);
                     isLoadingMore = true;
                     loadingMore(true);
@@ -101,10 +85,6 @@ public class MyListView extends SwipeRefreshLayout {
         setColorSchemeResources(android.R.color.holo_green_light,android.R.color.holo_blue_light,android.R.color.holo_orange_light, android.R.color.holo_red_light);
         setProgressViewOffset(false, 0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics()));
 
-        zwsj = (LinearLayout) findViewById(R.id.zwsj);
-        zwsj_icon = (ImageView) findViewById(R.id.zwsj_icon);
-        zwsj_text = (TextView) findViewById(R.id.zwsj_text);
-
         setOnRefreshListener(listener);
     }
 
@@ -122,31 +102,8 @@ public class MyListView extends SwipeRefreshLayout {
     }
 
     public void error(Error error){
-        switch (error){
-                case NoNetwork :{
-                    zwsj_icon.setImageResource(R.mipmap.net_fail);
-                    zwsj_text.setText(context.getString(R.string.net_no2));
-                    break;
-                }
-                case NoDatas :{
-                    zwsj_icon.setImageResource(R.mipmap.nodata);
-                    zwsj_text.setText(context.getString(R.string.nodata));
-                    break;
-                }
-                case OnError :{
-                    zwsj_icon.setImageResource(R.mipmap.data_fail);
-                    zwsj_text.setText(context.getString(R.string.data_fail));
-                    break;
-                }
-                default:{
-                    break;
-                }
-            }
-            setDatasEnd(true);
-            if (pageNo != 1){
-                adapter.loadFaile();
-            }
-            stopRefresh(false);
+        setDatasEnd(true);
+        stopRefresh(false);
     }
 
     public void flish(){
@@ -160,70 +117,20 @@ public class MyListView extends SwipeRefreshLayout {
         stopRefresh(true);
     }
 
-//    public Action1<Throwable> error = new Action1<Throwable>() {
-//        @Override
-//        public void call(Throwable throwable) {
-//            switch (throwable.getMessage()){
-//                case "dqs-noNetwork" :{
-//                    zwsj_icon.setImageResource(R.mipmap.net_fail);
-//                    zwsj_text.setText(context.getString(R.string.net_no));
-//                    break;
-//                }
-//                case "dqs-noDatas" :{
-//                    zwsj_icon.setImageResource(R.mipmap.nodata);
-//                    zwsj_text.setText(context.getString(R.string.nodata));
-//                    break;
-//                }
-//                case "dqs-onError" :{
-//                    zwsj_icon.setImageResource(R.mipmap.data_fail);
-//                    zwsj_text.setText(context.getString(R.string.data_fail));
-//                    break;
-//                }
-//                default:{
-//                    break;
-//                }
-//            }
-//            setDatasEnd(true);
-//            if (pageNo != 1){
-//                adapter.loadFaile();
-//            }
-//            stopRefresh(false);
-//        }
-//    };
-//
-//    public Action0 flish = new Action0() {
-//        @Override
-//        public void call() {
-//            adapter.notifyDataSetChanged();
-//
-//            if (list.size() % pageSize != 0){
-//                setDatasEnd(true);
-//            } else {
-//                setDatasEnd(false);
-//            }
-//
-//            loadingMore(false);
-//            stopRefresh(true);
-//        }
-//    };
 
     public void stopRefresh(boolean success){
         showprograss = false;
         isLoadingMore = false;
         this.setRefreshing(false);
         setEnabled(true);
-        if (zwsj != null && adapter.getItemCount() == 1 && !success){ // 显示图标+文字的错误提示（首次加载页面失败）
-            zwsj.setVisibility(View.VISIBLE);
+        if ( adapter.getItemCount() == 1 && !success){ // 显示图标+文字的错误提示（首次加载页面失败）
             recyclerView.setVisibility(View.GONE);
         } else {
-            zwsj.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
-
             if (!success) {
                 post(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(context, zwsj_text.getText().toString(), Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -280,5 +187,17 @@ public class MyListView extends SwipeRefreshLayout {
 
     public MyAdapter getAdapter() {
         return adapter;
+    }
+
+    public void addList(List mData){
+        list.addAll(mData);
+        adapter.notifyDataSetChanged();
+    }
+
+    public void clearList(){
+        if(list!=null && list.size()>0){
+            list.clear();
+            adapter.notifyDataSetChanged();
+        }
     }
 }

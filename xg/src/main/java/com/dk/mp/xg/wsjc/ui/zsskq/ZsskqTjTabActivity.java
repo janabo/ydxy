@@ -129,7 +129,7 @@ public class ZsskqTjTabActivity extends MyActivity{
     private void getClassesOrDepartMents(){
         Map<String,Object> map = new HashMap<>();
         map.put("role",type);
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zsskq/select", map, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zsskq/select", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -185,11 +185,11 @@ public class ZsskqTjTabActivity extends MyActivity{
 
     public void getTjUrl(String id){
         if(tabSelect == 0){
-            fragment1.setMUrl("http://192.168.3.163:8082/mp-lgj/apps/zsskq/tj?type=today&id="+id+"&role="+type);
+            fragment1.setMUrl("apps/zsskq/tj?type=today&id="+id+"&role="+type);
         }else if(tabSelect == 1){
-            fragment2.setMUrl("http://192.168.3.163:8082/mp-lgj/apps/zsskq/tj?type=week&id="+id+"&role="+type);
+            fragment2.setMUrl("apps/zsskq/tj?type=week&id="+id+"&role="+type);
         }else if(tabSelect == 2){
-            fragment3.setMUrl("http://192.168.3.163:8082/mp-lgj/apps/zsskq/tj?type=month&id="+id+"&role="+type);
+            fragment3.setMUrl("apps/zsskq/tj?type=month&id="+id+"&role="+type);
         }
     }
 

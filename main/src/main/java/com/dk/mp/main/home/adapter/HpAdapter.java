@@ -1,9 +1,7 @@
 package com.dk.mp.main.home.adapter;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Vibrator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -177,7 +175,6 @@ public class HpAdapter extends RecyclerView.Adapter<HpAdapter.MyViewHolder> impl
         return new MyViewHolder(v);
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final AbstractDataProvider.Data item = mProvider.getItem(position);

@@ -12,6 +12,7 @@
 package com.dk.mp.core.imageview;
 
 import android.graphics.Matrix;
+import android.support.annotation.Nullable;
 import android.view.animation.DecelerateInterpolator;
 
 import com.facebook.common.internal.Preconditions;
@@ -20,7 +21,6 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ValueAnimator;
 
-import javax.annotation.Nullable;
 
 /**
  * ZoomableController that adds animation capabilities to DefaultZoomableController using

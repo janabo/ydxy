@@ -151,7 +151,7 @@ public class SelectPersonsActivity extends MyActivity implements View.OnClickLis
     }
 
     public void getList(){
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zsdjgl/users", null, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zsdjgl/users", null, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {

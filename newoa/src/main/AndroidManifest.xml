@@ -4,13 +4,22 @@
         android:supportsRtl="true">
 
         <activity android:name=".ui.TzggActivity"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="tzgg" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.TzggDetailActivity"
             android:screenOrientation="portrait"/>
 
         <activity android:name=".ui.GzzbTabActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="gzzb" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <activity android:name=".ui.OADetailActivity"
             android:screenOrientation="portrait"/>

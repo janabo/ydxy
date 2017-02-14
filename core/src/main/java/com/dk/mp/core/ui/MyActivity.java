@@ -5,10 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +24,6 @@ import com.dk.mp.core.R;
 import com.dk.mp.core.entity.App;
 import com.dk.mp.core.util.AppUtil;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
-import com.dk.mp.core.util.SnackBarUtil;
 import com.dk.mp.core.util.ImageUtil;
 import com.dk.mp.core.util.SnackBarUtil;
 import com.google.gson.Gson;
@@ -58,8 +56,7 @@ public abstract class MyActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initTheme();
-        setContentView ( getLayoutID ( ) );
-        initView();
+//        setContentView ( getLayoutID ( ) );
         classname = this.getClass().getName();
 
         setContentView (R.layout.core);
@@ -67,10 +64,9 @@ public abstract class MyActivity extends AppCompatActivity{
         View view = inflater.inflate(getLayoutID(), null);
         FrameLayout frameLayout = (FrameLayout)findViewById(R.id.id_content);
         frameLayout.addView(view);
-
-//        setContentView ( getLayoutID ( ) );
         intentFilter2.addAction("flishall");
         registerReceiver(receiver, intentFilter2);
+        initView();
         initialize ( );
     }
 
@@ -106,7 +102,7 @@ public abstract class MyActivity extends AppCompatActivity{
     /**
      * 初始化
      */
-    protected void initialize ( ) {}
+    protected void initialize ( ) {initDock();}
 
     /**
      * 初始化皮肤.
@@ -187,15 +183,6 @@ public abstract class MyActivity extends AppCompatActivity{
      */
     public void back() {
         onBackPressed();
-    }
-
-    /**
-     * 显示snakebar 错误信息
-     * @param v
-     * @param msg
-     */
-    public void showErrorMsg(View v,String msg){
-        SnackBarUtil.showShort(v,msg);
     }
 
     public void initDock(){

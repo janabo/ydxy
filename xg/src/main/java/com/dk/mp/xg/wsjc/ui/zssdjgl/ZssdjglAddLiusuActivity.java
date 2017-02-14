@@ -208,7 +208,7 @@ public class ZssdjglAddLiusuActivity extends MyActivity implements ZssdjglPerson
 
         ok_text.setVisibility(View.GONE);
         progress.setVisibility(View.VISIBLE);
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zsdjgl/add", map, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zsdjgl/add", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result)  {
                 try {

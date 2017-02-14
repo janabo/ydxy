@@ -4,8 +4,12 @@
         android:supportsRtl="true">
         <activity android:name=".RcapHomeActivity"
             android:theme="@style/AppTheme.NoTitle"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="rcap" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".RcapMainActivity"
             android:theme="@style/AppTheme.NoTitle"
             android:screenOrientation="portrait"/>

@@ -265,7 +265,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
     public void getLcs(String sslid){
         Map<String,Object> map = new HashMap<>();
         map.put("ssl",sslid);
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zxzssgl/lcList", map, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/lcList", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -300,7 +300,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
         Map<String,Object> map = new HashMap<>();
         map.put("ssl",ssl);
         map.put("lc",lc);
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zxzssgl/fjList", map, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/fjList", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -334,7 +334,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
     public void getCwhs(String fjhid){
         Map<String,Object> map = new HashMap<>();
         map.put("fjh",fjhid);
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zxzssgl/cwhList", map, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/cwhList", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -366,7 +366,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      * 获取校区列表
      */
     public void getXqs(){
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zxzssgl/xqList", null, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/xqList", null, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -397,7 +397,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      * 获取宿舍区列表
      */
     public void getSsqs(){
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zxzssgl/ssqList", null, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/ssqList", null, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -428,7 +428,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      * 获取宿舍楼列表
      */
     public void getSsls(){
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zxzssgl/sslList", null, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/sslList", null, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -459,7 +459,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      * 退宿原因和调整原因
      */
     public void getTsyys(){
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zxzssgl/tzyyList", null, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/tzyyList", null, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -493,7 +493,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
     public void getFjDetail(String fjh){
         Map<String,Object> map = new HashMap<>();
         map.put("fjh",fjh);
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zxzssgl/fjDetail", map, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/fjDetail", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -706,7 +706,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
 
         ok_text.setVisibility(View.GONE);
         progress.setVisibility(View.VISIBLE);
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zxzssgl/tiaosusq", map, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/tiaosusq", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result)  {
                 try {

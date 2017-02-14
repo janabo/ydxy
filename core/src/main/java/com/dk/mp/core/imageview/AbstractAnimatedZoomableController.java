@@ -13,10 +13,10 @@ package com.dk.mp.core.imageview;
 
 import android.graphics.Matrix;
 import android.graphics.PointF;
+import android.support.annotation.Nullable;
 
 import com.facebook.common.logging.FLog;
 
-import javax.annotation.Nullable;
 
 /**
  * Abstract class for ZoomableController that adds animation capabilities to

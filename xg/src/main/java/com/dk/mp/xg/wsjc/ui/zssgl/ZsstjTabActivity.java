@@ -109,13 +109,13 @@ public class ZsstjTabActivity extends MyActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 tabSelect = tab.getPosition();
                 if(tabSelect == 0){
-                    fragment1.setMUrl("http://192.168.3.163:8082/mp-lgj/apps/zxzssgltj/tongji" +
+                    fragment1.setMUrl("apps/zxzssgltj/tongji" +
                             "?id="+weekid+"&type=today&lmlb="+type);
                 }else if(tabSelect == 1){
-                    fragment2.setMUrl("http://192.168.3.163:8082/mp-lgj/apps/zxzssgltj/tongji" +
+                    fragment2.setMUrl("apps/zxzssgltj/tongji" +
                             "?id="+weekid+"&type=week&lmlb="+type);
                 }else if(tabSelect == 2){
-                    fragment3.setMUrl("http://192.168.3.163:8082/mp-lgj/apps/zxzssgltj/tongji" +
+                    fragment3.setMUrl("apps/zxzssgltj/tongji" +
                             "?id="+weekid+"&type=month&lmlb="+type);
                 }
 
@@ -137,7 +137,7 @@ public class ZsstjTabActivity extends MyActivity {
     public void getClassesorDepartments(){
         Map<String,Object> map = new HashMap<>();
         map.put("role",role);
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zxzssgltj/selected?role=1", map, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgltj/selected?role=1", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -151,7 +151,7 @@ public class ZsstjTabActivity extends MyActivity {
                                 weekname = dfxxes.get(0).getName();
                                 setTitle(weekname);
                                 weekid = dfxxes.get(0).getId();
-                                fragment1.setMUrl("http://192.168.3.163:8082/mp-lgj/apps/zxzssgltj/tongji" +
+                                fragment1.setMUrl("apps/zxzssgltj/tongji" +
                                         "?role="+role+"&id="+weekid+"&type=today&lx="+type);
                             }else{
                                 showErrorMsg(mViewpager,getErrorMsg());

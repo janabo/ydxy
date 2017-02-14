@@ -1,8 +1,19 @@
 package com.dk.mp.main.home.ui;
 
+import android.app.Service;
 import android.content.Intent;
+import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.dk.mp.core.db.AppManager;
+import com.dk.mp.core.entity.App;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.view.RecycleViewDivider;
 import com.dk.mp.main.R;
@@ -68,16 +79,6 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
         mRecyclerView.setAdapter(mWrappedAdapter);  // requires *wrapped* adapter
         mRecyclerView.setItemAnimator(animator);
         mRecyclerViewDragDropManager.attachRecyclerView(mRecyclerView);
-        //登录跟新界面图标
-//        getRxSharedPreferences().getString("user_info").asObservable().subscribe(new Action1<String>() {
-//            @Override
-//            public void call(String s) {
-//                apps.clear();
-//                apps.addAll(AppManager.getMyAppList(MainActivity.this));
-//                dataProvider.changeDatas(apps);
-//                mWrappedAdapter.notifyDataSetChanged();
-//            }
-//        });
         mRecyclerView.addItemDecoration(new RecycleViewDivider(HomeActivity.this, GridLayoutManager.VERTICAL, 1, Color.rgb(201, 201, 201)));//添加分割线
         mRecyclerView.addItemDecoration(new RecycleViewDivider(HomeActivity.this, GridLayoutManager.HORIZONTAL, 1, Color.rgb(201, 201, 201)));//添加分割线
 

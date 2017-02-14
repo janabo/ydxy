@@ -7,7 +7,11 @@
             android:name="com.dk.mp.xg.wsjc.ui.WsjcMainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeWsjc.NoTitle">
-            </activity>
+            <intent-filter>
+                <action android:name="sswzdf" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".wsjc.ui.WsjcDetailActivity"
@@ -36,7 +40,12 @@
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.WsjcTjMainActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="sswsdftj" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.WsjcTjTabActivity"
@@ -61,6 +70,10 @@
             android:name="com.dk.mp.xg.wsjc.ui.Sswz.SswzMainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeWsjc.NoTitle">
+            <intent-filter>
+                <action android:name="sswzdj" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 
         <activity
@@ -98,8 +111,12 @@
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZsstjMainActivity"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="zxzssgltj" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZsstjTabActivity"
             android:screenOrientation="portrait"/>
@@ -112,7 +129,12 @@
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZssglMainActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="zxzssgl" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            </activity>
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZssglMainDialogActivity"
@@ -132,8 +154,12 @@
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zsskq.ZsskqMainActivity"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="zsskq" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zsskq.ZsskqTjTabActivity"
             android:screenOrientation="portrait"/>
@@ -158,7 +184,12 @@
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssdjgl.ZssdjglTabActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="zsdjgl" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            </activity>
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssdjgl.ZssdjglAddLiusuActivity"

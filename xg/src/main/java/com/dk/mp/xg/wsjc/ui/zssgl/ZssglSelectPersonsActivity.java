@@ -122,7 +122,7 @@ public class ZssglSelectPersonsActivity extends MyActivity implements View.OnCli
     public void getList(){
         Map<String,Object> map = new HashMap<>();
         map.put("lmlb",lmlb);
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zxzssgl/student", map, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/student", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {

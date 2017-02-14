@@ -33,7 +33,7 @@ public class WsjcTjMainActivity extends MyActivity{
      */
     public void tobzr(View v){
         Intent intent = new Intent(this,WsjcTjTabActivity.class);
-        intent.putExtra("type","bzr");
+        intent.putExtra("role","1");
         startActivity(intent);
     }
 
@@ -42,7 +42,9 @@ public class WsjcTjMainActivity extends MyActivity{
      * @param v
      */
     public void toxb(View v){
-
+        Intent intent = new Intent(this,WsjcTjTabActivity.class);
+        intent.putExtra("role","3");
+        startActivity(intent);
     }
 
     /**
@@ -50,7 +52,9 @@ public class WsjcTjMainActivity extends MyActivity{
      * @param v
      */
     public void toxgc(View v){
-
+        Intent intent = new Intent(this,WsjcTjTabActivity.class);
+        intent.putExtra("role","4");
+        startActivity(intent);
     }
 
     /**

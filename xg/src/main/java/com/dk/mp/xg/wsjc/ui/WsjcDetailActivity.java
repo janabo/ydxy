@@ -34,6 +34,7 @@ import com.dk.mp.xg.wsjc.adapter.WsjcDetailAdapter;
 import com.dk.mp.xg.wsjc.adapter.WsjcImageAdapter;
 import com.dk.mp.xg.wsjc.entity.Dfxx;
 import com.dk.mp.xg.wsjc.entity.Kf;
+import com.dk.mp.xg.wsjc.entity.WsjcDetail;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -58,6 +59,7 @@ import static com.dk.mp.xg.R.id.ok_text;
  * 作者：janabo on 2017/1/9 14:20
  */
 public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.SaveEditListener,EasyPermissions.PermissionCallbacks{
+    private TextView ssqName,sslName,lcName,fjhName,rzxbName,cwsName;//宿舍区，宿舍楼，楼层，房间号，入住性别，床位数
     DrawHookView progress;//提交动画
     DrawCheckMarkView progress_check;//成功动画
     DrawCrossMarkView progress_cross;//错误动画
@@ -75,11 +77,12 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
     private RecyclerView gRecyclerView;//图片
     List<String> imgs = new ArrayList<>();//保存图片地址
     WsjcImageAdapter wImageAdapter;
+    WsjcDetail detail = null;
     Map<String,Integer> map = new HashMap<>();//存储打分信息
-    String ssq = "2";//宿舍区id
-    String ssl = "2";//宿舍楼id
-    String lc = "2";//楼层
-    String fjh = "2";//房间号id
+    String ssq = "";//宿舍区id
+    String ssl = "";//宿舍楼id
+    String lc = "";//楼层
+    String fjh = "";//房间号id
     String kfId = "";//扣分id
     String dfxxId = "";//打分信息id（多个，隔开）
     String df = "";//打分（多个，隔开，和dfxxId顺序对应）
@@ -94,9 +97,19 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
         super.initialize();
         setTitle("宿舍卫生检查");
         findView();
+        String wsjcDetail = getIntent().getStringExtra("wsjcDetail");
+        detail = new Gson().fromJson(wsjcDetail,WsjcDetail.class);
+        setDetailSetText(detail);
     }
 
     private void findView(){
+        ssqName = (TextView) findViewById(R.id.ssqName);
+        sslName = (TextView) findViewById(R.id.sslName);
+        lcName = (TextView) findViewById(R.id.lcName);
+        fjhName = (TextView) findViewById(R.id.fjhName);
+        rzxbName = (TextView) findViewById(R.id.rzxbName);
+        cwsName = (TextView) findViewById(R.id.cwsName);
+
         mRootView = (ScrollView) findViewById(R.id.mRootView);
         mdfxx = (TextView) findViewById(R.id.dfxx_pick);
         ok_lin = (LinearLayout) findViewById(R.id.ok);
@@ -117,6 +130,22 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
         gRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.HORIZONTAL));
         wImageAdapter = new WsjcImageAdapter(mContext,WsjcDetailActivity.this,imgs);
         gRecyclerView.setAdapter(wImageAdapter);
+
+    }
+
+    public void setDetailSetText(WsjcDetail d){
+        if(d != null) {
+            ssqName.setText(d.getSsqName());
+            sslName.setText(d.getSslName());
+            lcName.setText(d.getLcId());
+            fjhName.setText(d.getFjh());
+            rzxbName.setText(d.getXb());
+            cwsName.setText(d.getCws());
+            ssq = d.getSsqId();
+            ssl = d.getSslId();
+            lc = d.getLcId();
+            fjh = d.getFjhId();
+        }
     }
 
     public void getData(){

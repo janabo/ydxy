@@ -95,10 +95,9 @@ public class SswzRecordListActivity extends MyActivity implements View.OnClickLi
      * 获取数据
      */
     public void getList(){
-        mRecycle.startRefresh();
         Map<String, Object> map = new HashMap<>();
         map.put("pageNo",mRecycle.pageNo);
-        HttpUtil.getInstance().gsonRequest(new TypeToken<PageMsg<Sswz>>(){}, "http://192.168.3.163:8082/mp-lgj/apps/sswzdj/list", map, new HttpListener<PageMsg<Sswz>>() {
+        HttpUtil.getInstance().gsonRequest(new TypeToken<PageMsg<Sswz>>(){}, "apps/sswzdj/list", map, new HttpListener<PageMsg<Sswz>>() {
             @Override
             public void onSuccess(PageMsg<Sswz> result) {
                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);

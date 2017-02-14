@@ -62,8 +62,8 @@ public class WsjcRecordMainActivity extends MyActivity implements WsjcRecordMain
         sslRecyclerView = (RecyclerView) findViewById(R.id.ssl);
         lcRecyclerView = (RecyclerView) findViewById(R.id.lc);
 
-        ssqRecyclerView.setHasFixedSize ( true );
-        ssqRecyclerView.setLayoutManager ( new LinearLayoutManager( mContext ) );
+        ssqRecyclerView.setHasFixedSize ( false );
+        ssqRecyclerView.setLayoutManager ( new LinearLayoutManager( this ) );
         qAdapter = new WsjcRecordMainAdapter( mContext,mSsqList,1,selectSsq);
         ssqRecyclerView.setAdapter ( qAdapter );
         ssqRecyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.HORIZONTAL, DeviceUtil.dip2px(mContext,0.8f), Color.rgb(229, 229, 229)));
@@ -82,7 +82,6 @@ public class WsjcRecordMainActivity extends MyActivity implements WsjcRecordMain
         lcRecyclerView.setAdapter ( cAdapter );
         lcRecyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.HORIZONTAL, DeviceUtil.dip2px(mContext,0.8f), Color.rgb(229, 229, 229)));
         lcRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
     }
 
     @Override
@@ -104,13 +103,13 @@ public class WsjcRecordMainActivity extends MyActivity implements WsjcRecordMain
      * 获取数据
      */
     public void getList(){
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/sswzdf/level", null, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/sswzdf/level", null, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
                     if(result.getInt("code") == 200){
                         JSONArray ja = result.optJSONArray("data");
-                        if(ja != null) {
+                        if(ja != null && ja.length()>0) {
                             for (int i=0;i<ja.length();i++) {//解析宿舍区数据
                                 Kf kf = new Gson().fromJson(ja.getJSONObject(i).toString(), Kf.class);
                                 mSsqList.add(kf);

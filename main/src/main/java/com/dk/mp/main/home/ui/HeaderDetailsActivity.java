@@ -1,9 +1,6 @@
 package com.dk.mp.main.home.ui;
 
-import android.net.Uri;
-
 import com.dk.mp.core.ui.MyActivity;
-import com.dk.mp.core.view.DraweeView;
 import com.dk.mp.main.R;
 
 /**
@@ -11,7 +8,7 @@ import com.dk.mp.main.R;
  */
 public class HeaderDetailsActivity extends MyActivity{
 
-    private DraweeView imageView;
+//    private DraweeView imageView;
 
 
     @Override
@@ -22,8 +19,8 @@ public class HeaderDetailsActivity extends MyActivity{
     @Override
     protected void initialize() {
         super.initialize();
-        imageView = (DraweeView) findViewById(R.id.imageview);
-        imageView.setImageURI(Uri.parse(getIntent().getStringExtra("uri")));
+//        imageView = (DraweeView) findViewById(R.id.imageview);
+//        imageView.setImageURI(Uri.parse(getIntent().getStringExtra("uri")));
     }
 
 }

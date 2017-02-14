@@ -88,7 +88,7 @@ public class ZssdjglEditActivity extends MyActivity{
                     Map<String, Object> map = new HashMap<>();
                     map.put("id", detailid);
                     map.put("time", xjrq_pick.getText().toString());
-                    HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zsdjgl/xiaojia", map, new HttpListener<JSONObject>() {
+                    HttpUtil.getInstance().postJsonObjectRequest("apps/zsdjgl/xiaojia", map, new HttpListener<JSONObject>() {
                         @Override
                         public void onSuccess(JSONObject result) {
                             try {
@@ -111,7 +111,7 @@ public class ZssdjglEditActivity extends MyActivity{
                     map.put("endTime", jsrq_pick.getText().toString());
                     map.put("id", detailid);
                     map.put("type", type);
-                    HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zsdjgl/update", map, new HttpListener<JSONObject>() {
+                    HttpUtil.getInstance().postJsonObjectRequest("apps/zsdjgl/update", map, new HttpListener<JSONObject>() {
                         @Override
                         public void onSuccess(JSONObject result) {
                             try {

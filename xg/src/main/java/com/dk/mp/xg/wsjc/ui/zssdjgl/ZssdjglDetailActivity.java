@@ -77,7 +77,6 @@ public class ZssdjglDetailActivity extends MyActivity {
     @Override
     protected void initialize() {
         super.initialize();
-        getData();
     }
 
     /**
@@ -97,7 +96,7 @@ public class ZssdjglDetailActivity extends MyActivity {
     public void getContent(){
         Map<String,Object> map = new HashMap<>();
         map.put("id",detailid);
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zsdjgl/detail", map, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zsdjgl/detail", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -152,7 +151,7 @@ public class ZssdjglDetailActivity extends MyActivity {
                 Map<String,Object> map = new HashMap<>();
                 map.put("id",detailid);
                 map.put("type",type);
-                HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/zsdjgl/delete", map, new HttpListener<JSONObject>() {
+                HttpUtil.getInstance().postJsonObjectRequest("apps/zsdjgl/delete", map, new HttpListener<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject result) {
                         try {
@@ -208,5 +207,11 @@ public class ZssdjglDetailActivity extends MyActivity {
             intent.putExtra("xjrq",studentInfo.getXjsj());
         }
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
     }
 }

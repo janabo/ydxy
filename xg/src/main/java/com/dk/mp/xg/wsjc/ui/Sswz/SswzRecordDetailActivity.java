@@ -37,7 +37,7 @@ public class SswzRecordDetailActivity extends MyActivity{
         setTitle("宿舍违章登记");
         String id = getIntent().getStringExtra("id");
         setWebView ( );
-        mWebView.loadUrl(getUrl("http://192.168.3.163:8082/mp-lgj/apps/sswzdj/detail?id="+id));
+        mWebView.loadUrl(getUrl("apps/sswzdj/detail?id="+id));
     }
 
     private void setWebView ( ) {

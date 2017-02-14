@@ -16,11 +16,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
-import com.dk.mp.core.adapter.AdapterInterface;
 import com.dk.mp.core.entity.PageMsg;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.BaseFragment;
+import com.dk.mp.core.util.AdapterInterface;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.SnackBarUtil;
 import com.dk.mp.core.util.anni.TransitionHelper;

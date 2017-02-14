@@ -20,6 +20,7 @@ public class ErrorLayout extends LinearLayout implements
     public static final int DATAFAIL = 2;//获取失败
     public static final int NODATA = 3;//没有数据
     public static final int LOADDATA = 5;//加载数据
+    public static final int SEARCHNODATA = 6;//搜索无数据
     private boolean clickEnable = true;//是否可以点击
     private final Context context;
     public ImageView img;//错误图片
@@ -94,7 +95,7 @@ public class ErrorLayout extends LinearLayout implements
                 loadview.setVisibility(View.GONE);
                 img.setVisibility(View.VISIBLE);
                 tv.setVisibility(View.VISIBLE);
-                img.setImageResource(R.mipmap.net_fail);
+                img.setImageResource(R.mipmap.nonet);
                 tv.setText(R.string.net_no2);
                 clickEnable = true;
                 break;
@@ -103,8 +104,17 @@ public class ErrorLayout extends LinearLayout implements
                 loadview.setVisibility(View.GONE);
                 img.setVisibility(View.VISIBLE);
                 tv.setVisibility(View.VISIBLE);
-                img.setImageResource(R.mipmap.nodata);
+                img.setImageResource(R.mipmap.nodata_n);
                 tv.setText(R.string.nodata);
+                clickEnable = true;
+                break;
+            case SEARCHNODATA:
+                mErrorState = SEARCHNODATA;
+                loadview.setVisibility(View.GONE);
+                img.setVisibility(View.VISIBLE);
+                tv.setVisibility(View.VISIBLE);
+                img.setImageResource(R.mipmap.searchnodata);
+                tv.setText(R.string.searchnodata);
                 clickEnable = true;
                 break;
             case DATAFAIL:
@@ -112,7 +122,7 @@ public class ErrorLayout extends LinearLayout implements
                 loadview.setVisibility(View.GONE);
                 img.setVisibility(View.VISIBLE);
                 tv.setVisibility(View.VISIBLE);
-                img.setImageResource(R.mipmap.data_fail);
+                img.setImageResource(R.mipmap.errorserver);
                 tv.setText(R.string.data_fail);
                 clickEnable = true;
                 break;
