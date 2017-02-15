@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_search"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#f8f8f8"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/image48"
+        android:background="@color/white" >
+
+        <EditText
+            android:id="@+id/search_Keywords"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/cancle_search"
+            android:background="@drawable/textview_lin"
+            android:gravity="center_horizontal|left"
+            android:hint="请输入关键字"
+            android:imeOptions="actionSearch"
+            android:maxLength="25"
+            android:maxLines="1"
+            android:paddingLeft="8dp"
+            android:singleLine="true"
+            android:textSize="?attr/textSize12" >
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/cancle_search"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="取消"
+            android:textColor="#000000"
+            android:textSize="?attr/textSize14" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DFDFDF" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:id="@+id/framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"
+            android:background="@color/linecolor"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"/>
+    </LinearLayout>
+
+</LinearLayout>

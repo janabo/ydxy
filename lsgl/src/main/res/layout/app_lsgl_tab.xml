@@ -7,18 +7,40 @@
 
     <include layout="@layout/core_title_back"/>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tablayout"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabSelectedTextColor="@color/colorPrimary"
-        app:tabTextColor="#212121"
-        app:tabIndicatorColor="@color/colorPrimary"
-        android:background="@color/white"/>
+        android:layout_height="match_parent">
 
-    <com.dk.mp.core.widget.MyViewpager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tablayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabSelectedTextColor="@color/colorPrimary"
+                app:tabTextColor="#212121"
+                app:tabIndicatorColor="@color/colorPrimary"
+                android:background="@color/white"/>
+
+            <com.dk.mp.core.widget.MyViewpager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/search"
+            android:layout_gravity="right|bottom"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="40dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@mipmap/search"/>
+
+    </FrameLayout>
+
+
 
 </LinearLayout>

@@ -25,6 +25,7 @@ public class LsglMainActivity extends MyActivity{
     private LinearLayout bzr;
     private LinearLayout xb;
     private LinearLayout xgc;
+    private LinearLayout fdy;
 
     @Override
     protected int getLayoutID() {
@@ -43,6 +44,7 @@ public class LsglMainActivity extends MyActivity{
         bzr = (LinearLayout)findViewById(R.id.bzr);
         xb = (LinearLayout)findViewById(R.id.xb);
         xgc = (LinearLayout)findViewById(R.id.xgc);
+        fdy = (LinearLayout)findViewById(R.id.fdy);
     }
 
     private void loadDatas() {
@@ -58,12 +60,14 @@ public class LsglMainActivity extends MyActivity{
                             //errory
                         } else {
                             for (RoleEntity role : roles) {
-                                if (role.getRole().equals("1")) {
+                                if (role.getId().equals("1")) {
                                     bzr.setVisibility(View.VISIBLE);
-                                } else if (role.getRole().equals("3")) {
+                                } else if (role.getId().equals("3")) {
                                     xb.setVisibility(View.VISIBLE);
-                                } else if (role.getRole().equals("4")) {
+                                } else if (role.getId().equals("4")) {
                                     xgc.setVisibility(View.VISIBLE);
+                                } else if (role.getId().equals("2")) {
+                                    fdy.setVisibility(View.VISIBLE);
                                 }
                             }
                         }
@@ -80,20 +84,34 @@ public class LsglMainActivity extends MyActivity{
         });
     }
 
+    android.os.Handler handler=new android.os.Handler();
+    boolean isposting = false;
+
     public void tobzr(View v){
-        Intent intent = new Intent(this,LsglTabActivity.class);
-        intent.putExtra("role","1");
-        startActivity(intent);
+        doStartActivity("1");
     }
     public void toxb(View v){
-        Intent intent = new Intent(this,LsglTabActivity.class);
-        intent.putExtra("role","3");
-        startActivity(intent);
+        doStartActivity("3");
     }
     public void toxg(View v){
-        Intent intent = new Intent(this,LsglTabActivity.class);
-        intent.putExtra("role","4");
-        startActivity(intent);
+        doStartActivity("4");
+    }
+    public void tofdy(View v){
+        doStartActivity("2");
     }
 
+    private void doStartActivity(final String role){
+        if (!isposting) {
+            isposting = true;
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(LsglMainActivity.this,LsglTabActivity.class);
+                    intent.putExtra("role",role);
+                    startActivity(intent);
+                    isposting = false;
+                }
+            },500);
+        }
+    }
 }

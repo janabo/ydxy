@@ -36,12 +36,13 @@ import java.util.Map;
  * Created by dongqs on 2017/2/4.
  */
 
-public class LsglListFragment extends BaseFragment{
+public class LsglSearchListFragment extends BaseFragment{
 
     private MyListView myListView;
     private List<PersonEntity> list = new ArrayList<PersonEntity>();
     private String role;
     private String type;
+    private String key;
 
     private boolean canFk;
     private boolean canBz;
@@ -66,11 +67,13 @@ public class LsglListFragment extends BaseFragment{
         map.put("pageNo", myListView.pageNo);
         map.put("type", type);
         map.put("role", role);
+        map.put("key", key);
+
         if(!DeviceUtil.checkNet()){//判断是否有网络
             myListView.error(MyListView.Error.NoNetwork);
             return;
         }
-        HttpUtil.getInstance().postJsonObjectRequest("apps/lsxsgl/list", map, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/lsxsgl/ss", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 if (result.optInt("code") == 200){//成功返回数据
@@ -125,12 +128,12 @@ public class LsglListFragment extends BaseFragment{
         public RecyclerView.ViewHolder setItemView(ViewGroup parent, int viewType) {
             final View view1 = LayoutInflater.from(getContext()).inflate(R.layout.app_lsgl_list_item, parent, false);// 设置要转化的layout文件
             view1.findViewById(R.id.doclick).setOnClickListener(new View.OnClickListener() {
-                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onClick(final View view) {
                     if (!isposting){
                         isposting = true;
                         handler.postDelayed(new Runnable() {
+                            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                             @Override
                             public void run() {
                                 Intent intent = new Intent(getContext(),LsglInfoActivity.class);
@@ -138,23 +141,14 @@ public class LsglListFragment extends BaseFragment{
                                 intent.putExtra("type",type);
                                 intent.putExtra("canFk",canFk);
                                 intent.putExtra("canBz",canBz);
-//                    startActivityForResult(intent,0);
-                                view.setTransitionName("item");
+//                                startActivityForResult(intent,0);view.setTransitionName("item");
                                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), view, "item");
                                 ActivityCompat.startActivity(getActivity(),intent, options.toBundle());
                                 isposting = false;
                             }
-                        }, 500);
+                        },500);
                     }
-//                    Intent intent = new Intent(getContext(),LsglInfoActivity.class);
-//                    intent.putExtra("id",list.get(Integer.valueOf(view1.getTag().toString())).getId());
-//                    intent.putExtra("type",type);
-//                    intent.putExtra("canFk",canFk);
-//                    intent.putExtra("canBz",canBz);
-////                    startActivityForResult(intent,0);
-//                    view.setTransitionName("item");
-//                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), view, "item");
-//                    ActivityCompat.startActivity(getActivity(),intent, options.toBundle());
+
                 }
             });
             return new MyView(view1);
@@ -176,6 +170,11 @@ public class LsglListFragment extends BaseFragment{
         }
     };
 
+    public void reloadDatas(String key){
+        this.key = key;
+        myListView.reLoadDatas();
+    }
+
     public String getRole() {
         return role;
     }
@@ -192,14 +191,6 @@ public class LsglListFragment extends BaseFragment{
         this.type = type;
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == 0 && resultCode == -1){
-//            myListView.reLoadDatas();
-//        }
-//
-//    }
 }
 
 
