@@ -4,11 +4,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.dk.mp.core.db.RealmHelper;
-import com.dk.mp.core.entity.App;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.CrashHandler;
-import com.dk.mp.core.util.ImagePipelineConfigFactory;
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -35,8 +32,6 @@ public class MyApplication extends Application{
         return instance;
     }
 
-    public static App app = new App("","","","显示应用","-1","","icon_addapp","addapps");
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -57,9 +52,6 @@ public class MyApplication extends Application{
 
         //在自己的Application中添加如下代码
         refWatcher = LeakCanary.install(this);
-
-        //初始化图片加载框架
-        Fresco.initialize(this, ImagePipelineConfigFactory.getImagePipelineConfig(this));
     }
 
     //在自己的Application中添加如下代码

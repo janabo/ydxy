@@ -44,15 +44,14 @@ public class RcapDetailEditActivity extends MyActivity implements View.OnClickLi
         mRealmHelper = new RealmHelper(this);
         Intent intent = getIntent();
         idRcap = getIntent().getStringExtra("idRcap");
-        findView();
+        initView();
         mTitle.setText(intent.getStringExtra("title"));
-
     }
 
     /**
      * 初始化
      */
-    private void findView(){
+    private void initView(){
         mTitle = (TextView) findViewById(R.id.title);
         sTitle = (EditText) findViewById(R.id.schedule_title);
         content = (EditText) findViewById(R.id.schedule_content);

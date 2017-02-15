@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="textSize17" format="dimension" />
-    <attr name="textSize16" format="dimension" />
     <attr name="textSize15" format="dimension" />
     <attr name="textSize14" format="dimension" />
     <attr name="textSize13" format="dimension" />

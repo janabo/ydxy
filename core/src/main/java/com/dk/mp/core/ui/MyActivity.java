@@ -68,6 +68,10 @@ public abstract class MyActivity extends AppCompatActivity{
         registerReceiver(receiver, intentFilter2);
         initView();
         initialize ( );
+
+        //在自己的应用初始Activity中加入如下两行代码
+//        RefWatcher refWatcher = MyApplication.getRefWatcher(this);
+//        refWatcher.watch(this);
     }
 
     private IntentFilter intentFilter2 = new IntentFilter();

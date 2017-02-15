@@ -7,14 +7,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.dk.mp.core.R;
 import com.dk.mp.core.application.MyApplication;
-import com.dk.mp.core.entity.LoginMsg;
 import com.dk.mp.core.http.okhttp.OkHttp3Stack;
 import com.dk.mp.core.http.request.GsonRequest;
 import com.dk.mp.core.http.request.GsonRequestJson;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.http.request.HttpRequest;
 import com.dk.mp.core.http.request.JsonObjectRequest;
-import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
@@ -52,6 +50,30 @@ public class HttpUtil {
         return httpUtil;
     }
 
+//    /**
+//     * post请求
+//     * @param listener
+//     */
+//    public void post (String url, final Map< String, String > param, final HttpUtil.RequestListener listener ) {
+//        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest ( Request.Method.POST, url, new Response.Listener<JSONObject> ( ) {
+//            @Override
+//            public void onResponse ( JSONObject response ) {
+//                listener.onResponse ( response );
+//            }
+//        }, new Response.ErrorListener ( ) {
+//            @Override
+//            public void onErrorResponse ( VolleyError error ) {
+//                listener.onError ( error );
+//            }
+//        } ){
+//            @Override
+//            protected Map< String, String > getParams ( ) throws AuthFailureError {
+//                return param;
+//            }
+//        };
+//        mRequestQueue.add ( jsonObjectRequest );
+//    }
+
     /**
      * gson 请求获取data外层的数据
      * @param url
@@ -77,11 +99,6 @@ public class HttpUtil {
         if(param == null ||param.isEmpty()){
             httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.GET).build();
         }else{
-            LoginMsg loginMsg = new CoreSharedPreferencesHelper(mContext).getLoginMsg();
-            if (loginMsg != null&&!"login".equals(url)) {
-                param.put("uid", loginMsg.getUid());
-                param.put("pwd", loginMsg.getPsw());
-            }
             httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.POST).addParam(param).build();
         }
         GsonRequest<T> request = new GsonRequest<T>(typeToken,httpRequest,listener);
@@ -96,17 +113,7 @@ public class HttpUtil {
      * @param <T>
      */
     public <T> void gsonRequestJson(Class<T> tClass, String url, Map<String,Object> param, HttpListener<T> listener) {
-        HttpRequest httpRequest;
-        if(param == null ||param.isEmpty()){
-            httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.GET).build();
-        }else{
-            LoginMsg loginMsg = new CoreSharedPreferencesHelper(mContext).getLoginMsg();
-            if (loginMsg != null&&!"login".equals(url)) {
-                param.put("uid", loginMsg.getUid());
-                param.put("pwd", loginMsg.getPsw());
-            }
-            httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.POST).addParam(param).build();
-        }
+        HttpRequest httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.POST).addParam(param).build();
         GsonRequestJson<T> request = new GsonRequestJson<T>(tClass,httpRequest,listener);
         mRequestQueue.add (request);
     }
@@ -116,35 +123,9 @@ public class HttpUtil {
         if(param == null ||param.isEmpty()){
             httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.GET).build();
         }else{
-            LoginMsg loginMsg = new CoreSharedPreferencesHelper(mContext).getLoginMsg();
-            if (loginMsg != null&&!"login".equals(url)) {
-                param.put("uid", loginMsg.getUid());
-                param.put("pwd", loginMsg.getPsw());
-            }
             httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.POST).addParam(param).build();
         }
-        JsonObjectRequest request = new JsonObjectRequest(httpRequest, listener);
-        mRequestQueue.add (request);
-    }
-
-    /**
-     * 获取data里面的list数组
-     * @param url 请求地址
-     * @param param 请求参数
-     * @param listener 监听
-     */
-    public void getDataListRequest(String url, Map<String,Object> param,HttpListener<JSONObject> listener) {
-        HttpRequest httpRequest;
-        if(param == null ||param.isEmpty()){
-            httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.GET).build();
-        }else{
-            LoginMsg loginMsg = new CoreSharedPreferencesHelper(mContext).getLoginMsg();
-            if (loginMsg != null&&!"login".equals(url)) {
-                param.put("uid", loginMsg.getUid());
-                param.put("pwd", loginMsg.getPsw());
-            }
-            httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.POST).addParam(param).build();
-        }
+//        HttpRequest httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.POST).addParam(param).build();
         JsonObjectRequest request = new JsonObjectRequest(httpRequest, listener);
         mRequestQueue.add (request);
     }

@@ -57,7 +57,7 @@
             android:enabled="false" />
 
         <activity
-            android:name="com.dk.mp.main.splash.SplashActivity"
+            android:name="com.dk.mp.lgj.SplashActivity"
             android:theme="@style/AppTheme.Splash.Fullscreen" android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

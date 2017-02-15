@@ -2,11 +2,12 @@ package com.dk.mp.core.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.dk.mp.core.R;
 
 /**
  * 动态打勾效果
@@ -49,7 +50,7 @@ public class DrawHookView extends View {
          */
         Paint paint = new Paint();
         //设置画笔颜色
-        paint.setColor(Color.WHITE);
+        paint.setColor(getResources().getColor(R.color.arc_blue));
         //设置圆弧的宽度
         paint.setStrokeWidth(5);
         //设置圆弧为空心
@@ -67,34 +68,33 @@ public class DrawHookView extends View {
         RectF rectF = new RectF(center - radius -1, center - radius -1 ,center + radius + 1, center + radius + 1);
 
         //根据进度画圆弧
-//        canvas.drawArc(rectF, 235, -360 * progress / 100, false, paint);
-        canvas.drawArc(rectF, -360 * progress / 100, 180, false, paint);
+        canvas.drawArc(rectF, 235, -360 * progress / 100, false, paint);
 
         /**
          * 绘制对勾
          */
         //先等圆弧画完，才话对勾
-//        if(progress >= 100) {
-//            if(line1_x < radius / 3) {
-//                line1_x++;
-//                line1_y++;
-//            }
-//            //画第一根线
-//            canvas.drawLine(center1, center, center1 + line1_x, center + line1_y, paint);
-//
-//            if (line1_x == radius / 3) {
-//                line2_x = line1_x;
-//                line2_y = line1_y;
-//                line1_x++;
-//                line1_y++;
-//            }
-//            if (line1_x >= radius / 3 && line2_x <= radius) {
-//                line2_x++;
-//                line2_y--;
-//            }
-//            //画第二根线
-//            canvas.drawLine(center1 + line1_x - 1, center + line1_y, center1 + line2_x, center + line2_y, paint);
-//        }
+        if(progress >= 100) {
+            if(line1_x < radius / 3) {
+                line1_x++;
+                line1_y++;
+            }
+            //画第一根线
+            canvas.drawLine(center1, center, center1 + line1_x, center + line1_y, paint);
+
+            if (line1_x == radius / 3) {
+                line2_x = line1_x;
+                line2_y = line1_y;
+                line1_x++;
+                line1_y++;
+            }
+            if (line1_x >= radius / 3 && line2_x <= radius) {
+                line2_x++;
+                line2_y--;
+            }
+            //画第二根线
+            canvas.drawLine(center1 + line1_x - 1, center + line1_y, center1 + line2_x, center + line2_y, paint);
+        }
 
         //每隔10毫秒界面刷新
         postInvalidateDelayed(10);

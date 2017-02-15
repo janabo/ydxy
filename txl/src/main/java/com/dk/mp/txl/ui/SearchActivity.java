@@ -54,7 +54,7 @@ public class SearchActivity extends MyActivity{
     @Override
     protected void initialize() {
         super.initialize();
-        findView();
+        initView();
        if(DeviceUtil.checkNet()){//判断是否有网络
            mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
        }else{
@@ -65,7 +65,7 @@ public class SearchActivity extends MyActivity{
     /**
      * 初始化界面
      */
-    private void findView(){
+    private void initView(){
         mError = (ErrorLayout) findViewById(R.id.error_layout);
         layout_search = (LinearLayout) findViewById(R.id.layout_search);
         mKeywords = (EditText) findViewById(R.id.search_Keywords);

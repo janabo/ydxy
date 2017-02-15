@@ -1,16 +1,3 @@
 <resources>
     <string name="app_name">Schedule</string>
-
-    <array name="week_names">
-        <item>周一</item>
-        <item>周二</item>
-        <item>周三</item>
-        <item>周四</item>
-        <item>周五</item>
-        <item>周六</item>
-        <item>周日</item>
-    </array>
-    <string name="time_next">Next</string>
-    <string name="time_prev">Previous</string>
-
 </resources>

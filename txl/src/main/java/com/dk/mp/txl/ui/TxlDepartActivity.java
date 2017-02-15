@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.dk.mp.core.entity.Department;
@@ -219,7 +220,7 @@ public class TxlDepartActivity extends MyActivity implements EasyPermissions.Per
 
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
-        SnackBarUtil.showShort(mdialog, "请正确授权");
+        Toast.makeText(mContext, "请正确授权", Toast.LENGTH_LONG).show();
     }
 
     /**
