@@ -53,9 +53,9 @@
                         android:textColor="#9c9c9c"
                         android:textSize="14sp"/>
                     <TextView
+                        android:id="@+id/xq"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:text="新校区"
                         android:textColor="#212121"
                         android:textSize="14sp"/>
                 </LinearLayout>
@@ -73,9 +73,9 @@
                         android:textColor="#9c9c9c"
                         android:textSize="14sp"/>
                     <TextView
+                        android:id="@+id/ssq"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:text="A栋"
                         android:textColor="#212121"
                         android:textSize="14sp"/>
                 </LinearLayout>
@@ -93,9 +93,9 @@
                         android:textColor="#9c9c9c"
                         android:textSize="14sp"/>
                     <TextView
+                        android:id="@+id/ssl"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:text="A3"
                         android:textColor="#212121"
                         android:textSize="14sp"/>
                 </LinearLayout>
@@ -113,9 +113,9 @@
                         android:textColor="#9c9c9c"
                         android:textSize="14sp"/>
                     <TextView
+                        android:id="@+id/fjh"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:text="1008"
                         android:textColor="#212121"
                         android:textSize="14sp"/>
                 </LinearLayout>

@@ -31,6 +31,12 @@
 
     </RelativeLayout>
 
+    <com.dk.mp.core.widget.ErrorLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/error_layout"
+        android:gravity="center_horizontal"/>
+
     <LinearLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
@@ -45,7 +51,8 @@
             android:gravity="center"
             android:orientation="vertical"
             android:layout_margin="5dp"
-            android:onClick="tobzr">
+            android:onClick="tobzr"
+            android:visibility="gone">
             <LinearLayout
                 android:layout_height="40dp"
                 android:layout_width="40dp"
@@ -79,7 +86,8 @@
             android:gravity="center"
             android:orientation="vertical"
             android:layout_margin="5dp"
-            android:onClick="toxb">
+            android:onClick="toxb"
+            android:visibility="gone">
             <LinearLayout
                 android:layout_height="40dp"
                 android:layout_width="40dp"
@@ -113,7 +121,8 @@
             android:gravity="center"
             android:orientation="vertical"
             android:layout_margin="5dp"
-            android:onClick="toxgc">
+            android:onClick="toxgc"
+            android:visibility="gone">
             <LinearLayout
                 android:layout_height="40dp"
                 android:layout_width="40dp"

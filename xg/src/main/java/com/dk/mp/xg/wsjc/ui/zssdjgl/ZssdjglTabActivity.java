@@ -3,7 +3,6 @@ package com.dk.mp.xg.wsjc.ui.zssdjgl;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.dk.mp.core.ui.BaseFragment;
 import com.dk.mp.core.ui.MyActivity;
@@ -22,7 +21,7 @@ import java.util.List;
 public class ZssdjglTabActivity extends MyActivity{
     TabLayout mTabLayout;
     MyViewpager mViewpager;
-    LinearLayout search_button;
+//    LinearLayout search_button;
 
     @Override
     protected int getLayoutID() {
@@ -35,7 +34,7 @@ public class ZssdjglTabActivity extends MyActivity{
         setTitle(getIntent().getStringExtra("title"));
         mTabLayout = (TabLayout) findViewById(R.id.tablayout);
         mViewpager = (MyViewpager) findViewById(R.id.viewpager);
-        search_button = (LinearLayout) findViewById(R.id.search_button);
+//        search_button = (LinearLayout) findViewById(R.id.search_button);
     }
 
     @Override

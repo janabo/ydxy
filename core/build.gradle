@@ -13,6 +13,17 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         useLibrary 'org.apache.http.legacy'
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a','x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : "com.dk.mp.lgj",
+                JPUSH_APPKEY : "c40f7578e3051310c7e5f4b0", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
     }
     buildTypes {
         release {
@@ -52,5 +63,7 @@ dependencies {
     compile 'com.jude:rollviewpager:1.4.5'
     compile 'com.kogitune:pre-lollipop-activity-transition:1.3.3'
 //    compile 'com.google.android.gms:play-services:10.0.1'
+    compile 'cn.jiguang.sdk:jpush:3.0.0'  // 此处以JPush 3.0.0 版本为例。
+    compile 'cn.jiguang.sdk:jcore:1.0.0'  // 此处以JCore 1.0.0 版本为例。
 
 }

@@ -46,33 +46,33 @@
         app:tabIndicatorColor="@color/colorPrimary"
         android:background="@color/white"/>
 
-    <LinearLayout
-        android:id="@+id/search_button"
-        android:layout_height="38dp"
-        android:layout_width="match_parent"
-        android:background="#f4f4f4">
-        <LinearLayout
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/radius_border_f4"
-            android:gravity="center"
-            android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:src="@mipmap/search"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#c9c9c9"
-                    android:textSize="12sp"
-                    android:text="搜索"
-                    android:layout_marginLeft="10dp"/>
-            </LinearLayout>
-    </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:id="@+id/search_button"-->
+        <!--android:layout_height="38dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:background="#f4f4f4">-->
+        <!--<LinearLayout-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_marginLeft="15dp"-->
+            <!--android:layout_marginRight="15dp"-->
+            <!--android:background="@drawable/radius_border_f4"-->
+            <!--android:gravity="center"-->
+            <!--android:orientation="horizontal">-->
+                <!--<ImageView-->
+                    <!--android:layout_width="12dp"-->
+                    <!--android:layout_height="12dp"-->
+                    <!--android:src="@mipmap/search"/>-->
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textColor="#c9c9c9"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:text="搜索"-->
+                    <!--android:layout_marginLeft="10dp"/>-->
+            <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
 
     <RelativeLayout
         android:layout_height="match_parent"
@@ -103,7 +103,9 @@
                 fab:fab_colorNormal="@color/floatmenu_color"
                 fab:fab_colorPressed="@color/floatmenu_color_pressed"
                 fab:fab_size="mini"
-                android:onClick="addLiusu"/>
+                android:onClick="addLiusu"
+                android:src="@mipmap/liusu"
+                android:scaleType="fitCenter"/>
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/qingjia"
@@ -112,7 +114,9 @@
                 fab:fab_colorNormal="@color/floatmenu_color"
                 fab:fab_colorPressed="@color/floatmenu_color_pressed"
                 fab:fab_size="mini"
-                android:onClick="addQingjia"/>
+                android:onClick="addQingjia"
+                android:src="@mipmap/qingjia"
+                android:scaleType="fitCenter"/>
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

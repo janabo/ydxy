@@ -70,7 +70,7 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:id="@+id/error_layout"
-            android:gravity="center"/>
+            android:gravity="center_horizontal"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/person_recycle"

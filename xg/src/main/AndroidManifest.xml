@@ -207,6 +207,10 @@
             android:name="com.dk.mp.xg.wsjc.ui.zssdjgl.ZssdjglEditActivity"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.zssdjgl.ZssdjglSearchActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

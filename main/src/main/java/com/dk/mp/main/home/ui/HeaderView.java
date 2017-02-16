@@ -60,7 +60,7 @@ public class HeaderView {
                 TextView textView = (TextView) view.findViewById(R.id.tip);
 
                 Log.e("test","-----"+slideList.size()+"------------"+position+"--------------------");
-                if(slideList !=null && slideList.size()>0) {
+                if(slideList !=null && slideList.size()>= position) {
                     textView.setText(slideList.get(position).getName());
                 }
             }

@@ -63,6 +63,7 @@ public class ZssglFragment extends BaseFragment implements View.OnClickListener{
     public void setLmlb(String lmlb) {
         this.lmlb = lmlb;
         mData.clear();
+        myListView.clearList();
         getData();
     }
 
@@ -129,14 +130,14 @@ public class ZssglFragment extends BaseFragment implements View.OnClickListener{
         map.put("pageNo",myListView.pageNo);
         map.put("type",mType);
         map.put("lmlb", lmlb);
-        HttpUtil.getInstance().gsonRequest(new TypeToken<PageMsg<Zssgl>>(){}, "http://192.168.3.163:8082/mp-lgj/apps/zxzssgl/list", map, new HttpListener<PageMsg<Zssgl>>() {
+        HttpUtil.getInstance().gsonRequest(new TypeToken<PageMsg<Zssgl>>(){}, "apps/zxzssgl/list", map, new HttpListener<PageMsg<Zssgl>>() {
             @Override
             public void onSuccess(PageMsg<Zssgl> result) {
                 myListView.stopRefresh(true);
                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                 if(result.getList() != null && result.getList().size()>0) {//是否获取到数据
                     mData.addAll(result.getList());
-                    myListView.getAdapter().notifyDataSetChanged();
+                    myListView.addList(result.getList());
                 }else{
                     if(myListView.pageNo == 1) {//是否是第一页
                         mError.setErrorType(ErrorLayout.NODATA);

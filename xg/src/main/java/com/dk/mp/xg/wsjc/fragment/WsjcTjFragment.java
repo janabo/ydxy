@@ -29,16 +29,15 @@ public class WsjcTjFragment extends BaseFragment{
         super.initialize(view);
         mWebView = (WebView) view.findViewById(R.id.mWebview);
         mProgressBar = (ProgressBar) view.findViewById(R.id.pb_new_detail);
-        setWebView();
     }
 
     public void setMUrl(String url){
+        setWebView();
         url = getUrl(url);
         Logger.info("##########murl="+url);
         mWebView.removeAllViews();
         mWebView.clearCache(true);
         mWebView.loadUrl (url);
-        mWebView.reload();
     }
 
     private void setWebView ( ) {
@@ -49,7 +48,6 @@ public class WsjcTjFragment extends BaseFragment{
         settings.setBlockNetworkImage ( false );  //设置图片最后加载
         settings.setDatabaseEnabled ( true );
         settings.setCacheMode ( WebSettings.LOAD_NO_CACHE );
-        settings.setAppCacheEnabled ( true );
         settings.setJavaScriptEnabled ( true );    //启用JS脚本
     }
 

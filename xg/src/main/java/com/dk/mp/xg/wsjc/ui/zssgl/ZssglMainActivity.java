@@ -113,6 +113,7 @@ public class ZssglMainActivity extends MyActivity{
                     if(!"-1".equals(lmlb)){
                         setTitle(lmlbname);
                         fragment1.setLmlb(lmlb);
+                        fragment2.setLmlb(lmlb);
                     }
                 }
                 break;

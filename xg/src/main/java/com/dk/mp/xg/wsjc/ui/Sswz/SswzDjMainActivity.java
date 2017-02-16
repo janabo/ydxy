@@ -31,6 +31,7 @@ import com.dk.mp.core.view.DrawHookView;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.adapter.SswzImageAdapter;
 import com.dk.mp.xg.wsjc.entity.Common;
+import com.dk.mp.xg.wsjc.entity.WsjcDetail;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -69,6 +70,9 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
     List<Common> wjlbs = new ArrayList<>();//违纪类别
     private EditText wjdh_txt,bz;//违纪单号,备注
     private String wjxsid,wjlbid,tbrid;//违纪学生,违纪类别
+    WsjcDetail detail = null;
+    private TextView fjh,ssl,ssq,xq;//房间号，宿舍楼，宿舍区，校区
+    private String fjhid,sslid,ssqid,xqid;
 
 
     @Override
@@ -79,6 +83,10 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
     @Override
     protected void initView() {
         super.initView();
+        fjh = (TextView) findViewById(R.id.fjh);
+        ssl = (TextView) findViewById(R.id.ssl);
+        ssq = (TextView) findViewById(R.id.ssq);
+        xq = (TextView) findViewById(R.id.xq);
         bz = (EditText) findViewById(R.id.bz);
         wjlb_lin = (LinearLayout) findViewById(R.id.wjlb_lin);
         wjlb_txt = (TextView) findViewById(R.id.wjlb_txt);
@@ -108,6 +116,10 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
         wjxs_lin.setOnClickListener(this);
         tbr_lin.setOnClickListener(this);
         wjlb_lin.setOnClickListener(this);
+
+        String wsjcDetail = getIntent().getStringExtra("wsjcDetail");
+        detail = new Gson().fromJson(wsjcDetail,WsjcDetail.class);
+        setDetailSetText(detail);
     }
 
     @Override
@@ -115,6 +127,19 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
         super.initialize();
         setTitle("宿舍违章登记");
         getWjlbs();
+    }
+
+    public void setDetailSetText(WsjcDetail d){
+        if(d != null) {
+            fjh.setText(d.getFjh());
+            ssl.setText(d.getSslName());
+            ssq.setText(d.getSsqName());
+            xq.setText(d.getXqName());
+            fjhid = d.getFjhId();
+            sslid = d.getSslId();
+            ssqid = d.getSsqId();
+            xqid = d.getXqId();
+        }
     }
 
 
@@ -311,10 +336,10 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
         ok_lin.setEnabled(false);//设置不能点击
         Map<String,Object> params = new HashMap<>();
         params.put("Id", UUID.randomUUID().toString());
-        params.put("xq","001");
-        params.put("ssq","001");
-        params.put("ssl","0001");
-        params.put("fjh","00001");
+        params.put("xq",xqid);
+        params.put("ssq",ssqid);
+        params.put("ssl",sslid);
+        params.put("fjh",fjhid);
         params.put("wjxs",wjxsid);
         params.put("wjrq",wjrq.getText().toString());
         params.put("wjdhbh",wjdh_txt.getText().toString());

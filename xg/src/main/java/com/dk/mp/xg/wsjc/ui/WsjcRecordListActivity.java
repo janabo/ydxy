@@ -90,7 +90,7 @@ public class WsjcRecordListActivity extends MyActivity implements View.OnClickLi
         map.put("ssqId",ssqId);
         map.put("sslId",sslId);
         map.put("lcId",lcId);
-        HttpUtil.getInstance().postJsonObjectRequest("http://192.168.3.163:8082/mp-lgj/apps/sswzdf/record", map, new HttpListener<JSONObject>() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/sswzdf/record", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {

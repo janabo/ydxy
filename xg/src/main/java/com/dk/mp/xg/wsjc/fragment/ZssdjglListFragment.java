@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -25,6 +26,7 @@ import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.entity.Zssdjgl;
 import com.dk.mp.xg.wsjc.ui.zssdjgl.ZssdjglDetailActivity;
+import com.dk.mp.xg.wsjc.ui.zssdjgl.ZssdjglSearchActivity;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ public class ZssdjglListFragment extends BaseFragment implements View.OnClickLis
     private MyListView myListView;
     private String mType;
     private List<Zssdjgl> mData = new ArrayList<>();
+    private LinearLayout search_button;
 
     public static ZssdjglListFragment newInstance(String type) {
         Bundle args = new Bundle();
@@ -64,6 +67,15 @@ public class ZssdjglListFragment extends BaseFragment implements View.OnClickLis
         mError = (ErrorLayout) view.findViewById(R.id.error_layout);
         myListView = (MyListView)view.findViewById(mList);
         mError.setOnLayoutClickListener(this);
+        search_button = (LinearLayout) view.findViewById(R.id.search_button);
+        search_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, ZssdjglSearchActivity.class);
+                intent.putExtra("type",mType);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -115,7 +127,7 @@ public class ZssdjglListFragment extends BaseFragment implements View.OnClickLis
         map.put("pageNo",myListView.pageNo);
         map.put("type",mType);
         map.put("role", "1");
-        HttpUtil.getInstance().gsonRequest(new TypeToken<PageMsg<Zssdjgl>>(){}, "http://192.168.3.163:8082/mp-lgj/apps/zsdjgl/xsList", map, new HttpListener<PageMsg<Zssdjgl>>() {
+        HttpUtil.getInstance().gsonRequest(new TypeToken<PageMsg<Zssdjgl>>(){}, "apps/zsdjgl/xsList", map, new HttpListener<PageMsg<Zssdjgl>>() {
             @Override
             public void onSuccess(PageMsg<Zssdjgl> result) {
                 myListView.stopRefresh(true);

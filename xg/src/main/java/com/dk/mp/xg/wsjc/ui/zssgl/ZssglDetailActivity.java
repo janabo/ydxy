@@ -1,6 +1,8 @@
 package com.dk.mp.xg.wsjc.ui.zssgl;
 
+import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
 import com.dk.mp.core.http.HttpUtil;
@@ -25,6 +27,7 @@ public class ZssglDetailActivity extends MyActivity{
     Button pass,notpass,untread;//通过，不通过，退回
     String detailid,lmlb;
     private ErrorLayout mError;
+    private LinearLayout lin_footer;
 
     @Override
     protected int getLayoutID() {
@@ -40,6 +43,7 @@ public class ZssglDetailActivity extends MyActivity{
         notpass = (Button) findViewById(R.id.notpass);
         untread = (Button) findViewById(R.id.untread);
         mError = (ErrorLayout) findViewById(R.id.error_layout);
+        lin_footer = (LinearLayout) findViewById(R.id.lin_footer);
     }
 
     @Override
@@ -58,6 +62,7 @@ public class ZssglDetailActivity extends MyActivity{
             getContent();
         }else{
             mError.setErrorType(ErrorLayout.NETWORK_ERROR);
+            lin_footer.setVisibility(View.GONE);
         }
     }
 
@@ -75,21 +80,26 @@ public class ZssglDetailActivity extends MyActivity{
                     if(result != null) {
                         int code = result.getInt("code");
                         if (code == 200) {
+                            lin_footer.setVisibility(View.VISIBLE);
 
                         } else {
                             mError.setErrorType(ErrorLayout.DATAFAIL);
+                            lin_footer.setVisibility(View.GONE);
                         }
                     }else{
                         mError.setErrorType(ErrorLayout.DATAFAIL);
+                        lin_footer.setVisibility(View.GONE);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                     mError.setErrorType(ErrorLayout.DATAFAIL);
+                    lin_footer.setVisibility(View.GONE);
                 }
             }
             @Override
             public void onError(VolleyError error) {
                 mError.setErrorType(ErrorLayout.DATAFAIL);
+                lin_footer.setVisibility(View.GONE);
             }
         });
 

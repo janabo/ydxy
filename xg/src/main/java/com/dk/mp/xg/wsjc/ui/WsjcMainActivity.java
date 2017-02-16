@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -43,7 +44,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class WsjcMainActivity extends MyActivity implements
         SurfaceHolder.Callback, EasyPermissions.PermissionCallbacks {
     private SurfaceView scanPreview = null;
-    private RelativeLayout scanContainer;
+    private LinearLayout scanContainer;
     private RelativeLayout scanCropView;
     private ImageView scanLine;
     private InactivityTimer inactivityTimer;
@@ -256,7 +257,7 @@ public class WsjcMainActivity extends MyActivity implements
     }
 
     private void initCamera() {
-        scanContainer = (RelativeLayout) findViewById(R.id.capture_container);
+        scanContainer = (LinearLayout) findViewById(R.id.capture_container);
         scanCropView = (RelativeLayout) findViewById(R.id.capture_crop_view);
         scanLine = (ImageView) findViewById(R.id.capture_scan_line);
 
@@ -320,13 +321,22 @@ public class WsjcMainActivity extends MyActivity implements
             public void run() {
                 handleText(rawResult.getText());
             }
-        }, 800);
+        }, 300);
     }
 
     private void handleText(String text) {
         //判断是否是合法的json
         if (StringUtils.isUrl(text)) {
             showErrorMsg(mRootView,"二维码有误，请重新扫描");
+            if (scanPreview != null) {
+                handler = null;
+                if (isHasSurface) {
+                    initCamera(scanPreview.getHolder());
+                }
+            }
+            if (inactivityTimer != null) {
+                inactivityTimer.onResume();
+            }
         } else {
             handleOtherText(text);
         }
