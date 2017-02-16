@@ -1,5 +1,6 @@
 package com.dk.mp.main.home.ui;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
@@ -8,8 +9,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -52,21 +51,20 @@ public class HeaderView {
         mLoopAdapter = new TestLoopAdapter(mLoopViewPager);
         mLoopViewPager.setAdapter(mLoopAdapter);
         mLoopViewPager.setHintView(new newColorPointHintView(context, Color.GRAY, Color.WHITE));
-        mLoopViewPager.getViewPager().addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
-            @Override
-            public void onPageSelected(int position) {
-                TextView textView = (TextView) view.findViewById(R.id.tip);
-
-                Log.e("test","-----"+slideList.size()+"------------"+position+"--------------------");
-                if(slideList !=null && slideList.size()>= position) {
-                    textView.setText(slideList.get(position).getName());
-                }
-            }
-            @Override
-            public void onPageScrollStateChanged(int state) {}
-        });
+//        mLoopViewPager.getViewPager().addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+//            @Override
+//            public void onPageSelected(int position) {
+//                TextView textView = (TextView) view.findViewById(R.id.tip);
+//
+//                Log.e("test","-----"+slideList.size()+"------------"+position+"--------------------");
+//
+//                textView.setText(slideList.get(position).getName());
+//            }
+//            @Override
+//            public void onPageScrollStateChanged(int state) {}
+//        });
         this.context = context;
         HttpUtil.getInstance().postJsonObjectRequest("apps/xxxw/slide", null, new HttpListener<JSONObject>() {
             @Override
@@ -74,9 +72,11 @@ public class HeaderView {
                 if (result.optInt("code") == 200){//成功返回数据
                     try {
                         List<SlideNews> list = gson.fromJson(result.getJSONArray("data").toString(),new TypeToken<List<SlideNews>>(){}.getType());
-                        slideList.clear();
-                        slideList.addAll(list);
-                        mLoopAdapter.notifyDataSetChanged();
+                        if (list.size() != 0) {
+                            slideList.clear();
+                            slideList.addAll(list);
+                            mLoopAdapter.notifyDataSetChanged();
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -90,6 +90,7 @@ public class HeaderView {
         });
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private class TestLoopAdapter extends LoopPagerAdapter {
         public TestLoopAdapter(RollPagerView viewPager) {
             super(viewPager);
@@ -100,20 +101,14 @@ public class HeaderView {
 //            view.setScaleType(ImageView.ScaleType.CENTER_CROP);
             view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             view.setImageURI(Uri.parse(slideList.get(position).getImage()));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                view.setTransitionName("headerimage");
-            }
+            view.setTransitionName("headerimage");
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context,HeaderDetailsActivity.class);
                     intent.putExtra("uri",slideList.get(position).getImage());
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) context, v, "headerimage");
-                        ActivityCompat.startActivity((Activity) context,intent, options.toBundle());
-                    }else{
-                        context.startActivity(intent);
-                    }
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) context, v, "headerimage");
+                    ActivityCompat.startActivity((Activity) context,intent, options.toBundle());
                 }
             });
 
@@ -142,9 +137,7 @@ public class HeaderView {
         public void setCurrent(int current) {
             super.setCurrent(current);
             TextView textView = (TextView) view.findViewById(R.id.tip);
-            if(slideList != null && slideList.size()>0) {
-                textView.setText(slideList.get(current).getName());
-            }
+            textView.setText(slideList.get(current).getName());
         }
     }
 }
