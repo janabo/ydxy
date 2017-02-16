@@ -101,7 +101,7 @@ public class MyListView extends SwipeRefreshLayout {
         }
     }
 
-    public void error(Error error){
+    public void error(){
         setDatasEnd(true);
         stopRefresh(false);
     }
@@ -199,5 +199,12 @@ public class MyListView extends SwipeRefreshLayout {
             list.clear();
             adapter.notifyDataSetChanged();
         }
+    }
+
+    public void reLoadDatas(){
+        startRefresh();
+        pageNo = 1;
+        list.clear();
+        adapterInterface.loadDatas();
     }
 }
