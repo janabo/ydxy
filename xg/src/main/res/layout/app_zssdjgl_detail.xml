@@ -43,7 +43,7 @@
                         android:layout_width="match_parent"
                         android:text="基本信息"
                         android:textColor="#9c9c9c"
-                        android:textSize="12sp"
+                        android:textSize="?attr/textSize12"
                         android:layout_margin="10dp">
                     </TextView>
                     <include
@@ -60,13 +60,13 @@
                             android:layout_width="wrap_content"
                             android:text="学生："
                             android:textColor="#9c9c9c"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                         <TextView
                             android:id="@+id/xm"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:textColor="#212121"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -80,13 +80,13 @@
                             android:layout_width="wrap_content"
                             android:text="性别："
                             android:textColor="#9c9c9c"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                         <TextView
                             android:id="@+id/xb"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:textColor="#212121"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -100,13 +100,13 @@
                             android:layout_width="wrap_content"
                             android:text="联系电话："
                             android:textColor="#9c9c9c"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                         <TextView
                             android:id="@+id/lxdh"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:textColor="#212121"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -120,13 +120,13 @@
                             android:layout_width="wrap_content"
                             android:text="班级："
                             android:textColor="#9c9c9c"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                         <TextView
                             android:id="@+id/bj"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:textColor="#212121"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -140,13 +140,13 @@
                             android:layout_width="wrap_content"
                             android:text="房间号："
                             android:textColor="#9c9c9c"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                         <TextView
                             android:id="@+id/fjh"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:textColor="#212121"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -160,13 +160,13 @@
                             android:layout_width="wrap_content"
                             android:text="宿舍楼："
                             android:textColor="#9c9c9c"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                         <TextView
                             android:id="@+id/ssl"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:textColor="#212121"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -180,13 +180,13 @@
                             android:layout_width="wrap_content"
                             android:text="宿舍区："
                             android:textColor="#9c9c9c"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                         <TextView
                             android:id="@+id/ssq"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:textColor="#212121"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -200,13 +200,13 @@
                             android:layout_width="wrap_content"
                             android:text="校区："
                             android:textColor="#9c9c9c"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                         <TextView
                             android:id="@+id/xq"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:textColor="#212121"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -220,13 +220,13 @@
                             android:layout_width="wrap_content"
                             android:text="留宿开始日期："
                             android:textColor="#9c9c9c"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                         <TextView
                             android:id="@+id/lsksrq"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:textColor="#212121"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -240,13 +240,13 @@
                             android:layout_width="wrap_content"
                             android:text="留宿结束日期："
                             android:textColor="#9c9c9c"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                         <TextView
                             android:id="@+id/lsjsrq"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:textColor="#212121"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -262,13 +262,13 @@
                             android:layout_width="wrap_content"
                             android:text="销假日期："
                             android:textColor="#9c9c9c"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                         <TextView
                             android:id="@+id/xjrq"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:textColor="#212121"
-                            android:textSize="14sp"/>
+                            android:textSize="?attr/textSize14"/>
                     </LinearLayout>
 
                     <View

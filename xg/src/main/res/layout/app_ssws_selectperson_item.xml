@@ -30,7 +30,7 @@
             android:ellipsize="end"
             android:text="王大毛"
             android:textColor="#212121"
-            android:textSize="14sp" />
+            android:textSize="?attr/textSize14" />
 
     </LinearLayout>
 

@@ -25,10 +25,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/ripple_bg_while"
                 android:gravity="center"
-                android:minHeight="50dip"
+                android:minHeight="?attr/image50"
                 android:text="调宿申请"
                 android:textColor="#F19149"
-                android:textSize="14sp" />
+                android:textSize="?attr/textSize14" />
 
             <View
                 android:layout_width="match_parent"
@@ -43,10 +43,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/ripple_bg_while"
                 android:gravity="center"
-                android:minHeight="50dip"
+                android:minHeight="?attr/image50"
                 android:text="退宿申请"
                 android:textColor="#F19149"
-                android:textSize="14sp" />
+                android:textSize="?attr/textSize14" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.8dip"
@@ -60,10 +60,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/ripple_bg_while"
                 android:gravity="center"
-                android:minHeight="50dip"
+                android:minHeight="?attr/image50"
                 android:text="停宿申请"
                 android:textColor="#F19149"
-                android:textSize="14sp" />
+                android:textSize="?attr/textSize14" />
         </LinearLayout>
 
         <Button
@@ -73,10 +73,10 @@
             android:layout_margin="10dip"
             android:background="@drawable/dialog_camera"
             android:gravity="center"
-            android:minHeight="50dip"
+            android:minHeight="?attr/image50"
             android:text="取消"
             android:textColor="#007BFF"
-            android:textSize="14sp" />
+            android:textSize="?attr/textSize14" />
     </LinearLayout>
 
 </RelativeLayout>

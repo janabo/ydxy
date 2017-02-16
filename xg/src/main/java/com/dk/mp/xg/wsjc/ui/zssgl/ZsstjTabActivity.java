@@ -56,6 +56,7 @@ public class ZsstjTabActivity extends MyActivity {
         super.initialize();
         type = getIntent().getStringExtra("lx");
         role = getIntent().getStringExtra("role");
+        setTitle("");
         findView();
         initViewPager();
         getClassesorDepartments();

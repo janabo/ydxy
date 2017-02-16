@@ -22,9 +22,8 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:text="宿舍区11"
             android:textColor="#2196f3"
-            android:textSize="15sp"
+            android:textSize="?attr/textSize15"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:lineSpacingMultiplier="1.2">
@@ -32,8 +31,8 @@
         <ImageView
             android:id="@+id/arror_icon"
             android:src="@mipmap/arrow_icon_xg"
-            android:layout_width="8dp"
-            android:layout_height="13dp"
+            android:layout_width="?attr/image8"
+            android:layout_height="?attr/image13"
             android:layout_marginRight="10dp"
             android:layout_gravity="center_vertical"
             android:visibility="gone"/>

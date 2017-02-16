@@ -134,8 +134,8 @@ public class SswzMainActivity extends MyActivity implements
      * @param v
      */
     public void towsjcdetail(View v){
-        Intent intent = new Intent(this,SswzDjMainActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this,SswzDjMainActivity.class);
+//        startActivity(intent);
     }
 
     /**

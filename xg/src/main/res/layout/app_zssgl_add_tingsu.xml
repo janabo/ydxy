@@ -36,14 +36,14 @@
                         android:layout_width="wrap_content"
                         android:text="提名学生"
                         android:textColor="#212121"
-                        android:textSize="14sp"
+                        android:textSize="?attr/textSize14"
                         />
                     <TextView
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:text="（点击头像可删除）"
                         android:textColor="#9c9c9c"
-                        android:textSize="12sp"/>
+                        android:textSize="?attr/textSize12"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -62,14 +62,14 @@
                     android:orientation="vertical">
                     <ImageView
                         android:id="@+id/wjxs_img"
-                        android:layout_width="34dp"
-                        android:layout_height="34dp"
+                        android:layout_width="?attr/image34"
+                        android:layout_height="?attr/image34"
                         android:src="@mipmap/add_r"
                         android:onClick="addWjxs"/>
                     <LinearLayout
                         android:id = "@+id/wjxs_lin"
-                        android:layout_height="34dp"
-                        android:layout_width="34dp"
+                        android:layout_height="?attr/image34"
+                        android:layout_width="?attr/image34"
                         android:background="@drawable/circle_border"
                         android:gravity="center"
                         android:visibility="gone">
@@ -78,7 +78,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="?attr/textSize20"
                             />
                     </LinearLayout>
 
@@ -88,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:textColor="#212121"
-                        android:textSize="14sp"
+                        android:textSize="?attr/textSize14"
                         android:visibility="gone"
                         android:gravity="center_horizontal"/>
 
@@ -120,7 +120,7 @@
                         android:layout_width="wrap_content"
                         android:text="停宿信息"
                         android:textColor="#9c9c9c"
-                        android:textSize="12sp"/>
+                        android:textSize="?attr/textSize12"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -147,22 +147,22 @@
                         android:layout_width="wrap_content"
                         android:text="停宿开始日期"
                         android:textColor="#212121"
-                        android:textSize="15sp">
+                        android:textSize="?attr/textSize15">
                     </TextView>
                     <TextView
                         android:id="@+id/ksrq_pick"
                         android:layout_height="wrap_content"
                         android:layout_width="0dp"
                         android:textColor="#212121"
-                        android:textSize="14sp"
+                        android:textSize="?attr/textSize14"
                         android:layout_weight="1"
                         android:gravity="right"
                         android:hint="必填">
                     </TextView>
                     <ImageView
                         android:src="@mipmap/arrow_icon_xg"
-                        android:layout_width="8dp"
-                        android:layout_height="13dp"
+                        android:layout_width="?attr/image8"
+                        android:layout_height="?attr/image13"
                         android:layout_marginLeft="10dp"/>
                 </LinearLayout>
 
@@ -191,22 +191,22 @@
                         android:layout_width="wrap_content"
                         android:text="停宿结束日期"
                         android:textColor="#212121"
-                        android:textSize="15sp">
+                        android:textSize="?attr/textSize15">
                     </TextView>
                     <TextView
                         android:id="@+id/jsrq_pick"
                         android:layout_height="wrap_content"
                         android:layout_width="0dp"
                         android:textColor="#212121"
-                        android:textSize="14sp"
+                        android:textSize="?attr/textSize14"
                         android:layout_weight="1"
                         android:gravity="right"
                         android:hint="必填">
                     </TextView>
                     <ImageView
                         android:src="@mipmap/arrow_icon_xg"
-                        android:layout_width="8dp"
-                        android:layout_height="13dp"
+                        android:layout_width="?attr/image8"
+                        android:layout_height="?attr/image13"
                         android:layout_marginLeft="10dp"/>
                 </LinearLayout>
 
@@ -238,7 +238,7 @@
                     android:maxLength="200"
                     android:hint="停宿原因(200字以内，必填)"
                     android:gravity="top"
-                    android:textSize="14sp"/>
+                    android:textSize="?attr/textSize14"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -269,22 +269,22 @@
 
                 <com.dk.mp.core.view.DrawHookView
                     android:id="@+id/progress"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="?attr/image22"
+                    android:layout_height="?attr/image22"
                     android:visibility="gone">
                 </com.dk.mp.core.view.DrawHookView>
 
                 <com.dk.mp.core.view.DrawCheckMarkView
                     android:id="@+id/progress_check"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="?attr/image22"
+                    android:layout_height="?attr/image22"
                     android:visibility="gone">
                 </com.dk.mp.core.view.DrawCheckMarkView>
 
                 <com.dk.mp.core.view.DrawCrossMarkView
                     android:id="@+id/progress_cross"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="?attr/image22"
+                    android:layout_height="?attr/image22"
                     android:visibility="gone">
                 </com.dk.mp.core.view.DrawCrossMarkView>
 

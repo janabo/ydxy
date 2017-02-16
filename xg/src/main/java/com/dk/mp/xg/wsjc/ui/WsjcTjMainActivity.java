@@ -108,16 +108,16 @@ public class WsjcTjMainActivity extends MyActivity implements View.OnClickListen
                                     for(Role r : dfxxes){
                                         if("1".equals(r.getId())){
                                             bzr.setVisibility(View.VISIBLE);
-                                            break;
+                                            continue;
                                         }else if("2".equals(r.getId())){
                                             fdy.setVisibility(View.VISIBLE);
-                                            break;
+                                            continue;
                                         }else if("3".equals(r.getId())){
                                             xb.setVisibility(View.VISIBLE);
-                                            break;
+                                            continue;
                                         }else if("4".equals(r.getId())){
                                             xgc.setVisibility(View.VISIBLE);
-                                            break;
+                                            continue;
                                         }
                                     }
                                 }
