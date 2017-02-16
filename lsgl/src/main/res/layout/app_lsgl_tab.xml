@@ -37,7 +37,7 @@
             android:layout_marginBottom="40dp"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:background="@mipmap/search"/>
+            android:background="@mipmap/lsgl_search"/>
 
     </FrameLayout>
 
