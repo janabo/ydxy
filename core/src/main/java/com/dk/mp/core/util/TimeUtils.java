@@ -12,7 +12,7 @@ import java.util.Date;
  * 比如格式化时间等.
  * @since jdk1.5
  * @version 2012-3-5
- 
+
  */
 @SuppressLint("SimpleDateFormat")
 public class TimeUtils {
@@ -73,6 +73,33 @@ public class TimeUtils {
 	}
 
 	/**
+	 * 获取当月.
+	 * @return String(yyyy-mm)
+	 */
+	public static String getCurrMonth() {
+		Date now = new Date();
+		String hehe = new SimpleDateFormat("yyyy-MM").format(now);
+		return hehe;
+	}
+
+	/**
+	 * 格式化日期.
+	 * @param dateTime  日期
+	 * @return 格式化后的日期
+	 */
+	public static String formatDateTime(String dateTime) {
+		SimpleDateFormat formatYMD = new SimpleDateFormat("yyyy-MM-dd");// formatYMD表示的是yyyy-MM-dd格式
+		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");// formatYMD表示的是yyyy-MM-dd格式
+		Date d = null;
+		try {
+			d = formatYMD.parse(dateTime);
+		} catch (ParseException e) {
+			Logger.error("格式化日期错误");
+		}
+		return format.format(d);
+	}
+
+	/**
 	 * 获取当天日期.
 	 * @return String(yyyy-mm-dd HH:mm)
 	 */
@@ -97,7 +124,7 @@ public class TimeUtils {
 	 * 当前时间多少分钟之后
 	 * @param mins
 	 * @return
-     */
+	 */
 	public static String getTimeAfterMins(int mins){
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date date = new Date();
@@ -172,5 +199,25 @@ public class TimeUtils {
 		calendar.setTime(date);
 		calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) + days);
 		return sm.format(calendar.getTime());
+	}
+
+	/**
+	 * 是否同一月
+	 * @param month1 yyyy-MM-dd
+	 * @return 是或否
+	 */
+	public static boolean sfMonth(String month1, String month2) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+		boolean bool = false;
+		try {
+			Date d1 = sdf.parse(month1);
+			Date d2 = sdf.parse(month2);
+			if (d1.equals(d2)) {
+				bool = true;
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return bool;
 	}
 }

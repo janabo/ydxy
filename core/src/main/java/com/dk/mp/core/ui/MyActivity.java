@@ -44,6 +44,7 @@ public abstract class MyActivity extends AppCompatActivity{
     private Button homeButton;
     private LinearLayout itemContent;
     private String classname;
+    FrameLayout frameLayout;
 
     /**
      * @return 界面布局
@@ -62,7 +63,7 @@ public abstract class MyActivity extends AppCompatActivity{
         setContentView (R.layout.core);
         LayoutInflater inflater=(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(getLayoutID(), null);
-        FrameLayout frameLayout = (FrameLayout)findViewById(R.id.id_content);
+        frameLayout = (FrameLayout)findViewById(R.id.id_content);
         frameLayout.addView(view);
         intentFilter2.addAction("flishall");
         registerReceiver(receiver, intentFilter2);
@@ -275,5 +276,9 @@ public abstract class MyActivity extends AppCompatActivity{
      */
     public void showErrorMsg(View v,String msg){
         SnackBarUtil.showShort(v,msg);
+    }
+
+    public void showErrorMsg(String msg){
+        SnackBarUtil.showShort(frameLayout,msg);
     }
 }

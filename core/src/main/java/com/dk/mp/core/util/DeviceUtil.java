@@ -3,7 +3,10 @@ package com.dk.mp.core.util;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.net.ConnectivityManager;
+import android.view.WindowManager;
 
 import com.dk.mp.core.application.MyApplication;
 
@@ -11,6 +14,7 @@ import com.dk.mp.core.application.MyApplication;
  * 作者：janabo on 2016/12/14 16:28
  */
 public class DeviceUtil {
+    private static int width;
 
     /**
      * 获取网络状态.
@@ -63,6 +67,38 @@ public class DeviceUtil {
     public static int px2dip(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
+    }
+
+
+    /**
+     * 获取屏幕宽度。
+     *
+     * @param context
+     *            Context
+     * @return 宽度
+     */
+    public static int getScreenWidth(Context context) {
+        if (width == 0) {
+            WindowManager wm = (WindowManager) context
+                    .getSystemService(Context.WINDOW_SERVICE);
+            width = wm.getDefaultDisplay().getWidth();
+        }
+        return width;
+    }
+
+    public static int getTextHeight(Paint paint, String text){
+        if(paint == null) return 0;
+        Rect rect = new Rect();
+        paint.getTextBounds(text,0, 2, rect);
+        return rect.height();
+    }
+
+    /**
+     * 获取手机系统版本
+     */
+    public static String getOsType() {
+        String model = "Android " + android.os.Build.VERSION.RELEASE;
+        return model;
     }
 
 }

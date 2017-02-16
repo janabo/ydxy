@@ -16,7 +16,7 @@
 
     <style name="AppThemeSchedule.NoTitle.overlay">
         <item name="android:windowContentOverlay">@null</item>
-        </style>
+    </style>
 
 
     <style name="Theme.AppCompat.Light.Dialog.Alert.Self"
@@ -37,5 +37,13 @@
         <item name="android:textSize">?attr/textSize15</item>
         <item name="android:paddingLeft">20dip</item>
         <item name="android:paddingRight">10dip</item>
+    </style>
+
+    <style name="CalendarTheme">
+        <item name="calendarViewStyle">@style/CalendarStyle</item>
+    </style>
+
+    <style name="CalendarStyle">
+        <item name="android:orientation">vertical</item>
     </style>
 </resources>

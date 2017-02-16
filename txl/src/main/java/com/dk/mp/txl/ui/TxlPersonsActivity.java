@@ -50,7 +50,6 @@ public class TxlPersonsActivity extends MyActivity{
     @Override
     protected void initialize() {
         super.initialize();
-        initView();
         bmname = getIntent().getStringExtra("title");
         setTitle(bmname);
         bmid = getIntent().getStringExtra("id");
@@ -66,7 +65,7 @@ public class TxlPersonsActivity extends MyActivity{
     /**
      * 初始化樣式
      */
-    private void initView(){
+    protected void initView() {
         mErrorLayout = (ErrorLayout) findViewById(R.id.error_layout);
         mRecyclerView = (RecyclerView) findViewById(R.id.bm_recycle);
         mdialog = (RelativeLayout) findViewById(R.id.mdialog);
