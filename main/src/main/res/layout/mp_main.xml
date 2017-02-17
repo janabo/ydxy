@@ -56,11 +56,11 @@
 
         <ImageButton
             android:id="@+id/cancelDelete"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_gravity="bottom|right"
             android:src="@mipmap/home_suspend"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="20dp"
             android:layout_marginBottom="40dp"
             android:scaleType="fitXY"
             android:background="@null"

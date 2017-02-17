@@ -45,6 +45,10 @@ public class AppUtil {
 
 		Intent intent = new Intent();
 		intent.putExtra("title", app.getName());
+
+		intent.putExtra("x",app.getX());
+		intent.putExtra("y",app.getY());
+
 		intent.setAction(app.getAction());
 		intent.addCategory(Intent.CATEGORY_DEFAULT);
 		context.startActivity(intent);

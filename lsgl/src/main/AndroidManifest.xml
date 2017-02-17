@@ -5,7 +5,8 @@
 
         <activity
             android:name="com.dk.mp.lsgl.LsglMainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep">
 
             <intent-filter>
                 <action android:name="lsxsgl" />
@@ -16,7 +17,8 @@
 
         <activity
             android:name="com.dk.mp.lsgl.LsglTabActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep">
         </activity>
 
         <activity
@@ -29,7 +31,7 @@
             android:name="com.dk.mp.lsgl.SearchActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged"
-            android:theme="@style/noAnimTheme">
+            android:theme="@style/noAnimThemep">
         </activity>
 
     </application>

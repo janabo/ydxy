@@ -1,19 +1,24 @@
 package com.dk.mp.core.ui;
 
+import android.animation.Animator;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -46,6 +51,9 @@ public abstract class MyActivity extends AppCompatActivity{
     private String classname;
     FrameLayout frameLayout;
 
+    private int x;
+    private int y;
+
     /**
      * @return 界面布局
      */
@@ -59,6 +67,8 @@ public abstract class MyActivity extends AppCompatActivity{
         initTheme();
 //        setContentView ( getLayoutID ( ) );
         classname = this.getClass().getName();
+        x = getIntent().getIntExtra("x",-10);
+        y = getIntent().getIntExtra("y",-10);
 
         setContentView (R.layout.core);
         LayoutInflater inflater=(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -68,6 +78,17 @@ public abstract class MyActivity extends AppCompatActivity{
         intentFilter2.addAction("flishall");
         registerReceiver(receiver, intentFilter2);
         initView();
+        if (x != -10) {
+            frameLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        Animator animator = createRevealAnimator(false, getIntent().getIntExtra("x",0), getIntent().getIntExtra("y",0));
+                        animator.start();
+                    }
+                }
+            });
+        }
         initialize ( );
 
         //在自己的应用初始Activity中加入如下两行代码
@@ -187,7 +208,19 @@ public abstract class MyActivity extends AppCompatActivity{
      * 返回
      */
     public void back() {
-        onBackPressed();
+        if (x != -10) {
+            frameLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        Animator animator = createRevealAnimator(true, getIntent().getIntExtra("x",0), getIntent().getIntExtra("y",0));
+                        animator.start();
+                    }
+                }
+            });
+        } else {
+            onBackPressed();
+        }
     }
 
     public void initDock(){
@@ -280,5 +313,34 @@ public abstract class MyActivity extends AppCompatActivity{
 
     public void showErrorMsg(String msg){
         SnackBarUtil.showShort(frameLayout,msg);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private Animator createRevealAnimator(boolean reversed, int x, int y) {
+        float hypot = (float) Math.hypot(frameLayout.getHeight(), frameLayout.getWidth());
+        float startRadius = reversed ? hypot : 0;
+        float endRadius = reversed ? 0 : hypot;
+
+        Animator animator = ViewAnimationUtils.createCircularReveal(
+                frameLayout, x, y,
+                startRadius,
+                endRadius);
+        animator.setDuration(800);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        if (reversed)
+            animator.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {}
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    frameLayout.setVisibility(View.INVISIBLE);
+                    finish();
+                }
+                @Override
+                public void onAnimationCancel(Animator animation) {}
+                @Override
+                public void onAnimationRepeat(Animator animation) {}
+            });
+        return animator;
     }
 }

@@ -89,7 +89,7 @@ public class UserInfoActivity extends MyActivity{
      * 处理登录.
      */
     private void loginOut() {
-        HttpUtil.getInstance().getGsonRequestJson(JsonData.class, "loginOut", new HttpListener<JsonData>() {
+        HttpUtil.getInstance().getGsonRequestJson(JsonData.class, "logout", new HttpListener<JsonData>() {
             @Override
             public void onSuccess(JsonData result) {
             }

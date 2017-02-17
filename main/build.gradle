@@ -28,4 +28,5 @@ dependencies {
     compile project(':schedule')
     compile project(':newoa')
     compile project(':xg')
+    compile project(':lsgl')
 }
