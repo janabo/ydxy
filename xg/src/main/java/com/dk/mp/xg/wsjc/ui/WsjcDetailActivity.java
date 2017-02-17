@@ -29,6 +29,7 @@ import com.dk.mp.core.view.DrawCheckMarkView;
 import com.dk.mp.core.view.DrawCrossMarkView;
 import com.dk.mp.core.view.DrawHookView;
 import com.dk.mp.core.view.RecycleViewDivider;
+import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.adapter.WsjcDetailAdapter;
 import com.dk.mp.xg.wsjc.adapter.WsjcImageAdapter;
@@ -59,6 +60,7 @@ import static com.dk.mp.xg.R.id.ok_text;
  * 作者：janabo on 2017/1/9 14:20
  */
 public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.SaveEditListener,EasyPermissions.PermissionCallbacks{
+    ErrorLayout mError;
     private TextView ssqName,sslName,lcName,fjhName,rzxbName,cwsName;//宿舍区，宿舍楼，楼层，房间号，入住性别，床位数
     DrawHookView progress;//提交动画
     DrawCheckMarkView progress_check;//成功动画
@@ -98,11 +100,15 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
         setTitle("宿舍卫生检查");
         findView();
         String wsjcDetail = getIntent().getStringExtra("wsjcDetail");
-        detail = new Gson().fromJson(wsjcDetail,WsjcDetail.class);
+        if(wsjcDetail!= null){
+            detail = new Gson().fromJson(wsjcDetail,WsjcDetail.class);
+        }
+
         setDetailSetText(detail);
     }
 
     private void findView(){
+        mError = (ErrorLayout) findViewById(R.id.error_layout);
         ssqName = (TextView) findViewById(R.id.ssqName);
         sslName = (TextView) findViewById(R.id.sslName);
         lcName = (TextView) findViewById(R.id.lcName);
@@ -154,6 +160,7 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
             getKf();
         }else{
             SnackBarUtil.showShort(mRootView,getReString(R.string.net_no2));
+            mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
         }
     }
 
@@ -165,6 +172,7 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
             @Override
             public void onSuccess(JSONObject result) {
                 try {
+                    mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                     if(result != null) {
                         GsonData<Dfxx> gsonData = new Gson().fromJson(result.toString(), new TypeToken<GsonData<Dfxx>>() {
                         }.getType());
@@ -191,11 +199,13 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                     showErrorMsg(mRootView,getReString(R.string.data_fail));
                 }
             }
             @Override
             public void onError(VolleyError error) {
+                mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                 showErrorMsg(mRootView,getReString(R.string.data_fail));
             }
         });
@@ -209,6 +219,7 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
             @Override
             public void onSuccess(JSONObject result) {
                 try {
+                    mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                     if(result != null) {
                         GsonData<Kf> gsonData = new Gson().fromJson(result.toString(), new TypeToken<GsonData<Kf>>() {
                         }.getType());
@@ -228,11 +239,13 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                     showErrorMsg(mRootView,getReString(R.string.data_fail));
                 }
             }
             @Override
             public void onError(VolleyError error) {
+                mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                 showErrorMsg(mRootView,getReString(R.string.data_fail));
             }
         });

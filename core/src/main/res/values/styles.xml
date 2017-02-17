@@ -108,7 +108,9 @@
         <item name="image50">50dp</item>
         <item name="image60">60dp</item>
         <item name="image62">62dp</item>
+        <item name="image70">70dp</item>
         <item name="image71">71dp</item>
+        <item name="image73">73dp</item>
         <item name="image80">80dp</item>
         <item name="image100">100dp</item>
         <item name="image154">154dp</item>
@@ -142,7 +144,9 @@
         <item name="image50">57.5dp</item>
         <item name="image60">69dp</item>
         <item name="image62">71.3dp</item>
+        <item name="image70">80.5dp</item>
         <item name="image71">81.65dp</item>
+        <item name="image73">83.95dp</item>
         <item name="image80">92dp</item>
         <item name="image100">115dp</item>
         <item name="image154">177.1dp</item>
@@ -176,7 +180,9 @@
         <item name="image50">62.5dp</item>
         <item name="image60">75dp</item>
         <item name="image62">77.5dp</item>
+        <item name="image70">87.5dp</item>
         <item name="image71">88.75dp</item>
+        <item name="image73">91.25dp</item>
         <item name="image80">100dp</item>
         <item name="image100">125dp</item>
         <item name="image154">192.5dp</item>

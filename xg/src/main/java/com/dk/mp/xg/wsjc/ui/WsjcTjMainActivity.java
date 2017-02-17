@@ -155,6 +155,7 @@ public class WsjcTjMainActivity extends MyActivity implements View.OnClickListen
     public void toDetail(String role){
         Intent intent = new Intent(this,WsjcTjTabActivity.class);
         intent.putExtra("role",role);
+        intent.putExtra("title",getIntent().getStringExtra("title"));
         startActivity(intent);
     }
 }

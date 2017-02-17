@@ -1,6 +1,7 @@
 package com.dk.mp.xg.wsjc.ui.Sswz;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -105,6 +106,7 @@ public class SswzSearchActivity extends MyActivity implements View.OnClickListen
                     Logger.info(keywords);
                     hideSoftInput();
                     if (StringUtils.isNotEmpty(keywords)) {
+                        mError.setErrorType(ErrorLayout.LOADDATA);
                         getData();
                     } else {
                         SnackBarUtil.showShort(layout_search,"请输入关键字");
@@ -190,6 +192,10 @@ public class SswzSearchActivity extends MyActivity implements View.OnClickListen
             ssl_fjh = (TextView) itemView.findViewById(R.id.ssl_fjh);
             ssq = (TextView) itemView.findViewById(R.id.ssq);
             fs = (TextView) itemView.findViewById(R.id.fs);
+            Sswz sswz = mList.get(getLayoutPosition());
+            Intent intent = new Intent(mContext,SswzRecordDetailActivity.class);
+            intent.putExtra("id",sswz.getId());
+            startActivity(intent);
         }
     }
 

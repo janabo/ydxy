@@ -53,7 +53,7 @@ public class ZsstjMainActivity extends MyActivity{
     @Override
     protected void initialize() {
         super.initialize();
-        setTitle("在校生住宿管理");
+        setTitle(getIntent().getStringExtra("title"));
     }
 
     /**
@@ -64,6 +64,7 @@ public class ZsstjMainActivity extends MyActivity{
         Intent intent = new Intent(mContext,ZsstjTabActivity.class);
         intent.putExtra("role","1");
         intent.putExtra("lx","1");
+        intent.putExtra("title",getIntent().getStringExtra("title"));
         startActivity(intent);
     }
 
@@ -75,6 +76,7 @@ public class ZsstjMainActivity extends MyActivity{
         Intent intent = new Intent(mContext,ZsstjTabActivity.class);
         intent.putExtra("role","1");
         intent.putExtra("lx","2");
+        intent.putExtra("title",getIntent().getStringExtra("title"));
         startActivity(intent);
     }
 
@@ -86,6 +88,7 @@ public class ZsstjMainActivity extends MyActivity{
         Intent intent = new Intent(mContext,ZsstjTabActivity.class);
         intent.putExtra("role","1");
         intent.putExtra("lx","3");
+        intent.putExtra("title",getIntent().getStringExtra("title"));
         startActivity(intent);
     }
 

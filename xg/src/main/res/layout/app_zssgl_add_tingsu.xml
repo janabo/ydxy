@@ -269,22 +269,22 @@
 
                 <com.dk.mp.core.view.DrawHookView
                     android:id="@+id/progress"
-                    android:layout_width="?attr/image22"
-                    android:layout_height="?attr/image22"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:visibility="gone">
                 </com.dk.mp.core.view.DrawHookView>
 
                 <com.dk.mp.core.view.DrawCheckMarkView
                     android:id="@+id/progress_check"
-                    android:layout_width="?attr/image22"
-                    android:layout_height="?attr/image22"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:visibility="gone">
                 </com.dk.mp.core.view.DrawCheckMarkView>
 
                 <com.dk.mp.core.view.DrawCrossMarkView
                     android:id="@+id/progress_cross"
-                    android:layout_width="?attr/image22"
-                    android:layout_height="?attr/image22"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:visibility="gone">
                 </com.dk.mp.core.view.DrawCrossMarkView>
 

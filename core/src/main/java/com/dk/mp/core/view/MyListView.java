@@ -30,6 +30,7 @@ import java.util.List;
 
 public class MyListView extends SwipeRefreshLayout {
 
+
     private RecyclerView recyclerView;
     private Context context;
     private LinearLayout zwsj;
@@ -233,7 +234,9 @@ public class MyListView extends SwipeRefreshLayout {
     }
 
     public void addList(List mData){
-        list.addAll(mData);
+        if(list!=null) {
+            list.addAll(mData);
+        }
         adapter.notifyDataSetChanged();
     }
 

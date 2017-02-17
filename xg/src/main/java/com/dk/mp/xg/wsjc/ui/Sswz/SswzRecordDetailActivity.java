@@ -9,12 +9,15 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.Logger;
+import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 
 /**
  * 作者：janabo on 2017/1/17 09:28
  */
 public class SswzRecordDetailActivity extends MyActivity{
+    private ErrorLayout mError;
     private WebView mWebView;
     private ProgressBar mProgressBar;
 
@@ -28,7 +31,7 @@ public class SswzRecordDetailActivity extends MyActivity{
         super.initView();
         mWebView = (WebView) findViewById(R.id.content);
         mProgressBar = (ProgressBar) findViewById(R.id.pb_new_detail);
-
+        mError = (ErrorLayout) findViewById(R.id.error_layout);
     }
 
     @Override
@@ -41,6 +44,7 @@ public class SswzRecordDetailActivity extends MyActivity{
     }
 
     private void setWebView ( ) {
+        mError.setErrorType(ErrorLayout.LOADDATA);
         WebSettings settings = mWebView.getSettings ( );
         mWebView.setWebViewClient ( new MyWebViewClient( mProgressBar ) );
         mWebView.setWebChromeClient ( new MyWebChromeClient( mProgressBar ) );
@@ -70,6 +74,7 @@ public class SswzRecordDetailActivity extends MyActivity{
         public void onPageFinished ( WebView webView, String url ) {
             super.onPageFinished ( webView, url );
             mProgressBar.setVisibility ( View.INVISIBLE );
+            mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
         }
     }
 
@@ -83,6 +88,10 @@ public class SswzRecordDetailActivity extends MyActivity{
         @Override
         public void onProgressChanged ( WebView view, int newProgress ) {
             mWebProgressBar.setProgress ( newProgress );
+            Logger.info("##########newProgress="+newProgress);
+            if(newProgress>=100){
+                mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+            }
         }
 
         @Override

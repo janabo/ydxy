@@ -10,13 +10,14 @@ import android.widget.ProgressBar;
 
 import com.dk.mp.core.ui.BaseFragment;
 import com.dk.mp.core.util.Logger;
+import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 
 /**
  * 作者：janabo on 2017/1/13 16:19
  */
 public class WsjcTjFragment extends BaseFragment{
-//    private ErrorLayout mError;
+    private ErrorLayout mError;
     private WebView mWebView;
     private ProgressBar mProgressBar;
     @Override
@@ -29,6 +30,7 @@ public class WsjcTjFragment extends BaseFragment{
         super.initialize(view);
         mWebView = (WebView) view.findViewById(R.id.mWebview);
         mProgressBar = (ProgressBar) view.findViewById(R.id.pb_new_detail);
+        mError = (ErrorLayout) view.findViewById(R.id.error_layout);
     }
 
     public void setMUrl(String url){
@@ -41,6 +43,7 @@ public class WsjcTjFragment extends BaseFragment{
     }
 
     private void setWebView ( ) {
+        mError.setErrorType(ErrorLayout.LOADDATA);
         WebSettings settings = mWebView.getSettings ( );
         mWebView.setWebViewClient ( new MyWebViewClient ( mProgressBar ) );
         mWebView.setWebChromeClient ( new MyWebChromeClient ( mProgressBar ) );
@@ -69,7 +72,7 @@ public class WsjcTjFragment extends BaseFragment{
         public void onPageFinished ( WebView webView, String url ) {
             super.onPageFinished ( webView, url );
             mProgressBar.setVisibility ( View.INVISIBLE );
-//            mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+            mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
         }
     }
 
@@ -83,9 +86,10 @@ public class WsjcTjFragment extends BaseFragment{
         @Override
         public void onProgressChanged ( WebView view, int newProgress ) {
             mWebProgressBar.setProgress ( newProgress );
-//            if(newProgress>=100){
-//                mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
-//            }
+            Logger.info("##########newProgress="+newProgress);
+            if(newProgress>=100){
+                mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+            }
         }
 
         @Override
