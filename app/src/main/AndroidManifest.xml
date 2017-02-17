@@ -3,12 +3,12 @@
     package="com.dk.mp.lgj">
 
     <!--&lt;!&ndash; Required &ndash;&gt;-->
-    <!--<permission-->
-        <!--android:name="com.dk.mp.lgj.permission.JPUSH_MESSAGE"-->
-        <!--android:protectionLevel="signature" />-->
+    <permission
+        android:name="com.dk.mp.lgj.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
 
     <!--&lt;!&ndash; Required &ndash;&gt;-->
-    <!--<uses-permission android:name="com.dk.mp.lgj.permission.JPUSH_MESSAGE" />-->
+    <uses-permission android:name="com.dk.mp.lgj.permission.JPUSH_MESSAGE" />
 
     <!-- 允许程序访问有关GSM网络信息的权限 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
