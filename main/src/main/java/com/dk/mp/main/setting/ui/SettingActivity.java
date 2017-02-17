@@ -139,14 +139,6 @@ public class SettingActivity extends MyActivity{
 
     }
 
-//    /**
-//     * 检查版本更新
-//     * @param v
-//     */
-//    public void toversion(View v){
-//
-//    }
-
     /**
      * 设置字体大小
      * @param v
