@@ -1,6 +1,7 @@
 package com.dk.mp.core.http;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -120,6 +121,7 @@ public class HttpUtil {
 
     public void postJsonObjectRequest(String url, Map<String,Object> param,HttpListener<JSONObject> listener) {
         HttpRequest httpRequest;
+        Log.e("-----","---------"+getUrl(url));
         if(param == null ||param.isEmpty()){
             httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.GET).build();
         }else{

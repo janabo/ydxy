@@ -13,6 +13,9 @@ public class App {
     private String icon;
     private String action;
 
+    private int x;
+    private int y;
+
     private boolean selected = false;//被选中添加
 
     public App(){}
@@ -26,6 +29,19 @@ public class App {
         this.packageName=packageName;
         this.icon=icon;
         this.action=action;
+    }
+
+    public App(String url, String idCat, String nameCat, String name, String id, String packageName, String icon, String action, int x, int y){
+        this.url = url;
+        this.idCat=idCat;
+        this.nameCat=nameCat;
+        this.name=name;
+        this.id=id;
+        this.packageName=packageName;
+        this.icon=icon;
+        this.action=action;
+        this.x=x;
+        this.y=y;
     }
 
     public void setUrl(String url) {
@@ -99,4 +115,21 @@ public class App {
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
 }

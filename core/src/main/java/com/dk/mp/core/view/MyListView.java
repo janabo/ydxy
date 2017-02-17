@@ -30,7 +30,6 @@ import java.util.List;
 
 public class MyListView extends SwipeRefreshLayout {
 
-
     private RecyclerView recyclerView;
     private Context context;
     private LinearLayout zwsj;
@@ -121,17 +120,17 @@ public class MyListView extends SwipeRefreshLayout {
     public void error(Error error){
         switch (error){
             case NoNetwork :{
-                zwsj_icon.setImageResource(R.mipmap.net_fail);
+                zwsj_icon.setImageResource(R.mipmap.nonet);
                 zwsj_text.setText(context.getString(R.string.net_no2));
                 break;
             }
             case NoDatas :{
-                zwsj_icon.setImageResource(R.mipmap.nodata);
+                zwsj_icon.setImageResource(R.mipmap.nodata_n);
                 zwsj_text.setText(context.getString(R.string.nodata));
                 break;
             }
             case OnError :{
-                zwsj_icon.setImageResource(R.mipmap.data_fail);
+                zwsj_icon.setImageResource(R.mipmap.errorserver);
                 zwsj_text.setText(context.getString(R.string.data_fail));
                 break;
             }
@@ -234,9 +233,7 @@ public class MyListView extends SwipeRefreshLayout {
     }
 
     public void addList(List mData){
-        if(list!=null) {
-            list.addAll(mData);
-        }
+        list.addAll(mData);
         adapter.notifyDataSetChanged();
     }
 
@@ -245,5 +242,12 @@ public class MyListView extends SwipeRefreshLayout {
             list.clear();
             adapter.notifyDataSetChanged();
         }
+    }
+
+    public void reLoadDatas(){
+        startRefresh();
+        pageNo = 1;
+        list.clear();
+        adapterInterface.loadDatas();
     }
 }

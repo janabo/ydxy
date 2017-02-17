@@ -8,6 +8,8 @@ import com.android.volley.VolleyError;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.StringUtils;
+import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.lsgl.entity.RoleEntity;
 import com.google.gson.reflect.TypeToken;
 
@@ -20,12 +22,14 @@ import java.util.List;
  * Created by dongqs on 2017/1/23.
  */
 
-public class LsglMainActivity extends MyActivity{
+public class LsglMainActivity extends MyActivity implements View.OnClickListener{
 
     private LinearLayout bzr;
     private LinearLayout xb;
     private LinearLayout xgc;
     private LinearLayout fdy;
+
+    private ErrorLayout mError;
 
     @Override
     protected int getLayoutID() {
@@ -45,9 +49,12 @@ public class LsglMainActivity extends MyActivity{
         xb = (LinearLayout)findViewById(R.id.xb);
         xgc = (LinearLayout)findViewById(R.id.xgc);
         fdy = (LinearLayout)findViewById(R.id.fdy);
+        mError = (ErrorLayout) findViewById(R.id.error_layout);
+        mError.setOnLayoutClickListener(this);
     }
 
     private void loadDatas() {
+        mError.setErrorType(ErrorLayout.LOADDATA);
         HttpUtil.getInstance().postJsonObjectRequest("apps/lsxsgl/role", null, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
@@ -55,9 +62,9 @@ public class LsglMainActivity extends MyActivity{
                     try {
                         List<RoleEntity> roles = getGson().fromJson(result.getJSONArray("data").toString(),new TypeToken<List<RoleEntity>>(){}.getType());
                         if (roles == null){
-                            //errory
+                            mError.setErrorType(ErrorLayout.NETWORK_ERROR);
                         } else if (roles.size() == 0) {
-                            //errory
+                            mError.setErrorType(ErrorLayout.NODATA);
                         } else {
                             for (RoleEntity role : roles) {
                                 if (role.getId().equals("1")) {
@@ -70,16 +77,17 @@ public class LsglMainActivity extends MyActivity{
                                     fdy.setVisibility(View.VISIBLE);
                                 }
                             }
+                            mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                         }
                     } catch (JSONException e) {
-
+                        mError.setErrorType(ErrorLayout.NETWORK_ERROR);
                     }
                 }
             }
 
             @Override
             public void onError(VolleyError error) {
-
+                mError.setErrorType(ErrorLayout.NETWORK_ERROR);
             }
         });
     }
@@ -88,19 +96,19 @@ public class LsglMainActivity extends MyActivity{
     boolean isposting = false;
 
     public void tobzr(View v){
-        doStartActivity("1");
+        doStartActivity("1",v);
     }
     public void toxb(View v){
-        doStartActivity("3");
+        doStartActivity("3",v);
     }
     public void toxg(View v){
-        doStartActivity("4");
+        doStartActivity("4",v);
     }
     public void tofdy(View v){
-        doStartActivity("2");
+        doStartActivity("2",v);
     }
 
-    private void doStartActivity(final String role){
+    private void doStartActivity(final String role , final View view){
         if (!isposting) {
             isposting = true;
             handler.postDelayed(new Runnable() {
@@ -108,10 +116,17 @@ public class LsglMainActivity extends MyActivity{
                 public void run() {
                     Intent intent = new Intent(LsglMainActivity.this,LsglTabActivity.class);
                     intent.putExtra("role",role);
+                    intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
+                    intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(LsglMainActivity.this,40));
                     startActivity(intent);
                     isposting = false;
                 }
             },500);
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        loadDatas();
     }
 }

@@ -136,6 +136,9 @@ public class LsglInfoActivity extends MyActivity implements View.OnClickListener
                     try {
                         DetailsEntity details = getGson().fromJson(result.getJSONObject("data").toString(), DetailsEntity.class);
                         for (String detail : details.getDetail()) {
+
+                            detail = detail.replace("<font color='#9c9c9c'>","").replace("</font>","").replace("<font color='#212121'>","");
+
                             LinearLayout linearLayout = new LinearLayout(LsglInfoActivity.this);
                             LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
                             layoutParams.setMargins(margin, margin, margin, 0);
@@ -154,19 +157,22 @@ public class LsglInfoActivity extends MyActivity implements View.OnClickListener
                             linearLayout.addView(tv);
                             detailslinelayout.addView(linearLayout);
                         }
-                        error_layout.setVisibility(View.GONE);
-                        context.setVisibility(View.VISIBLE);
-                        bzline.setVisibility(canBz ? View.VISIBLE:View.GONE);
-                        fkline.setVisibility(canFk ? View.VISIBLE:View.GONE);
-                        submitButton.setVisibility( !(canBz && canFk) ? View.GONE : View.VISIBLE );
-//                        scheduleStartPostponedTransition(rootview);
+
+                        getFklist();
+
+//                        error_layout.setVisibility(View.GONE);
+//                        context.setVisibility(View.VISIBLE);
+//                        bzline.setVisibility(canBz ? View.VISIBLE:View.GONE);
+//                        fkline.setVisibility(canFk ? View.VISIBLE:View.GONE);
+//                        submitButton.setVisibility( !(canBz && canFk) ? View.GONE : View.VISIBLE );
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        error_layout.setErrorType(ErrorLayout.NETWORK_ERROR);
                     }
                 }
             }
             @Override
             public void onError(VolleyError error) {
+                error_layout.setErrorType(ErrorLayout.NETWORK_ERROR);
             }
         });
     }
@@ -174,52 +180,101 @@ public class LsglInfoActivity extends MyActivity implements View.OnClickListener
     @Override
     public void onClick(View view) {
         if (view == fkline){
-            HttpUtil.getInstance().postJsonObjectRequest("apps/lsxsgl/fkxxList",null,new HttpListener<JSONObject>(){
-                @Override
-                public void onSuccess(JSONObject result) {
-                    try {
-                        fklist = getGson().fromJson(result.getJSONArray("data").toString(), new TypeToken<List<FkEntity>>(){}.getType());
-                        String[] title = new String[fklist.size()];
-                        for (int i =0;i<fklist.size();i++){
-                            title[i] = fklist.get(i).getName();
-                        }
-                        setTheme(R.style.ActionSheetStyleiOS7);
-                        ActionSheet.createBuilder(LsglInfoActivity.this, getSupportFragmentManager())
-                                .setCancelButtonTitle("取消")
-                                .setOtherButtonTitles(title)
-                                .setCancelableOnTouchOutside(true)
-                                .setListener(new ActionSheet.ActionSheetListener() {
-                                    @Override
-                                    public void onDismiss(ActionSheet actionSheet, boolean isCancel) {}
-                                    @Override
-                                    public void onOtherButtonClick(ActionSheet actionSheet, int index) {
-                                        fktext.setText(fklist.get(index).getName());
-                                        fktext.setTag(fklist.get(index).getId());
-                                    }
-                                }).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                @Override
-                public void onError(VolleyError error) {
-                }
-            });
-
+//            HttpUtil.getInstance().postJsonObjectRequest("apps/lsxsgl/fkxxList",null,new HttpListener<JSONObject>(){
+//                @Override
+//                public void onSuccess(JSONObject result) {
+//                    try {
+//                        fklist = getGson().fromJson(result.getJSONArray("data").toString(), new TypeToken<List<FkEntity>>(){}.getType());
+//                        String[] title = new String[fklist.size()];
+//                        for (int i =0;i<fklist.size();i++){
+//                            title[i] = fklist.get(i).getName();
+//                        }
+//                        setTheme(R.style.ActionSheetStyleiOS7);
+//                        ActionSheet.createBuilder(LsglInfoActivity.this, getSupportFragmentManager())
+//                                .setCancelButtonTitle("取消")
+//                                .setOtherButtonTitles(title)
+//                                .setCancelableOnTouchOutside(true)
+//                                .setListener(new ActionSheet.ActionSheetListener() {
+//                                    @Override
+//                                    public void onDismiss(ActionSheet actionSheet, boolean isCancel) {}
+//                                    @Override
+//                                    public void onOtherButtonClick(ActionSheet actionSheet, int index) {
+//                                        fktext.setText(fklist.get(index).getName());
+//                                        fktext.setTag(fklist.get(index).getId());
+//                                    }
+//                                }).show();
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                @Override
+//                public void onError(VolleyError error) {
+//                }
+//            });
+            showActionSheet();
         }
     }
 
-//    private void scheduleStartPostponedTransition(final View sharedElement) {
-//        sharedElement.getViewTreeObserver().addOnPreDrawListener(
-//                new ViewTreeObserver.OnPreDrawListener() {
-//                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-//                    @Override
-//                    public boolean onPreDraw() {
-//                        //启动动画
-//                        sharedElement.getViewTreeObserver().removeOnPreDrawListener(this);
-//                        startPostponedEnterTransition();
-//                        return true;
+
+
+    public void getFklist() {
+        HttpUtil.getInstance().postJsonObjectRequest("apps/lsxsgl/fkxxList",null,new HttpListener<JSONObject>(){
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    fklist = getGson().fromJson(result.getJSONArray("data").toString(), new TypeToken<List<FkEntity>>(){}.getType());
+//                    String[] title = new String[fklist.size()];
+//                    for (int i =0;i<fklist.size();i++){
+//                        title[i] = fklist.get(i).getName();
 //                    }
-//                });
-//    }
+//                    setTheme(R.style.ActionSheetStyleiOS7);
+//                    ActionSheet.createBuilder(LsglInfoActivity.this, getSupportFragmentManager())
+//                            .setCancelButtonTitle("取消")
+//                            .setOtherButtonTitles(title)
+//                            .setCancelableOnTouchOutside(true)
+//                            .setListener(new ActionSheet.ActionSheetListener() {
+//                                @Override
+//                                public void onDismiss(ActionSheet actionSheet, boolean isCancel) {}
+//                                @Override
+//                                public void onOtherButtonClick(ActionSheet actionSheet, int index) {
+//                                    fktext.setText(fklist.get(index).getName());
+//                                    fktext.setTag(fklist.get(index).getId());
+//                                }
+//                            }).show();
+                    error_layout.setVisibility(View.GONE);
+                    context.setVisibility(View.VISIBLE);
+                    bzline.setVisibility(canBz ? View.VISIBLE:View.GONE);
+                    fkline.setVisibility(canFk ? View.VISIBLE:View.GONE);
+                    submitButton.setVisibility( !(canBz && canFk) ? View.GONE : View.VISIBLE );
+                } catch (JSONException e) {
+                    error_layout.setErrorType(ErrorLayout.NETWORK_ERROR);
+                }
+            }
+            @Override
+            public void onError(VolleyError error) {
+                error_layout.setErrorType(ErrorLayout.NETWORK_ERROR);
+            }
+        });
+    }
+
+    private void showActionSheet(){
+        String[] title = new String[fklist.size()];
+        for (int i =0;i<fklist.size();i++){
+            title[i] = fklist.get(i).getName();
+        }
+        setTheme(R.style.ActionSheetStyleiOS7);
+        ActionSheet.createBuilder(LsglInfoActivity.this, getSupportFragmentManager())
+                .setCancelButtonTitle("取消")
+                .setOtherButtonTitles(title)
+                .setCancelableOnTouchOutside(true)
+                .setListener(new ActionSheet.ActionSheetListener() {
+                    @Override
+                    public void onDismiss(ActionSheet actionSheet, boolean isCancel) {}
+                    @Override
+                    public void onOtherButtonClick(ActionSheet actionSheet, int index) {
+                        fktext.setText(fklist.get(index).getName());
+                        fktext.setTag(fklist.get(index).getId());
+                    }
+                }).show();
+    }
 }

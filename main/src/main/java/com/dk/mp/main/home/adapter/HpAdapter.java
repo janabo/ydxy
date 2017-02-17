@@ -1,10 +1,12 @@
 package com.dk.mp.main.home.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Vibrator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,9 @@ import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.AppUtil;
 import com.dk.mp.core.util.DrawableUtils;
 import com.dk.mp.core.util.ImageUtil;
+import com.dk.mp.core.util.StringUtils;
+import com.dk.mp.lsgl.LsglMainActivity;
+import com.dk.mp.lsgl.LsglTabActivity;
 import com.dk.mp.main.R;
 import com.dk.mp.main.home.data.AbstractDataProvider;
 import com.dk.mp.main.home.ui.HeaderView;
@@ -131,6 +136,9 @@ public class HpAdapter extends RecyclerView.Adapter<HpAdapter.MyViewHolder> impl
         return mProvider.getItem(position).getViewType();
     }
 
+    android.os.Handler handler=new android.os.Handler();
+    boolean isposting = false;
+
     @Override
     public MyViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         mVibrator = (Vibrator)mContext.getSystemService(Context.VIBRATOR_SERVICE);
@@ -140,25 +148,58 @@ public class HpAdapter extends RecyclerView.Adapter<HpAdapter.MyViewHolder> impl
             v = inflater.inflate(R.layout.gridview_item_main, parent, false);
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    if (showDel == View.VISIBLE) {
-                        cancelDelete.setVisibility(View.GONE);
-                        showDel = View.GONE;
-                        notifyDataSetChanged();
-                    } else {
-                        new AppUtil(mContext).checkApp(
-                                new App(
-                                "",
-                                "",
-                                "",
-                                mProvider.getItem(onclickPosition).getText(),
-                                String.valueOf(mProvider.getItem(onclickPosition).getId()),
-                                "",
-                                mProvider.getItem(onclickPosition).getIcon(),
-                                mProvider.getItem(onclickPosition).getAction()
-                                )
-                        );
+                public void onClick(final View v) {
+                    final int onclickposition = onclickPosition;
+
+                    if (!isposting) {
+                        isposting = true;
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (showDel == View.VISIBLE) {
+                                    cancelDelete.setVisibility(View.GONE);
+                                    showDel = View.GONE;
+                                    notifyDataSetChanged();
+                                } else {
+                                    new AppUtil(mContext).checkApp(
+                                            new App(
+                                                    "",
+                                                    "",
+                                                    "",
+                                                    mProvider.getItem(onclickposition).getText(),
+                                                    String.valueOf(mProvider.getItem(onclickposition).getId()),
+                                                    "",
+                                                    mProvider.getItem(onclickposition).getIcon(),
+                                                    mProvider.getItem(onclickposition).getAction(),
+                                                    (v.getLeft() + v.getRight()) / 2,
+                                                    (v.getTop() + v.getBottom()) / 2 + StringUtils.dip2px(mContext,40)
+                                            )
+                                    );
+                                }
+                                isposting = false;
+                            }
+                        },500);
                     }
+
+
+//                    if (showDel == View.VISIBLE) {
+//                        cancelDelete.setVisibility(View.GONE);
+//                        showDel = View.GONE;
+//                        notifyDataSetChanged();
+//                    } else {
+//                        new AppUtil(mContext).checkApp(
+//                                new App(
+//                                "",
+//                                "",
+//                                "",
+//                                mProvider.getItem(onclickPosition).getText(),
+//                                String.valueOf(mProvider.getItem(onclickPosition).getId()),
+//                                "",
+//                                mProvider.getItem(onclickPosition).getIcon(),
+//                                mProvider.getItem(onclickPosition).getAction()
+//                                )
+//                        );
+//                    }
                 }
             });
             v.setOnLongClickListener(new View.OnLongClickListener() {
