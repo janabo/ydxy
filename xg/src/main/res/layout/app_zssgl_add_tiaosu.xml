@@ -35,14 +35,14 @@
                         android:layout_width="wrap_content"
                         android:text="提名学生"
                         android:textColor="#212121"
-                        android:textSize="14sp"
+                        android:textSize="?attr/textSize14"
                         />
                     <TextView
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:text="（点击头像可删除）"
                         android:textColor="#9c9c9c"
-                        android:textSize="12sp"/>
+                        android:textSize="?attr/textSize12"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -61,14 +61,14 @@
                     android:orientation="vertical">
                     <ImageView
                         android:id="@+id/wjxs_img"
-                        android:layout_width="34dp"
-                        android:layout_height="34dp"
+                        android:layout_width="?attr/image34"
+                        android:layout_height="?attr/image34"
                         android:src="@mipmap/add_r"
                         android:onClick="addTbr"/>
                     <LinearLayout
                         android:id = "@+id/wjxs_lin"
-                        android:layout_height="34dp"
-                        android:layout_width="34dp"
+                        android:layout_height="?attr/image34"
+                        android:layout_width="?attr/image34"
                         android:background="@drawable/circle_border"
                         android:gravity="center"
                         android:visibility="gone">
@@ -77,7 +77,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="?attr/textSize20"
                             />
                     </LinearLayout>
 
@@ -87,7 +87,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:textColor="#212121"
-                        android:textSize="14sp"
+                        android:textSize="?attr/textSize14"
                         android:visibility="gone"
                         android:gravity="center_horizontal"/>
 
@@ -116,7 +116,7 @@
                     android:layout_width="match_parent"
                     android:text="提名信息"
                     android:textColor="#9c9c9c"
-                    android:textSize="12sp"
+                    android:textSize="?attr/textSize12"
                     android:layout_margin="10dp">
                 </TextView>
                 <View
@@ -137,13 +137,13 @@
                         android:layout_width="wrap_content"
                         android:text="姓名："
                         android:textColor="#9c9c9c"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                     <TextView
                         android:id="@+id/xm"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textColor="#212121"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -157,13 +157,13 @@
                         android:layout_width="wrap_content"
                         android:text="性别："
                         android:textColor="#9c9c9c"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                     <TextView
                         android:id="@+id/xb"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textColor="#212121"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -177,13 +177,13 @@
                         android:layout_width="wrap_content"
                         android:text="年级："
                         android:textColor="#9c9c9c"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                     <TextView
                         android:id="@+id/nj"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textColor="#212121"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -197,13 +197,13 @@
                         android:layout_width="wrap_content"
                         android:text="院系："
                         android:textColor="#9c9c9c"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                     <TextView
                         android:id="@+id/yx"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textColor="#212121"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -217,13 +217,13 @@
                         android:layout_width="wrap_content"
                         android:text="班级："
                         android:textColor="#9c9c9c"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                     <TextView
                         android:id="@+id/bj"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textColor="#212121"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -237,13 +237,13 @@
                         android:layout_width="wrap_content"
                         android:text="学生类别："
                         android:textColor="#9c9c9c"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                     <TextView
                         android:id="@+id/xslb"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textColor="#212121"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                 </LinearLayout>
 
                 <View
@@ -270,7 +270,7 @@
                     android:layout_width="match_parent"
                     android:text="原宿舍信息"
                     android:textColor="#9c9c9c"
-                    android:textSize="12sp"
+                    android:textSize="?attr/textSize12"
                     android:layout_margin="10dp">
                 </TextView>
                 <View
@@ -291,13 +291,13 @@
                         android:layout_width="wrap_content"
                         android:text="校区："
                         android:textColor="#9c9c9c"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                     <TextView
                         android:id="@+id/xq"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textColor="#212121"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -311,13 +311,13 @@
                         android:layout_width="wrap_content"
                         android:text="宿舍区："
                         android:textColor="#9c9c9c"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                     <TextView
                         android:id="@+id/ssq"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textColor="#212121"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -331,13 +331,13 @@
                         android:layout_width="wrap_content"
                         android:text="宿舍楼："
                         android:textColor="#9c9c9c"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                     <TextView
                         android:id="@+id/ssl"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textColor="#212121"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -351,13 +351,13 @@
                         android:layout_width="wrap_content"
                         android:text="楼层："
                         android:textColor="#9c9c9c"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                     <TextView
                         android:id="@+id/lc"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textColor="#212121"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -371,13 +371,13 @@
                         android:layout_width="wrap_content"
                         android:text="房间号："
                         android:textColor="#9c9c9c"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                     <TextView
                         android:id="@+id/fjh"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textColor="#212121"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -391,13 +391,13 @@
                         android:layout_width="wrap_content"
                         android:text="床位号："
                         android:textColor="#9c9c9c"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                     <TextView
                         android:id="@+id/cwh"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textColor="#212121"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -411,13 +411,13 @@
                         android:layout_width="wrap_content"
                         android:text="房型："
                         android:textColor="#9c9c9c"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                     <TextView
                         android:id="@+id/fx"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textColor="#212121"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -431,13 +431,13 @@
                         android:layout_width="wrap_content"
                         android:text="住宿费(元/年)："
                         android:textColor="#9c9c9c"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                     <TextView
                         android:id="@+id/zsf"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textColor="#212121"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -451,13 +451,13 @@
                         android:layout_width="wrap_content"
                         android:text="床位数："
                         android:textColor="#9c9c9c"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                     <TextView
                         android:id="@+id/cws"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textColor="#212121"
-                        android:textSize="14sp"/>
+                        android:textSize="?attr/textSize14"/>
                 </LinearLayout>
 
                 <View
@@ -489,7 +489,7 @@
                     android:maxLength="200"
                     android:hint="申请理由(200字以内，必填)"
                     android:gravity="top"
-                    android:textSize="14sp"/>
+                    android:textSize="?attr/textSize14"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -517,7 +517,7 @@
                         android:layout_width="wrap_content"
                         android:text="调整后宿舍"
                         android:textColor="#9c9c9c"
-                        android:textSize="12sp"/>
+                        android:textSize="?attr/textSize12"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -543,14 +543,14 @@
                         android:layout_width="wrap_content"
                         android:text="校区"
                         android:textColor="#212121"
-                        android:textSize="15sp">
+                        android:textSize="?attr/textSize15">
                     </TextView>
                     <TextView
                         android:id="@+id/xq_pick"
                         android:layout_height="wrap_content"
                         android:layout_width="0dp"
                         android:textColor="#212121"
-                        android:textSize="14sp"
+                        android:textSize="?attr/textSize14"
                         android:layout_weight="1"
                         android:gravity="right"
                         android:hint="必选">
@@ -586,22 +586,22 @@
                         android:layout_width="wrap_content"
                         android:text="宿舍区"
                         android:textColor="#212121"
-                        android:textSize="15sp">
+                        android:textSize="?attr/textSize15">
                     </TextView>
                     <TextView
                         android:id="@+id/ssq_pick"
                         android:layout_height="wrap_content"
                         android:layout_width="0dp"
                         android:textColor="#212121"
-                        android:textSize="14sp"
+                        android:textSize="?attr/textSize14"
                         android:layout_weight="1"
                         android:gravity="right"
                         android:hint="必选">
                     </TextView>
                     <ImageView
                         android:src="@mipmap/arrow_icon_xg"
-                        android:layout_width="8dp"
-                        android:layout_height="13dp"
+                        android:layout_width="?attr/image8"
+                        android:layout_height="?attr/image13"
                         android:layout_marginLeft="10dp"/>
                 </LinearLayout>
 
@@ -629,22 +629,22 @@
                         android:layout_width="wrap_content"
                         android:text="宿舍楼"
                         android:textColor="#212121"
-                        android:textSize="15sp">
+                        android:textSize="?attr/textSize15">
                     </TextView>
                     <TextView
                         android:id="@+id/ssl_pick"
                         android:layout_height="wrap_content"
                         android:layout_width="0dp"
                         android:textColor="#212121"
-                        android:textSize="14sp"
+                        android:textSize="?attr/textSize14"
                         android:layout_weight="1"
                         android:gravity="right"
                         android:hint="必选">
                     </TextView>
                     <ImageView
                         android:src="@mipmap/arrow_icon_xg"
-                        android:layout_width="8dp"
-                        android:layout_height="13dp"
+                        android:layout_width="?attr/image8"
+                        android:layout_height="?attr/image13"
                         android:layout_marginLeft="10dp"/>
                 </LinearLayout>
 
@@ -672,22 +672,22 @@
                         android:layout_width="wrap_content"
                         android:text="楼层"
                         android:textColor="#212121"
-                        android:textSize="15sp">
+                        android:textSize="?attr/textSize15">
                     </TextView>
                     <TextView
                         android:id="@+id/lc_pick"
                         android:layout_height="wrap_content"
                         android:layout_width="0dp"
                         android:textColor="#212121"
-                        android:textSize="14sp"
+                        android:textSize="?attr/textSize14"
                         android:layout_weight="1"
                         android:gravity="right"
                         android:hint="必选">
                     </TextView>
                     <ImageView
                         android:src="@mipmap/arrow_icon_xg"
-                        android:layout_width="8dp"
-                        android:layout_height="13dp"
+                        android:layout_width="?attr/image8"
+                        android:layout_height="?attr/image13"
                         android:layout_marginLeft="10dp"/>
                 </LinearLayout>
 
@@ -715,22 +715,22 @@
                         android:layout_width="wrap_content"
                         android:text="房间号"
                         android:textColor="#212121"
-                        android:textSize="15sp">
+                        android:textSize="?attr/textSize15">
                     </TextView>
                     <TextView
                         android:id="@+id/fjh_pick"
                         android:layout_height="wrap_content"
                         android:layout_width="0dp"
                         android:textColor="#212121"
-                        android:textSize="14sp"
+                        android:textSize="?attr/textSize14"
                         android:layout_weight="1"
                         android:gravity="right"
                         android:hint="必选">
                     </TextView>
                     <ImageView
                         android:src="@mipmap/arrow_icon_xg"
-                        android:layout_width="8dp"
-                        android:layout_height="13dp"
+                        android:layout_width="?attr/image8"
+                        android:layout_height="?attr/image13"
                         android:layout_marginLeft="10dp"/>
                 </LinearLayout>
 
@@ -758,22 +758,22 @@
                         android:layout_width="wrap_content"
                         android:text="床位号"
                         android:textColor="#212121"
-                        android:textSize="15sp">
+                        android:textSize="?attr/textSize15">
                     </TextView>
                     <TextView
                         android:id="@+id/cwh_pick"
                         android:layout_height="wrap_content"
                         android:layout_width="0dp"
                         android:textColor="#212121"
-                        android:textSize="14sp"
+                        android:textSize="?attr/textSize14"
                         android:layout_weight="1"
                         android:gravity="right"
                         android:hint="必选">
                     </TextView>
                     <ImageView
                         android:src="@mipmap/arrow_icon_xg"
-                        android:layout_width="8dp"
-                        android:layout_height="13dp"
+                        android:layout_width="?attr/image8"
+                        android:layout_height="?attr/image13"
                         android:layout_marginLeft="10dp"/>
                 </LinearLayout>
 
@@ -800,14 +800,14 @@
                         android:layout_width="wrap_content"
                         android:text="房型"
                         android:textColor="#212121"
-                        android:textSize="15sp">
+                        android:textSize="?attr/textSize15">
                     </TextView>
                     <TextView
                         android:id="@+id/fx_pick"
                         android:layout_height="wrap_content"
                         android:layout_width="0dp"
                         android:textColor="#212121"
-                        android:textSize="14sp"
+                        android:textSize="?attr/textSize14"
                         android:layout_weight="1"
                         android:gravity="right"
                         android:hint=""
@@ -843,14 +843,14 @@
                         android:layout_width="wrap_content"
                         android:text="住宿费(元/年)"
                         android:textColor="#212121"
-                        android:textSize="15sp">
+                        android:textSize="?attr/textSize15">
                     </TextView>
                     <TextView
                         android:id="@+id/zsf_pick"
                         android:layout_height="wrap_content"
                         android:layout_width="0dp"
                         android:textColor="#212121"
-                        android:textSize="14sp"
+                        android:textSize="?attr/textSize14"
                         android:layout_weight="1"
                         android:gravity="right"
                         android:hint=""
@@ -886,14 +886,14 @@
                         android:layout_width="wrap_content"
                         android:text="床位数"
                         android:textColor="#212121"
-                        android:textSize="15sp">
+                        android:textSize="?attr/textSize15">
                     </TextView>
                     <TextView
                         android:id="@+id/cws_pick"
                         android:layout_height="wrap_content"
                         android:layout_width="0dp"
                         android:textColor="#212121"
-                        android:textSize="14sp"
+                        android:textSize="?attr/textSize14"
                         android:layout_weight="1"
                         android:gravity="right"
                         android:hint=""
@@ -930,22 +930,22 @@
                         android:layout_width="wrap_content"
                         android:text="调整原因"
                         android:textColor="#212121"
-                        android:textSize="15sp">
+                        android:textSize="?attr/textSize15">
                     </TextView>
                     <TextView
                         android:id="@+id/tzyy_pick"
                         android:layout_height="wrap_content"
                         android:layout_width="0dp"
                         android:textColor="#212121"
-                        android:textSize="14sp"
+                        android:textSize="?attr/textSize14"
                         android:layout_weight="1"
                         android:gravity="right"
                         android:hint="必选">
                     </TextView>
                     <ImageView
                         android:src="@mipmap/arrow_icon_xg"
-                        android:layout_width="8dp"
-                        android:layout_height="13dp"
+                        android:layout_width="?attr/image8"
+                        android:layout_height="?attr/image13"
                         android:layout_marginLeft="10dp"/>
                 </LinearLayout>
 
@@ -977,7 +977,7 @@
                     android:maxLength="200"
                     android:hint="备注(200字以内，选填)"
                     android:gravity="top"
-                    android:textSize="14sp"/>
+                    android:textSize="?attr/textSize14"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -1006,7 +1006,7 @@
                     android:maxLength="200"
                     android:hint="审核意见(200字以内，必填)"
                     android:gravity="top"
-                    android:textSize="14sp"/>
+                    android:textSize="?attr/textSize14"/>
 
                 <View
                     android:layout_width="match_parent"

@@ -6,6 +6,11 @@
     android:orientation="vertical">
 
     <include layout="@layout/core_title_back"/>
+    <com.dk.mp.core.widget.ErrorLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/error_layout"
+        android:gravity="center_horizontal"/>
 
     <ScrollView
         android:id="@+id/mRootView"

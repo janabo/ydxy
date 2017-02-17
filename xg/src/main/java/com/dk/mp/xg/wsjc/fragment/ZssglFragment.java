@@ -64,6 +64,7 @@ public class ZssglFragment extends BaseFragment implements View.OnClickListener{
         this.lmlb = lmlb;
         mData.clear();
         myListView.clearList();
+        mError.setErrorType(ErrorLayout.LOADDATA);
         getData();
     }
 

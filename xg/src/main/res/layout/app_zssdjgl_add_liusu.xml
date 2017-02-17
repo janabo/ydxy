@@ -36,22 +36,22 @@
                 android:layout_width="wrap_content"
                 android:text="留宿开始时间"
                 android:textColor="#212121"
-                android:textSize="15sp">
+                android:textSize="?attr/textSize15">
             </TextView>
             <TextView
                 android:id="@+id/ksrq_pick"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:textColor="#212121"
-                android:textSize="14sp"
+                android:textSize="?attr/textSize14"
                 android:layout_weight="1"
                 android:gravity="right"
                 android:hint="必填">
             </TextView>
             <ImageView
                 android:src="@mipmap/arrow_icon_xg"
-                android:layout_width="8dp"
-                android:layout_height="13dp"
+                android:layout_width="?attr/image8"
+                android:layout_height="?attr/image13"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>
@@ -68,22 +68,22 @@
                 android:layout_width="wrap_content"
                 android:text="留宿结束时间"
                 android:textColor="#212121"
-                android:textSize="15sp">
+                android:textSize="?attr/textSize15">
             </TextView>
             <TextView
                 android:id="@+id/jsrq_pick"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:textColor="#212121"
-                android:textSize="14sp"
+                android:textSize="?attr/textSize14"
                 android:layout_weight="1"
                 android:gravity="right"
                 android:hint="必填">
             </TextView>
             <ImageView
                 android:src="@mipmap/arrow_icon_xg"
-                android:layout_width="8dp"
-                android:layout_height="13dp"
+                android:layout_width="?attr/image8"
+                android:layout_height="?attr/image13"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>
@@ -110,14 +110,14 @@
                     android:layout_width="wrap_content"
                     android:text="住宿人员"
                     android:textColor="#212121"
-                    android:textSize="14sp"
+                    android:textSize="?attr/textSize14"
                     />
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="（点击头像可删除）"
                     android:textColor="#9c9c9c"
-                    android:textSize="12sp"/>
+                    android:textSize="?attr/textSize12"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"

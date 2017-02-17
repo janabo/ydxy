@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
@@ -51,6 +52,7 @@ public class WsjcTjTabActivity extends MyActivity {
     private WsjcTjFragment fragment1 = new WsjcTjFragment();
     private WsjcTjFragment fragment2 = new WsjcTjFragment();
     private WsjcTjFragment fragment3 = new WsjcTjFragment();
+    private ImageView dropdown_img;
 
     @Override
     protected int getLayoutID() {
@@ -61,6 +63,7 @@ public class WsjcTjTabActivity extends MyActivity {
     protected void initialize() {
         super.initialize();
         type = getIntent().getStringExtra("role");
+        setTitle(getIntent().getStringExtra("title"));
         findView();
         initViewPager();
         getWeeks();
@@ -69,6 +72,7 @@ public class WsjcTjTabActivity extends MyActivity {
     }
 
     private void findView(){
+        dropdown_img = (ImageView) findViewById(R.id.dropdown_img);
         mTabLayout = (TabLayout) findViewById(R.id.tablayout);
         mViewpager = (MyViewpager) findViewById(R.id.viewpager);
         dropdown = (LinearLayout) findViewById(R.id.dropdown);
@@ -184,6 +188,7 @@ public class WsjcTjTabActivity extends MyActivity {
                         if (gsonData.getCode() == 200) {
                             List<Common> dfxxes = gsonData.getData();
                             if(dfxxes.size()>0){//获取数据不为空
+                                dropdown_img.setVisibility(View.VISIBLE);
                                 mWeeks.addAll(dfxxes);
                                 weekname = dfxxes.get(0).getName();
                                 setTitle(weekname);
@@ -191,20 +196,23 @@ public class WsjcTjTabActivity extends MyActivity {
                                 fragment1.setMUrl("apps/sswsdftj/tj" +
                                         "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
                             }else{
-
+                                showErrorMsg(mViewpager,getErrorMsg());
                             }
                         } else {
+                            showErrorMsg(mViewpager,getErrorMsg());
                         }
                     }else{
+                        showErrorMsg(mViewpager,getErrorMsg());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    showErrorMsg(mViewpager,getErrorMsg());
                 }
             }
 
             @Override
             public void onError(VolleyError error) {
-
+                showErrorMsg(mViewpager,getErrorMsg());
             }
         });
     }
@@ -310,6 +318,15 @@ public class WsjcTjTabActivity extends MyActivity {
         }
     }
 
-
+    /**
+     * 显示错误名称
+     * @return
+     */
+    public String getErrorMsg(){
+        dropdown_img.setVisibility(View.INVISIBLE);
+        fragment1.setMUrl("apps/sswsdftj/tj" +
+                "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
+        return "未获取周次失败";
+    }
 
 }

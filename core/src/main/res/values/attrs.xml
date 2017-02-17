@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="textSize24" format="dimension" />
+    <attr name="textSize20" format="dimension" />
+    <attr name="textSize18" format="dimension" />
     <attr name="textSize17" format="dimension" />
     <attr name="textSize16" format="dimension" />
     <attr name="textSize15" format="dimension" />
@@ -10,18 +13,23 @@
     <attr name="image8" format="dimension" />
     <attr name="image10" format="dimension" />
     <attr name="image11" format="dimension" />
+    <attr name="image13" format="dimension" />
     <attr name="image16" format="dimension" />
     <attr name="image22" format="dimension" />
     <attr name="image30" format="dimension" />
     <attr name="image32" format="dimension" />
+    <attr name="image34" format="dimension" />
     <attr name="image40" format="dimension" />
     <attr name="image42" format="dimension" />
     <attr name="image44" format="dimension" />
     <attr name="image45" format="dimension" />
     <attr name="image48" format="dimension" />
+    <attr name="image50" format="dimension" />
     <attr name="image60" format="dimension" />
     <attr name="image62" format="dimension" />
+    <attr name="image70" format="dimension" />
     <attr name="image71" format="dimension" />
+    <attr name="image73" format="dimension" />
     <attr name="image80" format="dimension" />
     <attr name="image100" format="dimension" />
     <attr name="image154" format="dimension" />

@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/ripple_bg_while"
                 android:gravity="center"
-                android:minHeight="50dip"
+                android:minHeight="50dp"
                 android:text="调宿申请"
                 android:textColor="#F19149"
                 android:textSize="14sp" />
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/ripple_bg_while"
                 android:gravity="center"
-                android:minHeight="50dip"
+                android:minHeight="50dp"
                 android:text="退宿申请"
                 android:textColor="#F19149"
                 android:textSize="14sp" />
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/ripple_bg_while"
                 android:gravity="center"
-                android:minHeight="50dip"
+                android:minHeight="50dp"
                 android:text="停宿申请"
                 android:textColor="#F19149"
                 android:textSize="14sp" />
@@ -73,7 +73,7 @@
             android:layout_margin="10dip"
             android:background="@drawable/dialog_camera"
             android:gravity="center"
-            android:minHeight="50dip"
+            android:minHeight="50dp"
             android:text="取消"
             android:textColor="#007BFF"
             android:textSize="14sp" />

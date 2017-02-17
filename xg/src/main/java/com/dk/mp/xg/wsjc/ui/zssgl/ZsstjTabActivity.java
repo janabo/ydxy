@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
@@ -45,6 +46,7 @@ public class ZsstjTabActivity extends MyActivity {
     private WsjcTjFragment fragment1 = new WsjcTjFragment();
     private WsjcTjFragment fragment2 = new WsjcTjFragment();
     private WsjcTjFragment fragment3 = new WsjcTjFragment();
+    private ImageView dropdown_img;
 
     @Override
     protected int getLayoutID() {
@@ -56,6 +58,7 @@ public class ZsstjTabActivity extends MyActivity {
         super.initialize();
         type = getIntent().getStringExtra("lx");
         role = getIntent().getStringExtra("role");
+        setTitle(getIntent().getStringExtra("title"));
         findView();
         initViewPager();
         getClassesorDepartments();
@@ -65,6 +68,7 @@ public class ZsstjTabActivity extends MyActivity {
         mTabLayout = (TabLayout) findViewById(R.id.tablayout);
         mViewpager = (MyViewpager) findViewById(R.id.viewpager);
         dropdown = (LinearLayout) findViewById(R.id.dropdown);
+        dropdown_img = (ImageView) findViewById(R.id.dropdown_img);
 
         dropdown.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,12 +113,15 @@ public class ZsstjTabActivity extends MyActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 tabSelect = tab.getPosition();
                 if(tabSelect == 0){
+                    dropdown_img.setVisibility(View.VISIBLE);
                     fragment1.setMUrl("apps/zxzssgltj/tongji" +
                             "?id="+weekid+"&type=today&lmlb="+type);
                 }else if(tabSelect == 1){
                     fragment2.setMUrl("apps/zxzssgltj/tongji" +
                             "?id="+weekid+"&type=week&lmlb="+type);
+                    dropdown_img.setVisibility(View.VISIBLE);
                 }else if(tabSelect == 2){
+                    dropdown_img.setVisibility(View.VISIBLE);
                     fragment3.setMUrl("apps/zxzssgltj/tongji" +
                             "?id="+weekid+"&type=month&lmlb="+type);
                 }
@@ -147,6 +154,7 @@ public class ZsstjTabActivity extends MyActivity {
                         if (gsonData.getCode() == 200) {
                             List<Common> dfxxes = gsonData.getData();
                             if(dfxxes.size()>0){//获取数据不为空
+                                dropdown_img.setVisibility(View.VISIBLE);
                                 mWeeks.addAll(dfxxes);
                                 weekname = dfxxes.get(0).getName();
                                 setTitle(weekname);
@@ -194,6 +202,9 @@ public class ZsstjTabActivity extends MyActivity {
      * @return
      */
     public String getErrorMsg(){
+        dropdown_img.setVisibility(View.INVISIBLE);
+        fragment1.setMUrl("apps/zxzssgltj/tongji" +
+                "?role="+role+"&id="+weekid+"&type=today&lx="+type);
         if("1".equals(role) || "2".equals(role) || "3".equals(role)){
             return "未获取到班级列表";
         }else{

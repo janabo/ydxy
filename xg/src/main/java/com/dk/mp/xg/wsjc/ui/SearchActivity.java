@@ -190,6 +190,7 @@ public class SearchActivity extends MyActivity implements View.OnClickListener{
             ssl_fjh = (TextView) itemView.findViewById(R.id.ssl_fjh);
             ssq = (TextView) itemView.findViewById(R.id.ssq);
             fs = (TextView) itemView.findViewById(R.id.fs);
+
         }
     }
 

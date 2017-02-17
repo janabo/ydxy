@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_bg"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -10,6 +9,13 @@
     <include
         android:id="@+id/layout_top"
         layout="@layout/core_title_back" />
+
+    <com.dk.mp.core.widget.ErrorLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/error_layout"
+        android:gravity="center_horizontal"
+        android:visibility="gone"/>
 
     <ScrollView
         android:layout_width="fill_parent"

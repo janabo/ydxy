@@ -14,8 +14,8 @@
 
     <ImageView
         android:id="@+id/zwsj_icon"
-        android:layout_width="70dip"
-        android:layout_height="73dip"
+        android:layout_width="?attr/image70"
+        android:layout_height="?attr/image73"
         android:src="@mipmap/nodata"
         android:elevation="4dp"
         android:visibility="gone"
@@ -28,6 +28,6 @@
         android:layout_marginTop="10dip"
         android:text="@string/nodata"
         android:textColor="#9c9c9c"
-        android:textSize="14sp"
+        android:textSize="?attr/textSize14"
         android:visibility="gone"/>
 </LinearLayout>

@@ -81,6 +81,9 @@
     </style>
 
     <style name="style_norm">
+        <item name="textSize24">24sp</item>
+        <item name="textSize20">20sp</item>
+        <item name="textSize18">18sp</item>
         <item name="textSize17">17sp</item>
         <item name="textSize16">16sp</item>
         <item name="textSize15">15sp</item>
@@ -91,24 +94,32 @@
         <item name="image8">8dp</item>
         <item name="image10">10dp</item>
         <item name="image11">11dp</item>
+        <item name="image13">13dp</item>
         <item name="image16">16dp</item>
         <item name="image22">22dp</item>
         <item name="image30">30dp</item>
         <item name="image32">32dp</item>
+        <item name="image34">34dp</item>
         <item name="image40">40dp</item>
         <item name="image42">42dp</item>
         <item name="image44">44dp</item>
         <item name="image45">45dp</item>
         <item name="image48">48dp</item>
+        <item name="image50">50dp</item>
         <item name="image60">60dp</item>
         <item name="image62">62dp</item>
+        <item name="image70">70dp</item>
         <item name="image71">71dp</item>
+        <item name="image73">73dp</item>
         <item name="image80">80dp</item>
         <item name="image100">100dp</item>
         <item name="image154">154dp</item>
     </style>
 
     <style name="style_large">
+        <item name="textSize24">27.6sp</item>
+        <item name="textSize20">23sp</item>
+        <item name="textSize18">20.7sp</item>
         <item name="textSize17">19.55sp</item>
         <item name="textSize16">18.4sp</item>
         <item name="textSize15">17.25sp</item>
@@ -119,24 +130,32 @@
         <item name="image8">9.2dp</item>
         <item name="image10">11.5dp</item>
         <item name="image11">12.6dp</item>
+        <item name="image13">14.95dp</item>
         <item name="image16">18.4dp</item>
         <item name="image22">25.3dp</item>
         <item name="image30">34.5dp</item>
         <item name="image32">36.8dp</item>
+        <item name="image34">39.1dp</item>
         <item name="image40">46dp</item>
         <item name="image42">48.3dp</item>
         <item name="image44">50.6dp</item>
         <item name="image45">51.75dp</item>
         <item name="image48">55.2dp</item>
+        <item name="image50">57.5dp</item>
         <item name="image60">69dp</item>
         <item name="image62">71.3dp</item>
+        <item name="image70">80.5dp</item>
         <item name="image71">81.65dp</item>
+        <item name="image73">83.95dp</item>
         <item name="image80">92dp</item>
         <item name="image100">115dp</item>
         <item name="image154">177.1dp</item>
     </style>
 
     <style name="style_big">
+        <item name="textSize24">30sp</item>
+        <item name="textSize20">25sp</item>
+        <item name="textSize18">22.5sp</item>
         <item name="textSize17">21.25sp</item>
         <item name="textSize16">20sp</item>
         <item name="textSize15">18.75sp</item>
@@ -147,18 +166,23 @@
         <item name="image8">10dp</item>
         <item name="image10">12.5dp</item>
         <item name="image11">13.7dp</item>
+        <item name="image13">16.25dp</item>
         <item name="image16">20dp</item>
         <item name="image22">27.5dp</item>
         <item name="image30">37.5dp</item>
         <item name="image32">40dp</item>
+        <item name="image34">42.5dp</item>
         <item name="image40">50dp</item>
         <item name="image42">52.5dp</item>
         <item name="image44">55dp</item>
         <item name="image45">56.25dp</item>
         <item name="image48">60dp</item>
+        <item name="image50">62.5dp</item>
         <item name="image60">75dp</item>
         <item name="image62">77.5dp</item>
+        <item name="image70">87.5dp</item>
         <item name="image71">88.75dp</item>
+        <item name="image73">91.25dp</item>
         <item name="image80">100dp</item>
         <item name="image100">125dp</item>
         <item name="image154">192.5dp</item>

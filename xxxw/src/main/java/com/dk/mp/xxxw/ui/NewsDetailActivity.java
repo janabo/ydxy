@@ -42,7 +42,7 @@ public class NewsDetailActivity extends MyActivity{
         mProgressBar = (ProgressBar) findViewById(R.id.pb_new_detail);
         mWebView = (WebView) findViewById(R.id.webview_new_detail);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        ViewCompat.setTransitionName(mWebView, "detail_element");
+        ViewCompat.setTransitionName(mImageViewTop, "detail_element");
         initData();
     }
 
