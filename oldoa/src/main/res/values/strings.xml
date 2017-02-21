@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Oldoa</string>
+    <string name="loading">努力加载中,请稍候</string>
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在加载&#8230;</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+
+    <string name="title_first">请选择下一步操作</string>
+    <string name="title_second">(*表示可选择多人)</string>
+    <string name="operate_one">操作一</string>
+    <string name="operate_two">操作二</string>
+    <string name="operate_three">操作三</string>
+    <string name="selected_person">已选择人员</string>
+    <string name="person">大张伟</string>
+    <string name="person_can_select">可以选择人员</string>
+    <string name="department">基础部</string>
+
+    <string name="week_rep">工作周报</string>
+    <string name="look_txt">查询</string>
+    <string name="ok">确定</string>
+</resources>

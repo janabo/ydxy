@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/layout_top"
+        layout="@layout/oa_core_title_back" />
+
+    <TabHost
+        android:id="@android:id/tabhost"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50dip" >
+
+                <RelativeLayout
+                    android:id="@+id/layout_bottom"
+                    android:layout_width="fill_parent"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="10dip"
+                    android:layout_height="65dip" >
+
+                    <RadioGroup
+                        android:id="@+id/radiogroup"
+                        android:layout_width="fill_parent"
+                        android:layout_height="65dip"
+                        android:layout_gravity="bottom"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <RadioButton
+                            android:id="@+id/daiban"
+                            android:button="@null"
+                            android:background="@drawable/slide_left_selected"
+                            android:layout_width="0dip"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:text="待办"
+                            android:gravity="center"
+                            android:textColor="@color/old_tab_oa_selected"
+                            android:checked="true"/>
+
+                        <RadioButton
+                            android:id="@+id/yiban"
+                            android:button="@null"
+                            android:background="@drawable/radio_yiban"
+                            android:layout_width="0dip"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textColor="@color/old_tab_oa_unselected"
+                            android:text="已办" />
+                    </RadioGroup>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1" >
+            </FrameLayout>
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+        </LinearLayout>
+    </TabHost>
+
+</LinearLayout>

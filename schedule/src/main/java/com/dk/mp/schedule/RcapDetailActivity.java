@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.dk.mp.core.dialog.AlertDialog;
+import com.dk.mp.core.entity.Rcap;
 import com.dk.mp.core.entity.RcapDetail;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.BroadcastUtil;
@@ -23,6 +24,7 @@ public class RcapDetailActivity extends MyActivity implements View.OnClickListen
     private RcapDetail rcap;
     public static RcapDetailActivity instance = null;
     private RealmHelper realmHelper;
+
 
     @Override
     protected int getLayoutID() {
@@ -54,7 +56,6 @@ public class RcapDetailActivity extends MyActivity implements View.OnClickListen
         place.setText(rcap.getLocation());
         starttime.setText(rcap.getTime_start());
         endtime.setText(rcap.getTime_end());
-
     }
 
     @Override
@@ -83,5 +84,20 @@ public class RcapDetailActivity extends MyActivity implements View.OnClickListen
     protected void onDestroy() {
         super.onDestroy();
         realmHelper.closeRealm();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getRcap();
+    }
+
+    public void getRcap(){
+        Rcap r = realmHelper.qRcap(rcap.getRcid());
+        title.setText(r.getTitle());
+        content.setText(r.getContent());
+        place.setText(r.getLocation());
+        starttime.setText(r.getTime_start());
+        endtime.setText(r.getTime_end());
     }
 }

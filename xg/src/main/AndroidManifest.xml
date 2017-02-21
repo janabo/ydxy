@@ -6,7 +6,7 @@
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.WsjcMainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeWsjc.NoTitle">
+            android:theme="@style/noAnimThemep.noAnimThemeStatusBarColorGray">
             <intent-filter>
                 <action android:name="sswzdf" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -26,7 +26,8 @@
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.WsjcRecordMainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep">
         </activity>
 
         <activity
@@ -36,11 +37,13 @@
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.SearchActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep.noAnimThemeStatusBarColorGray"/>
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.WsjcTjMainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep">
             <intent-filter>
                 <action android:name="sswsdftj" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -69,7 +72,7 @@
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.Sswz.SswzMainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeWsjc.NoTitle">
+            android:theme="@style/noAnimThemep.noAnimThemeStatusBarColorGray">
             <intent-filter>
                 <action android:name="sswzdj" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -82,11 +85,13 @@
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.Sswz.SswzRecordDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep"/>
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.Sswz.SswzSearchActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep.noAnimThemeStatusBarColorGray"/>
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.Sswz.SswzDjMainActivity"
@@ -111,7 +116,8 @@
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZsstjMainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep">
             <intent-filter>
                 <action android:name="zxzssgltj" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -119,7 +125,8 @@
         </activity>
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZsstjTabActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep"/>
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZsstjPickActivity"
@@ -129,7 +136,8 @@
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZssglMainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep">
             <intent-filter>
                 <action android:name="zxzssgl" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -145,16 +153,19 @@
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZssglAddTuiSuActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:theme="@style/noAnimThemep"/>
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZsstjAddTingSuActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:theme="@style/noAnimThemep"/>
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zsskq.ZsskqMainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep">
             <intent-filter>
                 <action android:name="zsskq" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -172,7 +183,8 @@
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZssglAddTiaoSuActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:theme="@style/noAnimThemep"/>
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZssglSelectPersonsActivity"
@@ -180,11 +192,13 @@
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZssglDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep"/>
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssdjgl.ZssdjglTabActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep">
             <intent-filter>
                 <action android:name="zsdjgl" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -193,7 +207,8 @@
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssdjgl.ZssdjglAddLiusuActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep"/>
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssdjgl.SelectPersonsActivity"
@@ -209,7 +224,8 @@
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssdjgl.ZssdjglSearchActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep.noAnimThemeStatusBarColorGray"/>
 
     </application>
 

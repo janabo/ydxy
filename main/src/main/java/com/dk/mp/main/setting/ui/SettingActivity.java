@@ -136,7 +136,8 @@ public class SettingActivity extends MyActivity{
      * @param v
      */
     public void toabout(View v){
-
+        Intent intent = new Intent(mContext,AboutActivity.class);
+        startActivity(intent);
     }
 
     /**

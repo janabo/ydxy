@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Main</string>
+    <string name="about_copyright_cn">常州刘国钧高等职业技术学校版权所有</string>
+    <string name="about_copyright_zn">Copyright xxxxxxxxx</string>
 </resources>

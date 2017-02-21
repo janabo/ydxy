@@ -20,6 +20,7 @@ import com.dk.mp.core.ui.BaseFragment;
 import com.dk.mp.core.util.AdapterInterface;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.SnackBarUtil;
+import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.view.MyListView;
 import com.dk.mp.core.view.RecycleViewDivider;
 import com.dk.mp.core.widget.ErrorLayout;
@@ -65,7 +66,7 @@ public class ZssdjglListFragment extends BaseFragment implements View.OnClickLis
     protected void initialize(View view) {
         super.initialize(view);
         mError = (ErrorLayout) view.findViewById(R.id.error_layout);
-        myListView = (MyListView)view.findViewById(mList);
+        myListView = (MyListView)view.findViewById(R.id.mList);
         mError.setOnLayoutClickListener(this);
         search_button = (LinearLayout) view.findViewById(R.id.search_button);
         search_button.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +74,8 @@ public class ZssdjglListFragment extends BaseFragment implements View.OnClickLis
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, ZssdjglSearchActivity.class);
                 intent.putExtra("type",mType);
+                intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
+                intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
                 startActivity(intent);
             }
         });

@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.Logger;
 import com.dk.mp.xxxw.R;
 import com.dk.mp.xxxw.entity.News;
 
@@ -29,6 +30,7 @@ public class NewsDetailActivity extends MyActivity{
     WebView mWebView;
     News news;
     Toolbar mToolbar;
+//    private ErrorLayout mError;
 
     @Override
     protected int getLayoutID() {
@@ -42,6 +44,7 @@ public class NewsDetailActivity extends MyActivity{
         mProgressBar = (ProgressBar) findViewById(R.id.pb_new_detail);
         mWebView = (WebView) findViewById(R.id.webview_new_detail);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+//        mError = (ErrorLayout) findViewById(R.id.error_layout);
         ViewCompat.setTransitionName(mImageViewTop, "detail_element");
         initData();
     }
@@ -76,6 +79,7 @@ public class NewsDetailActivity extends MyActivity{
     }
 
     private void setWebView ( ) {
+//        mError.setErrorType(ErrorLayout.LOADDATA);
         WebSettings settings = mWebView.getSettings ( );
         mWebView.setWebViewClient ( new MyWebViewClient ( mProgressBar ) );
         mWebView.setWebChromeClient ( new MyWebChromeClient ( mProgressBar ) );
@@ -105,6 +109,7 @@ public class NewsDetailActivity extends MyActivity{
         public void onPageFinished ( WebView webView, String url ) {
             super.onPageFinished ( webView, url );
             mProgressBar.setVisibility ( View.INVISIBLE );
+//            mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
         }
     }
 
@@ -118,6 +123,10 @@ public class NewsDetailActivity extends MyActivity{
         @Override
         public void onProgressChanged ( WebView view, int newProgress ) {
             mWebProgressBar.setProgress ( newProgress );
+            Logger.info("##########newProgress="+newProgress);
+//            if(newProgress>=100){
+//                mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+//            }
         }
 
         @Override

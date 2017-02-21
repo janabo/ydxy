@@ -29,4 +29,5 @@ dependencies {
     compile project(':newoa')
     compile project(':xg')
     compile project(':lsgl')
+    compile project(':oldoa')
 }

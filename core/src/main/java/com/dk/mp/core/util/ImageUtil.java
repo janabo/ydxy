@@ -11,7 +11,6 @@ import com.dk.mp.core.application.MyApplication;
  * @author wangw
  */
 public class ImageUtil {
-
 	/** 
 	 * 获取图片名称获取图片的资源id的方法 .
 	 * @param imageName 图片名称

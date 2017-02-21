@@ -18,6 +18,7 @@ import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.AdapterInterface;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.SnackBarUtil;
+import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.view.MyListView;
 import com.dk.mp.core.view.RecycleViewDivider;
 import com.dk.mp.core.widget.ErrorLayout;
@@ -130,10 +131,12 @@ public class SswzRecordListActivity extends MyActivity implements View.OnClickLi
 
     /**
      * 搜索
-     * @param v
+     * @param view
      */
-    public void toSearch(View v){
+    public void toSearch(View view){
         Intent intent = new Intent(this,SswzSearchActivity.class);
+        intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
+        intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
         startActivity(intent);
     }
 
@@ -154,6 +157,8 @@ public class SswzRecordListActivity extends MyActivity implements View.OnClickLi
                     Sswz sswz = mData.get(getLayoutPosition());
                     Intent intent = new Intent(mContext,SswzRecordDetailActivity.class);
                     intent.putExtra("id",sswz.getId());
+                    intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
+                    intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
                     startActivity(intent);
                 }
             });

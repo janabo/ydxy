@@ -85,7 +85,7 @@ public class DateAndTimePickActivity extends Activity {
 		min.setLabel("分");
 		min.setCyclic(true);
 
-		year.setCurrentItem(curYear - 1956);
+		year.setCurrentItem(curYear - 2016);
 		month.setCurrentItem(curMonth - 1);
 		day.setCurrentItem(curDate - 1);
 		hour.setCurrentItem(curHour-1);
@@ -152,7 +152,7 @@ public class DateAndTimePickActivity extends Activity {
 
 		@Override
 		public void onScrollingFinished(WheelView wheel) {
-			int n_year = year.getCurrentItem() + 1950;//
+			int n_year = year.getCurrentItem() + 2016;//
 			int n_month = month.getCurrentItem() + 1;//
 			initDay(n_year, n_month);
 		}

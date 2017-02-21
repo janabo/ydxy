@@ -1,0 +1,7 @@
+<com.dk.mp.oldoa.view.XListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listView"
+    style="@style/mylist"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:listSelector="@color/transparent"
+    android:scrollbars="none" />

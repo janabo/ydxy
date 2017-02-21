@@ -40,8 +40,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.dk.mp.newoa.R.id.oa_list;
-
 /**
  * 通知公告
  * 作者：janabo on 2017/1/4 14:30
@@ -75,7 +73,7 @@ public class GzzbListFragment extends BaseFragment implements View.OnClickListen
     protected void initialize(View view) {
         super.initialize(view);
         mError = (ErrorLayout) view.findViewById(R.id.error_layout);
-        myListView = (MyListView)view.findViewById(oa_list);
+        myListView = (MyListView)view.findViewById(R.id.oa_list);
         mError.setOnLayoutClickListener(this);
     }
 

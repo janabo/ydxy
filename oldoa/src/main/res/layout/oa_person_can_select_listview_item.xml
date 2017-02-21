@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/next_step_person_can_select_department"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:background="@mipmap/listview_item_bg"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/title_can_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:text="@string/department"
+        android:textColor="@color/Black"
+        android:textSize="17sp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="0.8dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/document_detail_line" />
+
+    <com.dk.mp.apps.oa.widget.ScrollGridView
+        android:id="@+id/gridview_can_select"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@color/White"
+        android:columnWidth="60dp"
+        android:horizontalSpacing="5dp"
+        android:numColumns="3"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="5dp" 
+        android:listSelector="@null"/>
+
+</LinearLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 获得焦点但未按下时的背景图片 -->
+    <item android:state_enabled="true" android:state_focused="true" android:state_pressed="false"><shape android:shape="rectangle">
+            <solid android:color="#1d85db" />
+
+            <corners android:radius="2dp" />
+        </shape></item>
+    <!-- 按下时的背景图片 -->
+    <item android:state_enabled="true" android:state_pressed="true"><shape android:shape="rectangle">
+            <solid android:color="#2196f3" />
+
+            <corners android:radius="2dp" />
+        </shape></item>
+    <!-- 按下时的背景图片 -->
+    <item android:state_checked="true" android:state_enabled="true"><shape android:shape="rectangle">
+            <solid android:color="#2196f3" />
+
+            <corners android:radius="2dp" />
+        </shape></item>
+    <!-- 默认时的背景图片 -->
+    <item><shape android:shape="rectangle">
+            <solid android:color="#1d85db" />
+
+            <corners android:radius="2dp" />
+        </shape></item>
+
+</selector>

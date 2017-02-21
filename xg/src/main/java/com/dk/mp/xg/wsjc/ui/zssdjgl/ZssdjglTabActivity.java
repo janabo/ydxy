@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.dk.mp.core.ui.BaseFragment;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.widget.MyViewpager;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.adapter.MyFragmentPagerAdapter;
@@ -67,19 +68,23 @@ public class ZssdjglTabActivity extends MyActivity{
      * 新增留宿学生
      * @param v
      */
-    public void addLiusu(View v){
+    public void addLiusu(View view){
         Intent intent = new Intent(this,ZssdjglAddLiusuActivity.class);
         intent.putExtra("type","1");
+        intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
+        intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
         startActivity(intent);
     }
 
     /**
      * 新增请假学生
-     * @param v
+     * @param
      */
-    public void addQingjia(View v){
+    public void addQingjia(View view){
         Intent intent = new Intent(this,ZssdjglAddLiusuActivity.class);
         intent.putExtra("type","2");
+        intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
+        intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
         startActivity(intent);
     }
 }

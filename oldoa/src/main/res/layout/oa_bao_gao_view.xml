@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center_horizontal"
+    android:background="#f7f7f7"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/top"
+        layout="@layout/core_title_back" />
+
+	<com.dk.mp.core.widget.ErrorLayout
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:gravity="center_horizontal"
+		android:id="@+id/error_layout">
+	</com.dk.mp.core.widget.ErrorLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/next"
+        android:layout_below="@+id/top" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <include layout="@layout/oa_detail_top" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dip"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip" >
+                
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                	android:layout_height="wrap_content"
+                	android:orientation="horizontal">
+                	
+                    <TextView
+	                    android:id="@+id/ngr_title"
+	                    style="@style/oa_content"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_marginTop="5dip"
+	                    android:text="拟稿人:" />
+
+	                <TextView
+	                    android:id="@+id/ngr_txt"
+	                    style="@style/oa_content_txt"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_marginLeft="5dip"
+	                    android:layout_marginTop="5dip" />
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                	android:layout_height="wrap_content"
+                	android:orientation="horizontal">
+
+	                <TextView
+	                    android:id="@+id/bh_title"
+	                    style="@style/oa_content"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_marginTop="5dip"
+	                    android:text="编号:" />
+	
+	                <TextView
+	                    android:id="@+id/bh_txt"
+	                    style="@style/oa_content_txt"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_marginLeft="5dip"
+	                    android:layout_marginTop="5dip" />
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                	android:layout_height="wrap_content"
+                	android:orientation="horizontal">
+
+	                <TextView
+	                    android:id="@+id/ng_time_title"
+	                    style="@style/oa_content"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_marginTop="5dip"
+	                    android:text="拟稿日期:" />
+	
+	                <TextView
+	                    android:id="@+id/ng_time_txt"
+	                    style="@style/oa_content_txt"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_marginLeft="5dip"
+	                    android:layout_marginTop="5dip" />
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                	android:layout_height="wrap_content"
+                	android:orientation="horizontal">
+	                <TextView
+	                    android:id="@+id/jin_jcd_title"
+	                    style="@style/oa_content"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_marginTop="5dip"
+	                    android:text="紧急程度:" />
+	
+	                <TextView
+	                    android:id="@+id/jin_jcd_txt"
+	                    style="@style/oa_content_txt"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_marginLeft="5dip"
+	                    android:layout_marginTop="5dip" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                	android:layout_height="wrap_content"
+                	android:orientation="horizontal">
+                    <TextView
+	                    style="@style/oa_content"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="match_parent"
+	                    android:layout_marginTop="5dip"
+	                    android:text="内容:"
+	                    android:gravity="top" />
+                    <!--  
+					<TextView
+	                    android:id="@+id/nr_txt"
+	                    style="@style/oa_content_txt"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_marginLeft="5dip"
+	                    android:layout_marginTop="5dip"
+	                    android:minHeight="150dp" />	-->
+			        <com.dk.mp.core.view.textview.DetailView
+			            android:id="@+id/nr_txt"
+			            style="@style/txt"
+			            android:layout_width="fill_parent"
+			            android:layout_height="wrap_content"
+			            android:background="@color/white" 
+			            android:scrollbars="none"
+			            android:minHeight="150dp"
+			            android:layout_marginLeft="5dip"
+	                    android:layout_marginTop="5dip"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_center"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <include layout="@layout/oa_detail_bottom" />
+        </LinearLayout>
+    </ScrollView>
+
+    <include
+        android:id="@+id/next"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dip"
+        android:layout_marginTop="10dip"
+        layout="@layout/oa_detail_next" />
+
+</RelativeLayout>
