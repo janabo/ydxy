@@ -22,6 +22,7 @@
         android:textColor="@color/white"
         android:textSize="16dip"
         android:text=""
-        android:layout_gravity="bottom"/>
+        android:layout_gravity="bottom"
+        android:layout_marginRight="30dp"/>
 
 </FrameLayout>

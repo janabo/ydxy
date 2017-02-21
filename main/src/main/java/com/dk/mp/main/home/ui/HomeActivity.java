@@ -7,26 +7,33 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.dk.mp.core.db.AppManager;
 import com.dk.mp.core.entity.App;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.view.RecycleViewDivider;
 import com.dk.mp.main.R;
 import com.dk.mp.main.home.adapter.HpAdapter;
 import com.dk.mp.main.home.data.HpDataProvider;
+import com.dk.mp.main.message.ui.MessageActivity;
 import com.dk.mp.main.setting.ui.SettingActivity;
-import com.dk.mp.txl.ui.TxlDepartActivity;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,6 +55,8 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
 
     private SensorManager mSensorManager;//定义sensor管理器
 
+    private boolean brithdayshow = false;
+
     @Override
     protected int getLayoutID() {
         return R.layout.mp_main;
@@ -56,6 +65,24 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
     @Override
     protected void initialize() {
         super.initialize();
+
+        CoreSharedPreferencesHelper helper = new CoreSharedPreferencesHelper(this);
+        Date now = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//可以方便地修改日期格式
+        String today = dateFormat.format(now);
+        String brithday = helper.getUser() == null ? null : helper.getUser().getBirthday();
+        if (brithday != null && today.substring(5,today.length()).equals(brithday.substring(5,brithday.length()))) {
+//        if (true) {
+            findViewById(R.id.top_hy).setVisibility(View.VISIBLE);
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                window.setStatusBarColor(ContextCompat.getColor(this, com.dk.mp.core.R.color.colorPrimaryHy));
+            }
+            showBrirthDayDialog();
+        }
+
+
 //初始化可拖拽列表
 //        apps.addAll(AppManager.getMyAppList(this));
         mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view);
@@ -99,13 +126,8 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
      * 跳转学校新闻
      * @param v
      */
-    public void toxxxw(View v){
-//        Intent intent = new Intent(mContext, NewsListActivity.class);
-//        intent.putExtra("title","校园新闻");
-//        startActivity(intent);
-
-        Intent intent = new Intent(mContext, TxlDepartActivity.class);
-        intent.putExtra("title","通讯录");
+    public void tomess(View v){
+        Intent intent = new Intent(mContext, MessageActivity.class);
         startActivity(intent);
 
     }
@@ -183,5 +205,11 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
 
+    }
+
+    public void showBrirthDayDialog(){
+        Intent intent = new Intent(this,BrithdayActivity.class);
+        startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
     }
 }

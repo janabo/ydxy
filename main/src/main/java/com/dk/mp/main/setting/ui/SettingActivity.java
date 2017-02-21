@@ -24,6 +24,9 @@ import com.dk.mp.core.util.SnackBarUtil;
 import com.dk.mp.main.R;
 import com.dk.mp.main.login.LoginActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * 作者：janabo on 2016/12/14 16:13
  */
@@ -52,12 +55,22 @@ public class SettingActivity extends MyActivity{
         helper = getSharedPreferences();
         instance = SettingActivity.this;
         findView();
+
         setTitle("设置");
+
+        Date now = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//可以方便地修改日期格式
+        String today = dateFormat.format(now);
+        String brithday = helper.getUser() == null ? null : helper.getUser().getBirthday();
+        if (brithday != null && today.substring(5,today.length()).equals(brithday.substring(5,brithday.length()))) {
+//        if (true) {
+            showBrithdayTheme();
+        }
+
 //        version_new.setText("当前版本:" + DeviceUtil.getVersionName(context));
         BroadcastUtil.registerReceiver(this, mRefreshBroadcastReceiver, new String[]{"login","user"});
         setUser();
     }
-
     private BroadcastReceiver mRefreshBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.dk.mp.core.R;
 import com.dk.mp.core.util.AdapterInterface;
@@ -18,8 +20,8 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private Context context;
     private LayoutInflater lif;
-//    private ProgressBar progressBar;
-//    private Button reload;
+    private ProgressBar progressBar;
+    private Button reload;
     private List list;
     private AdapterInterface adapterInterface;
     private View.OnClickListener onClickListener;
@@ -47,9 +49,9 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             return adapterInterface.setItemView(parent, viewType);
         } else if (viewType == 1) {
             View view = lif.inflate(R.layout.core_listview_footview, parent, false);// 设置要转化的layout文件
-//            progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
-//            reload = (Button) view.findViewById(R.id.reload);
-//            reload.setOnClickListener(onClickListener);
+            progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
+            reload = (Button) view.findViewById(R.id.reload);
+            reload.setOnClickListener(onClickListener);
             return new FootView(view);
         }
         return null;
@@ -90,12 +92,16 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     }
 
     public void loadingMore(boolean t){
-//        progressBar.setVisibility(t?View.VISIBLE:View.GONE);
-//        reload.setVisibility(View.GONE);
+        if (progressBar != null) {
+            progressBar.setVisibility(t?View.VISIBLE:View.GONE);
+            reload.setVisibility(View.GONE);
+        }
     }
 
     public void loadFaile(){
-//        progressBar.setVisibility(View.GONE);
-//        reload.setVisibility(View.VISIBLE);
+        if (progressBar != null) {
+            progressBar.setVisibility(View.GONE);
+            reload.setVisibility(View.VISIBLE);
+        }
     }
 }
