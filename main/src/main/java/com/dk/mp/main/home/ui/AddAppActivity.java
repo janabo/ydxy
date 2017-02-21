@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.dk.mp.core.db.AppManager;
 import com.dk.mp.core.entity.App;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.view.RecycleViewDivider;
 import com.dk.mp.main.R;
 import com.dk.mp.main.home.adapter.AddAppAdapter;
 
@@ -59,6 +60,8 @@ public class AddAppActivity extends MyActivity implements OnClickListener {
 			}
 		});
 		addRecyclerView.setAdapter(adapter);
+		addRecyclerView.addItemDecoration(new RecycleViewDivider(this, GridLayoutManager.VERTICAL, 1, Color.rgb(201, 201, 201)));//添加分割线
+        addRecyclerView.addItemDecoration(new RecycleViewDivider(this, GridLayoutManager.HORIZONTAL, 1, Color.rgb(201, 201, 201)));//添加分割线
 	}
 
 	@Override

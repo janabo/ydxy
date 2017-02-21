@@ -1,14 +1,9 @@
 package com.dk.mp.main.home.ui;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
-import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -19,6 +14,8 @@ import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.view.DraweeView;
 import com.dk.mp.main.R;
 import com.dk.mp.main.home.entity.SlideNews;
+import com.dk.mp.xxxw.entity.News;
+import com.dk.mp.xxxw.ui.NewsDetailActivity;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
@@ -31,6 +28,7 @@ import com.jude.rollviewpager.hintview.ColorPointHintView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,7 +88,6 @@ public class HeaderView {
         });
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private class TestLoopAdapter extends LoopPagerAdapter {
         public TestLoopAdapter(RollPagerView viewPager) {
             super(viewPager);
@@ -101,14 +98,15 @@ public class HeaderView {
 //            view.setScaleType(ImageView.ScaleType.CENTER_CROP);
             view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             view.setImageURI(Uri.parse(slideList.get(position).getImage()));
-            view.setTransitionName("headerimage");
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context,HeaderDetailsActivity.class);
-                    intent.putExtra("uri",slideList.get(position).getImage());
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) context, v, "headerimage");
-                    ActivityCompat.startActivity((Activity) context,intent, options.toBundle());
+                    Intent intent = new Intent(context,NewsDetailActivity.class);
+                    News news = new News();
+                    news.setImage(slideList.get(position).getImage());
+                    news.setUrl(slideList.get(position).getUrl());
+                    intent.putExtra("news", (Serializable)news);
+                    context.startActivity(intent);
                 }
             });
 

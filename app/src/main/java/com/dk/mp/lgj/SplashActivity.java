@@ -58,6 +58,7 @@ public class SplashActivity extends MyActivity {
 
     private void login(){
         final LoginMsg loginMsg = helper.getLoginMsg();
+        if (loginMsg == null) return;
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userId", loginMsg.getUid());
         map.put("password", loginMsg.getPsw());

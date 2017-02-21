@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -87,7 +86,7 @@ public abstract class MyActivity extends AppCompatActivity{
                 @Override
                 public void run() {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        Animator animator = createRevealAnimator(false, getIntent().getIntExtra("x",0), getIntent().getIntExtra("y",0));
+                        Animator animator = createRevealAnimator(false, x, y);
                         animator.start();
                     }
                 }
@@ -217,7 +216,7 @@ public abstract class MyActivity extends AppCompatActivity{
                 @Override
                 public void run() {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        Animator animator = createRevealAnimator(true, getIntent().getIntExtra("x",0), getIntent().getIntExtra("y",0));
+                        Animator animator = createRevealAnimator(true, x, y);
                         animator.start();
                     }
                 }
@@ -319,16 +318,18 @@ public abstract class MyActivity extends AppCompatActivity{
         SnackBarUtil.showShort(frameLayout,msg);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private Animator createRevealAnimator(boolean reversed, int x, int y) {
         float hypot = (float) Math.hypot(frameLayout.getHeight(), frameLayout.getWidth());
         float startRadius = reversed ? hypot : 0;
         float endRadius = reversed ? 0 : hypot;
 
-        Animator animator = ViewAnimationUtils.createCircularReveal(
-                frameLayout, x, y,
-                startRadius,
-                endRadius);
+        Animator animator = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            animator = ViewAnimationUtils.createCircularReveal(
+                    frameLayout, x, y,
+                    startRadius,
+                    endRadius);
+        }
         animator.setDuration(800);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
         if (reversed)

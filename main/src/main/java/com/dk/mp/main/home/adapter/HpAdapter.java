@@ -149,9 +149,9 @@ public class HpAdapter extends RecyclerView.Adapter<HpAdapter.MyViewHolder> impl
 
                     if (!isposting) {
                         isposting = true;
-//                        handler.postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
                                 if (showDel == View.VISIBLE) {
                                     cancelDelete.setVisibility(View.GONE);
                                     showDel = View.GONE;
@@ -173,8 +173,8 @@ public class HpAdapter extends RecyclerView.Adapter<HpAdapter.MyViewHolder> impl
                                     );
                                 }
                                 isposting = false;
-//                            }
-//                        },500);
+                            }
+                                                },500);
                     }
 
 

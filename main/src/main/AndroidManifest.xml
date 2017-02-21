@@ -29,8 +29,9 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="com.dk.mp.main.home.ui.AddAppActivity"
-            android:screenOrientation="portrait">
+        <activity android:name=".home.ui.AddAppActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep">
             <intent-filter>
                 <action android:name="addapps" />
                 <category android:name="android.intent.category.DEFAULT" />
