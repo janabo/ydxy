@@ -115,7 +115,6 @@ public class HttpUtil {
             }
             httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.POST).addParam(param).build();
         }
-//        HttpRequest httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.POST).addParam(param).build();
         JsonObjectRequest request = new JsonObjectRequest(httpRequest, listener);
         mRequestQueue.add (request);
     }

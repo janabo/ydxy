@@ -229,7 +229,7 @@ public class ZssdjglAddLiusuActivity extends MyActivity implements ZssdjglPerson
                                 BroadcastUtil.sendBroadcast(mContext, "zssdjgl_refresh");
                                 onBackPressed();
                             }
-                        },1000);
+                        },1500);
                     }
                 }catch (Exception e){
                     e.printStackTrace();

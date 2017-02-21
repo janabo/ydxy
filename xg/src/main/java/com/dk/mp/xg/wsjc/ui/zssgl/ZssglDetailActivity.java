@@ -59,7 +59,8 @@ public class ZssglDetailActivity extends MyActivity{
      */
     public void getData(){
         if(DeviceUtil.checkNet()){
-            getContent();
+            mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+//            getContent();
         }else{
             mError.setErrorType(ErrorLayout.NETWORK_ERROR);
             lin_footer.setVisibility(View.GONE);
@@ -102,7 +103,50 @@ public class ZssglDetailActivity extends MyActivity{
                 lin_footer.setVisibility(View.GONE);
             }
         });
+    }
+
+    /**
+     * 通过
+     * @param v
+     */
+    public void toPass(View v){
 
     }
+
+    /**
+     * 不通过
+     * @param v
+     */
+    public void toNotPass(View v){
+
+    }
+
+    /**
+     * 不通过
+     * @param v
+     */
+    public void toUntread(View v){
+
+    }
+
+
+    public void submit(String url){
+        HttpUtil.getInstance().postJsonObjectRequest(url, null, new HttpListener<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject result)  {
+                try {
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+
+            }
+        });
+    }
+
 
 }

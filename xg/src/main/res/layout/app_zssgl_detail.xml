@@ -68,7 +68,8 @@
                     android:background="@drawable/ripple_bg"
                     android:text="通过"
                     android:gravity="center"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:onClick="toPass"/>
             </LinearLayout>
 
             <LinearLayout
@@ -86,7 +87,8 @@
                     android:background="@drawable/ripple_bg"
                     android:text="不通过"
                     android:gravity="center"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:onClick="toNotPass"/>
             </LinearLayout>
 
             <LinearLayout
@@ -104,7 +106,8 @@
                     android:background="@drawable/ripple_bg"
                     android:text="退回"
                     android:gravity="center"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:onClick="toUntread"/>
             </LinearLayout>
 
         </LinearLayout>

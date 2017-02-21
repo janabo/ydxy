@@ -55,7 +55,7 @@ public class ZssdjglPersonsAdapter extends RecyclerView.Adapter{
             ((MyViewHolder) holder).wjxs_name.setVisibility(View.VISIBLE);
             ((MyViewHolder) holder).wjxs_x.setText(StringUtils.isNotEmpty(bean.getName())?bean.getName().substring(0,1):"");
             ((MyViewHolder) holder).wjxs_name.setText(bean.getName());
-            activity.getBackgroud(((MyViewHolder) holder).wjxs_lin,bean.getName());
+            activity.getBackgroud(((MyViewHolder) holder).wjxs_lin,StringUtils.isNotEmpty(bean.getName())?bean.getName().substring(0,1):"");
         }
 
     }
