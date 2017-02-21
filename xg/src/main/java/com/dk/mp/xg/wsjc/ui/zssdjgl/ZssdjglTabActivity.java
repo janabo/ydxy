@@ -36,7 +36,10 @@ public class ZssdjglTabActivity extends MyActivity{
         mTabLayout = (TabLayout) findViewById(R.id.tablayout);
         mViewpager = (MyViewpager) findViewById(R.id.viewpager);
 //        search_button = (LinearLayout) findViewById(R.id.search_button);
+
     }
+
+
 
     @Override
     protected void initialize() {
@@ -66,7 +69,7 @@ public class ZssdjglTabActivity extends MyActivity{
 
     /**
      * 新增留宿学生
-     * @param v
+     * @param
      */
     public void addLiusu(View view){
         Intent intent = new Intent(this,ZssdjglAddLiusuActivity.class);

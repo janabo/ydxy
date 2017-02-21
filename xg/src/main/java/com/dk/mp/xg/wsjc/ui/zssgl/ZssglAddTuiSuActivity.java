@@ -16,9 +16,11 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.dk.mp.core.entity.GsonData;
+import com.dk.mp.core.entity.JsonData;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.BroadcastUtil;
 import com.dk.mp.core.util.SnackBarUtil;
 import com.dk.mp.core.view.DrawCheckMarkView;
 import com.dk.mp.core.view.DrawCrossMarkView;
@@ -122,8 +124,9 @@ public class ZssglAddTuiSuActivity extends MyActivity implements View.OnClickLis
             @Override
             public void onSuccess(JSONObject result)  {
                 try {
-                    if (result.getInt("code") != 200) {
-                        SnackBarUtil.showShort(mRootView,result.getString("msg"));
+                    JsonData jd = getGson().fromJson(result.toString(),JsonData.class);
+                    if (jd.getCode() != 200 && !(Boolean) jd.getData()) {
+                        SnackBarUtil.showShort(mRootView,jd.getMsg());
                         errorInfo();
                     }else{
                         progress.setVisibility(View.GONE);
@@ -133,6 +136,7 @@ public class ZssglAddTuiSuActivity extends MyActivity implements View.OnClickLis
                             @Override
                             public void run() {
                                 ok.setEnabled(true);
+                                BroadcastUtil.sendBroadcast(mContext, "zssgl_refresh");
                                 back();
                             }
                         },1000);
@@ -241,6 +245,7 @@ public class ZssglAddTuiSuActivity extends MyActivity implements View.OnClickLis
                         wjxs_name.setText(student.getXm());
                         wjxs_x.setText(student.getXm().substring(0, 1));
                         dealOkButton();
+                        getBackgroud(wjxs_lin,student.getXm().substring(0, 1));
                     }
                     wjxs_lin.setVisibility(View.VISIBLE);
                     wjxs_name.setVisibility(View.VISIBLE);

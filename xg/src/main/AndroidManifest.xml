@@ -26,8 +26,7 @@
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.WsjcRecordMainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/noAnimThemep">
+            android:screenOrientation="portrait">
         </activity>
 
         <activity

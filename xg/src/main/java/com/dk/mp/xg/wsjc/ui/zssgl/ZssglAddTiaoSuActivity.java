@@ -20,6 +20,7 @@ import com.dk.mp.core.entity.JsonData;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.BroadcastUtil;
 import com.dk.mp.core.util.SnackBarUtil;
 import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.view.DrawCheckMarkView;
@@ -161,6 +162,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
                         wjxs_x.setText(student.getXm().substring(0, 1));
                         setText(student);
                         dealOkButton();
+                        getBackgroud(wjxs_lin,student.getXm().substring(0, 1));
                     }
                     yssxx.setVisibility(View.VISIBLE);
                     tmxx.setVisibility(View.VISIBLE);
@@ -297,6 +299,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      * 获取房间号列表
      */
     public void getFjhs(String ssl,String lc){
+        fjhs.clear();
         Map<String,Object> map = new HashMap<>();
         map.put("ssl",ssl);
         map.put("lc",lc);
@@ -332,6 +335,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      * 获取床位号列表
      */
     public void getCwhs(String fjhid){
+        cwhs.clear();
         Map<String,Object> map = new HashMap<>();
         map.put("fjh",fjhid);
         HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/cwhList", map, new HttpListener<JSONObject>() {
@@ -534,7 +538,17 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
             startActivityForResult(intent, 2);
             overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
         } else {
-            showErrorMsg(mRootView, "未获取到校区选项");
+            getXqs();
+            if (xqs.size() > 0) {
+                Intent intent = new Intent(mContext, ZsstjPickActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("kfs", (Serializable) xqs);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 2);
+                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+            }else {
+                showErrorMsg(mRootView, "未获取到校区选项");
+            }
         }
     }
 
@@ -551,7 +565,17 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
             startActivityForResult(intent, 3);
             overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
         } else {
-            showErrorMsg(mRootView, "未获取到宿舍区选项");
+            getSsqs();
+            if (ssqs.size() > 0) {
+                Intent intent = new Intent(mContext, ZsstjPickActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("kfs", (Serializable) ssqs);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 3);
+                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+            } else {
+                showErrorMsg(mRootView, "未获取到宿舍区选项");
+            }
         }
     }
 
@@ -568,7 +592,17 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
             startActivityForResult(intent, 4);
             overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
         } else {
-            showErrorMsg(mRootView, "未获取到宿舍楼选项");
+            getSsls();
+            if (ssls.size() > 0) {
+                Intent intent = new Intent(mContext, ZsstjPickActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("kfs", (Serializable) ssls);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 4);
+                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+            } else {
+                showErrorMsg(mRootView, "未获取到宿舍楼选项");
+            }
         }
     }
 
@@ -585,7 +619,17 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
             startActivityForResult(intent, 5);
             overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
         } else {
-            showErrorMsg(mRootView, "未获取到楼层选项");
+            getLcs(sslid);
+            if (lcs.size() > 0) {
+                Intent intent = new Intent(mContext, ZsstjPickActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("kfs", (Serializable) lcs);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 5);
+                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+            }else {
+                showErrorMsg(mRootView, "未获取到楼层选项");
+            }
         }
     }
 
@@ -602,7 +646,17 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
             startActivityForResult(intent, 6);
             overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
         } else {
-            showErrorMsg(mRootView, "未获取到房间号选项");
+            getFjhs(sslid,lcid);
+            if (fjhs.size() > 0) {
+                Intent intent = new Intent(mContext, ZsstjPickActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("kfs", (Serializable) fjhs);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 6);
+                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+            } else {
+                showErrorMsg(mRootView, "未获取到房间号选项");
+            }
         }
     }
 
@@ -619,7 +673,17 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
             startActivityForResult(intent, 7);
             overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
         } else {
-            showErrorMsg(mRootView, "未获取到床位号选项");
+            getCwhs(fjhid);
+            if (cwhs.size() > 0) {
+                Intent intent = new Intent(mContext, ZsstjPickActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("kfs", (Serializable) cwhs);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 7);
+                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+            } else {
+                showErrorMsg(mRootView, "未获取到床位号选项");
+            }
         }
     }
 
@@ -710,8 +774,9 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
             @Override
             public void onSuccess(JSONObject result)  {
                 try {
-                    if (result.getInt("code") != 200) {
-                        SnackBarUtil.showShort(mRootView,result.getString("msg"));
+                    JsonData jd = getGson().fromJson(result.toString(),JsonData.class);
+                    if (jd.getCode() != 200 && !(Boolean) jd.getData()) {
+                        SnackBarUtil.showShort(mRootView,jd.getMsg());
                         errorInfo();
                     }else{
                         progress.setVisibility(View.GONE);
@@ -721,6 +786,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
                             @Override
                             public void run() {
                                 ok.setEnabled(true);
+                                BroadcastUtil.sendBroadcast(mContext, "zssgl_refresh");
                                 back();
                             }
                         },1000);

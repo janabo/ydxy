@@ -13,6 +13,7 @@ import com.dk.mp.core.dialog.AlertDialog;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.BroadcastUtil;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
@@ -103,6 +104,7 @@ public class ZssdjglDetailActivity extends MyActivity {
                     if(result != null) {
                         int code = result.getInt("code");
                         if (code == 200) {
+                            mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                             studentInfo = new Gson().fromJson(result.get("data").toString(),StudentInfo.class);
                             setStudentInfo(studentInfo);
                         } else {
@@ -138,6 +140,7 @@ public class ZssdjglDetailActivity extends MyActivity {
         xq.setText(s.getXq());
         lsksrq.setText(s.getKssj());
         lsjsrq.setText(s.getJssj());
+        xjrq.setText(s.getXjsj());
     }
 
     /**
@@ -159,6 +162,7 @@ public class ZssdjglDetailActivity extends MyActivity {
                                 int code = result.getInt("code");
                                 if (code == 200) {
                                     showErrorMsg(mRootView,"删除成功");
+                                    BroadcastUtil.sendBroadcast(mContext, "zssdjgl_refresh");
                                     back();
                                 } else {
                                     showErrorMsg(mRootView,result.getString("msg"));

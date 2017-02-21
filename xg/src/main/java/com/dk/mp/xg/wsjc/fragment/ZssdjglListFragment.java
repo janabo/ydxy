@@ -1,5 +1,7 @@
 package com.dk.mp.xg.wsjc.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.BaseFragment;
 import com.dk.mp.core.util.AdapterInterface;
+import com.dk.mp.core.util.BroadcastUtil;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.SnackBarUtil;
 import com.dk.mp.core.util.StringUtils;
@@ -34,8 +37,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.dk.mp.xg.R.id.mList;
 
 /**
  * 作者：janabo on 2017/2/7 17:46
@@ -79,7 +80,22 @@ public class ZssdjglListFragment extends BaseFragment implements View.OnClickLis
                 startActivity(intent);
             }
         });
+
+        BroadcastUtil.registerReceiver(getActivity(), mRefreshBroadcastReceiver, "zssdjgl_refresh");
+
     }
+
+    private BroadcastReceiver mRefreshBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("zssdjgl_refresh")) {
+                mData.clear();
+                myListView.pageNo = 1;
+                getData();
+            }
+        }
+    };
 
     @Override
     public void onFirstUserVisible() {
@@ -137,7 +153,9 @@ public class ZssdjglListFragment extends BaseFragment implements View.OnClickLis
                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                 if(result.getList() != null && result.getList().size()>0) {//是否获取到数据
                     mData.addAll(result.getList());
-                    myListView.getAdapter().notifyDataSetChanged();
+                    if(myListView.getAdapter()!=null) {
+                        myListView.getAdapter().notifyDataSetChanged();
+                    }
                 }else{
                     if(myListView.pageNo == 1) {//是否是第一页
                         mError.setErrorType(ErrorLayout.NODATA);

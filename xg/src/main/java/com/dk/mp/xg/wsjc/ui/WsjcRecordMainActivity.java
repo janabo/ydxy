@@ -186,8 +186,8 @@ public class WsjcRecordMainActivity extends MyActivity implements WsjcRecordMain
             intent.putExtra("ssqId",ssqId);
             intent.putExtra("sslId",sslId);
             intent.putExtra("lcId",lcId);
-            intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
-            intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
+//            intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
+//            intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
             startActivity(intent);
         }
     }

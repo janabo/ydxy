@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.dk.mp.core.util.StringUtils;
+import com.dk.mp.core.util.TimeUtils;
 import com.dk.mp.core.widget.NumericWheelAdapter;
 import com.dk.mp.core.widget.OnWheelScrollListener;
 import com.dk.mp.core.widget.WheelView;
@@ -65,7 +66,7 @@ public class SswzWjrqPickActivity extends Activity {
         day.setLabel("日");
         day.setCyclic(true);
 
-        year.setCurrentItem(curYear - 1956);
+        year.setCurrentItem(curYear - TimeUtils.getCurrYear());
         month.setCurrentItem(curMonth - 1);
         day.setCurrentItem(curDate - 1);
 
@@ -108,7 +109,7 @@ public class SswzWjrqPickActivity extends Activity {
 
         @Override
         public void onScrollingFinished(WheelView wheel) {
-            int n_year = year.getCurrentItem() + 1951;//
+            int n_year = year.getCurrentItem() + TimeUtils.getCurrYear();//
             int n_month = month.getCurrentItem() + 1;//
             initDay(n_year,n_month);
         }
