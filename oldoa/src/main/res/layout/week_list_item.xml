@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="60dip"
+    android:background="@drawable/main_item_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip" >
+
+        <TextView
+            android:id="@+id/week_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dip"
+            android:gravity="center"
+            android:maxWidth="140dip"
+            android:singleLine="true"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/week_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:gravity="center"
+            android:maxWidth="140dip"
+            android:singleLine="true"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/week_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/week_place"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:textColor="#646464"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</LinearLayout>

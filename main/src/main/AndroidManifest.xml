@@ -12,6 +12,9 @@
         <activity android:name=".login.LoginActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".setting.ui.AboutActivity"
+            android:screenOrientation="portrait"/>
+
         <activity android:name=".setting.ui.UserInfoActivity"
             android:screenOrientation="portrait">
         </activity>

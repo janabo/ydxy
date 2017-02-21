@@ -1,0 +1,13 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="point_height">8dp</dimen>
+    <dimen name="point_padding">3dp</dimen>
+    <dimen name="day_txt_height">28dp</dimen>
+    <dimen name="point_padding_top">2dp</dimen>
+    <dimen name="date_height">22dp</dimen>
+    <dimen name="bottom_padding">8dp</dimen>
+    <dimen name="today_size_big">6dp</dimen>
+    <dimen name="today_size_smail">3dp</dimen>
+
+</resources>

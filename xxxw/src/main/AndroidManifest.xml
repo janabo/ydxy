@@ -11,7 +11,8 @@
         </activity>
 
         <activity android:name=".ui.NewsDetailActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep">
         </activity>
     </application>
 

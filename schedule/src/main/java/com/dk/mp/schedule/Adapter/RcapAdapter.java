@@ -33,6 +33,10 @@ public class RcapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         inflater = LayoutInflater.from(mContext);
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.app_rcap_main_item,parent,false);

@@ -54,6 +54,45 @@ public class DeviceUtil {
     }
 
     /**
+     * 功能:获得版本号.
+     *
+     * @param context
+     *            Context
+     * @return 版本号
+     * @throws Exception
+     */
+    public static int getVersionCode(Context context) {
+        try {
+            // 获取packagemanager的实例
+            PackageManager packageManager = context.getPackageManager();
+            // getPackageName()是你当前类的包名，0代表是获取版本信息
+            PackageInfo packInfo = packageManager.getPackageInfo(
+                    context.getPackageName(), 0);
+            int version = packInfo.versionCode;
+            return version;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
+     * 获取包名.
+     * @param context Context
+     * @return 包名
+     */
+    public static String getPackage(Context context) {
+        PackageInfo info;
+        try {
+            info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return info.packageName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
     public static int dip2px(Context context, float dpValue) {

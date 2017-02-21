@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    android:orientation="vertical" >
+
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/core_title_back" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" >
+
+                <TextView
+                    android:id="@+id/titile_first"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/title_first"
+                    android:textColor="@color/Black"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/rg_operate"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:checkedButton="@+id/operate_one"
+                android:gravity="center"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0.8dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/document_detail_line" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/selected_person"
+                    android:textColor="@color/Black"
+                    android:textSize="18sp" />
+
+                <com.dk.mp.core.view.ScrollGridView
+                    android:id="@+id/gridview_selected_person"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@color/White"
+                    android:columnWidth="90dp"
+                    android:horizontalSpacing="5dp"
+                    android:numColumns="3"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="5dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:textColor="@android:color/black" />
+
+            <include
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/oa_nextstep_person_can_select" />
+
+            <Button
+                android:id="@+id/confirm_commit"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/bg_commit_button"
+                android:gravity="center"
+                android:text="确认提交"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

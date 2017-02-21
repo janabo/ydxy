@@ -1,12 +1,10 @@
 package com.dk.mp.main.home.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Vibrator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +24,6 @@ import com.dk.mp.core.util.AppUtil;
 import com.dk.mp.core.util.DrawableUtils;
 import com.dk.mp.core.util.ImageUtil;
 import com.dk.mp.core.util.StringUtils;
-import com.dk.mp.lsgl.LsglMainActivity;
-import com.dk.mp.lsgl.LsglTabActivity;
 import com.dk.mp.main.R;
 import com.dk.mp.main.home.data.AbstractDataProvider;
 import com.dk.mp.main.home.ui.HeaderView;
@@ -153,9 +149,9 @@ public class HpAdapter extends RecyclerView.Adapter<HpAdapter.MyViewHolder> impl
 
                     if (!isposting) {
                         isposting = true;
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
+//                        handler.postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
                                 if (showDel == View.VISIBLE) {
                                     cancelDelete.setVisibility(View.GONE);
                                     showDel = View.GONE;
@@ -177,8 +173,8 @@ public class HpAdapter extends RecyclerView.Adapter<HpAdapter.MyViewHolder> impl
                                     );
                                 }
                                 isposting = false;
-                            }
-                        },500);
+//                            }
+//                        },500);
                     }
 
 

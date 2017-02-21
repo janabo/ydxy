@@ -12,6 +12,7 @@ import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.DeviceUtil;
+import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.view.RecycleViewDivider;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
@@ -185,16 +186,20 @@ public class WsjcRecordMainActivity extends MyActivity implements WsjcRecordMain
             intent.putExtra("ssqId",ssqId);
             intent.putExtra("sslId",sslId);
             intent.putExtra("lcId",lcId);
+            intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
+            intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
             startActivity(intent);
         }
     }
 
     /**
      * 搜索
-     * @param v
+     * @param view
      */
-    public void toSearch(View v){
+    public void toSearch(View view){
         Intent intent = new Intent(this,SearchActivity.class);
+        intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
+        intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
         startActivity(intent);
     }
 }

@@ -4,7 +4,8 @@
         android:supportsRtl="true">
 
         <activity android:name=".ui.TzggActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep">
             <intent-filter>
                 <action android:name="tzgg" />
                 <category android:name="android.intent.category.DEFAULT" />

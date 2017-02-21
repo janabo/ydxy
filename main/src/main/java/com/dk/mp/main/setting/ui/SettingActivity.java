@@ -149,16 +149,9 @@ public class SettingActivity extends MyActivity{
      * @param v
      */
     public void toabout(View v){
-
+        Intent intent = new Intent(mContext,AboutActivity.class);
+        startActivity(intent);
     }
-
-//    /**
-//     * 检查版本更新
-//     * @param v
-//     */
-//    public void toversion(View v){
-//
-//    }
 
     /**
      * 设置字体大小

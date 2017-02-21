@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/lsgl/lsgl.iml" filepath="$PROJECT_DIR$/lsgl/lsgl.iml" />
       <module fileurl="file://$PROJECT_DIR$/main/main.iml" filepath="$PROJECT_DIR$/main/main.iml" />
       <module fileurl="file://$PROJECT_DIR$/newoa/newoa.iml" filepath="$PROJECT_DIR$/newoa/newoa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oldoa/oldoa.iml" filepath="$PROJECT_DIR$/oldoa/oldoa.iml" />
       <module fileurl="file://$PROJECT_DIR$/schedule/schedule.iml" filepath="$PROJECT_DIR$/schedule/schedule.iml" />
       <module fileurl="file://$PROJECT_DIR$/txl/txl.iml" filepath="$PROJECT_DIR$/txl/txl.iml" />
       <module fileurl="file://$PROJECT_DIR$/xg/xg.iml" filepath="$PROJECT_DIR$/xg/xg.iml" />

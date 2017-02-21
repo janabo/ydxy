@@ -53,8 +53,8 @@ public class MyListView extends SwipeRefreshLayout {
     public MyListView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
-        LayoutInflater.from(context).inflate(R.layout.core_listview, this, true);
-        recyclerView = (RecyclerView)findViewById(R.id.core_listview);
+        View view = LayoutInflater.from(context).inflate(R.layout.core_listview, this, true);
+        recyclerView = (RecyclerView)view.findViewById(R.id.core_recyclerView);
         recyclerView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {

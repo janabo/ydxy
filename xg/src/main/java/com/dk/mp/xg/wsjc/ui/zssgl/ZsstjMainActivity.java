@@ -6,6 +6,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 
@@ -61,11 +62,7 @@ public class ZsstjMainActivity extends MyActivity{
      * @param v
      */
     public void tobzr(View v){
-        Intent intent = new Intent(mContext,ZsstjTabActivity.class);
-        intent.putExtra("role","1");
-        intent.putExtra("lx","1");
-        intent.putExtra("title",getIntent().getStringExtra("title"));
-        startActivity(intent);
+        toDetail(v,"1");
     }
 
     /**
@@ -73,11 +70,7 @@ public class ZsstjMainActivity extends MyActivity{
      * @param v
      */
     public void toxb(View v){
-        Intent intent = new Intent(mContext,ZsstjTabActivity.class);
-        intent.putExtra("role","1");
-        intent.putExtra("lx","2");
-        intent.putExtra("title",getIntent().getStringExtra("title"));
-        startActivity(intent);
+        toDetail(v,"2");
     }
 
     /**
@@ -85,10 +78,20 @@ public class ZsstjMainActivity extends MyActivity{
      * @param v
      */
     public void toxgc(View v){
+        toDetail(v,"3");
+    }
+
+    /**
+     * 跳转界面
+     * @param role
+     */
+    public void toDetail(View view,String role){
         Intent intent = new Intent(mContext,ZsstjTabActivity.class);
         intent.putExtra("role","1");
-        intent.putExtra("lx","3");
+        intent.putExtra("lx",role);
         intent.putExtra("title",getIntent().getStringExtra("title"));
+        intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
+        intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
         startActivity(intent);
     }
 

@@ -100,6 +100,23 @@ public class TimeUtils {
 	}
 
 	/**
+	 * 格式化日期.
+	 * @param dateTime  日期
+	 * @return 格式化后的日期
+	 */
+	public static String formatDateTime2(String dateTime) {
+		SimpleDateFormat formatYMD = new SimpleDateFormat("yyyy-MM-dd");// formatYMD表示的是yyyy-MM-dd格式
+		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");// formatYMD表示的是yyyy-MM-dd格式
+		Date d = null;
+		try {
+			d = format.parse(dateTime);
+		} catch (ParseException e) {
+			Logger.error("格式化日期错误");
+		}
+		return formatYMD.format(d);
+	}
+
+	/**
 	 * 获取当天日期.
 	 * @return String(yyyy-mm-dd HH:mm)
 	 */
@@ -219,5 +236,164 @@ public class TimeUtils {
 			e.printStackTrace();
 		}
 		return bool;
+	}
+
+	/**
+	 *
+	 * @param time  时间
+	 * @param format  格式
+	 * @return 格式后的时间
+	 */
+	public static String getFormatTime(String time, SimpleDateFormat format) {
+		Date d = null;
+		SimpleDateFormat formatYMD = new SimpleDateFormat("yyyy-MM-dd HH:mm");// formatYMD表示的是yyyy-MM-dd格式
+		try {
+			d = format.parse(time);
+		} catch (ParseException e) {
+			Logger.error("getFormatTime"+ e);
+		}
+		return formatYMD.format(d);
+	}
+
+	/**
+	 *
+	 * @param time     时间
+	 * @return 格式后的时间
+	 */
+	public static String getFormatTime(String time) {
+		Date d = null;
+		SimpleDateFormat formatYMD = new SimpleDateFormat("yyyy-MM-dd");// formatYMD表示的是yyyy-MM-dd格式
+		try {
+			d = formatYMD.parse(time);
+		} catch (ParseException e) {
+			Logger.error("getFormatTime"+e);
+		}
+		return formatYMD.format(d);
+	}
+
+	/**
+	 * 获取该天所在周的周一的日期.
+	 * @param t 日期
+	 * @return 周一的日期
+	 */
+	public static String getMonday(String t) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // 设置时间格式
+		Date time = null;
+		try {
+			time = sdf.parse(t);
+		} catch (ParseException e) {
+			Logger.error("获取该天所在周的周一和周日日期"+e);
+		}
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(time);
+		// 判断要计算的日期是否是周日，如果是则减一天计算周六的，否则会出问题，计算到下一周去了
+		int dayWeek = cal.get(Calendar.DAY_OF_WEEK);// 获得当前日期是一个星期的第几天
+		if (1 == dayWeek) {
+			cal.add(Calendar.DAY_OF_MONTH, -1);
+		}
+		cal.setFirstDayOfWeek(Calendar.MONDAY); // 设置一个星期的第一天，按中国的习惯一个星期的第一天是星期一
+		int day = cal.get(Calendar.DAY_OF_WEEK); // 获得当前日期是一个星期的第几天
+		cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day);// 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
+		String imptimeBegin = sdf.format(cal.getTime());
+		return imptimeBegin;
+	}
+
+	/**
+	 *
+	 * @param specifiedDay  某天
+	 * @return 某天的后一天
+	 */
+	public static String getDayNext(String specifiedDay) {
+		Calendar c = Calendar.getInstance();
+		Date date = null;
+		try {
+			date = new SimpleDateFormat("yy-MM-dd").parse(specifiedDay);
+		} catch (Exception e) {
+			Logger.error("某天的后一天"+ e);
+		}
+		c.setTime(date);
+		int day = c.get(Calendar.DATE);
+		c.set(Calendar.DATE, day + 1);
+		String dayBefore = new SimpleDateFormat("yyyy-MM-dd").format(c.getTime());
+		return dayBefore;
+	}
+
+	/**
+	 * 根据日期获取当天周几.
+	 * @param date  日期
+	 * @return string
+	 */
+	public static int getWeek(String date) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar c = Calendar.getInstance();
+		try {
+			c.setTime(format.parse(date));
+		} catch (ParseException e) {
+			Logger.error("根据日期获取当天周几"+e);
+		}
+		int dayForWeek = 0;
+		if ((int)c.get(Calendar.DAY_OF_WEEK) == 1) {
+			dayForWeek = 7;
+		} else {
+			dayForWeek = c.get(Calendar.DAY_OF_WEEK) - 1;
+		}
+		return dayForWeek;
+	}
+
+	/**
+	 * @param weekday  数字周几
+	 * @return 汉字（一，二，三，四，五，六，日）
+	 */
+	public static String getWeekDayInt2Str(int weekday) {
+		String week = "";
+		switch (weekday) {
+			case 7:
+				week = "日";
+				break;
+			case 1:
+				week = "一";
+				break;
+			case 2:
+				week = "二";
+				break;
+			case 3:
+				week = "三";
+				break;
+			case 4:
+				week = "四";
+				break;
+			case 5:
+				week = "五";
+				break;
+			case 6:
+				week = "六";
+				break;
+		}
+		return "星期" + week;
+	}
+
+	/**
+	 * 获取每个月的最后一天.
+	 * @param time 时间
+	 * @return yyyy-MM-dd
+	 */
+	public static String getLastDayOfMonth(String time) {
+		Calendar ca = Calendar.getInstance();
+		Date date = null;
+		SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
+		if (!StringUtils.isNotEmpty(time)) {
+			date = new Date();
+		} else {
+			try {
+				date = sm.parse(time);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		ca.setTime(date);
+		final int lastDay = ca.getActualMaximum(Calendar.DAY_OF_MONTH);
+		Date lastDate = ca.getTime();
+		lastDate.setDate(lastDay);
+		return sm.format(lastDate);
 	}
 }

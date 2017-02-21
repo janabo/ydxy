@@ -84,7 +84,7 @@ public class LsglListFragment extends BaseFragment{
                             canFk = result.getJSONObject("data").optBoolean("canFk");
                             canBz = result.getJSONObject("data").optBoolean("canBz");
                             if (myListView.pageNo == 1) {
-                                list.clear();
+                                    list.clear();
                             }
                             list.addAll(persionList);
                             myListView.flish();

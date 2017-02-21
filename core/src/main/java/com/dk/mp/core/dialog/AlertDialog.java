@@ -61,6 +61,21 @@ public class AlertDialog {
     }
 
     /**
+     * 更新应用对话框.
+     */
+    public void update(String title,String content,DialogInterface.OnClickListener okOnClick) {
+        android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(context);
+        alertDialog.setMessage(content)
+                .setPositiveButton("取消",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).setNegativeButton("去下载", okOnClick);
+        alertDialog.create().show();
+    }
+
+    /**
      * 弹出选择框
      * @param title
      * @param okSelectClick
