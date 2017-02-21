@@ -18,6 +18,16 @@
         <activity android:name=".setting.ui.UserInfoActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".home.ui.BrithdayActivity"
+            android:theme="@style/Theme.Transparent"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".message.ui.BrithdayMessageActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".message.ui.MessageActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
         <activity android:name="com.dk.mp.main.home.ui.AddAppActivity"
             android:screenOrientation="portrait">

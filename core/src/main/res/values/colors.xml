@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#2894ff</color>
     <color name="colorAccent">#2196f3</color>
 
+    <color name="colorPrimaryHy">#37c7be</color>
+
     <color name="page_bg">#f4f4f4</color>
     <color name="white50">#7fffffff</color>
     <color name="white">#ffffff</color>
@@ -34,4 +36,6 @@
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
     <color name="floatmenu_color">#F19149</color>
     <color name="floatmenu_color_pressed">#7fF19149</color>
+
+    <color name="red">#ff0000</color>
 </resources>

@@ -12,16 +12,16 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
-//        ndk {
-//            //选择要添加的对应cpu类型的.so库。
-//            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a','x86', 'x86_64', 'mips', 'mips64'
-//        }
-//
-//        manifestPlaceholders = [
-//                JPUSH_PKGNAME : "com.dk.mp.lgj",
-//                JPUSH_APPKEY : "c40f7578e3051310c7e5f4b0", //JPush上注册的包名对应的appkey.
-//                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
-//        ]
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a','x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : "com.dk.mp.lgj",
+                JPUSH_APPKEY : "c40f7578e3051310c7e5f4b0", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
     }
     buildTypes {
         release {
@@ -33,4 +33,6 @@ android {
 
 dependencies {
     compile project(':main')
+    compile 'cn.jiguang.sdk:jpush:3.0.0'  // 此处以JPush 3.0.0 版本为例。
+    compile 'cn.jiguang.sdk:jcore:1.0.0'  // 此处以JCore 1.0.0 版本为例。
 }

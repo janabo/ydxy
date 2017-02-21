@@ -17,6 +17,7 @@ public class User {
 	private String departId;//院系id
 	private String roles;//权限
 	private List<App> apps;
+	private String birthday;
 
 	public String getPhoto() {
 		return photo;
@@ -128,5 +129,13 @@ public class User {
 
 	public void setApps(List<App> apps) {
 		this.apps = apps;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getBirthday() {
+		return birthday;
 	}
 }

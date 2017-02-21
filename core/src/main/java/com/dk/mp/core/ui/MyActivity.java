@@ -18,11 +18,14 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dk.mp.core.R;
@@ -365,5 +368,24 @@ public abstract class MyActivity extends AppCompatActivity{
         }else{
             v.setBackgroundResource(R.drawable.circle_border_vwxyz);
         }
+    }
+
+    public void showBrithdayTheme(){
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(ContextCompat.getColor(this, com.dk.mp.core.R.color.colorPrimaryHy));
+        }
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.top);
+        if (layout == null) {
+            RelativeLayout v = (RelativeLayout) frameLayout.getChildAt(0);
+            RelativeLayout t = (RelativeLayout) v.getChildAt(0);
+            t.setBackgroundColor(ContextCompat.getColor(this, com.dk.mp.core.R.color.colorPrimaryHy));
+        } else {
+            layout.setBackgroundColor(ContextCompat.getColor(this, com.dk.mp.core.R.color.colorPrimaryHy));
+        }
+
+        ImageView view = (ImageView) findViewById(R.id.brithday);
+        view.setVisibility(View.VISIBLE);
     }
 }
