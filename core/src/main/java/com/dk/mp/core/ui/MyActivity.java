@@ -30,6 +30,7 @@ import com.dk.mp.core.entity.App;
 import com.dk.mp.core.util.AppUtil;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.ImageUtil;
+import com.dk.mp.core.util.PinyinUtil;
 import com.dk.mp.core.util.SnackBarUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -342,5 +343,27 @@ public abstract class MyActivity extends AppCompatActivity{
                 public void onAnimationRepeat(Animator animation) {}
             });
         return animator;
+    }
+
+
+    public static void getBackgroud(View v ,String str){
+        str = PinyinUtil.getInitial(str);
+        if("abc".contains(str)){
+            v.setBackgroundResource(R.drawable.circle_border_abc);
+        }else if("def".contains(str)){
+            v.setBackgroundResource(R.drawable.circle_border_def);
+        }else if("ghi".contains(str)){
+            v.setBackgroundResource(R.drawable.circle_border_ghi);
+        }else if("jkl".contains(str)){
+            v.setBackgroundResource(R.drawable.circle_border_jkl);
+        }else if("mno".contains(str)){
+            v.setBackgroundResource(R.drawable.circle_border_mno);
+        }else if("pqr".contains(str)){
+            v.setBackgroundResource(R.drawable.circle_border_pqr);
+        }else if("stu".contains(str)){
+            v.setBackgroundResource(R.drawable.circle_border_stu);
+        }else{
+            v.setBackgroundResource(R.drawable.circle_border_vwxyz);
+        }
     }
 }

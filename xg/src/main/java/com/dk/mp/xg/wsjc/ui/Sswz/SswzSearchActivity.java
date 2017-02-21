@@ -127,6 +127,7 @@ public class SswzSearchActivity extends MyActivity implements View.OnClickListen
         if(DeviceUtil.checkNet()) {
             mList.clear();
             mRecycle.clearList();
+            mRecycle.setPageNo(1);
             query();
         }else{
             if(mRecycle.pageNo == 1) {
@@ -192,10 +193,16 @@ public class SswzSearchActivity extends MyActivity implements View.OnClickListen
             ssl_fjh = (TextView) itemView.findViewById(R.id.ssl_fjh);
             ssq = (TextView) itemView.findViewById(R.id.ssq);
             fs = (TextView) itemView.findViewById(R.id.fs);
-            Sswz sswz = mList.get(getLayoutPosition());
-            Intent intent = new Intent(mContext,SswzRecordDetailActivity.class);
-            intent.putExtra("id",sswz.getId());
-            startActivity(intent);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Sswz sswz = mList.get(getLayoutPosition());
+                    Intent intent = new Intent(mContext, SswzRecordDetailActivity.class);
+                    intent.putExtra("id", sswz.getId());
+                    startActivity(intent);
+                }
+            });
+
         }
     }
 

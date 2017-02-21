@@ -83,6 +83,16 @@ public class TimeUtils {
 	}
 
 	/**
+	 * 获取当年.
+	 * @return String(yyyy)
+	 */
+	public static int getCurrYear() {
+		Date now = new Date();
+		String hehe = new SimpleDateFormat("yyyy").format(now);
+		return Integer.parseInt(hehe);
+	}
+
+	/**
 	 * 格式化日期.
 	 * @param dateTime  日期
 	 * @return 格式化后的日期

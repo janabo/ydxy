@@ -6,6 +6,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
+import com.dk.mp.core.entity.JsonData;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
@@ -92,9 +93,11 @@ public class ZssdjglEditActivity extends MyActivity{
                         @Override
                         public void onSuccess(JSONObject result) {
                             try {
-                                if (result.getInt("code") == 200) {
+                                JsonData jd = getGson().fromJson(result.toString(),JsonData.class);
+                                if (jd.getCode() == 200 && (Boolean) jd.getData()) {
                                     back();
                                 } else {
+                                    showErrorMsg(jd.getMsg());
                                 }
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -115,9 +118,11 @@ public class ZssdjglEditActivity extends MyActivity{
                         @Override
                         public void onSuccess(JSONObject result) {
                             try {
-                                if (result.getInt("code") == 200) {
+                                JsonData jd = getGson().fromJson(result.toString(),JsonData.class);
+                                if (jd.getCode() == 200 && (Boolean) jd.getData()) {
                                     back();
                                 } else {
+                                    showErrorMsg(jd.getMsg());
                                 }
                             } catch (Exception e) {
                                 e.printStackTrace();

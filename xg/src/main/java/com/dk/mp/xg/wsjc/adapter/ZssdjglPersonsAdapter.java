@@ -13,6 +13,7 @@ import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.entity.Zssdjgl;
+import com.dk.mp.xg.wsjc.ui.zssdjgl.ZssdjglAddLiusuActivity;
 
 import java.util.List;
 
@@ -23,10 +24,12 @@ public class ZssdjglPersonsAdapter extends RecyclerView.Adapter{
     private List<Zssdjgl> mData;
     private Context mContext;
     private LayoutInflater mInflater;
+    private ZssdjglAddLiusuActivity activity;
 
-    public ZssdjglPersonsAdapter(List<Zssdjgl> mData, Context mContext) {
+    public ZssdjglPersonsAdapter(List<Zssdjgl> mData, Context mContext,ZssdjglAddLiusuActivity activity) {
         this.mData = mData;
         this.mContext = mContext;
+        this.activity = activity;
         mInflater = LayoutInflater.from(mContext);
     }
 
@@ -52,6 +55,7 @@ public class ZssdjglPersonsAdapter extends RecyclerView.Adapter{
             ((MyViewHolder) holder).wjxs_name.setVisibility(View.VISIBLE);
             ((MyViewHolder) holder).wjxs_x.setText(StringUtils.isNotEmpty(bean.getName())?bean.getName().substring(0,1):"");
             ((MyViewHolder) holder).wjxs_name.setText(bean.getName());
+            activity.getBackgroud(((MyViewHolder) holder).wjxs_lin,bean.getName());
         }
 
     }

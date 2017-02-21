@@ -17,9 +17,11 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.dk.mp.core.dialog.AlertDialog;
+import com.dk.mp.core.entity.JsonData;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.BroadcastUtil;
 import com.dk.mp.core.util.SnackBarUtil;
 import com.dk.mp.core.view.DrawCheckMarkView;
 import com.dk.mp.core.view.DrawCrossMarkView;
@@ -77,7 +79,7 @@ public class ZssdjglAddLiusuActivity extends MyActivity implements ZssdjglPerson
         setTitle("1".equals(type)?"留宿登记":"请假登记");
         persons.add(new Zssdjgl("addperson",""));
 
-        zAdapter = new ZssdjglPersonsAdapter(persons,mContext);
+        zAdapter = new ZssdjglPersonsAdapter(persons,mContext,ZssdjglAddLiusuActivity.this);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 5, GridLayoutManager.VERTICAL, false);
         //设置布局管理器
         mRecyclerView.setLayoutManager(layoutManager);
@@ -212,8 +214,9 @@ public class ZssdjglAddLiusuActivity extends MyActivity implements ZssdjglPerson
             @Override
             public void onSuccess(JSONObject result)  {
                 try {
-                    if (result.getInt("code") != 200) {
-                        SnackBarUtil.showShort(mRootView,result.getString("msg"));
+                    JsonData jd = getGson().fromJson(result.toString(),JsonData.class);
+                    if (jd.getCode() != 200 && !(Boolean) jd.getData()) {
+                        SnackBarUtil.showShort(mRootView,jd.getMsg());
                         errorInfo();
                     }else{
                         progress.setVisibility(View.GONE);
@@ -223,6 +226,7 @@ public class ZssdjglAddLiusuActivity extends MyActivity implements ZssdjglPerson
                             @Override
                             public void run() {
                                 ok.setEnabled(true);
+                                BroadcastUtil.sendBroadcast(mContext, "zssdjgl_refresh");
                                 onBackPressed();
                             }
                         },1000);

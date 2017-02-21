@@ -93,8 +93,8 @@ public class ZssglMainActivity extends MyActivity{
 
     private void initViewPager() {
         List<String> titles = new ArrayList<>();
-        titles.add("待我处理");
-        titles.add("我已处理");
+        titles.add("正在审核");
+        titles.add("审核完成");
         for (int i = 0; i < titles.size(); i++) {
             mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(i)));
         }

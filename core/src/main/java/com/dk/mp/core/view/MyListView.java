@@ -250,4 +250,8 @@ public class MyListView extends SwipeRefreshLayout {
         list.clear();
         adapterInterface.loadDatas();
     }
+
+    public void setPageNo(int pageNo) {
+        this.pageNo = pageNo;
+    }
 }
