@@ -1,7 +1,11 @@
 package com.dk.mp.xg.wsjc.ui.zssgl;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.view.View;
+import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -39,6 +43,10 @@ public class ZssglPutupActivity extends MyActivity{
     @Override
     protected void initView() {
         super.initView();
+        Window window = getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(getResources().getColor(R.color.select_title));
+        }
         back = (TextView) findViewById(R.id.back);
         title = (TextView) findViewById(R.id.title);
         ok = (TextView) findViewById(R.id.ok);
@@ -62,6 +70,12 @@ public class ZssglPutupActivity extends MyActivity{
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                InputMethodManager imm =  (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                if(imm != null) {
+                    imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),
+                            0);
+                }
+                ok.setEnabled(false);
                 Map<String, Object> map = new HashMap<>();
                 map.put("id", detailid);
                 map.put("dxrzrq", xjrq_pick.getText().toString());
@@ -70,12 +84,13 @@ public class ZssglPutupActivity extends MyActivity{
                     @Override
                     public void onSuccess(JSONObject result) {
                         try {
+                            ok.setEnabled(true);
                             JsonData jd = getGson().fromJson(result.toString(),JsonData.class);
                             if (jd.getCode() == 200 && (Boolean) jd.getData()) {
                                 showErrorMsg(jd.getMsg());
                                 BroadcastUtil.sendBroadcast(mContext, "zssgl_refresh");
                                 if(ZssglDetailActivity.instance != null){
-                                    finish();
+                                    ZssglDetailActivity.instance.finish();
                                 }
                                 back();
                             } else {
@@ -84,11 +99,13 @@ public class ZssglPutupActivity extends MyActivity{
                         } catch (Exception e) {
                             e.printStackTrace();
                             showErrorMsg("提交失败");
+                            ok.setEnabled(true);
                         }
                     }
                     @Override
                     public void onError(VolleyError error) {
                         showErrorMsg("提交失败");
+                        ok.setEnabled(true);
                     }
                 });
             }

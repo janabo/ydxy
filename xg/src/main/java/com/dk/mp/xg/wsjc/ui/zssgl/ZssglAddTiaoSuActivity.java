@@ -700,7 +700,17 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
             startActivityForResult(intent, 8);
             overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
         } else {
-            showErrorMsg(mRootView, "未获取到调整原因选项");
+            getTsyys();
+            if (tzyys.size() > 0) {
+                Intent intent = new Intent(mContext, ZsstjPickActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("kfs", (Serializable) tzyys);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 8);
+                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+            } else {
+                showErrorMsg(mRootView, "未获取到调整原因选项");
+            }
         }
     }
 

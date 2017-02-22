@@ -9,10 +9,12 @@ import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
 import com.dk.mp.core.entity.GsonData;
+import com.dk.mp.core.entity.LoginMsg;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.BaseFragment;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.encrypt.Base64Utils;
 import com.dk.mp.core.widget.MyViewpager;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.adapter.MyFragmentPagerAdapter;
@@ -47,6 +49,7 @@ public class ZsskqTjTabActivity extends MyActivity{
     private WsjcTjFragment fragment3 = new WsjcTjFragment();
     private String weekid="";//选择的班级id
     private String weekname="";//选择的班级名称
+    LoginMsg loginMsg;
 
     @Override
     protected int getLayoutID() {
@@ -57,6 +60,7 @@ public class ZsskqTjTabActivity extends MyActivity{
     protected void initialize() {
         super.initialize();
         setTitle("住宿生考勤统计");
+        loginMsg = getSharedPreferences().getLoginMsg();
         type = getIntent().getStringExtra("role");
         findView();
         initViewPager();
@@ -184,13 +188,18 @@ public class ZsskqTjTabActivity extends MyActivity{
     }
 
     public void getTjUrl(String id){
-        if(tabSelect == 0){
-            fragment1.setMUrl("apps/zsskq/tj?type=today&id="+id+"&role="+type);
-        }else if(tabSelect == 1){
-            fragment2.setMUrl("apps/zsskq/tj?type=week&id="+id+"&role="+type);
-        }else if(tabSelect == 2){
-            fragment3.setMUrl("apps/zsskq/tj?type=month&id="+id+"&role="+type);
+        String mUrl="";
+        if(loginMsg != null){
+            mUrl = "&uid="+loginMsg.getUid()+"&pwd="+ Base64Utils.getBase64(loginMsg.getPsw());
         }
+        if(tabSelect == 0){
+            fragment1.setMUrl("apps/zsskq/tj?type=today&id="+id+"&role="+type+mUrl);
+        }else if(tabSelect == 1){
+            fragment2.setMUrl("apps/zsskq/tj?type=week&id="+id+"&role="+type+mUrl);
+        }else if(tabSelect == 2){
+            fragment3.setMUrl("apps/zsskq/tj?type=month&id="+id+"&role="+type+mUrl);
+        }
+
     }
 
 }

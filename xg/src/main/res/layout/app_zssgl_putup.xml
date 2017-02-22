@@ -93,27 +93,27 @@
         </LinearLayout>
         <include
             layout="@layout/core_line"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-            android:background="@color/linecolor"
-            android:layout_marginTop="10dp" />
-
-        <EditText
-            android:id="@+id/bz"
-            android:background="@color/white"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:padding="10dp"
-            android:minHeight="100dp"
-            android:maxLength="200"
-            android:hint="备注(200字以内，选填)"
-            android:gravity="top"
-            android:textSize="?attr/textSize14"/>
-        <include
-            layout="@layout/core_line"/>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/linecolor"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:id="@+id/bz"
+        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:minHeight="100dp"
+        android:maxLength="200"
+        android:hint="备注(200字以内，选填)"
+        android:gravity="top"
+        android:textSize="?attr/textSize14"/>
+    <include
+        layout="@layout/core_line"/>
 
 
 </LinearLayout>

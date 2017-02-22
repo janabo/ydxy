@@ -9,10 +9,12 @@ import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
 import com.dk.mp.core.entity.GsonData;
+import com.dk.mp.core.entity.LoginMsg;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.BaseFragment;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.encrypt.Base64Utils;
 import com.dk.mp.core.widget.MyViewpager;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.adapter.MyFragmentPagerAdapter;
@@ -47,6 +49,7 @@ public class ZsstjTabActivity extends MyActivity {
     private WsjcTjFragment fragment2 = new WsjcTjFragment();
     private WsjcTjFragment fragment3 = new WsjcTjFragment();
     private ImageView dropdown_img;
+    LoginMsg loginMsg;
 
     @Override
     protected int getLayoutID() {
@@ -56,6 +59,7 @@ public class ZsstjTabActivity extends MyActivity {
     @Override
     protected void initialize() {
         super.initialize();
+        loginMsg = getSharedPreferences().getLoginMsg();
         type = getIntent().getStringExtra("lx");
         role = getIntent().getStringExtra("role");
         setTitle(getIntent().getStringExtra("title"));
@@ -114,16 +118,19 @@ public class ZsstjTabActivity extends MyActivity {
                 tabSelect = tab.getPosition();
                 if(tabSelect == 0){
                     dropdown_img.setVisibility(View.VISIBLE);
-                    fragment1.setMUrl("apps/zxzssgltj/tongji" +
-                            "?id="+weekid+"&type=today&lmlb="+type);
+//                    fragment1.setMUrl("apps/zxzssgltj/tongji" +
+//                            "?id="+weekid+"&type=today&lmlb="+type);
+                    fragment1.setMUrl(getUrl(weekid,"today",type));
                 }else if(tabSelect == 1){
-                    fragment2.setMUrl("apps/zxzssgltj/tongji" +
-                            "?id="+weekid+"&type=week&lmlb="+type);
+//                    fragment2.setMUrl("apps/zxzssgltj/tongji" +
+//                            "?id="+weekid+"&type=week&lmlb="+type);
+                    fragment2.setMUrl(getUrl(weekid,"week",type));
                     dropdown_img.setVisibility(View.VISIBLE);
                 }else if(tabSelect == 2){
                     dropdown_img.setVisibility(View.VISIBLE);
-                    fragment3.setMUrl("apps/zxzssgltj/tongji" +
-                            "?id="+weekid+"&type=month&lmlb="+type);
+//                    fragment3.setMUrl("apps/zxzssgltj/tongji" +
+//                            "?id="+weekid+"&type=month&lmlb="+type);
+                    fragment3.setMUrl(getUrl(weekid,"month",type));
                 }
 
             }
@@ -159,8 +166,9 @@ public class ZsstjTabActivity extends MyActivity {
                                 weekname = dfxxes.get(0).getName();
                                 setTitle(weekname);
                                 weekid = dfxxes.get(0).getId();
-                                fragment1.setMUrl("apps/zxzssgltj/tongji" +
-                                        "?role="+role+"&id="+weekid+"&type=today&lx="+type);
+//                                fragment1.setMUrl("apps/zxzssgltj/tongji" +
+//                                        "?role="+role+"&id="+weekid+"&type=today&lx="+type);
+                                fragment1.setMUrl(getUrl(weekid,"today",type));
                             }else{
                                 showErrorMsg(mViewpager,getErrorMsg());
                             }
@@ -203,13 +211,22 @@ public class ZsstjTabActivity extends MyActivity {
      */
     public String getErrorMsg(){
         dropdown_img.setVisibility(View.INVISIBLE);
-        fragment1.setMUrl("apps/zxzssgltj/tongji" +
-                "?role="+role+"&id="+weekid+"&type=today&lx="+type);
+//        fragment1.setMUrl("apps/zxzssgltj/tongji" +
+//                "?role="+role+"&id="+weekid+"&type=today&lx="+type);
+        fragment1.setMUrl(getUrl(weekid,"today",type));
         if("1".equals(role) || "2".equals(role) || "3".equals(role)){
             return "未获取到班级列表";
         }else{
             return "未获取到院系列表";
         }
+    }
+
+    public String getUrl(String id,String type,String lx){
+        String mUrl = "apps/zxzssgltj/tongji?id="+id+"&type="+type+"&lmlb="+lx;
+        if(loginMsg != null){
+            mUrl += "&uid="+loginMsg.getUid()+"&pwd="+ Base64Utils.getBase64(loginMsg.getPsw());
+        }
+        return mUrl;
     }
 
 }

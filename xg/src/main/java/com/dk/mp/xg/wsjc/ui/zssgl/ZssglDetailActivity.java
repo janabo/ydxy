@@ -14,6 +14,7 @@ import com.dk.mp.core.entity.LoginMsg;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.Logger;
+import com.dk.mp.core.util.encrypt.Base64Utils;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 
@@ -78,7 +79,7 @@ public class ZssglDetailActivity extends MyActivity implements View.OnClickListe
             LoginMsg loginMsg = getSharedPreferences().getLoginMsg();
             String mUrl = "apps/zxzssgl/detail?id="+detailid+"&lmlb="+lmlb+"&uid=";
             if(loginMsg != null){
-                mUrl += loginMsg.getUid();
+                mUrl += loginMsg.getUid()+"&pwd="+ Base64Utils.getBase64(loginMsg.getPsw());
             }
             setMUrl(mUrl);
         }else{

@@ -39,4 +39,5 @@
     <color name="floatmenu_color_pressed">#7fF19149</color>
 
     <color name="red">#ff0000</color>
+    <color name="select_title">#808080</color>
 </resources>

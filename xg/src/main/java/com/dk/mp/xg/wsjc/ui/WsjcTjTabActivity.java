@@ -9,11 +9,13 @@ import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
 import com.dk.mp.core.entity.GsonData;
+import com.dk.mp.core.entity.LoginMsg;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.BaseFragment;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.TimeUtils;
+import com.dk.mp.core.util.encrypt.Base64Utils;
 import com.dk.mp.core.widget.MyViewpager;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.adapter.MyFragmentPagerAdapter;
@@ -26,7 +28,6 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,6 +54,7 @@ public class WsjcTjTabActivity extends MyActivity {
     private WsjcTjFragment fragment2 = new WsjcTjFragment();
     private WsjcTjFragment fragment3 = new WsjcTjFragment();
     private ImageView dropdown_img;
+    LoginMsg loginMsg;
 
     @Override
     protected int getLayoutID() {
@@ -62,6 +64,7 @@ public class WsjcTjTabActivity extends MyActivity {
     @Override
     protected void initialize() {
         super.initialize();
+        loginMsg = getSharedPreferences().getLoginMsg();
         type = getIntent().getStringExtra("role");
         setTitle(getIntent().getStringExtra("title"));
         findView();
@@ -144,12 +147,14 @@ public class WsjcTjTabActivity extends MyActivity {
                         weekname = "第一周";
                     }
                     setTitle(weekname);
-                    fragment1.setMUrl("apps/sswsdftj/tj" +
-                            "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
+//                    fragment1.setMUrl("apps/sswsdftj/tj" +
+//                            "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
+                    fragment1.setMUrl(getUrl("week",weekid,"1","",weekname));
                 }else if(tabSelect == 1){
                     setTitle(TimeUtils.getCurrMonth());
-                    fragment2.setMUrl("apps/sswsdftj/tj" +
-                            "?type=month&key="+TimeUtils.getCurrMonth()+"&role="+1+"&pfmb="+"&name="+TimeUtils.getCurrMonth());
+//                    fragment2.setMUrl("apps/sswsdftj/tj" +
+//                            "?type=month&key="+TimeUtils.getCurrMonth()+"&role="+1+"&pfmb="+"&name="+TimeUtils.getCurrMonth());
+                    fragment2.setMUrl(getUrl("month",TimeUtils.getCurrMonth(),"1","",TimeUtils.getCurrMonth()));
                 }else if(tabSelect == 2){
                     if(mSemester.size()>0){
                         semesterid = mSemester.get(0).getId();
@@ -159,8 +164,9 @@ public class WsjcTjTabActivity extends MyActivity {
                         semestername= "第一学期";
                     }
                     setTitle(semestername);
-                    fragment3.setMUrl("apps/sswsdftj/tj" +
-                            "?type=year&key="+semesterid+"&role="+1+"&pfmb="+templetid+"&name="+semestername+"&timestamp="+new Date().getTime());
+//                    fragment3.setMUrl("apps/sswsdftj/tj" +
+//                            "?type=year&key="+semesterid+"&role="+1+"&pfmb="+templetid+"&name="+semestername+"&timestamp="+new Date().getTime());
+                    fragment3.setMUrl(getUrl("year",semesterid,"1",templetid,semestername));
                 }
             }
             @Override
@@ -193,8 +199,9 @@ public class WsjcTjTabActivity extends MyActivity {
                                 weekname = dfxxes.get(0).getName();
                                 setTitle(weekname);
                                 weekid = dfxxes.get(0).getId();
-                                fragment1.setMUrl("apps/sswsdftj/tj" +
-                                        "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
+//                                fragment1.setMUrl("apps/sswsdftj/tj" +
+//                                        "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
+                                fragment1.setMUrl(getUrl("week",weekid,"1","",weekname));
                             }else{
                                 showErrorMsg(mViewpager,getErrorMsg());
                             }
@@ -294,16 +301,18 @@ public class WsjcTjTabActivity extends MyActivity {
                     weekid = data.getStringExtra("kfsid");
                     weekname = data.getStringExtra("kfs");
                     setTitle(weekname);
-                    fragment1.setMUrl("apps/sswsdftj/tj" +
-                            "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
+//                    fragment1.setMUrl("apps/sswsdftj/tj" +
+//                            "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
+                    fragment1.setMUrl(getUrl("week",weekid,"1","",weekname));
                 }
                 break;
             case 2:
                 if(resultCode == RESULT_OK){
                     month = data.getStringExtra("date");
                     setTitle(month);
-                    fragment2.setMUrl("apps/sswsdftj/tj" +
-                            "?type=month&key="+month+"&role="+1+"&pfmb="+"&name="+month);
+//                    fragment2.setMUrl("apps/sswsdftj/tj" +
+//                            "?type=month&key="+month+"&role="+1+"&pfmb="+"&name="+month);
+                    fragment2.setMUrl(getUrl("month",month,"1","",month));
                 }
                 break;
             case 3:
@@ -311,8 +320,9 @@ public class WsjcTjTabActivity extends MyActivity {
                     semesterid = data.getStringExtra("xqsid");
                     setTitle(data.getStringExtra("xqs"));
                     templetid = data.getStringExtra("mbs");
-                    fragment3.setMUrl("apps/sswsdftj/tj" +
-                            "?type=year&key="+semesterid+"&role="+1+"&pfmb="+templetid+"&name="+data.getStringExtra("xqs"));
+//                    fragment3.setMUrl("apps/sswsdftj/tj" +
+//                            "?type=year&key="+semesterid+"&role="+1+"&pfmb="+templetid+"&name="+data.getStringExtra("xqs"));
+                    fragment3.setMUrl(getUrl("year",semesterid,"1",templetid,data.getStringExtra("xqs")));
                 }
                 break;
         }
@@ -324,9 +334,16 @@ public class WsjcTjTabActivity extends MyActivity {
      */
     public String getErrorMsg(){
         dropdown_img.setVisibility(View.INVISIBLE);
-        fragment1.setMUrl("apps/sswsdftj/tj" +
-                "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
+        fragment1.setMUrl(getUrl("week",weekid,"1","",weekname));
         return "未获取周次失败";
+    }
+
+    public String getUrl(String type,String key ,String role,String pfmb,String name){
+        String mUrl = "apps/sswsdftj/tj?type="+type+"&key="+key+"&role="+role+"&pfmb="+pfmb+"&name="+name;
+        if(loginMsg != null){
+            mUrl += "&uid="+loginMsg.getUid()+"&pwd="+ Base64Utils.getBase64(loginMsg.getPsw());
+        }
+        return mUrl;
     }
 
 }

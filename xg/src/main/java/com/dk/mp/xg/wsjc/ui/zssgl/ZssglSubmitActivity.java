@@ -99,7 +99,7 @@ public class ZssglSubmitActivity extends MyActivity {
                         SnackBarUtil.showShort(mRootView,jd.getMsg());
                         BroadcastUtil.sendBroadcast(mContext, "zssgl_refresh");
                         if(ZssglDetailActivity.instance != null){
-                            finish();
+                            ZssglDetailActivity.instance.finish();
                         }
                         finish();
                         overridePendingTransition(0, R.anim.push_down_out);
