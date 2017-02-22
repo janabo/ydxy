@@ -226,6 +226,16 @@
             android:screenOrientation="portrait"
             android:theme="@style/noAnimThemep.noAnimThemeStatusBarColorGray"/>
 
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZssglSubmitActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleTranslucentTheme">
+        </activity>
+
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZssglTiaoSuSubmitActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
