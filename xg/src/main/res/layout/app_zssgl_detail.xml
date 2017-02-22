@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -111,27 +111,28 @@
                     android:onClick="toUntread"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/footer2"
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/footer2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+            <Button
+                android:id="@+id/putup"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:visibility="gone">
-                <Button
-                    android:id="@+id/putup"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/ripple_bg"
-                    android:text="住宿"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:onClick="toPutup"/>
-            </LinearLayout>
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/ripple_bg"
+                android:text="住宿"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:onClick="toPutup"/>
         </LinearLayout>
     </LinearLayout>
         </RelativeLayout>

@@ -62,8 +62,8 @@ public class ZssglDetailActivity extends MyActivity implements View.OnClickListe
             footer.setVisibility(View.VISIBLE);
         }else if("4".equals(mType) && "1".equals(lmlb)){
             lin_footer.setVisibility(View.VISIBLE);
-            footer2.setVisibility(View.VISIBLE);
             footer.setVisibility(View.GONE);
+            footer2.setVisibility(View.VISIBLE);
         }else{
             lin_footer.setVisibility(View.GONE);
         }
@@ -75,7 +75,6 @@ public class ZssglDetailActivity extends MyActivity implements View.OnClickListe
      */
     public void getData(){
         if(DeviceUtil.checkNet()){
-            lin_footer.setVisibility(View.VISIBLE);
             LoginMsg loginMsg = getSharedPreferences().getLoginMsg();
             String mUrl = "apps/zxzssgl/detail?id="+detailid+"&lmlb="+lmlb+"&uid=";
             if(loginMsg != null){
@@ -137,7 +136,9 @@ public class ZssglDetailActivity extends MyActivity implements View.OnClickListe
      * @param v
      */
     public void toPutup(View v){
-
+        Intent intent = new Intent(mContext,ZssglPutupActivity.class);
+        intent.putExtra("detailid",detailid);
+        startActivity(intent);
     }
 
     public void setMUrl(String url){
