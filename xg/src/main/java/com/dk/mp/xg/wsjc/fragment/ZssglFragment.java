@@ -105,15 +105,15 @@ public class ZssglFragment extends BaseFragment implements View.OnClickListener{
 
             @Override
             public void setItemValue(RecyclerView.ViewHolder holder, int position) {
-                String lmlbname;
-                if("1".equals(lmlb)){
-                    lmlbname="停宿申请";
-                }else if("3".equals(lmlb)){
-                    lmlbname="退宿申请";
-                }else{
-                    lmlbname="调宿申请";
-                }
-                ((MyView)holder).ssl_fjh.setText(lmlbname);
+//                String lmlbname;
+//                if("1".equals(lmlb)){
+//                    lmlbname="停宿申请";
+//                }else if("3".equals(lmlb)){
+//                    lmlbname="退宿申请";
+//                }else{
+//                    lmlbname="调宿申请";
+//                }
+                ((MyView)holder).ssl_fjh.setText(mData.get(position).getXm());
                 ((MyView)holder).ssq.setText(mData.get(position).getShzt());
                 ((MyView)holder).fs.setText(mData.get(position).getSqrq());
             }
@@ -190,6 +190,7 @@ public class ZssglFragment extends BaseFragment implements View.OnClickListener{
                     Intent intent = new Intent(getActivity(), ZssglDetailActivity.class);
                     intent.putExtra("detailid",zssgl.getId());
                     intent.putExtra("lmlb",lmlb);
+                    intent.putExtra("mType",mType);
                     intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
                     intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
                     startActivity(intent);

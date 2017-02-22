@@ -96,7 +96,6 @@ public class TzggActivity extends MyActivity implements View.OnClickListener{
     }
 
     public void getList(){
-        myListView.startRefresh();
         Map<String,Object> map = new HashMap<>();
         map.put("pageNo",myListView.pageNo);
         HttpUtil.getInstance().gsonRequest(new TypeToken<PageMsg<Tzgg>>(){}, "apps/tzgg/list", map, new HttpListener<PageMsg<Tzgg>>() {

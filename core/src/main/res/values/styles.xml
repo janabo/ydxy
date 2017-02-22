@@ -19,6 +19,18 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <!--透明，有任务栏电量时间等-->
+    <style name="NoTitleTranslucentTheme" parent="FullScreenTheme">
+        <item name="android:windowBackground">@color/black50</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <!--全屏-->
+    <style name="FullScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
     <style name="MyDialog" parent="@android:style/Theme.DeviceDefault.DialogWhenLarge">
         <item name="android:windowFrame">@null</item>
         <!-- 边框 -->

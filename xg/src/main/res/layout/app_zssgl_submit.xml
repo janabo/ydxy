@@ -1,0 +1,64 @@
+<RelativeLayout android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#80000000" xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mRootView">
+    <LinearLayout
+        android:id="@+id/pick_lin"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="vertical" >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="#c9c9c9"/>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <EditText
+                android:id="@+id/mark"
+                android:background="@null"
+                android:layout_height="137dp"
+                android:layout_width="match_parent"
+                android:padding="10dp"
+                android:hint="审核意见（500字）"
+                android:textSize="15dp"
+                android:gravity="top"
+                android:textColor="#212121">
+           </EditText>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/pick_button"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_above="@id/pick_lin"
+        android:background="@color/white">
+        <TextView
+            android:id="@+id/cancel"
+            style="@style/pickTheme"
+            android:background="@drawable/dialog_btn_right_selector"
+            android:text="取消"
+            android:gravity="center_vertical"/>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/mTitle"
+            android:textColor="#646464"
+            android:textSize="15sp"
+            android:text="不通过"/>
+        <TextView
+            android:id="@+id/set"
+            style="@style/pickTheme"
+            android:background="@drawable/dialog_btn_left_selector"
+            android:text="确定"
+            android:textColor="@color/colorPrimary50"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"/>
+    </RelativeLayout>
+</RelativeLayout>
