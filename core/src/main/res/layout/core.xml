@@ -14,7 +14,7 @@
         android:layout_height="match_parent" />
 
     <LinearLayout
-        android:layout_width="70dp"
+        android:layout_width="?attr/image80"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_gravity="end"
@@ -23,9 +23,9 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_height="?attr/image40"
             android:text="最近使用的应用"
-            android:textSize="9dp"
+            android:textSize="?attr/textSize12"
             android:background="#ededed"
             android:textColor="#212121"
             android:gravity="center"/>
@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="首页"
-            android:textSize="12sp" />
+            android:textSize="?attr/textSize12" />
 
 
     </LinearLayout>
