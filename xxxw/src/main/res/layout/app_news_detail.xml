@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:background="#ffffff">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="260dp"
@@ -69,6 +70,14 @@
                 android:id="@+id/webview_new_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
+
+            <com.dk.mp.core.widget.ErrorLayout
+                android:id="@+id/errorlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:layout_gravity="center">
+            </com.dk.mp.core.widget.ErrorLayout>
 
         </LinearLayout>
 
