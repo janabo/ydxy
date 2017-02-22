@@ -212,4 +212,10 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        recreate();
+    }
 }

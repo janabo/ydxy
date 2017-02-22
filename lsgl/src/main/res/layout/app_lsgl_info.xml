@@ -48,7 +48,7 @@
                         android:layout_height="34dp"
                         android:text="基本信息"
                         android:textColor="#9c9c9c"
-                        android:textSize="12sp"
+                        android:textSize="?attr/textSize12"
                         android:gravity="left|center_vertical"
                         android:paddingLeft="10dp"/>
 
@@ -103,7 +103,7 @@
                             android:gravity="center_vertical"
                             android:layout_marginLeft="10dp"
                             android:textColor="#000000"
-                            android:textSize="15sp"/>
+                            android:textSize="?attr/textSize15"/>
 
                         <TextView
                             android:id="@+id/fktext"
@@ -115,11 +115,11 @@
                             android:gravity="center_vertical|right"
                             android:layout_marginRight="10dp"
                             android:textColor="#000000"
-                            android:textSize="15sp"/>
+                            android:textSize="?attr/textSize15"/>
 
                         <ImageView
-                            android:layout_width="8dp"
-                            android:layout_height="12dp"
+                            android:layout_width="?attr/image8"
+                            android:layout_height="?attr/image13"
                             android:src="@mipmap/arrow_icon_xg"
                             android:layout_gravity="center_vertical|center_horizontal"
                             android:layout_marginRight="10dp"/>
@@ -159,7 +159,7 @@
                         android:paddingBottom="15dp"
                         android:maxLength="500"
                         android:textColor="#212121"
-                        android:textSize="12sp"/>
+                        android:textSize="?attr/textSize12"/>
 
                     <View
                         android:layout_width="match_parent"

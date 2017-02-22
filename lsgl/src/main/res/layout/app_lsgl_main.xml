@@ -56,8 +56,8 @@
             android:visibility="gone"
             android:onClick="tobzr">
             <LinearLayout
-                android:layout_height="40dp"
-                android:layout_width="40dp"
+                android:layout_height="?attr/image40"
+                android:layout_width="?attr/image40"
                 android:background="@drawable/wsjctj_main_border"
                 android:gravity="center">
                 <TextView
@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:text="班"
                     android:textColor="@color/white"
-                    android:textSize="24sp">
+                    android:textSize="?attr/textSize24">
                 </TextView>
             </LinearLayout>
             <TextView
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="班主任视角"
-                android:textSize="17sp"
+                android:textSize="?attr/textSize17"
                 android:textColor="@color/white"
                 android:layout_marginTop="10dp"/>
         </LinearLayout>
@@ -91,8 +91,8 @@
             android:visibility="gone"
             android:onClick="toxb">
             <LinearLayout
-                android:layout_height="40dp"
-                android:layout_width="40dp"
+                android:layout_height="?attr/image40"
+                android:layout_width="?attr/image40"
                 android:background="@drawable/wsjctj_main_border"
                 android:gravity="center">
                 <TextView
@@ -101,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:text="系"
                     android:textColor="@color/white"
-                    android:textSize="24sp">
+                    android:textSize="?attr/textSize24">
                 </TextView>
             </LinearLayout>
             <TextView
@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="系部视角"
-                android:textSize="17sp"
+                android:textSize="?attr/textSize17"
                 android:textColor="@color/white"
                 android:layout_marginTop="10dp"/>
         </LinearLayout>
@@ -126,8 +126,8 @@
             android:visibility="gone"
             android:onClick="toxg">
             <LinearLayout
-                android:layout_height="40dp"
-                android:layout_width="40dp"
+                android:layout_height="?attr/image40"
+                android:layout_width="?attr/image40"
                 android:background="@drawable/wsjctj_main_border"
                 android:gravity="center">
                 <TextView
@@ -136,7 +136,7 @@
                     android:layout_width="wrap_content"
                     android:text="学"
                     android:textColor="@color/white"
-                    android:textSize="24sp">
+                    android:textSize="?attr/textSize24">
                     </TextView>
                 </LinearLayout>
             <TextView
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="学工处视角"
-                android:textSize="17sp"
+                android:textSize="?attr/textSize17"
                 android:textColor="@color/white"
                 android:layout_marginTop="10dp"/>
         </LinearLayout>
@@ -160,8 +160,8 @@
             android:visibility="gone"
             android:onClick="tofdy">
             <LinearLayout
-                android:layout_height="40dp"
-                android:layout_width="40dp"
+                android:layout_height="?attr/image40"
+                android:layout_width="?attr/image40"
                 android:background="@drawable/wsjctj_main_border"
                 android:gravity="center">
                 <TextView
@@ -169,14 +169,14 @@
                     android:layout_width="wrap_content"
                     android:text="辅"
                     android:textColor="@color/white"
-                    android:textSize="24sp">
+                    android:textSize="?attr/textSize24">
                 </TextView>
             </LinearLayout>
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="辅导员视角"
-                android:textSize="17sp"
+                android:textSize="?attr/textSize17"
                 android:textColor="@color/white"
                 android:layout_marginTop="10dp"/>
         </LinearLayout>
