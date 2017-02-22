@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.Logger;
+import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xxxw.R;
 import com.dk.mp.xxxw.entity.News;
 
@@ -61,8 +62,16 @@ public class NewsDetailActivity extends MyActivity{
         }
 
         setNavigationClick ( );
-        String url = getUrl(news.getUrl());
-        mWebView.loadUrl (url);
+        if (news.getUrl() == null) {
+            ErrorLayout layout = (ErrorLayout)findViewById(R.id.errorlayout);
+            layout.setVisibility(View.VISIBLE);
+            mWebView.setVisibility(View.GONE);
+            layout.setErrorType(ErrorLayout.NODATA);
+        } else {
+            String url = getUrl(news.getUrl());
+
+            mWebView.loadUrl (url);
+        }
     }
 
     private void setNavigationClick ( ) {
