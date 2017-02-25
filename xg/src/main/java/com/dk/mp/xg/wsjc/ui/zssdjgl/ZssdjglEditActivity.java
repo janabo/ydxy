@@ -12,6 +12,7 @@ import com.dk.mp.core.entity.JsonData;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.ui.Sswz.SswzWjrqPickActivity;
 
@@ -29,6 +30,7 @@ public class ZssdjglEditActivity extends MyActivity{
     private String ksrq,jsrq,detailid,type,xjrq;
     private TextView ksrq_bt,jsrq_bt;
     private LinearLayout xiaojia,edit;
+    private ErrorLayout mError;
 
 
     @Override
@@ -43,6 +45,8 @@ public class ZssdjglEditActivity extends MyActivity{
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getResources().getColor(R.color.select_title));
         }
+        mError = (ErrorLayout) findViewById(R.id.error_layout);
+        mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
         xiaojia = (LinearLayout) findViewById(R.id.xiaojia);
         edit = (LinearLayout) findViewById(R.id.edit);
         ksrq_pick = (TextView) findViewById(R.id.ksrq_pick);
@@ -91,6 +95,8 @@ public class ZssdjglEditActivity extends MyActivity{
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mError.setErrorType(ErrorLayout.LOADDATA);
+                ok.setEnabled(false);
                 if("3".equals(type)){
                     Map<String, Object> map = new HashMap<>();
                     map.put("id", detailid);
@@ -98,6 +104,8 @@ public class ZssdjglEditActivity extends MyActivity{
                     HttpUtil.getInstance().postJsonObjectRequest("apps/zsdjgl/xiaojia", map, new HttpListener<JSONObject>() {
                         @Override
                         public void onSuccess(JSONObject result) {
+                            mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+                            ok.setEnabled(true);
                             try {
                                 JsonData jd = getGson().fromJson(result.toString(),JsonData.class);
                                 if (jd.getCode() == 200 && (Boolean) jd.getData()) {
@@ -111,7 +119,8 @@ public class ZssdjglEditActivity extends MyActivity{
                         }
                         @Override
                         public void onError(VolleyError error) {
-
+                            mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+                            ok.setEnabled(true);
                         }
                     });
                 }else {
@@ -123,6 +132,8 @@ public class ZssdjglEditActivity extends MyActivity{
                     HttpUtil.getInstance().postJsonObjectRequest("apps/zsdjgl/update", map, new HttpListener<JSONObject>() {
                         @Override
                         public void onSuccess(JSONObject result) {
+                            mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+                            ok.setEnabled(true);
                             try {
                                 JsonData jd = getGson().fromJson(result.toString(),JsonData.class);
                                 if (jd.getCode() == 200 && (Boolean) jd.getData()) {
@@ -137,7 +148,8 @@ public class ZssdjglEditActivity extends MyActivity{
 
                         @Override
                         public void onError(VolleyError error) {
-
+                            mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+                            ok.setEnabled(true);
                         }
                     });
                 }

@@ -126,7 +126,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
         cwh_pick.addTextChangedListener(mTextWatcher);
         tzyy_pick.addTextChangedListener(mTextWatcher);
         shyj.addTextChangedListener(mTextWatcher);
-
+        ok.setEnabled(false);
     }
 
     @Override
@@ -767,6 +767,14 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
             showErrorMsg(mRootView,"请填写审核意见");
             return;
         }
+        if(sqly.getText().toString().length()>200){
+            showErrorMsg(mRootView,"申请理由不能大于200个字");
+            return;
+        }
+        if(shyj.getText().toString().length()>200){
+            showErrorMsg(mRootView,"审核意见不能大于200个字");
+            return;
+        }
 
         Map<String,Object> map = new HashMap<>();
         map.put("bz",bz.getText().toString());//备注
@@ -855,7 +863,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
     public void dealOkButton(){
         if(student != null && StringUtils.isNotEmpty(xqid) && StringUtils.isNotEmpty(ssqid) && StringUtils.isNotEmpty(sslid)
                 && StringUtils.isNotEmpty(lcid) && StringUtils.isNotEmpty(fjhid) && StringUtils.isNotEmpty(cwhid)
-                && StringUtils.isNotEmpty(tzyyid) && shyj.getText().toString().length()>0){
+                && StringUtils.isNotEmpty(tzyyid) && shyj.getText().toString().length()>0 && sqly.getText().toString().length()>0){
             ok.setBackground(getResources().getDrawable(R.drawable.ripple_bg));
             ok.setEnabled(true);
         }else{

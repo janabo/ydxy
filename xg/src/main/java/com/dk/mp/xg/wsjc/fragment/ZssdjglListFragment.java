@@ -155,8 +155,8 @@ public class ZssdjglListFragment extends BaseFragment implements View.OnClickLis
                     mData.addAll(result.getList());
                     if(myListView.getAdapter()!=null) {
                         myListView.getAdapter().notifyDataSetChanged();
+                        myListView.flish();
                     }
-                    myListView.flish();
                 }else{
                     if(myListView.pageNo == 1) {//是否是第一页
                         mError.setErrorType(ErrorLayout.NODATA);

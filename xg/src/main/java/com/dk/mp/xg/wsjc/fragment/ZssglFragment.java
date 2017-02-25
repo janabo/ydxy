@@ -156,6 +156,7 @@ public class ZssglFragment extends BaseFragment implements View.OnClickListener{
                     mData.addAll(result.getList());
                     if(myListView.getAdapter() != null) {
                         myListView.getAdapter().notifyDataSetChanged();
+                        myListView.flish();
                     }
                 }else{
                     if(myListView.pageNo == 1) {//是否是第一页

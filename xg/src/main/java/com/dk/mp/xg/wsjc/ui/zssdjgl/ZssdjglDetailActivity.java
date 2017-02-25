@@ -142,7 +142,7 @@ public class ZssdjglDetailActivity extends MyActivity {
         lsksrq.setText(s.getKssj());
         lsjsrq.setText(s.getJssj());
         xjrq.setText(s.getXjsj());
-        if(!StringUtils.isNotEmpty(s.getXjsj())){
+        if(!StringUtils.isNotEmpty(s.getXjsj()) && !"1".equals(type)){
             xiaojia.setVisibility(View.VISIBLE);
         }else{
             xiaojia.setVisibility(View.GONE);

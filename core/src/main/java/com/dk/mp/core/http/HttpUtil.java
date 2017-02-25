@@ -162,4 +162,12 @@ public class HttpUtil {
         okHttpClient.newCall(request).enqueue(callback);
     }
 
+    /**
+     * 文件下载
+     */
+    public void downloadFile(String url,okhttp3.Callback callback){
+        okhttp3.Request request = new okhttp3.Request.Builder().url(url).build();
+        okHttpClient.newCall(request).enqueue(callback);
+    }
+
 }

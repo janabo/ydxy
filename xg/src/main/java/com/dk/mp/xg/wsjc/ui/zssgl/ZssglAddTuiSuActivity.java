@@ -85,6 +85,7 @@ public class ZssglAddTuiSuActivity extends MyActivity implements View.OnClickLis
         sqly.addTextChangedListener(mTextWatcher);
         shyj.addTextChangedListener(mTextWatcher);
         dfxx_pick.addTextChangedListener(mTextWatcher);
+        ok.setEnabled(false);
     }
 
     @Override

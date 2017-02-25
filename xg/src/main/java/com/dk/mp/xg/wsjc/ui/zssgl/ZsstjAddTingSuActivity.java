@@ -20,6 +20,7 @@ import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.BroadcastUtil;
 import com.dk.mp.core.util.SnackBarUtil;
+import com.dk.mp.core.util.TimeUtils;
 import com.dk.mp.core.view.DrawCheckMarkView;
 import com.dk.mp.core.view.DrawCrossMarkView;
 import com.dk.mp.core.view.DrawHookView;
@@ -80,6 +81,8 @@ public class ZsstjAddTingSuActivity extends MyActivity implements View.OnClickLi
         ksrq_pick.addTextChangedListener(mTextWatcher);
         tsyy.addTextChangedListener(mTextWatcher);
         wjxs_lin.setOnClickListener(this);
+
+        ok.setEnabled(false);
     }
 
     /**
@@ -162,6 +165,15 @@ public class ZsstjAddTingSuActivity extends MyActivity implements View.OnClickLi
         if(tsyy.getText().toString().length()<=0){
             showErrorMsg(mRootView,"请填写停宿原因");
             return;
+        }
+        if(tsyy.getText().toString().length()>200){
+            showErrorMsg(mRootView,"停宿原因不能大于200个字");
+            return;
+        }
+
+        if(!TimeUtils.comparedDate(ksrq_pick.getText().toString(),jsrq_pick.getText().toString())){
+            showErrorMsg("停宿开始时间不能大于停宿结束时间");
+            return ;
         }
 
         Map<String,Object> map = new HashMap<>();
