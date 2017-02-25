@@ -187,6 +187,28 @@ public class TimeUtils {
 		return bool;
 	}
 
+	/**
+	 * 判断日期先后
+	 * @param startTime   日期
+	 * @param endTime  日期
+	 * @return 是或否
+	 */
+	public static boolean comparedDate(String startTime, String endTime) {
+		SimpleDateFormat formatYMD = new SimpleDateFormat("yyyy-MM-dd");// formatYMD表示的是yyyy-MM-dd格式
+		Date d1 = null;
+		Date d2 = null;
+		boolean bool = true;
+		try {
+			d1 = formatYMD.parse(startTime);
+			d2 = formatYMD.parse(endTime);
+			if (d1.after(d2)) {
+				bool = false;
+			}
+		} catch (ParseException e) {
+		}
+		return bool;
+	}
+
 
 	/**
 	 * 格式化日期.

@@ -3,12 +3,14 @@ package com.dk.mp.xg.wsjc.ui.zssdjgl;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -57,6 +59,10 @@ public class ZssdjglSearchActivity extends MyActivity implements View.OnClickLis
     @Override
     protected void initialize() {
         super.initialize();
+        Window window = getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(getResources().getColor(R.color.select_title));
+        }
         findView();
         if(DeviceUtil.checkNet()){//判断是否有网络
             mError.setErrorType(ErrorLayout.HIDE_LAYOUT);

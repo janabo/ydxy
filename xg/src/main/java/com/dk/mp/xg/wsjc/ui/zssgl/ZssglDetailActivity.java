@@ -238,6 +238,7 @@ public class ZssglDetailActivity extends MyActivity implements View.OnClickListe
         Intent intent = new Intent(mContext,ZssglTiaoSuSubmitActivity.class);
         intent.putExtra("detailid",detailid);
         intent.putExtra("flag",flag);
+        intent.putExtra("lmlb",lmlb);
         startActivity(intent);
     }
 

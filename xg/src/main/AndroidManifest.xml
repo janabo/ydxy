@@ -152,14 +152,14 @@
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZssglAddTuiSuActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"
-            android:theme="@style/noAnimThemep"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            <!--android:theme="@style/noAnimThemep"-->
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZsstjAddTingSuActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"
-            android:theme="@style/noAnimThemep"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            <!--android:theme="@style/noAnimThemep"-->
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zsskq.ZsskqMainActivity"
@@ -182,8 +182,8 @@
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZssglAddTiaoSuActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"
-            android:theme="@style/noAnimThemep"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            <!--android:theme="@style/noAnimThemep"-->
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZssglSelectPersonsActivity"
@@ -206,8 +206,8 @@
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssdjgl.ZssdjglAddLiusuActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/noAnimThemep"/>
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@style/noAnimThemep"-->
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssdjgl.SelectPersonsActivity"

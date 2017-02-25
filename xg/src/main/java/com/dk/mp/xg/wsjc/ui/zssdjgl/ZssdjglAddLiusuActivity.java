@@ -22,7 +22,7 @@ import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.BroadcastUtil;
-import com.dk.mp.core.util.SnackBarUtil;
+import com.dk.mp.core.util.TimeUtils;
 import com.dk.mp.core.view.DrawCheckMarkView;
 import com.dk.mp.core.view.DrawCrossMarkView;
 import com.dk.mp.core.view.DrawHookView;
@@ -44,7 +44,7 @@ import java.util.Map;
  * 作者：janabo on 2017/2/8 09:51
  */
 public class ZssdjglAddLiusuActivity extends MyActivity implements ZssdjglPersonsAdapter.OnItemClickListener{
-    private TextView jsrq_pick,ksrq_pick;//结束日期，开始日期
+    private TextView jsrq_pick,ksrq_pick,jsrq_title,ksrq_title;//结束日期，开始日期
     private ScrollView mRootView;
     private LinearLayout ok;
     private DrawHookView progress;
@@ -76,7 +76,12 @@ public class ZssdjglAddLiusuActivity extends MyActivity implements ZssdjglPerson
         jsrq_pick.addTextChangedListener(mTextWatcher);
         ksrq_pick.addTextChangedListener(mTextWatcher);
         type = getIntent().getStringExtra("type");
-        setTitle("1".equals(type)?"留宿登记":"请假登记");
+        if("1".equals(type)) {
+            setTitle("留宿登记");
+
+        }else{
+            setTitle("请假登记");
+        }
         persons.add(new Zssdjgl("addperson",""));
 
         zAdapter = new ZssdjglPersonsAdapter(persons,mContext,ZssdjglAddLiusuActivity.this);
@@ -86,7 +91,7 @@ public class ZssdjglAddLiusuActivity extends MyActivity implements ZssdjglPerson
         //设置为垂直布局，这也是默认的
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
         mRecyclerView.setAdapter(zAdapter);
-
+        ok.setEnabled(false);
     }
 
     @Override
@@ -198,9 +203,16 @@ public class ZssdjglAddLiusuActivity extends MyActivity implements ZssdjglPerson
      * @param v
      */
     public void submitLiusu(View v){
+        if(!TimeUtils.comparedDate(ksrq_pick.getText().toString(),jsrq_pick.getText().toString())){
+            showErrorMsg("留宿开始时间不能大于留宿结束时间");
+            return ;
+        }
         String users = "";
         for(Zssdjgl p : persons){
-            users += p.getId()+",";
+            if("addperson".equals(p.getId())) {
+                continue;
+            }
+                users += p.getId() + ",";
         }
         Map<String,Object> map = new HashMap<>();
         map.put("startTime",ksrq_pick.getText().toString());
@@ -215,10 +227,7 @@ public class ZssdjglAddLiusuActivity extends MyActivity implements ZssdjglPerson
             public void onSuccess(JSONObject result)  {
                 try {
                     JsonData jd = getGson().fromJson(result.toString(),JsonData.class);
-                    if (jd.getCode() != 200 && !(Boolean) jd.getData()) {
-                        SnackBarUtil.showShort(mRootView,jd.getMsg());
-                        errorInfo();
-                    }else{
+                    if (jd.getCode() == 200 && (Boolean) jd.getData()) {
                         progress.setVisibility(View.GONE);
                         progress_check.setVisibility(View.VISIBLE);
                         new Handler().postDelayed(new Runnable() {//等待成功动画结束
@@ -230,6 +239,9 @@ public class ZssdjglAddLiusuActivity extends MyActivity implements ZssdjglPerson
                                 onBackPressed();
                             }
                         },1500);
+                    }else{
+                        showErrorMsg(jd.getMsg());
+                        errorInfo();
                     }
                 }catch (Exception e){
                     e.printStackTrace();

@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.dk.mp.core.util.StringUtils;
+import com.dk.mp.core.util.TimeUtils;
 import com.dk.mp.core.widget.NumericWheelAdapter;
 import com.dk.mp.core.widget.OnWheelScrollListener;
 import com.dk.mp.core.widget.WheelView;
@@ -65,27 +66,27 @@ public class DateAndTimePickActivity extends Activity {
 
 		year.setAdapter(new NumericWheelAdapter(curYear, curYear + 5, ""));
 		year.setLabel("年");
-		year.setCyclic(true);
+		year.setCyclic(false);
 		year.addScrollingListener(scrollListener);
 
 		month.setAdapter(new NumericWheelAdapter(1, 12, ""));
 		month.setLabel("月");
-		month.setCyclic(true);
+		month.setCyclic(false);
 		month.addScrollingListener(scrollListener);
 
 		initDay(curYear, curMonth);
 		day.setLabel("日");
-		day.setCyclic(true);
+		day.setCyclic(false);
 		
 		hour.setAdapter(new NumericWheelAdapter(1, 24, ""));
 		hour.setLabel("时");
-		hour.setCyclic(true);
+		hour.setCyclic(false);
 		
 		min.setAdapter(new NumericWheelAdapter(0, 59, ""));
 		min.setLabel("分");
-		min.setCyclic(true);
+		min.setCyclic(false);
 
-		year.setCurrentItem(curYear - 2016);
+		year.setCurrentItem(curYear - TimeUtils.getCurrYear());
 		month.setCurrentItem(curMonth - 1);
 		day.setCurrentItem(curDate - 1);
 		hour.setCurrentItem(curHour-1);
@@ -152,7 +153,7 @@ public class DateAndTimePickActivity extends Activity {
 
 		@Override
 		public void onScrollingFinished(WheelView wheel) {
-			int n_year = year.getCurrentItem() + 2016;//
+			int n_year = year.getCurrentItem() + TimeUtils.getCurrYear();//
 			int n_month = month.getCurrentItem() + 1;//
 			initDay(n_year, n_month);
 		}

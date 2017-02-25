@@ -75,7 +75,7 @@ public class ZsstjAddTingSuActivity extends MyActivity implements View.OnClickLi
         progress = (DrawHookView) findViewById(R.id.progress);
         progress_check = (DrawCheckMarkView) findViewById(R.id.progress_check);
         progress_cross = (DrawCrossMarkView) findViewById(R.id.progress_cross);
-        ok_text = (TextView) findViewById(R.id.wjxs_name);
+        ok_text = (TextView) findViewById(R.id.ok_text);
         jsrq_pick.addTextChangedListener(mTextWatcher);
         ksrq_pick.addTextChangedListener(mTextWatcher);
         tsyy.addTextChangedListener(mTextWatcher);
@@ -165,7 +165,7 @@ public class ZsstjAddTingSuActivity extends MyActivity implements View.OnClickLi
         }
 
         Map<String,Object> map = new HashMap<>();
-        map.put("userIdString",student.getXh());//学生id
+        map.put("userIdString",student.getXsid());//学生id
         map.put("tsyy",tsyy.getText().toString());//停宿原因
         map.put("ksrq",ksrq_pick.getText().toString());//开始日期
         map.put("jsrq",jsrq_pick.getText().toString());//结束日期
@@ -177,10 +177,7 @@ public class ZsstjAddTingSuActivity extends MyActivity implements View.OnClickLi
             public void onSuccess(JSONObject result)  {
                 try {
                     JsonData jd = getGson().fromJson(result.toString(),JsonData.class);
-                    if (jd.getCode() != 200 && !(Boolean) jd.getData()) {
-                        SnackBarUtil.showShort(mRootView,jd.getMsg());
-                        errorInfo();
-                    }else{
+                    if (jd.getCode() == 200 && (Boolean) jd.getData()) {
                         progress.setVisibility(View.GONE);
                         progress_check.setVisibility(View.VISIBLE);
                         new Handler().postDelayed(new Runnable() {//等待成功动画结束
@@ -192,6 +189,9 @@ public class ZsstjAddTingSuActivity extends MyActivity implements View.OnClickLi
                                 back();
                             }
                         },1000);
+                    }else{
+                        SnackBarUtil.showShort(mRootView,jd.getMsg());
+                        errorInfo();
                     }
                 }catch (Exception e){
                     e.printStackTrace();

@@ -23,6 +23,7 @@ public class Student implements Serializable{
     private String cwh;//床位号
     private String fx;//房型
     private String xb;//性别
+    private String xsid;//学生id
 
     public String getSsl() {
         return ssl;
@@ -152,4 +153,11 @@ public class Student implements Serializable{
         this.xb = xb;
     }
 
+    public String getXsid() {
+        return xsid;
+    }
+
+    public void setXsid(String xsid) {
+        this.xsid = xsid;
+    }
 }

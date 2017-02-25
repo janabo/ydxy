@@ -3,6 +3,7 @@ package com.dk.mp.xg.wsjc.ui;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -68,6 +69,9 @@ public class WsjcMainActivity extends MyActivity implements
         getLayoutID();
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(getResources().getColor(R.color.black50));
+        }
         mRootView = (RelativeLayout) findViewById(R.id.mRootView);
         scanPreview = (SurfaceView) findViewById(R.id.capture_preview);
         scanPreview.getHolder().addCallback(this);
@@ -271,7 +275,7 @@ public class WsjcMainActivity extends MyActivity implements
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, 0.9f);
-        animation.setDuration(4500);
+        animation.setDuration(4000);
         animation.setRepeatCount(-1);
         animation.setRepeatMode(Animation.RESTART);
         scanLine.startAnimation(animation);
@@ -323,7 +327,7 @@ public class WsjcMainActivity extends MyActivity implements
             public void run() {
                 handleText(rawResult.getText());
             }
-        }, 300);
+        }, 100);
     }
 
     private void handleText(String text) {

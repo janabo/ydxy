@@ -114,7 +114,7 @@ public class ZssglAddTuiSuActivity extends MyActivity implements View.OnClickLis
 
         Map<String,Object> map = new HashMap<>();
         map.put("bz",bz.getText().toString());//备注
-        map.put("userIdString",student.getXh());//学生id
+        map.put("userIdString",student.getXsid());//学生id
         map.put("sqly",sqly.getText().toString());//申请理由
         map.put("tsyy",tsyyid);//学生id
 
@@ -125,10 +125,7 @@ public class ZssglAddTuiSuActivity extends MyActivity implements View.OnClickLis
             public void onSuccess(JSONObject result)  {
                 try {
                     JsonData jd = getGson().fromJson(result.toString(),JsonData.class);
-                    if (jd.getCode() != 200 && !(Boolean) jd.getData()) {
-                        SnackBarUtil.showShort(mRootView,jd.getMsg());
-                        errorInfo();
-                    }else{
+                    if (jd.getCode() == 200 && (Boolean) jd.getData()) {
                         progress.setVisibility(View.GONE);
                         progress_check.setVisibility(View.VISIBLE);
                         new Handler().postDelayed(new Runnable() {//等待成功动画结束
@@ -140,6 +137,9 @@ public class ZssglAddTuiSuActivity extends MyActivity implements View.OnClickLis
                                 back();
                             }
                         },1000);
+                    }else{
+                        SnackBarUtil.showShort(mRootView,jd.getMsg());
+                        errorInfo();
                     }
                 }catch (Exception e){
                     e.printStackTrace();
@@ -190,7 +190,17 @@ public class ZssglAddTuiSuActivity extends MyActivity implements View.OnClickLis
             startActivityForResult(intent, 1);
             overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
         }else{
-            showErrorMsg(mRootView, "未获取到退宿原因选项");
+            getTuisu();
+            if(tsyys.size()>0) {
+                Intent intent = new Intent(mContext, WsjcTjWeekPickActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("kfs", (Serializable) tsyys);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 1);
+                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+            }else {
+                showErrorMsg(mRootView, "未获取到退宿原因选项");
+            }
         }
     }
 

@@ -9,7 +9,6 @@ import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.CrashHandler;
 import com.dk.mp.core.util.ImagePipelineConfigFactory;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 import io.realm.Realm;
@@ -54,8 +53,8 @@ public class MyApplication extends Application{
                 .build();
         Realm.setDefaultConfiguration(configuration);
 
-        //在自己的Application中添加如下代码
-        refWatcher = LeakCanary.install(this);
+//        //在自己的Application中添加如下代码TODO
+//        refWatcher = LeakCanary.install(this);
 
         //初始化图片加载框架
         Fresco.initialize(this, ImagePipelineConfigFactory.getImagePipelineConfig(this));

@@ -66,6 +66,7 @@ public class WsjcImageAdapter extends RecyclerView.Adapter<WsjcImageAdapter.MyVi
                     data.remove(getLayoutPosition());
                     data.add("addImage");
                     notifyDataSetChanged();
+                    activity.clearImg();
                 }
             });
 

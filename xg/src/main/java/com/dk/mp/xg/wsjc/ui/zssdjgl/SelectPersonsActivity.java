@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -64,6 +65,10 @@ public class SelectPersonsActivity extends MyActivity implements View.OnClickLis
     @Override
     protected void initView() {
         super.initView();
+        Window window = getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(getResources().getColor(R.color.select_title));
+        }
         mRootView = (LinearLayout) findViewById(R.id.layout_search);
         back = (TextView) findViewById(R.id.back);
         ok = (TextView) findViewById(R.id.ok);

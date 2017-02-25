@@ -1,7 +1,9 @@
 package com.dk.mp.xg.wsjc.ui.zssdjgl;
 
 import android.content.Intent;
+import android.os.Build;
 import android.view.View;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,6 +39,10 @@ public class ZssdjglEditActivity extends MyActivity{
     @Override
     protected void initView() {
         super.initView();
+        Window window = getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(getResources().getColor(R.color.select_title));
+        }
         xiaojia = (LinearLayout) findViewById(R.id.xiaojia);
         edit = (LinearLayout) findViewById(R.id.edit);
         ksrq_pick = (TextView) findViewById(R.id.ksrq_pick);

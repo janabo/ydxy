@@ -46,7 +46,7 @@ public class WsjcDfyyPickActivity extends Activity {
     private void findView(){
         mInfo = (WheelView) findViewById(R.id.info);
         mInfo.setAdapter(new ArrayWheelAdapter<>(PLANETM));
-        mInfo.setCyclic(true);
+        mInfo.setCyclic(false);
 
         Button bt = (Button)findViewById(R.id.set);
         bt.setOnClickListener(new View.OnClickListener() {

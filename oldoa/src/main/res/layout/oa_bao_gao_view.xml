@@ -147,7 +147,7 @@
 	                    android:layout_marginLeft="5dip"
 	                    android:layout_marginTop="5dip"
 	                    android:minHeight="150dp" />	-->
-			        <com.dk.mp.core.view.textview.DetailView
+			        <com.dk.mp.oldoa.view.DetailView
 			            android:id="@+id/nr_txt"
 			            style="@style/txt"
 			            android:layout_width="fill_parent"

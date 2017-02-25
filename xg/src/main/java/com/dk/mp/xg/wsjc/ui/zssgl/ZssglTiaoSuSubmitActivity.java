@@ -27,6 +27,7 @@ import com.dk.mp.core.view.DrawCrossMarkView;
 import com.dk.mp.core.view.DrawHookView;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.entity.Common;
+import com.dk.mp.xg.wsjc.entity.Zxzssgl;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -61,7 +62,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
     private String lcid,xqid,ssqid,fjhid,cwhid,tzyyid;//楼层id,校区id,宿舍区id,房间号,床位号,调整原因id
     private EditText bz,shyj;//申请理由
     private TextView ok_text;
-    private String mId,flag;
+    private String mId,flag,lmlb;
 
 
     @Override
@@ -106,9 +107,9 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
         setTitle("在校生住宿管理");
         mId = getIntent().getStringExtra("detailid");
         flag = getIntent().getStringExtra("flag");
+        lmlb = getIntent().getStringExtra("lmlb");
+        getData();
         getXqs();
-        getSsqs();
-        getSsls();
         getTsyys();
     }
 
@@ -251,8 +252,10 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
     /**
      * 获取宿舍区列表
      */
-    public void getSsqs(){
-        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/ssqList", null, new HttpListener<JSONObject>() {
+    public void getSsqs(String xqid){
+        Map<String,Object> map = new HashMap<>();
+        map.put("xq",xqid);
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/ssqList", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -282,8 +285,10 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
     /**
      * 获取宿舍楼列表
      */
-    public void getSsls(){
-        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/sslList", null, new HttpListener<JSONObject>() {
+    public void getSsls(String ssqid){
+        Map<String,Object> map = new HashMap<>();
+        map.put("ssq",ssqid);
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/sslList", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -416,7 +421,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
             startActivityForResult(intent, 3);
             overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
         } else {
-            getSsqs();
+            getSsqs(xqid);
             if (ssqs.size() > 0) {
                 Intent intent = new Intent(mContext, ZsstjPickActivity.class);
                 Bundle bundle = new Bundle();
@@ -443,7 +448,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
             startActivityForResult(intent, 4);
             overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
         } else {
-            getSsls();
+            getSsls(ssqid);
             if (ssls.size() > 0) {
                 Intent intent = new Intent(mContext, ZsstjPickActivity.class);
                 Bundle bundle = new Bundle();
@@ -624,10 +629,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
             public void onSuccess(JSONObject result)  {
                 try {
                     JsonData jd = getGson().fromJson(result.toString(),JsonData.class);
-                    if (jd.getCode() != 200 && !(Boolean) jd.getData()) {
-                        SnackBarUtil.showShort(mRootView,jd.getMsg());
-                        errorInfo();
-                    }else{
+                    if (jd.getCode() == 200 && (Boolean) jd.getData()) {
                         progress.setVisibility(View.GONE);
                         progress_check.setVisibility(View.VISIBLE);
                         new Handler().postDelayed(new Runnable() {//等待成功动画结束
@@ -642,6 +644,9 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
                                 back();
                             }
                         },1000);
+                    }else{
+                        SnackBarUtil.showShort(mRootView,jd.getMsg());
+                        errorInfo();
                     }
                 }catch (Exception e){
                     e.printStackTrace();
@@ -680,6 +685,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
                     xqid = data.getStringExtra("kfsid");
                     String xqname = data.getStringExtra("kfs");
                     xq_pick.setText(xqname);
+                    getSsqs(xqid);
                 }
                 break;
             case 3:
@@ -687,6 +693,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
                     ssqid = data.getStringExtra("kfsid");
                     String ssqname = data.getStringExtra("kfs");
                     ssq_pick.setText(ssqname);
+                    getSsls(ssqid);
                 }
                 break;
             case 4:
@@ -759,5 +766,47 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
             ok.setBackgroundColor(getResources().getColor(R.color.rcap_gray));
             ok.setEnabled(false);
         }
+    }
+
+
+    //apps/zxzssgl/detail?id="+detailid+"&lmlb="+lmlb+"&uid=
+    public void getData(){
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",mId);
+        map.put("lmlb",lmlb);
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/getDetail", map, new HttpListener<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    JSONObject jo = result.getJSONObject("data");
+                    if(jo != null) {
+                        Zxzssgl z = getGson().fromJson(jo.toString(),Zxzssgl.class);
+                        lcid = z.getLc();
+                        xqid = z.getXqid();
+                        ssqid = z.getSsqid();
+                        fjhid = z.getFjh();
+                        cwhid = z.getCwh();
+                        tzyyid = z.getTzyyid();
+                        sslid = z.getSslid();
+//                        TextView xq_pick,ssq_pick,ssl_pick,lc_pick,fjh_pick,cwh_pick,fx_pick,zsf_pick,cws_pick,tzyy_pick;
+                        xq_pick.setText(z.getXq());
+                        ssq_pick.setText(z.getSsq());
+                        ssl_pick.setText(z.getSsl());
+                        lc_pick.setText(z.getLc());
+                        fjh_pick.setText(z.getFjh());
+                        cwh_pick.setText(z.getCwh());
+                        fx_pick.setText(z.getFx());
+                        zsf_pick.setText(z.getZsf());
+                        cws_pick.setText(z.getCws());
+                        tzyy_pick.setText(z.getTzyy());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onError(VolleyError error) {
+            }
+        });
     }
 }

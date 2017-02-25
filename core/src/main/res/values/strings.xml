@@ -2,6 +2,7 @@
     <string name="app_name">Core</string>
 
     <string name="rootUrl">http://192.168.3.163:8082/mp-lgj/</string>
+    <string name="uploadUrl">http://192.168.3.14:8081/</string>
 
     <string name="reload">点击重新加载</string>
     <string name="transition__img">转场动画</string>

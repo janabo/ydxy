@@ -21,9 +21,11 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.dk.mp.core.entity.GsonData;
+import com.dk.mp.core.entity.LoginMsg;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.view.DrawCheckMarkView;
 import com.dk.mp.core.view.DrawCrossMarkView;
@@ -38,6 +40,8 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,8 +49,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import okhttp3.Call;
+import okhttp3.Response;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+
+import static com.dk.mp.xg.wsjc.ui.WsjcDetailActivity.BASEPICPATH;
 
 
 /**
@@ -73,6 +81,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
     WsjcDetail detail = null;
     private TextView fjh,ssl,ssq,xq;//房间号，宿舍楼，宿舍区，校区
     private String fjhid,sslid,ssqid,xqid;
+    private String uuid = UUID.randomUUID().toString();
 
 
     @Override
@@ -107,6 +116,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
         mRootView = (ScrollView) findViewById(R.id.mRootView);
         ok_lin = (LinearLayout) findViewById(R.id.ok);
         ok = (TextView) findViewById(R.id.ok_text);
+        ok.setEnabled(false);
         imgs.add("addImage");
         gRecyclerView = (RecyclerView) findViewById(R.id.imgView);
         gRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.HORIZONTAL));
@@ -145,7 +155,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
 
     @AfterPermissionGranted(WRITE_RERD)
     public void startReadWi(){
-        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE};
+        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA};
         if (EasyPermissions.hasPermissions(mContext, perms)) {
             try {
                 ablum();
@@ -160,9 +170,15 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
     }
 
     public void ablum(){
-        Intent intent=new Intent(Intent.ACTION_PICK);
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-        startActivityForResult(intent, 5);
+//        Intent intent=new Intent(Intent.ACTION_PICK);
+//        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+//        startActivityForResult(intent, 5);
+
+        noCutFilePath = BASEPICPATH + UUID.randomUUID().toString() + ".jpg";
+        Intent getImageByCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        getImageByCamera.setFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
+        getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(noCutFilePath)));
+        startActivityForResult(getImageByCamera, 6);
     }
 
     @Override
@@ -202,6 +218,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
                 if(resultCode == RESULT_OK){
                     String mWjrq = data.getStringExtra("date");
                     wjrq.setText(mWjrq);
+                    dealOkButton();
                 }
                 break;
             case 3://违纪类别
@@ -209,6 +226,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
                     String kfs = data.getStringExtra("kfs");
                     wjlbid = data.getStringExtra("kfsid");
                     wjlb_txt.setText(kfs);
+                    dealOkButton();
                 }
                 break;
             case 4://提报人
@@ -222,6 +240,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
                     tbr_lin.setVisibility(View.VISIBLE);
                     tbr_name.setVisibility(View.VISIBLE);
                     tbr_img.setVisibility(View.GONE);
+                    dealOkButton();
                 }
                 break;
             case 5://相册选取不 剪切
@@ -238,6 +257,15 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
                         imgs.add(noCutFilePath);
                     }
                     wImageAdapter.notifyDataSetChanged();
+                }
+                break;
+            case 6:
+                if (resultCode == RESULT_OK) {
+                    if (StringUtils.isNotEmpty(noCutFilePath) && new File(noCutFilePath).exists()) {
+                        imgs.remove(0);
+                        imgs.add(noCutFilePath);
+                        wImageAdapter.notifyDataSetChanged();
+                    }
                 }
                 break;
         }
@@ -334,8 +362,22 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
      */
     public void submitSswz(View v){
         ok_lin.setEnabled(false);//设置不能点击
+        if(bz.getText().toString().length()>200){
+            showErrorMsg("备注不能大于200字");
+            return;
+        }
+        ok.setVisibility(View.GONE);
+        progress.setVisibility(View.VISIBLE);
+        if(StringUtils.isNotEmpty(noCutFilePath)){
+            updateImg();
+        }else{
+            submit();
+        }
+    }
+
+    public void submit(){
         Map<String,Object> params = new HashMap<>();
-        params.put("Id", UUID.randomUUID().toString());
+        params.put("Id", uuid);
         params.put("xq",xqid);
         params.put("ssq",ssqid);
         params.put("ssl",sslid);
@@ -346,9 +388,8 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
         params.put("wjlb",wjlbid);
         params.put("tbr",tbrid);
         params.put("fjName","");
-        params.put("bz",bz);
-        ok.setVisibility(View.GONE);
-        progress.setVisibility(View.VISIBLE);
+        params.put("bz",bz.getText().toString());
+
         HttpUtil.getInstance().postJsonObjectRequest("apps/sswzdj/tjwz", params, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
@@ -378,7 +419,6 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
                 errorInfo();
             }
         });
-
     }
 
     /**
@@ -397,4 +437,53 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
         },1000);
     }
 
+
+    /**
+     * 设置ok按钮的样式
+     */
+    public void dealOkButton(){
+        if(wjrq.getText().toString().length()>0 && wjlb_txt.getText().toString().length()>0 && StringUtils.isNotEmpty(tbrid)){
+            ok.setBackground(getResources().getDrawable(R.drawable.ripple_bg));
+            ok.setEnabled(true);
+        }else{
+            ok.setBackgroundColor(getResources().getColor(R.color.rcap_gray));
+            ok.setEnabled(false);
+        }
+    }
+
+    public void clearImg(){
+        noCutFilePath="";
+    }
+
+    /**
+     * 上传图片
+     */
+    public void updateImg(){
+        LoginMsg loginMsg = getSharedPreferences().getLoginMsg();
+        String mUrl = getReString(R.string.uploadUrl);
+        if(loginMsg != null) {
+            mUrl +="stargate/attachmentUpload.service?type=sswsjcAttachment&userId="+loginMsg.getUid()+"&password="+loginMsg.getPsw()+"&ownerId="+uuid;
+        }else{
+            mUrl +="stargate/attachmentUpload.service?type=sswsjcAttachment&ownerId="+uuid;
+        }
+        List<File> files = new ArrayList<>();
+        files.add(new File(noCutFilePath));
+        HttpUtil.getInstance().uploadImg(mUrl,files,new okhttp3.Callback(){
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                errorInfo();
+                showErrorMsg("上传附件失败");
+                call.cancel();// 上传失败取消请求释放内存
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+                Logger.info("######################result="+result);
+                call.cancel();// 上传失败取消请求释放内存
+                submit();
+            }
+        });
+    }
 }

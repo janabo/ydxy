@@ -1,10 +1,12 @@
 package com.dk.mp.schedule;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -109,6 +111,13 @@ public class RcapDetailEditActivity extends MyActivity implements View.OnClickLi
                 }
             });
         }else if(v.getId() == R.id.submit){//保存
+            InputMethodManager imm =  (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            if(imm != null) {
+                imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),
+                        0);
+            }
+
+
             insertData();
         }
     }

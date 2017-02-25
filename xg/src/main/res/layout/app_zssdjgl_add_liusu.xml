@@ -32,6 +32,7 @@
             android:padding="10dp"
             android:onClick="toPickKsrq">
             <TextView
+                android:id="@+id/ksrq_title"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="留宿开始时间"
@@ -64,6 +65,7 @@
             android:padding="10dp"
             android:onClick="toPickJsrq">
             <TextView
+                android:id="@+id/jrrq_title"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="留宿结束时间"

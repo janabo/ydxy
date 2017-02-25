@@ -7,7 +7,6 @@ import android.widget.LinearLayout;
 
 import com.dk.mp.core.ui.BaseFragment;
 import com.dk.mp.core.ui.MyActivity;
-import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.widget.MyViewpager;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.adapter.MyFragmentPagerAdapter;
@@ -56,8 +55,8 @@ public class ZssglMainActivity extends MyActivity{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext,ZssglAddTiaoSuActivity.class);
-                intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
-                intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
+//                intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
+//                intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
                 startActivity(intent);
             }
         });
@@ -67,8 +66,8 @@ public class ZssglMainActivity extends MyActivity{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext,ZssglAddTuiSuActivity.class);
-                intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
-                intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
+//                intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
+//                intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
                 startActivity(intent);
             }
         });
@@ -77,8 +76,8 @@ public class ZssglMainActivity extends MyActivity{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext,ZsstjAddTingSuActivity.class);
-                intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
-                intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
+//                intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
+//                intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
                 startActivity(intent);
             }
         });
@@ -93,8 +92,8 @@ public class ZssglMainActivity extends MyActivity{
 
     private void initViewPager() {
         List<String> titles = new ArrayList<>();
-        titles.add("正在审核");
-        titles.add("审核完成");
+        titles.add("待我审核");
+        titles.add("我已审核");
         for (int i = 0; i < titles.size(); i++) {
             mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(i)));
         }

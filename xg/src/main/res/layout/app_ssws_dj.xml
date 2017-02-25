@@ -520,7 +520,7 @@
                 android:layout_marginTop="20dip"
                 android:layout_marginBottom="20dip"
                 android:elevation="2dp"
-                android:background="@drawable/ripple_bg"
+                android:background="@color/rcap_gray"
                 android:onClick="submitSswz"
                 android:gravity="center">
 

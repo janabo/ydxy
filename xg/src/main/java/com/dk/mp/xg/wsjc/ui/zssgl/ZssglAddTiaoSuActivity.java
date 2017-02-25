@@ -134,9 +134,6 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
         super.initialize();
         setTitle("学生调宿申请");
         getXqs();
-        getSsqs();
-        getSsls();
-        getTsyys();
     }
 
     /**
@@ -176,6 +173,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
                     xqid = data.getStringExtra("kfsid");
                     String xqname = data.getStringExtra("kfs");
                     xq_pick.setText(xqname);
+                    getSsqs(xqid);
                 }
                 break;
             case 3:
@@ -183,6 +181,8 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
                     ssqid = data.getStringExtra("kfsid");
                     String ssqname = data.getStringExtra("kfs");
                     ssq_pick.setText(ssqname);
+                    getSsls(ssqid);
+                    getTsyys(ssqid);
                 }
                 break;
             case 4:
@@ -400,8 +400,10 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
     /**
      * 获取宿舍区列表
      */
-    public void getSsqs(){
-        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/ssqList", null, new HttpListener<JSONObject>() {
+    public void getSsqs(String mXqid){
+        Map<String,Object> map = new HashMap<>();
+        map.put("xq",mXqid);
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/ssqList", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -431,8 +433,10 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
     /**
      * 获取宿舍楼列表
      */
-    public void getSsls(){
-        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/sslList", null, new HttpListener<JSONObject>() {
+    public void getSsls(String mSsqid){
+        Map<String,Object> map = new HashMap<>();
+        map.put("ssq",mSsqid);
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/sslList", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -462,8 +466,10 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
     /**
      * 退宿原因和调整原因
      */
-    public void getTsyys(){
-        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/tzyyList", null, new HttpListener<JSONObject>() {
+    public void getTsyys(String ssqid){
+        Map<String,Object> map = new HashMap<>();
+        map.put("ssq",ssqid);
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/tzyyList", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
@@ -565,7 +571,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
             startActivityForResult(intent, 3);
             overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
         } else {
-            getSsqs();
+            getSsqs(xqid);
             if (ssqs.size() > 0) {
                 Intent intent = new Intent(mContext, ZsstjPickActivity.class);
                 Bundle bundle = new Bundle();
@@ -592,7 +598,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
             startActivityForResult(intent, 4);
             overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
         } else {
-            getSsls();
+            getSsls(ssqid);
             if (ssls.size() > 0) {
                 Intent intent = new Intent(mContext, ZsstjPickActivity.class);
                 Bundle bundle = new Bundle();
@@ -700,7 +706,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
             startActivityForResult(intent, 8);
             overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
         } else {
-            getTsyys();
+            getTsyys(xqid);
             if (tzyys.size() > 0) {
                 Intent intent = new Intent(mContext, ZsstjPickActivity.class);
                 Bundle bundle = new Bundle();
@@ -764,7 +770,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
 
         Map<String,Object> map = new HashMap<>();
         map.put("bz",bz.getText().toString());//备注
-        map.put("userIdString",student.getXh());//学生id
+        map.put("userIdString",student.getXsid());//学生id
         map.put("xq",xqid);//校区id
         map.put("ssq",ssqid);//校区id
         map.put("ssl",sslid);//校区id
@@ -785,10 +791,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
             public void onSuccess(JSONObject result)  {
                 try {
                     JsonData jd = getGson().fromJson(result.toString(),JsonData.class);
-                    if (jd.getCode() != 200 && !(Boolean) jd.getData()) {
-                        SnackBarUtil.showShort(mRootView,jd.getMsg());
-                        errorInfo();
-                    }else{
+                    if (jd.getCode() == 200 && (Boolean) jd.getData()) {
                         progress.setVisibility(View.GONE);
                         progress_check.setVisibility(View.VISIBLE);
                         new Handler().postDelayed(new Runnable() {//等待成功动画结束
@@ -800,6 +803,9 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
                                 back();
                             }
                         },1000);
+                    }else{
+                        SnackBarUtil.showShort(mRootView,jd.getMsg());
+                        errorInfo();
                     }
                 }catch (Exception e){
                     e.printStackTrace();

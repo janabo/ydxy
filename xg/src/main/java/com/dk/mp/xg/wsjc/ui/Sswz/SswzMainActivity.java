@@ -3,6 +3,7 @@ package com.dk.mp.xg.wsjc.ui.Sswz;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -69,6 +70,9 @@ public class SswzMainActivity extends MyActivity implements
         getLayoutID();
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(getResources().getColor(R.color.black50));
+        }
         mRootView = (RelativeLayout) findViewById(R.id.mRootView);
         scanPreview = (SurfaceView) findViewById(R.id.capture_preview);
         scanPreview.getHolder().addCallback(this);

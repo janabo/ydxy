@@ -98,8 +98,8 @@
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/liusu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 fab:fab_colorNormal="@color/floatmenu_color"
                 fab:fab_colorPressed="@color/floatmenu_color_pressed"
                 fab:fab_size="mini"

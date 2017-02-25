@@ -15,7 +15,8 @@
             android:screenOrientation="portrait"/>
 
         <activity android:name=".ui.GzzbTabActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep">
             <intent-filter>
                 <action android:name="gzzb" />
                 <category android:name="android.intent.category.DEFAULT" />

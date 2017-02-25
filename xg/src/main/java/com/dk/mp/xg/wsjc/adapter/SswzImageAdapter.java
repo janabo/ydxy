@@ -66,6 +66,7 @@ public class SswzImageAdapter extends RecyclerView.Adapter<SswzImageAdapter.MyVi
                     data.remove(getLayoutPosition());
                     data.add("addImage");
                     notifyDataSetChanged();
+                    activity.clearImg();
                 }
             });
 

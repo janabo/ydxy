@@ -15,6 +15,7 @@ import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.BroadcastUtil;
 import com.dk.mp.core.util.DeviceUtil;
+import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.entity.StudentInfo;
@@ -141,6 +142,11 @@ public class ZssdjglDetailActivity extends MyActivity {
         lsksrq.setText(s.getKssj());
         lsjsrq.setText(s.getJssj());
         xjrq.setText(s.getXjsj());
+        if(!StringUtils.isNotEmpty(s.getXjsj())){
+            xiaojia.setVisibility(View.VISIBLE);
+        }else{
+            xiaojia.setVisibility(View.GONE);
+        }
     }
 
     /**
