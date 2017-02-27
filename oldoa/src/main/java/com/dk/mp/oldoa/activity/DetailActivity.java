@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.util.StringUtils;
@@ -63,7 +64,7 @@ public class DetailActivity extends MyActivity {
 				break;
 			case 1:
 				updateUiFaile(listUpdateUi, updateIndex);
-				showMessage("下载失败");
+				showErrorMsg("下载失败");
 				break;
 			default:
 				break;
@@ -77,12 +78,11 @@ public class DetailActivity extends MyActivity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 1:
-				hideProgressDialog();
+//				hideProgressDialog();
 				Bundle b = msg.getData();
 				int codes = Integer.parseInt(b.getString("code"));
 				if (codes != 1) {
-
-					showMessage(message);
+					showErrorMsg(message);
 				}
 				switch (codes) {
 				case 1:
@@ -298,7 +298,7 @@ public class DetailActivity extends MyActivity {
 					});
 				}
 			} else {
-				showMessage("本条公文暂没有在手机端操作权限");
+				showErrorMsg("本条公文暂没有在手机端操作权限");
 				bottomLayout.setVisibility(View.GONE);
 			}
 		} else {
@@ -315,7 +315,7 @@ public class DetailActivity extends MyActivity {
 	 */
 	private void sendOpinions(final Context mContext, String opinionsTxt,
 			final Doc doc, final String interfaces, final String code) {
-		showProgressDialog();
+//		showProgressDialog();
 		Map<String,String> map = doc.getMap();
 		map.put("suggestion", opinionsTxt);
 		Logger.info("-----------map--------" + map);
@@ -333,8 +333,8 @@ public class DetailActivity extends MyActivity {
 			
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
-				hideProgressDialog();
-				showMessage(R.string.data_fail);
+//				hideProgressDialog();
+				showErrorMsg(getReString(R.string.data_fail));
 			}
 		});
 
@@ -343,7 +343,7 @@ public class DetailActivity extends MyActivity {
 	private void UploadCommit(final String childurl) {
 		Logger.info(childurl
 				+ "+++++++++++++++++++++++++++++++++++++++++++++++++");
-		showProgressDialog();
+//		showProgressDialog();
 		Map<String, String> map = OAManager.getIntence().getMap(childurl);
 		map.put("userIdString", "");
 		map.put("suggestion", opinionsEdit.getText().toString());
@@ -361,8 +361,8 @@ public class DetailActivity extends MyActivity {
 			}
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
-				hideProgressDialog();
-				showMessage("操作失败");
+//				hideProgressDialog();
+				showErrorMsg("操作失败");
 			}
 		});
 		
@@ -638,4 +638,8 @@ public class DetailActivity extends MyActivity {
 		return fileN;
 	}
 
+	@Override
+	protected int getLayoutID() {
+		return 0;
+	}
 }

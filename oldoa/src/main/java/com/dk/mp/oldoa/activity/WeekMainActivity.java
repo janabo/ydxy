@@ -42,6 +42,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import com.dk.mp.core.ui.MyActivity;
+
 
 /**
  * 周报
@@ -211,21 +213,42 @@ public class WeekMainActivity extends MyActivity implements OnTouchListener, OnG
 	};
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.week_main_view);
+	protected int getLayoutID() {
+		return R.layout.week_main_view;
+	}
+
+	@Override
+	protected void initView() {
+		super.initView();
 		setTitle(getIntent().getStringExtra("title"));
 		dm = new DisplayMetrics();
 		this.getWindowManager().getDefaultDisplay().getMetrics(dm);
 		width = dm.widthPixels;//宽度
 		mContext = WeekMainActivity.this;
-		initView();
+		findView();
 		updateStartDateForMonth();
 		generateContetView(0);
 		viewPager.setOnTouchListener(this);
 		viewPager.setLongClickable(true);
 		mGestureDetector = new GestureDetector(this);
 	}
+
+//	@Override
+//	public void onCreate(Bundle savedInstanceState) {
+//		super.onCreate(savedInstanceState);
+//		setContentView(R.layout.week_main_view);
+//		setTitle(getIntent().getStringExtra("title"));
+//		dm = new DisplayMetrics();
+//		this.getWindowManager().getDefaultDisplay().getMetrics(dm);
+//		width = dm.widthPixels;//宽度
+//		mContext = WeekMainActivity.this;
+//		findView();
+//		updateStartDateForMonth();
+//		generateContetView(0);
+//		viewPager.setOnTouchListener(this);
+//		viewPager.setLongClickable(true);
+//		mGestureDetector = new GestureDetector(this);
+//	}
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
@@ -235,7 +258,7 @@ public class WeekMainActivity extends MyActivity implements OnTouchListener, OnG
 	/**
 	 * 用于初始化控件
 	 */
-	private void initView() {
+	private void findView() {
 		yearTxt = (TextView) findViewById(R.id.show_year);
 		monthTxt = (TextView) findViewById(R.id.month_txt);
 		weekLayout = (LinearLayout) findViewById(R.id.week_layout);

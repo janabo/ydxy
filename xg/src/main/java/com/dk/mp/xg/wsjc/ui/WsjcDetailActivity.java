@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.dk.mp.core.entity.GsonData;
+import com.dk.mp.core.entity.JsonData;
 import com.dk.mp.core.entity.LoginMsg;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
@@ -158,7 +159,7 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
             ssq = d.getSsqId();
             ssl = d.getSslId();
             lc = d.getLcId();
-            fjh = d.getFjhId();
+            fjh = d.getFjh();
         }
     }
 
@@ -428,18 +429,15 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
         params.put("df",dffs.toString());
         params.put("fjName",filename);
         params.put("bz",bz_edit.getText().toString());
-        params.put("Id", uuid);
+        params.put("id", uuid);
         params.put("zzdf",mScore);
-
 
         HttpUtil.getInstance().postJsonObjectRequest("apps/sswzdf/tjwz", params, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
-                    if (result.getInt("code") != 200) {
-                        showErrorMsg(mRootView,result.getString("msg"));
-                        errorInfo();
-                    }else{
+                    JsonData jd = getGson().fromJson(result.toString(),JsonData.class);
+                    if (jd.getCode() == 200 && (Boolean) jd.getData()) {
                         progress.setVisibility(View.GONE);
                         progress_check.setVisibility(View.VISIBLE);
                         new Handler().postDelayed(new Runnable() {//等待成功动画结束
@@ -449,6 +447,9 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
                                 back();
                             }
                         },2000);
+                    }else{
+                        showErrorMsg(mRootView,result.getString("msg"));
+                        errorInfo();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

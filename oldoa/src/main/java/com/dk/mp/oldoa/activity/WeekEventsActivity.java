@@ -1,7 +1,6 @@
 package com.dk.mp.oldoa.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -16,6 +15,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.util.StringUtils;
@@ -42,6 +42,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * 周报详情
@@ -82,7 +83,7 @@ public class WeekEventsActivity extends MyActivity implements OnClickListener {
 			default:
 				break;
 			}
-			hideProgressDialog();
+//			hideProgressDialog();
 		};
 	};
 
@@ -144,20 +145,35 @@ public class WeekEventsActivity extends MyActivity implements OnClickListener {
 
 	}
 
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.week_detail_view);
+	@Override
+	protected int getLayoutID() {
+		return R.layout.week_detail_view;
+	}
+
+//	protected void onCreate(Bundle savedInstanceState) {
+//		super.onCreate(savedInstanceState);
+//		setContentView(R.layout.week_detail_view);
+//		setTitle(getIntent().getStringExtra("title"));
+//		init();
+//		initTitle(0);
+//		getList(date);
+//	};
+
+
+	@Override
+	protected void initView() {
+		super.initView();
 		setTitle(getIntent().getStringExtra("title"));
 		init();
 		initTitle(0);
 		getList(date);
-	};
+	}
 
 	/**
 	 * 获取周报列表 
 	 */
 	private void getList(final String date) {
-		showProgressDialog();
+//		showProgressDialog();
 		try {
 			if (DeviceUtil.checkNet()) {
 				Map<String,String> map = new HashMap<String,String>();

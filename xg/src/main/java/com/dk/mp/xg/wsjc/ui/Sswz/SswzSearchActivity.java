@@ -108,6 +108,7 @@ public class SswzSearchActivity extends MyActivity implements View.OnClickListen
                     if (StringUtils.isNotEmpty(keywords)) {
                         mError.setErrorType(ErrorLayout.LOADDATA);
                         getData();
+                        mList.clear();
                     } else {
                         SnackBarUtil.showShort(layout_search,"请输入关键字");
                     }
@@ -125,9 +126,6 @@ public class SswzSearchActivity extends MyActivity implements View.OnClickListen
 
     public void getData(){
         if(DeviceUtil.checkNet()) {
-            mList.clear();
-            mRecycle.clearList();
-            mRecycle.setPageNo(1);
             query();
         }else{
             if(mRecycle.pageNo == 1) {
@@ -148,7 +146,7 @@ public class SswzSearchActivity extends MyActivity implements View.OnClickListen
                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                 if(result.getList() != null && result.getList().size()>0) {
                     mList.addAll(result.getList());
-                    mRecycle.addList(result.getList());
+                    mRecycle.finish(result.getTotalPages(),result.getCurrentPage());
                 }else{
                     if(mRecycle.pageNo == 1) {
                         mError.setErrorType(ErrorLayout.SEARCHNODATA);

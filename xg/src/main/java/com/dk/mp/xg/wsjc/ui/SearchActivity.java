@@ -111,6 +111,7 @@ public class SearchActivity extends MyActivity implements View.OnClickListener{
                     Logger.info(keywords);
                     hideSoftInput();
                     if (StringUtils.isNotEmpty(keywords)) {
+                        mList.clear();
                         getData();
                     } else {
                         SnackBarUtil.showShort(layout_search,"请输入关键字");
@@ -141,7 +142,6 @@ public class SearchActivity extends MyActivity implements View.OnClickListener{
 
     public void query(){
         mError.setErrorType(ErrorLayout.LOADDATA);
-        mList.clear();
         Map<String, Object> map = new HashMap<>();
         map.put("key", mKeywords.getText().toString());
         map.put("pageNo",mRecycle.pageNo);
@@ -151,7 +151,7 @@ public class SearchActivity extends MyActivity implements View.OnClickListener{
                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                 if(result.getList() != null && result.getList().size()>0) {
                     mList.addAll(result.getList());
-                    mRecycle.addList(result.getList());
+                    mRecycle.finish(result.getTotalPages(),result.getCurrentPage());
                 }else{
                     if(mRecycle.pageNo == 1) {
                         mError.setErrorType(ErrorLayout.SEARCHNODATA);

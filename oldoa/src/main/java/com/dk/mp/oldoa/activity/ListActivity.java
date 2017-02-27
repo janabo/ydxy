@@ -2,7 +2,6 @@ package com.dk.mp.oldoa.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,6 +9,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 
 import com.dk.mp.core.entity.PageMsg;
+import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.widget.ErrorLayout;
@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class ListActivity extends MyActivity implements XListView.IXListViewListener {
 	List<Doc> list;
 	XListView listview;
@@ -42,9 +43,13 @@ public class ListActivity extends MyActivity implements XListView.IXListViewList
 	private LinearLayout mRootView;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.oa_list);
+	protected int getLayoutID() {
+		return R.layout.oa_list;
+	}
+
+	@Override
+	protected void initView() {
+		super.initView();
 		shareHelper = new CoreSharedPreferencesHelper(this);
 		context = ListActivity.this;
 		state = getIntent().getStringExtra("state");
@@ -89,6 +94,55 @@ public class ListActivity extends MyActivity implements XListView.IXListViewList
 			getListData();
 		}
 	}
+
+//	@Override
+//	protected void onCreate(Bundle savedInstanceState) {
+//		super.onCreate(savedInstanceState);
+//		setContentView(R.layout.oa_list);
+//		shareHelper = new CoreSharedPreferencesHelper(this);
+//		context = ListActivity.this;
+//		state = getIntent().getStringExtra("state");
+//		interfaceUri = getIntent().getStringExtra("interface");
+//		mError = (ErrorLayout) findViewById(R.id.error_layout);
+//		mRootView = (LinearLayout) findViewById(R.id.mRootView);
+//		listview = (XListView) findViewById(R.id.listView);
+//		listview.setPullLoadEnable(true);
+//		listview.setXListViewListener(this);
+//		listview.setOnItemClickListener(new OnItemClickListener() {
+//
+//			@Override
+//			public void onItemClick(AdapterView<?> adapter, View arg1, int position, long arg3) {
+//				Doc doc = (Doc) adapter.getItemAtPosition(position);
+//				Intent intentActivity = new Intent();
+//				if ("OA_SW".equals(doc.getType())) {
+//					intentActivity.setClass(context, ShouWenDetailActivity.class);
+//					intentActivity.putExtra("dealState", state);
+//					intentActivity.putExtra("title", doc.getTitle());
+//					intentActivity.putExtra(Constant.TYPE_URL, doc.getUrl());
+//					startActivity(intentActivity);
+//				} else if ("OA_FW".equals(doc.getType())) {
+//					intentActivity.setClass(context, FaWenDetailActivity.class);
+//					intentActivity.putExtra("dealState", state);
+//					intentActivity.putExtra("title", doc.getTitle());
+//					intentActivity.putExtra("bzid", doc.getId());
+//					intentActivity.putExtra(Constant.TYPE_URL, doc.getUrl());
+//					startActivity(intentActivity);
+//				} else {
+//					intentActivity.setClass(context, BaoGaoDetailActivity.class);
+//					intentActivity.putExtra("dealState", state);
+//					intentActivity.putExtra("title", doc.getTitle());
+//					intentActivity.putExtra(Constant.TYPE_URL, doc.getUrl());
+//					startActivity(intentActivity);
+//				}
+//
+//			}
+//		});
+//		//模拟登陆 TODO
+////		simulateLogin();
+//		if (DeviceUtil.checkNet()) {
+//			getListData();
+//		}
+//	}
 
 	public void getListData() {
 //		showProgressDialog();
@@ -162,7 +216,7 @@ public class ListActivity extends MyActivity implements XListView.IXListViewList
 			curPage = 1;
 			getListData();
 		} else {
-			hideProgressDialog();
+			mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
 			listview.stopRefresh();
 		}
 	}
@@ -186,7 +240,6 @@ public class ListActivity extends MyActivity implements XListView.IXListViewList
 	}
 
 	public void getDataLoadMore() {
-		showProgressDialog();
 		if (DeviceUtil.checkNet()) {
 			Map<String,String> map = new HashMap<String, String>();
 			map.put("pageNo", curPage+"");

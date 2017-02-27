@@ -330,7 +330,7 @@ public abstract class MyActivity extends AppCompatActivity{
                     startRadius,
                     endRadius);
         }
-        animator.setDuration(800);
+        animator.setDuration(400);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
         if (reversed)
             animator.addListener(new Animator.AnimatorListener() {

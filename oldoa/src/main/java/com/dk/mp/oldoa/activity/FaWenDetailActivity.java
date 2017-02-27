@@ -43,15 +43,18 @@ public class FaWenDetailActivity extends DetailActivity implements OnClickListen
 	private Handler mHandler = new Handler() {
 
 		public void handleMessage(Message msg) {
-			hideProgressDialog();
+//			hideProgressDialog();
+			mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
 			switch (msg.what) {
 			case 0:
-				hideProgressDialog();
+//				hideProgressDialog();
+				mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
 				startActivity(FileUtil.openFile(CoreConstants.DOWNLOADPATH + fileName(bzid, faWenD.getTitle()+".docx")));
 				break;
 			case 1:
-				hideProgressDialog();
-				showMessage("下载失败");
+//				hideProgressDialog();
+				mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+				showErrorMsg("下载失败");
 				break;
 			case 3:
 				faWenD.setType("OA_FW");
@@ -188,7 +191,8 @@ public class FaWenDetailActivity extends DetailActivity implements OnClickListen
 			} else {
 				if (DeviceUtil.checkNet()) {
 					try {
-						showProgressDialog();
+//						showProgressDialog();
+						mError.setErrorType(ErrorLayout.LOADDATA);
 						new Thread(new Runnable() {
 							@Override
 							public void run() {
@@ -196,13 +200,15 @@ public class FaWenDetailActivity extends DetailActivity implements OnClickListen
 									FileUtil.downFile(faWenD.getZhengwen(), fileName(bzid, faWenD.getTitle()+".docx"), mHandler);
 								} catch (IOException e) {
 									e.printStackTrace();
-									hideProgressDialog();
+//									hideProgressDialog();
+									mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
 								}
 							}
 						}).start();
 					} catch (Exception e) {
 						e.printStackTrace();
-						hideProgressDialog();
+//						hideProgressDialog();
+						mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
 					}
 				}
 			}
