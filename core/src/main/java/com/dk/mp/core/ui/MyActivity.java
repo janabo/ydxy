@@ -267,6 +267,7 @@ public abstract class MyActivity extends AppCompatActivity{
                         view.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                drawerLayout.closeDrawers();
                                 sendBroadcast(new Intent().setAction("flishall"));
                                 new AppUtil(mContext).checkApp(app);
                             }
