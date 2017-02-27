@@ -10,6 +10,7 @@ public class Zssgl {
     private String xm;//姓名
     private String lx;//类型
     private String shzt;//审核状态
+    private String sfksh;//是否可审核
 
     public String getId() {
         return id;
@@ -49,5 +50,13 @@ public class Zssgl {
 
     public void setShzt(String shzt) {
         this.shzt = shzt;
+    }
+
+    public String getSfksh() {
+        return sfksh;
+    }
+
+    public void setSfksh(String sfksh) {
+        this.sfksh = sfksh;
     }
 }

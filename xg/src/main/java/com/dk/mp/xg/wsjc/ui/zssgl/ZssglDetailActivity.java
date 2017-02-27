@@ -25,7 +25,7 @@ import com.dk.mp.xg.R;
 public class ZssglDetailActivity extends MyActivity implements View.OnClickListener{
     WebView mWebView;
     Button pass,notpass,untread;//通过，不通过，退回
-    String detailid,lmlb,mType;
+    String detailid,lmlb,mType,sfksh;
     private ErrorLayout mError;
     private LinearLayout lin_footer,footer2,footer;
     public static ZssglDetailActivity instance;
@@ -57,14 +57,19 @@ public class ZssglDetailActivity extends MyActivity implements View.OnClickListe
         detailid = getIntent().getStringExtra("detailid");
         lmlb = getIntent().getStringExtra("lmlb");
         mType = getIntent().getStringExtra("mType");
-        if("3".equals(mType)){
-            lin_footer.setVisibility(View.VISIBLE);
-            footer2.setVisibility(View.GONE);
-            footer.setVisibility(View.VISIBLE);
-        }else if("4".equals(mType) && "1".equals(lmlb)){
-            lin_footer.setVisibility(View.VISIBLE);
-            footer.setVisibility(View.GONE);
-            footer2.setVisibility(View.VISIBLE);
+        sfksh = getIntent().getStringExtra("sfksh");
+        if("true".equals(sfksh)) {//可以审核
+            if ("3".equals(mType)) {
+                lin_footer.setVisibility(View.VISIBLE);
+                footer2.setVisibility(View.GONE);
+                footer.setVisibility(View.VISIBLE);
+            } else if ("4".equals(mType) && "1".equals(lmlb)) {
+                lin_footer.setVisibility(View.VISIBLE);
+                footer.setVisibility(View.GONE);
+                footer2.setVisibility(View.VISIBLE);
+            } else {
+                lin_footer.setVisibility(View.GONE);
+            }
         }else{
             lin_footer.setVisibility(View.GONE);
         }

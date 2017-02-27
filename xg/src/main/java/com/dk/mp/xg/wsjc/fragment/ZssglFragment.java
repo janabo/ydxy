@@ -192,6 +192,7 @@ public class ZssglFragment extends BaseFragment implements View.OnClickListener{
                     intent.putExtra("detailid",zssgl.getId());
                     intent.putExtra("lmlb",lmlb);
                     intent.putExtra("mType",mType);
+                    intent.putExtra("sfksh",zssgl.getSfksh());
                     intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
                     intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
                     startActivity(intent);
