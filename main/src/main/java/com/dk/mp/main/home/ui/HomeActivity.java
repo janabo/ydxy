@@ -55,8 +55,6 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
 
     private SensorManager mSensorManager;//定义sensor管理器
 
-    private boolean brithdayshow = false;
-
     @Override
     protected int getLayoutID() {
         return R.layout.mp_main;
