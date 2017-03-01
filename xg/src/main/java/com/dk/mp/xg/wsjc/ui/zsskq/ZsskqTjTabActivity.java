@@ -82,7 +82,7 @@ public class ZsskqTjTabActivity extends MyActivity{
                     bundle.putSerializable("kfs", (Serializable) mClasses);
                     intent.putExtras(bundle);
                     startActivityForResult(intent, 1);
-                    overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                    overridePendingTransition(R.anim.push_up_in, 0);
                 } else {
                     showErrorMsg(mViewpager, "未获取到班级或院系选项");
                 }

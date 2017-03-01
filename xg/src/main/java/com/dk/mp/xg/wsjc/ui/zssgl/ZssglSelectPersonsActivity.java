@@ -8,6 +8,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -175,6 +176,22 @@ public class ZssglSelectPersonsActivity extends MyActivity implements View.OnCli
         }else{
             ok.setEnabled(false);
             ok.setTextColor(getResources().getColor(R.color.colorPrimary50));
+        }
+    }
+
+    @Override
+    public void back() {
+        finish();
+        overridePendingTransition(0, R.anim.push_down_out);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            back();
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
         }
     }
 

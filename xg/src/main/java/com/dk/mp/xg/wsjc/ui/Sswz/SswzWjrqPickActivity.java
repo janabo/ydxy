@@ -3,6 +3,7 @@ package com.dk.mp.xg.wsjc.ui.Sswz;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -162,6 +163,16 @@ public class SswzWjrqPickActivity extends Activity {
     public void back() {
         finish();
         overridePendingTransition(0, R.anim.push_down_out);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            back();
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
     }
 
 }

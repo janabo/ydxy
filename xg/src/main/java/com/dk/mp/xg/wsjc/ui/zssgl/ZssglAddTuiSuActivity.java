@@ -189,7 +189,7 @@ public class ZssglAddTuiSuActivity extends MyActivity implements View.OnClickLis
             bundle.putSerializable("kfs", (Serializable) tsyys);
             intent.putExtras(bundle);
             startActivityForResult(intent, 1);
-            overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+            overridePendingTransition(R.anim.push_up_in, 0);
         }else{
             getTuisu();
             if(tsyys.size()>0) {
@@ -198,7 +198,7 @@ public class ZssglAddTuiSuActivity extends MyActivity implements View.OnClickLis
                 bundle.putSerializable("kfs", (Serializable) tsyys);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
-                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                overridePendingTransition(R.anim.push_up_in, 0);
             }else {
                 showErrorMsg(mRootView, "未获取到退宿原因选项");
             }

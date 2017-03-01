@@ -394,7 +394,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
             bundle.putSerializable("kfs", (Serializable) xqs);
             intent.putExtras(bundle);
             startActivityForResult(intent, 2);
-            overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+            overridePendingTransition(R.anim.push_up_in, 0);
         } else {
             getXqs();
             if (xqs.size() > 0) {
@@ -403,7 +403,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
                 bundle.putSerializable("kfs", (Serializable) xqs);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 2);
-                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                overridePendingTransition(R.anim.push_up_in, 0);
             }else {
                 showErrorMsg(mRootView, "未获取到校区选项");
             }
@@ -421,7 +421,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
             bundle.putSerializable("kfs", (Serializable) ssqs);
             intent.putExtras(bundle);
             startActivityForResult(intent, 3);
-            overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+            overridePendingTransition(R.anim.push_up_in, 0);
         } else {
             getSsqs(xqid);
             if (ssqs.size() > 0) {
@@ -430,7 +430,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
                 bundle.putSerializable("kfs", (Serializable) ssqs);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 3);
-                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                overridePendingTransition(R.anim.push_up_in, 0);
             } else {
                 showErrorMsg(mRootView, "未获取到宿舍区选项");
             }
@@ -448,7 +448,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
             bundle.putSerializable("kfs", (Serializable) ssls);
             intent.putExtras(bundle);
             startActivityForResult(intent, 4);
-            overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+            overridePendingTransition(R.anim.push_up_in, 0);
         } else {
             getSsls(ssqid);
             if (ssls.size() > 0) {
@@ -457,7 +457,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
                 bundle.putSerializable("kfs", (Serializable) ssls);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 4);
-                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                overridePendingTransition(R.anim.push_up_in, 0);
             } else {
                 showErrorMsg(mRootView, "未获取到宿舍楼选项");
             }
@@ -475,7 +475,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
             bundle.putSerializable("kfs", (Serializable) lcs);
             intent.putExtras(bundle);
             startActivityForResult(intent, 5);
-            overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+            overridePendingTransition(R.anim.push_up_in, 0);
         } else {
             getLcs(sslid);
             if (lcs.size() > 0) {
@@ -484,7 +484,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
                 bundle.putSerializable("kfs", (Serializable) lcs);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 5);
-                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                overridePendingTransition(R.anim.push_up_in, 0);
             }else {
                 showErrorMsg(mRootView, "未获取到楼层选项");
             }
@@ -502,7 +502,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
             bundle.putSerializable("kfs", (Serializable) fjhs);
             intent.putExtras(bundle);
             startActivityForResult(intent, 6);
-            overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+            overridePendingTransition(R.anim.push_up_in, 0);
         } else {
             getFjhs(sslid,lcid);
             if (fjhs.size() > 0) {
@@ -511,7 +511,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
                 bundle.putSerializable("kfs", (Serializable) fjhs);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 6);
-                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                overridePendingTransition(R.anim.push_up_in, 0);
             } else {
                 showErrorMsg(mRootView, "未获取到房间号选项");
             }
@@ -529,7 +529,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
             bundle.putSerializable("kfs", (Serializable) cwhs);
             intent.putExtras(bundle);
             startActivityForResult(intent, 7);
-            overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+            overridePendingTransition(R.anim.push_up_in, 0);
         } else {
             getCwhs(fjhid);
             if (cwhs.size() > 0) {
@@ -538,7 +538,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
                 bundle.putSerializable("kfs", (Serializable) cwhs);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 7);
-                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                overridePendingTransition(R.anim.push_up_in, 0);
             } else {
                 showErrorMsg(mRootView, "未获取到床位号选项");
             }
@@ -556,7 +556,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
             bundle.putSerializable("kfs", (Serializable) tzyys);
             intent.putExtras(bundle);
             startActivityForResult(intent, 8);
-            overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+            overridePendingTransition(R.anim.push_up_in, 0);
         } else {
             getTsyys();
             if (tzyys.size() > 0) {
@@ -565,7 +565,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
                 bundle.putSerializable("kfs", (Serializable) tzyys);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 8);
-                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                overridePendingTransition(R.anim.push_up_in, 0);
                 showErrorMsg(mRootView, "未获取到调整原因选项");
             }
         }

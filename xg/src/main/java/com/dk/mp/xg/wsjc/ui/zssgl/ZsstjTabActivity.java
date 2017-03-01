@@ -150,8 +150,8 @@ public class ZsstjTabActivity extends MyActivity {
      */
     public void getClassesorDepartments(){
         Map<String,Object> map = new HashMap<>();
-        map.put("role",role);
-        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgltj/selected?role=1", map, new HttpListener<JSONObject>() {
+        map.put("lmlb",type);
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgltj/selected", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {

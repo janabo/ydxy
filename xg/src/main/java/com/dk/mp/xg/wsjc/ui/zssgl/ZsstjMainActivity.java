@@ -62,7 +62,7 @@ public class ZsstjMainActivity extends MyActivity{
      * @param v
      */
     public void tobzr(View v){
-        toDetail(v,"1");
+        toDetail(v,"2");
     }
 
     /**
@@ -70,7 +70,7 @@ public class ZsstjMainActivity extends MyActivity{
      * @param v
      */
     public void toxb(View v){
-        toDetail(v,"2");
+        toDetail(v,"3");
     }
 
     /**
@@ -78,7 +78,7 @@ public class ZsstjMainActivity extends MyActivity{
      * @param v
      */
     public void toxgc(View v){
-        toDetail(v,"3");
+        toDetail(v,"1");
     }
 
     /**
