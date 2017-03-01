@@ -1,4 +1,4 @@
-package com.dk.mp.xg.wsjc.ui;
+package com.dk.mp.xg.wsjc.ui.zssgl;
 
 import android.content.Context;
 import android.content.Intent;
@@ -30,7 +30,7 @@ import com.dk.mp.core.view.MyListView;
 import com.dk.mp.core.view.RecycleViewDivider;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
-import com.dk.mp.xg.wsjc.entity.DfRecord;
+import com.dk.mp.xg.wsjc.entity.Zssgl;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -39,16 +39,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 宿舍打分记录搜索
- * 作者：janabo on 2017/1/12 17:09
+ * 在校住宿生管理搜索
+ * 作者：janabo on 2017/2/28 14:26
  */
-public class SearchActivity extends MyActivity implements View.OnClickListener{
+public class ZssglSearchActivity extends MyActivity implements View.OnClickListener{
     private EditText mKeywords;//搜索关键字
     private TextView cancle;//
     private LinearLayout layout_search;
     private MyListView mRecycle;
-    private List<DfRecord> mList = new ArrayList<>();
+    private List<Zssgl> mData = new ArrayList<>();
     private ErrorLayout mError;
+    private String mType,lmlb;
 
     @Override
     protected int getLayoutID() {
@@ -74,6 +75,8 @@ public class SearchActivity extends MyActivity implements View.OnClickListener{
      * 初始化界面
      */
     private void findView(){
+        mType = getIntent().getStringExtra("type");
+        lmlb = getIntent().getStringExtra("lmlb");
         mError = (ErrorLayout) findViewById(R.id.error_layout);
         mError.setOnLayoutClickListener(this);
         layout_search = (LinearLayout) findViewById(R.id.layout_search);
@@ -82,7 +85,7 @@ public class SearchActivity extends MyActivity implements View.OnClickListener{
         mRecycle = (MyListView) findViewById(R.id.person_recycle);
         mRecycle.setLayoutManager ( new LinearLayoutManager( mContext ) );
         mRecycle.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.HORIZONTAL, DeviceUtil.dip2px(mContext,0.8f), Color.rgb(229, 229, 229)));
-        mRecycle.setAdapterInterface(mList, new AdapterInterface() {
+        mRecycle.setAdapterInterface(mData, new AdapterInterface() {
             @Override
             public RecyclerView.ViewHolder setItemView(ViewGroup parent, int viewType) {
                 View view =  LayoutInflater.from(mContext).inflate(R.layout.app_wsjc_record_list_item, parent, false);// 设置要转化的layout文件
@@ -91,19 +94,18 @@ public class SearchActivity extends MyActivity implements View.OnClickListener{
 
             @Override
             public void setItemValue(RecyclerView.ViewHolder holder, int position) {
-                DfRecord m = mList.get(position);
-                ((MyView)holder).ssl_fjh.setText(m.getSsl()+"-"+m.getFjh());
-                ((MyView)holder).ssq.setText(m.getSsq());
-                ((MyView)holder).fs.setText(m.getFs());
+                ((MyView)holder).ssl_fjh.setText(mData.get(position).getXm());
+                ((MyView)holder).ssq.setText(mData.get(position).getShzt());
+                ((MyView)holder).fs.setText(mData.get(position).getSqrq());
             }
 
             @Override
             public void loadDatas() {
                 getData();
             }
-            });
+        });
 
-        mKeywords.setHint("房间号");
+        mKeywords.setHint("学号或姓名");
         mKeywords.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -112,7 +114,8 @@ public class SearchActivity extends MyActivity implements View.OnClickListener{
                     Logger.info(keywords);
                     hideSoftInput();
                     if (StringUtils.isNotEmpty(keywords)) {
-                        mList.clear();
+                        mData.clear();
+                        mRecycle.clearList();
                         getData();
                     } else {
                         SnackBarUtil.showShort(layout_search,"请输入关键字");
@@ -146,12 +149,14 @@ public class SearchActivity extends MyActivity implements View.OnClickListener{
         Map<String, Object> map = new HashMap<>();
         map.put("key", mKeywords.getText().toString());
         map.put("pageNo",mRecycle.pageNo);
-        HttpUtil.getInstance().gsonRequest(new TypeToken<PageMsg<DfRecord>>(){}, "apps/sswzdf/ss", map, new HttpListener<PageMsg<DfRecord>>() {
+        map.put("lmlb",lmlb);
+        map.put("type",mType);
+        HttpUtil.getInstance().gsonRequest(new TypeToken<PageMsg<Zssgl>>(){}, "apps/zxzssgl/ss", map, new HttpListener<PageMsg<Zssgl>>() {
             @Override
-            public void onSuccess(PageMsg<DfRecord> result) {
+            public void onSuccess(PageMsg<Zssgl> result) {
                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                 if(result.getList() != null && result.getList().size()>0) {
-                    mList.addAll(result.getList());
+                    mData.addAll(result.getList());
                     mRecycle.finish(result.getTotalPages(),result.getCurrentPage());
                 }else{
                     if(mRecycle.pageNo == 1) {
@@ -197,19 +202,21 @@ public class SearchActivity extends MyActivity implements View.OnClickListener{
             ssl_fjh = (TextView) itemView.findViewById(R.id.ssl_fjh);
             ssq = (TextView) itemView.findViewById(R.id.ssq);
             fs = (TextView) itemView.findViewById(R.id.fs);
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                DfRecord df = mList.get(getLayoutPosition());
-                Intent intent = new Intent(mContext,WsjcRecordDetailActivity.class);
-                intent.putExtra("id",df.getId());
-                intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
-                intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
-                mContext.startActivity(intent);
+                    Zssgl zssgl = mData.get(getLayoutPosition());
+                    Intent intent = new Intent(mContext, ZssglDetailActivity.class);
+                    intent.putExtra("detailid",zssgl.getId());
+                    intent.putExtra("lmlb",lmlb);
+                    intent.putExtra("mType",mType);
+                    intent.putExtra("xb",zssgl.getXb());
+                    intent.putExtra("sfksh",zssgl.getSfksh());
+                    intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
+                    intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
+                    startActivity(intent);
                 }
             });
         }
     }
-
 }

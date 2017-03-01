@@ -88,6 +88,7 @@ public class SearchActivity extends MyActivity{
                         if(DeviceUtil.checkNet()){//判断是否有网络
                             mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                             query();
+                            mList.clear();
                         }else{
                             mError.setErrorType(ErrorLayout.NETWORK_ERROR);
                         }
@@ -108,7 +109,6 @@ public class SearchActivity extends MyActivity{
 
     public void query(){
         mError.setErrorType(ErrorLayout.LOADDATA);
-        mList.clear();
         Map<String, Object> map = new HashMap<>();
         map.put("key", mKeywords.getText().toString());
         HttpUtil.getInstance().postJsonObjectRequest("http://wap.cztljx.org/apps/txl/query", map, new HttpListener<JSONObject>() {

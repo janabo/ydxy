@@ -25,7 +25,6 @@ import com.dk.mp.core.entity.LoginMsg;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
-import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.view.DrawCheckMarkView;
 import com.dk.mp.core.view.DrawCrossMarkView;
@@ -76,7 +75,8 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
     private TextView wjxs_name,wjxs_x,wjrq,wjlb_txt,tbr_name,tbr_x;//违纪学生姓名,违纪日期,违纪类别,提报人姓名
     private LinearLayout wjxs_lin,wjrq_lin,wjlb_lin,tbr_lin;//违纪日期,违纪类别，提报人
     List<Common> wjlbs = new ArrayList<>();//违纪类别
-    private EditText wjdh_txt,bz;//违纪单号,备注
+ //   private EditText wjdh_txt,bz;//违纪单号,备注
+    private EditText bz;//违纪单号,备注
     private String wjxsid,wjlbid,tbrid;//违纪学生,违纪类别
     WsjcDetail detail = null;
     private TextView fjh,ssl,ssq,xq;//房间号，宿舍楼，宿舍区，校区
@@ -99,7 +99,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
         bz = (EditText) findViewById(R.id.bz);
         wjlb_lin = (LinearLayout) findViewById(R.id.wjlb_lin);
         wjlb_txt = (TextView) findViewById(R.id.wjlb_txt);
-        wjdh_txt = (EditText) findViewById(R.id.wjdh_txt);
+//        wjdh_txt = (EditText) findViewById(R.id.wjdh_txt);
         wjrq_lin = (LinearLayout) findViewById(R.id.wjrq_lin);
         wjrq = (TextView) findViewById(R.id.wjrq);
         wjxs_x = (TextView) findViewById(R.id.wjxs_x);
@@ -128,7 +128,9 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
         wjlb_lin.setOnClickListener(this);
 
         String wsjcDetail = getIntent().getStringExtra("wsjcDetail");
-        detail = new Gson().fromJson(wsjcDetail,WsjcDetail.class);
+        if(StringUtils.isNotEmpty(wsjcDetail)) {
+            detail = new Gson().fromJson(wsjcDetail, WsjcDetail.class);
+        }
         setDetailSetText(detail);
     }
 
@@ -208,6 +210,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
                     if(userName.length()>0){
                         wjxs_name.setText(userName);
                         wjxs_x.setText(userName.substring(0,1));
+                        getBackgroud(wjxs_lin,userName.substring(0,1));
                     }
                     wjxs_lin.setVisibility(View.VISIBLE);
                     wjxs_name.setVisibility(View.VISIBLE);
@@ -236,6 +239,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
                     if(userName.length()>0){
                         tbr_name.setText(userName);
                         tbr_x.setText(userName.substring(0,1));
+                        getBackgroud(tbr_lin,userName.substring(0,1));
                     }
                     tbr_lin.setVisibility(View.VISIBLE);
                     tbr_name.setVisibility(View.VISIBLE);
@@ -290,7 +294,17 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
                 startActivityForResult(intent, 3);
                 overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
             }else{
-                showErrorMsg(mRootView,"未获取到违纪类别信息");
+                getWjlbs();
+                if(wjlbs.size()>0) {
+                    Intent intent = new Intent(mContext, SswzWjlbPickActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("kfs", (Serializable) wjlbs);
+                    intent.putExtras(bundle);
+                    startActivityForResult(intent, 3);
+                    overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                }else {
+                    showErrorMsg(mRootView, "未获取到违纪类别信息");
+                }
             }
         }else if(R.id.tbr_lin == view.getId()){//提报人
             tbr_lin.setVisibility(View.GONE);
@@ -305,6 +319,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
      */
     public void addWjxs(View view){
         Intent intent = new Intent(mContext, SswzSelectPersonActivity.class);
+        intent.putExtra("fjhid",fjhid);
         startActivityForResult(intent, 1);
         overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
     }
@@ -315,6 +330,8 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
      */
     public void addTbr(View view){
         Intent intent = new Intent(mContext, SswzSelectPersonActivity.class);
+        intent.putExtra("type","tbr");
+        intent.putExtra("fjhid",fjhid);
         startActivityForResult(intent, 4);
         overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
     }
@@ -377,17 +394,17 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
 
     public void submit(){
         Map<String,Object> params = new HashMap<>();
-        params.put("Id", uuid);
+        params.put("id", uuid);
         params.put("xq",xqid);
         params.put("ssq",ssqid);
         params.put("ssl",sslid);
         params.put("fjh",fjhid);
         params.put("wjxs",wjxsid);
-        params.put("wjrq",wjrq.getText().toString());
-        params.put("wjdhbh",wjdh_txt.getText().toString());
+        params.put("wjrq",wjrq.getText().toString()+" 00:00:00");
+        params.put("wjdhbh",uuid);
         params.put("wjlb",wjlbid);
         params.put("tbr",tbrid);
-        params.put("fjName","");
+        params.put("fjName",uuid);
         params.put("bz",bz.getText().toString());
 
         HttpUtil.getInstance().postJsonObjectRequest("apps/sswzdj/tjwz", params, new HttpListener<JSONObject>() {
@@ -443,11 +460,11 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
      */
     public void dealOkButton(){
         if(wjrq.getText().toString().length()>0 && wjlb_txt.getText().toString().length()>0 && StringUtils.isNotEmpty(tbrid)){
-            ok.setBackground(getResources().getDrawable(R.drawable.ripple_bg));
-            ok.setEnabled(true);
+            ok_lin.setBackground(getResources().getDrawable(R.drawable.ripple_bg));
+            ok_lin.setEnabled(true);
         }else{
-            ok.setBackgroundColor(getResources().getColor(R.color.rcap_gray));
-            ok.setEnabled(false);
+            ok_lin.setBackgroundColor(getResources().getColor(R.color.rcap_gray));
+            ok_lin.setEnabled(false);
         }
     }
 
@@ -472,15 +489,15 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
 
             @Override
             public void onFailure(Call call, IOException e) {
+                call.cancel();// 上传失败取消请求释放内存
                 errorInfo();
                 showErrorMsg("上传附件失败");
-                call.cancel();// 上传失败取消请求释放内存
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String result = response.body().string();
-                Logger.info("######################result="+result);
+//                String result = response.body().string();
+//                Logger.info("######################result="+result);
                 call.cancel();// 上传失败取消请求释放内存
                 submit();
             }

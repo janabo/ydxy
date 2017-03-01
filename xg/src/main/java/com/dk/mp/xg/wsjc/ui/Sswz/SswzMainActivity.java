@@ -274,7 +274,7 @@ public class SswzMainActivity extends MyActivity implements
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, 0.9f);
-        animation.setDuration(4500);
+        animation.setDuration(4000);
         animation.setRepeatCount(-1);
         animation.setRepeatMode(Animation.RESTART);
         scanLine.startAnimation(animation);
@@ -326,7 +326,7 @@ public class SswzMainActivity extends MyActivity implements
             public void run() {
                 handleText(rawResult.getText());
             }
-        }, 300);
+        }, 100);
     }
 
     private void handleText(String text) {

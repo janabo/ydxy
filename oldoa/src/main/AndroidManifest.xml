@@ -5,7 +5,8 @@
 
         <activity
             android:name=".activity.MainActivity"
-            android:configChanges="orientation|keyboardHidden" >
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@style/AppTheme.NoTitle">
             <intent-filter>
                 <action android:name="gwgl" />
 
@@ -14,7 +15,8 @@
         </activity>
         <activity
             android:name=".activity.ListActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle"/>
 
         <activity
             android:name=".activity.ShouWenDetailActivity"
@@ -32,7 +34,8 @@
         <activity
             android:name=".activity.WeekEventsActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep">
             <intent-filter>
                 <action android:name="yzap" />
 

@@ -104,7 +104,7 @@ public class SswzRecordListActivity extends MyActivity implements View.OnClickLi
                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                 if(result.getList() != null && result.getList().size()>0) {
                     mData.addAll(result.getList());
-                    mRecycle.addList(result.getList());
+                    mRecycle.finish(result.getTotalPages(),result.getCurrentPage());
                 }else{
                     if(mRecycle.pageNo == 1) {
                         mError.setErrorType(ErrorLayout.NODATA);

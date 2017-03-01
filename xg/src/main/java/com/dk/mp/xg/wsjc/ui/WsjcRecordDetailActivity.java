@@ -1,4 +1,4 @@
-package com.dk.mp.xg.wsjc.ui.Sswz;
+package com.dk.mp.xg.wsjc.ui;
 
 import android.graphics.Bitmap;
 import android.view.View;
@@ -16,9 +16,10 @@ import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 
 /**
- * 作者：janabo on 2017/1/17 09:28
+ * 宿舍卫生打分详情
+ * 作者：janabo on 2017/3/1 13:51
  */
-public class SswzRecordDetailActivity extends MyActivity{
+public class WsjcRecordDetailActivity extends MyActivity{
     private ErrorLayout mError;
     private WebView mWebView;
     private ProgressBar mProgressBar;
@@ -26,7 +27,7 @@ public class SswzRecordDetailActivity extends MyActivity{
 
     @Override
     protected int getLayoutID() {
-        return R.layout.app_ssws_record_detail;
+        return R.layout.app_wsjc_record_detail;
     }
 
     @Override
@@ -41,10 +42,12 @@ public class SswzRecordDetailActivity extends MyActivity{
     @Override
     protected void initialize() {
         super.initialize();
-        setTitle("宿舍违章登记");
+        setTitle("宿舍卫生检查");
         String id = getIntent().getStringExtra("id");
         setWebView ( );
-        mWebView.loadUrl(getUrl("apps/sswzdj/detail?id="+id));
+        String mUrl = getUrl("apps/sswzdf/detail?id="+id);
+        Logger.info("url="+mUrl);
+        mWebView.loadUrl(mUrl);
     }
 
     private void setWebView ( ) {
@@ -120,5 +123,4 @@ public class SswzRecordDetailActivity extends MyActivity{
             return mContext.getString(R.string.rootUrl)+url;
         }
     }
-
 }

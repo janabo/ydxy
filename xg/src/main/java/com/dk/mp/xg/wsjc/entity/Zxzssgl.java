@@ -7,6 +7,7 @@ public class Zxzssgl {
     private String ssl;//宿舍楼
     private String lc;//楼层
     private String fjh;//楼层
+    private String fjhid;//房间号id
     private String ssq;//楼层
     private String xq;//楼层
     private String xsid;//楼层
@@ -14,6 +15,7 @@ public class Zxzssgl {
     private String ssqid;//楼层
     private String sslid;//楼层
     private String cwh;//楼层
+    private String cwhid;//床位号id
     private String fx;//楼层
     private String zsf;//楼层
     private String cws;//楼层
@@ -147,5 +149,21 @@ public class Zxzssgl {
 
     public void setBz(String bz) {
         this.bz = bz;
+    }
+
+    public String getFjhid() {
+        return fjhid;
+    }
+
+    public void setFjhid(String fjhid) {
+        this.fjhid = fjhid;
+    }
+
+    public String getCwhid() {
+        return cwhid;
+    }
+
+    public void setCwhid(String cwhid) {
+        this.cwhid = cwhid;
     }
 }

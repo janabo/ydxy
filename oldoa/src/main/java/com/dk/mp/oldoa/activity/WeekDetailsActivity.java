@@ -1,8 +1,8 @@
 package com.dk.mp.oldoa.activity;
 
-import android.os.Bundle;
 import android.widget.TextView;
 
+import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.oldoa.R;
 import com.dk.mp.oldoa.entity.WeekEventListEntity;
@@ -20,12 +20,23 @@ public class WeekDetailsActivity extends MyActivity {
 	private String date;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.week_item);
+	protected int getLayoutID() {
+		return R.layout.week_item;
+	}
+
+	@Override
+	protected void initView() {
+		super.initView();
 		setTitle(getIntent().getStringExtra("title"));
 		findUi();
 	}
+
+//	@Override
+//	protected void onCreate(Bundle savedInstanceState) {
+//		super.onCreate(savedInstanceState);
+//		setContentView(R.layout.week_item);
+//
+//	}
 
 	private void findUi() {
 		weL = (WeekEventListEntity) getIntent().getSerializableExtra("data");

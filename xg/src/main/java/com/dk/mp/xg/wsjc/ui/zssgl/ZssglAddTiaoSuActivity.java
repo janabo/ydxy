@@ -303,6 +303,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
         Map<String,Object> map = new HashMap<>();
         map.put("ssl",ssl);
         map.put("lc",lc);
+        map.put("xb",xb);
         HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/fjList", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {

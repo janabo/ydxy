@@ -9,6 +9,7 @@ public class DfRecord {
     private String ssq;//宿舍区
     private String fjh;//房间号
     private String fs;//分数
+    private String id;//
 
     public String getSsl() {
         return ssl;
@@ -40,5 +41,13 @@ public class DfRecord {
 
     public void setFjh(String fjh) {
         this.fjh = fjh;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

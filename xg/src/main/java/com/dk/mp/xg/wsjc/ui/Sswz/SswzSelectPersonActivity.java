@@ -43,6 +43,8 @@ public class SswzSelectPersonActivity extends MyActivity implements View.OnClick
     private RecyclerView mRecyclerView;
     PeopleAdapter mAdapter;
     List<Sswz> mData = new ArrayList<>();
+    private String fjhid;
+    String mUrl="";
 
     @Override
     protected int getLayoutID() {
@@ -56,6 +58,7 @@ public class SswzSelectPersonActivity extends MyActivity implements View.OnClick
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getResources().getColor(R.color.select_title));
         }
+        fjhid = getIntent().getStringExtra("fjhid");
         back = (TextView) findViewById(R.id.back);
         ok = (TextView) findViewById(R.id.ok);
         title = (TextView) findViewById(R.id.title);
@@ -103,7 +106,13 @@ public class SswzSelectPersonActivity extends MyActivity implements View.OnClick
     @Override
     protected void initialize() {
         super.initialize();
-        title.setText("违纪学生");
+        if("tbr".equals(getIntent().getStringExtra("type"))) {
+            title.setText("提报人");
+            mUrl = "apps/sswzdj/tbr";
+        }else{
+            title.setText("违纪学生");
+            mUrl = "apps/sswzdj/xsList";
+        }
         getData();
     }
 
@@ -119,8 +128,8 @@ public class SswzSelectPersonActivity extends MyActivity implements View.OnClick
      */
     public void getList(){
         Map<String,Object> map = new HashMap<>();
-        map.put("fjh","111");
-        HttpUtil.getInstance().postJsonObjectRequest("apps/sswzdj/xsList", map, new HttpListener<JSONObject>() {
+        map.put("fjh",fjhid);
+        HttpUtil.getInstance().postJsonObjectRequest(mUrl, map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {

@@ -112,7 +112,7 @@ public class NewsListActivity extends MyActivity implements View.OnClickListener
                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                 if(result.getList() != null && result.getList().size()>0) {
                     list.addAll(result.getList());
-                    myListView.flish();
+                    myListView.finish(result.getTotalPages(),result.getCurrentPage());
                 }else{
                     if(myListView.pageNo == 1) {
                         mError.setErrorType(ErrorLayout.NODATA);

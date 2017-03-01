@@ -36,7 +36,7 @@ import okhttp3.RequestBody;
  * Volley 网络请求util
  */
 public class HttpUtil {
-    private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
+    private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/*");
     public final String TAG = this.getClass ( ).getSimpleName ( );
     public static Context mContext = MyApplication.getContext();
     private static HttpUtil httpUtil;
@@ -152,11 +152,18 @@ public class HttpUtil {
         for (int i = 0; i <files.size() ; i++) {
             File f= files.get(i);
             if (f!=null) {
-                builder.addFormDataPart("img", f.getName(), RequestBody.create(MEDIA_TYPE_PNG, f));
+                builder.addFormDataPart("fileName", f.getName(), RequestBody.create(MEDIA_TYPE_PNG, f));
             }
         }
         // 创建RequestBody
         RequestBody body = builder.build();
+//        if(files.size()<=0){
+//            return;
+//        }
+//
+//        //创建RequestBody
+//        RequestBody body = RequestBody.create(MEDIA_TYPE_PNG, files.get(0));
+
         //构建请求
         final okhttp3.Request request = new okhttp3.Request.Builder().url(url).post(body).build();
         okHttpClient.newCall(request).enqueue(callback);

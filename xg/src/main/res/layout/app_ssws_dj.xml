@@ -195,13 +195,12 @@
 
                     <TextView
                         android:id="@+id/wjxs_name"
-                        android:layout_width="?attr/image34"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:textColor="#212121"
                         android:textSize="?attr/textSize14"
-                        android:visibility="gone"
-                        android:gravity="center_horizontal"/>
+                        android:visibility="gone"/>
 
                 </LinearLayout>
                 <View
@@ -271,43 +270,43 @@
                         android:layout_marginLeft="10dp"/>
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.8dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/linecolor"/>
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0.8dp"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginRight="10dp"-->
+                    <!--android:background="@color/linecolor"/>-->
 
-                <LinearLayout
-                    android:id="@+id/wjdh_lin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:background="@drawable/ripple_bg_while">
-                    <TextView
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="违纪单号编号"
-                        android:textColor="#212121"
-                        android:textSize="?attr/textSize15">
-                    </TextView>
-                    <EditText
-                        android:id="@+id/wjdh_txt"
-                        android:layout_height="wrap_content"
-                        android:layout_width="0dp"
-                        android:textColor="#212121"
-                        android:textSize="?attr/textSize14"
-                        android:layout_weight="1"
-                        android:gravity="right"
-                        android:maxLines="1"
-                        android:background="@null">
-                    </EditText>
-                </LinearLayout>
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/wjdh_lin"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginRight="10dp"-->
+                    <!--android:paddingTop="15dp"-->
+                    <!--android:paddingBottom="15dp"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:background="@drawable/ripple_bg_while">-->
+                    <!--<TextView-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:text="违纪单号编号"-->
+                        <!--android:textColor="#212121"-->
+                        <!--android:textSize="?attr/textSize15">-->
+                    <!--</TextView>-->
+                    <!--<EditText-->
+                        <!--android:id="@+id/wjdh_txt"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:textColor="#212121"-->
+                        <!--android:textSize="?attr/textSize14"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:gravity="right"-->
+                        <!--android:maxLines="1"-->
+                        <!--android:background="@null">-->
+                    <!--</EditText>-->
+                <!--</LinearLayout>-->
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.8dp"
@@ -424,13 +423,12 @@
 
                     <TextView
                         android:id="@+id/tbr_name"
-                        android:layout_width="?attr/image34"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:textColor="#212121"
                         android:textSize="?attr/textSize12"
-                        android:visibility="gone"
-                        android:gravity="center_horizontal"/>
+                        android:visibility="gone"/>
 
                 </LinearLayout>
 

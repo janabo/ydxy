@@ -156,6 +156,17 @@ public class MyListView extends SwipeRefreshLayout {
         stopRefresh(true);
     }
 
+    public void finish(int totalPages,int currentPage){
+        adapter.notifyDataSetChanged();
+        if (totalPages<=currentPage){
+            setDatasEnd(true);
+        } else {
+            setDatasEnd(false);
+        }
+        loadingMore(false);
+        stopRefresh(true);
+    }
+
 
     public void stopRefresh(boolean success){
         showprograss = false;

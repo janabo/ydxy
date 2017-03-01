@@ -57,6 +57,24 @@ public class ShouWenDetailActivity extends DetailActivity {
 
 
 	@Override
+	protected int getLayoutID() {
+		return R.layout.oa_shou_wen_view;
+	}
+
+	@Override
+	protected void initView() {
+		super.initView();
+		shareHelper = new CoreSharedPreferencesHelper(this);
+		dealState = getIntent().getStringExtra("dealState");
+		id = getIntent().getStringExtra(Constant.TYPE_URL);
+		title = getIntent().getStringExtra("title");
+		findUi();
+//		showProgressDialog();
+		mError.setErrorType(ErrorLayout.LOADDATA);
+		getList();
+	}
+
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.oa_shou_wen_view);
@@ -65,7 +83,8 @@ public class ShouWenDetailActivity extends DetailActivity {
 		id = getIntent().getStringExtra(Constant.TYPE_URL);
 		title = getIntent().getStringExtra("title");
 		findUi();
-		showProgressDialog();
+//		showProgressDialog();
+		mError.setErrorType(ErrorLayout.LOADDATA);
 		getList();
 	}
 
@@ -73,7 +92,8 @@ public class ShouWenDetailActivity extends DetailActivity {
 	 * 获取发文数据
 	 */
 	public void getList() {
-		showProgressDialog();
+//		showProgressDialog();
+		mError.setErrorType(ErrorLayout.LOADDATA);
 		if (DeviceUtil.checkNet()) {
 			HttpClientUtil.post("apps/oa/getSWDetail?" + id, null, new RequestCallBack<String>() {
 				@Override

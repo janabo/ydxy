@@ -1,14 +1,17 @@
 package com.dk.mp.xg.wsjc.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.entity.DfRecord;
+import com.dk.mp.xg.wsjc.ui.WsjcRecordDetailActivity;
 
 import java.util.List;
 
@@ -55,6 +58,19 @@ public class WsjcRecordListAdapter extends RecyclerView.Adapter<WsjcRecordListAd
             ssl_fjh = (TextView) itemView.findViewById(R.id.ssl_fjh);
             ssq = (TextView) itemView.findViewById(R.id.ssq);
             fs = (TextView) itemView.findViewById(R.id.fs);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DfRecord df = mData.get(getLayoutPosition());
+                    Intent intent = new Intent(mContext,WsjcRecordDetailActivity.class);
+                    intent.putExtra("id",df.getId());
+                    intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
+                    intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
+                    mContext.startActivity(intent);
+                }
+            });
+
         }
     }
 }
