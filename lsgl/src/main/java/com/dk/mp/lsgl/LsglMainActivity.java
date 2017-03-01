@@ -39,7 +39,7 @@ public class LsglMainActivity extends MyActivity implements View.OnClickListener
     @Override
     protected void initialize() {
         super.initialize();
-        setTitle("在校生住宿管理");
+        setTitle("留宿学生管理");
         initViews();
         loadDatas();
     }
