@@ -90,14 +90,14 @@ public class WsjcTjTabActivity extends MyActivity {
                         bundle.putSerializable("kfs", (Serializable) mWeeks);
                         intent.putExtras(bundle);
                         startActivityForResult(intent, 1);
-                        overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                        overridePendingTransition(R.anim.push_up_in, 0);
                     } else {
                         showErrorMsg(mViewpager, "未获取到周次选项");
                     }
                 }else if(tabSelect == 1){//按月统计
                     Intent intent = new Intent(mContext, WsjcTjMonthPickActivity.class);
                     startActivityForResult(intent, 2);
-                    overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                    overridePendingTransition(R.anim.push_up_in, 0);
                 }else if(tabSelect == 2){//按学期统计
                     if (mSemester.size() > 0 && mTemplet.size()>0) {
                         Intent intent = new Intent(mContext, WsjcTjSemesterPickActivity.class);
@@ -106,7 +106,7 @@ public class WsjcTjTabActivity extends MyActivity {
                         bundle.putSerializable("mb", (Serializable) mTemplet);
                         intent.putExtras(bundle);
                         startActivityForResult(intent, 3);
-                        overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                        overridePendingTransition(R.anim.push_up_in, 0);
                     }else{
                         showErrorMsg(mViewpager, "未获取到学期或模板选项");
                     }
@@ -149,12 +149,12 @@ public class WsjcTjTabActivity extends MyActivity {
                     setTitle(weekname);
 //                    fragment1.setMUrl("apps/sswsdftj/tj" +
 //                            "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
-                    fragment1.setMUrl(getUrl("week",weekid,"1","",weekname));
+                    fragment1.setMUrl(getUrl("week",weekid,type,"",weekname));
                 }else if(tabSelect == 1){
                     setTitle(TimeUtils.getCurrMonth());
 //                    fragment2.setMUrl("apps/sswsdftj/tj" +
 //                            "?type=month&key="+TimeUtils.getCurrMonth()+"&role="+1+"&pfmb="+"&name="+TimeUtils.getCurrMonth());
-                    fragment2.setMUrl(getUrl("month",TimeUtils.getCurrMonth(),"1","",TimeUtils.getCurrMonth()));
+                    fragment2.setMUrl(getUrl("month",TimeUtils.getCurrMonth(),type,"",TimeUtils.getCurrMonth()));
                 }else if(tabSelect == 2){
                     if(mSemester.size()>0){
                         semesterid = mSemester.get(0).getId();
@@ -166,7 +166,7 @@ public class WsjcTjTabActivity extends MyActivity {
                     setTitle(semestername);
 //                    fragment3.setMUrl("apps/sswsdftj/tj" +
 //                            "?type=year&key="+semesterid+"&role="+1+"&pfmb="+templetid+"&name="+semestername+"&timestamp="+new Date().getTime());
-                    fragment3.setMUrl(getUrl("year",semesterid,"1",templetid,semestername));
+                    fragment3.setMUrl(getUrl("year",semesterid,type,templetid,semestername));
                 }
             }
             @Override
@@ -201,7 +201,7 @@ public class WsjcTjTabActivity extends MyActivity {
                                 weekid = dfxxes.get(0).getId();
 //                                fragment1.setMUrl("apps/sswsdftj/tj" +
 //                                        "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
-                                fragment1.setMUrl(getUrl("week",weekid,"1","",weekname));
+                                fragment1.setMUrl(getUrl("week",weekid,type,"",weekname));
                             }else{
                                 showErrorMsg(mViewpager,getErrorMsg());
                             }
@@ -303,7 +303,7 @@ public class WsjcTjTabActivity extends MyActivity {
                     setTitle(weekname);
 //                    fragment1.setMUrl("apps/sswsdftj/tj" +
 //                            "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
-                    fragment1.setMUrl(getUrl("week",weekid,"1","",weekname));
+                    fragment1.setMUrl(getUrl("week",weekid,type,"",weekname));
                 }
                 break;
             case 2:
@@ -312,7 +312,7 @@ public class WsjcTjTabActivity extends MyActivity {
                     setTitle(month);
 //                    fragment2.setMUrl("apps/sswsdftj/tj" +
 //                            "?type=month&key="+month+"&role="+1+"&pfmb="+"&name="+month);
-                    fragment2.setMUrl(getUrl("month",month,"1","",month));
+                    fragment2.setMUrl(getUrl("month",month,type,"",month));
                 }
                 break;
             case 3:
@@ -322,7 +322,7 @@ public class WsjcTjTabActivity extends MyActivity {
                     templetid = data.getStringExtra("mbs");
 //                    fragment3.setMUrl("apps/sswsdftj/tj" +
 //                            "?type=year&key="+semesterid+"&role="+1+"&pfmb="+templetid+"&name="+data.getStringExtra("xqs"));
-                    fragment3.setMUrl(getUrl("year",semesterid,"1",templetid,data.getStringExtra("xqs")));
+                    fragment3.setMUrl(getUrl("year",semesterid,type,templetid,data.getStringExtra("xqs")));
                 }
                 break;
         }
@@ -334,7 +334,7 @@ public class WsjcTjTabActivity extends MyActivity {
      */
     public String getErrorMsg(){
         dropdown_img.setVisibility(View.INVISIBLE);
-        fragment1.setMUrl(getUrl("week",weekid,"1","",weekname));
+        fragment1.setMUrl(getUrl("week",weekid,type,"",weekname));
         return "未获取周次失败";
     }
 

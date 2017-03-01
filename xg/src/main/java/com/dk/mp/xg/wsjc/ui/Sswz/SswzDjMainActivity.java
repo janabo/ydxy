@@ -25,6 +25,7 @@ import com.dk.mp.core.entity.LoginMsg;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.view.DrawCheckMarkView;
 import com.dk.mp.core.view.DrawCrossMarkView;
@@ -284,7 +285,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
         }else if(R.id.wjrq_lin == view.getId()){//选择日期
             Intent intent = new Intent(mContext, SswzWjrqPickActivity.class);
             startActivityForResult(intent, 2);
-            overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+            overridePendingTransition(R.anim.push_up_in, 0);
         }else if(R.id.wjlb_lin == view.getId()){//违纪类别
             if(wjlbs.size()>0) {
                 Intent intent = new Intent(mContext, SswzWjlbPickActivity.class);
@@ -292,7 +293,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
                 bundle.putSerializable("kfs", (Serializable) wjlbs);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 3);
-                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                overridePendingTransition(R.anim.push_up_in, 0);
             }else{
                 getWjlbs();
                 if(wjlbs.size()>0) {
@@ -301,7 +302,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
                     bundle.putSerializable("kfs", (Serializable) wjlbs);
                     intent.putExtras(bundle);
                     startActivityForResult(intent, 3);
-                    overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                    overridePendingTransition(R.anim.push_up_in, 0);
                 }else {
                     showErrorMsg(mRootView, "未获取到违纪类别信息");
                 }
@@ -489,15 +490,15 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
 
             @Override
             public void onFailure(Call call, IOException e) {
-                call.cancel();// 上传失败取消请求释放内存
                 errorInfo();
                 showErrorMsg("上传附件失败");
+                call.cancel();// 上传失败取消请求释放内存
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-//                String result = response.body().string();
-//                Logger.info("######################result="+result);
+                String result = response.body().string();
+                Logger.info("######################result="+result);
                 call.cancel();// 上传失败取消请求释放内存
                 submit();
             }

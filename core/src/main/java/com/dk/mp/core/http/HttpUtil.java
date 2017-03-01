@@ -36,7 +36,8 @@ import okhttp3.RequestBody;
  * Volley 网络请求util
  */
 public class HttpUtil {
-    private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/*");
+    public static final String TYPE = "application/octet-stream";
+    private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("text/html");
     public final String TAG = this.getClass ( ).getSimpleName ( );
     public static Context mContext = MyApplication.getContext();
     private static HttpUtil httpUtil;
@@ -148,21 +149,22 @@ public class HttpUtil {
      */
     public void uploadImg(String url,List<File> files,okhttp3.Callback callback){
         // mImgUrls为存放图片的url集合
-        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        for (int i = 0; i <files.size() ; i++) {
-            File f= files.get(i);
-            if (f!=null) {
-                builder.addFormDataPart("fileName", f.getName(), RequestBody.create(MEDIA_TYPE_PNG, f));
-            }
-        }
-        // 创建RequestBody
-        RequestBody body = builder.build();
-//        if(files.size()<=0){
-//            return;
+//        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+//        for (int i = 0; i <files.size() ; i++) {
+//            File f= files.get(i);
+//            if (f!=null) {
+//                builder.addFormDataPart("fileName", f.getName(), RequestBody.create(MEDIA_TYPE_PNG, f));
+//            }
 //        }
-//
-//        //创建RequestBody
-//        RequestBody body = RequestBody.create(MEDIA_TYPE_PNG, files.get(0));
+//        // 创建RequestBody
+//        RequestBody body = builder.build();
+        if(files.size()<=0){
+            return;
+        }
+
+        //创建RequestBody
+        RequestBody fileBody  = RequestBody.create(MediaType.parse(TYPE), files.get(0));
+        RequestBody body = new MultipartBody.Builder().addFormDataPart("filename", files.get(0).getName(), fileBody).build();
 
         //构建请求
         final okhttp3.Request request = new okhttp3.Request.Builder().url(url).post(body).build();

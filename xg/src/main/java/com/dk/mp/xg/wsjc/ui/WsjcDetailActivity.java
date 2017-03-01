@@ -271,7 +271,7 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
             bundle.putSerializable("kfs", (Serializable) mKfs);
             intent.putExtras(bundle);
             startActivityForResult(intent, 3);
-            overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+            overridePendingTransition(R.anim.push_up_in, 0);
         }else{
             getKf();
             if(mKfs.size()>0) {
@@ -280,7 +280,7 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
                 bundle.putSerializable("kfs", (Serializable) mKfs);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 3);
-                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                overridePendingTransition(R.anim.push_up_in, 0);
             }else {
                 showErrorMsg(mRootView, "未获取到扣分原因选项");
             }

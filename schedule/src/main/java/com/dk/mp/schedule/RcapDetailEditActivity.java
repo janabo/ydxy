@@ -3,9 +3,11 @@ package com.dk.mp.schedule;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -43,6 +45,11 @@ public class RcapDetailEditActivity extends MyActivity implements View.OnClickLi
     @Override
     protected void initialize() {
         super.initialize();
+        Window window = getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(getResources().getColor(R.color.select_title));
+        }
+
         mRealmHelper = new RealmHelper(this);
         Intent intent = getIntent();
         idRcap = getIntent().getStringExtra("idRcap");
@@ -95,12 +102,14 @@ public class RcapDetailEditActivity extends MyActivity implements View.OnClickLi
             in.putExtra("compRq", endtime.getText());
             in.putExtra("type", 1);
             startActivityForResult(in, 1);
+            overridePendingTransition(R.anim.push_up_in, 0);
         }else if (v.getId() == R.id.show_endtime) {//结束时间
             Intent in = new Intent(this, DateAndTimePickActivity.class);
             in.putExtra("rq", endtime.getText());
             in.putExtra("compRq", starttime.getText());
             in.putExtra("type", 2);
             startActivityForResult(in, 2);
+            overridePendingTransition(R.anim.push_up_in, 0);
         }else if(v.getId() == R.id.cancle){//取消
             final AlertDialog alert = new AlertDialog(this);
             alert.show(null, "确定删除该日程吗？", new DialogInterface.OnClickListener() {

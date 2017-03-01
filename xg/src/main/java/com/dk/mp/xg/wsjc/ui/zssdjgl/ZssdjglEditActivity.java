@@ -165,7 +165,7 @@ public class ZssdjglEditActivity extends MyActivity{
         Intent intent = new Intent(mContext, SswzWjrqPickActivity.class);
         startActivityForResult(intent, 1);
         intent.putExtra("date",ksrq);
-        overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+        overridePendingTransition(R.anim.push_up_in, 0);
     }
 
     /**
@@ -176,7 +176,7 @@ public class ZssdjglEditActivity extends MyActivity{
         Intent intent = new Intent(mContext, SswzWjrqPickActivity.class);
         startActivityForResult(intent, 2);
         intent.putExtra("date",jsrq);
-        overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+        overridePendingTransition(R.anim.push_up_in, 0);
     }
 
     /**
@@ -187,7 +187,7 @@ public class ZssdjglEditActivity extends MyActivity{
         Intent intent = new Intent(mContext, SswzWjrqPickActivity.class);
         startActivityForResult(intent, 3);
         intent.putExtra("date",xjrq);
-        overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+        overridePendingTransition(R.anim.push_up_in, 0);
     }
 
     @Override
