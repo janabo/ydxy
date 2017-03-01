@@ -158,6 +158,7 @@ public class LsglSearchListFragment extends BaseFragment{
             ((MyView)holder).name.setText(list.get(position).getName());
             ((MyView)holder).roomid.setText(type.equals("1")?list.get(position).getRoom():list.get(position).getClassName());
             ((MyView)holder).mjjl.setText(list.get(position).getMsg());
+            ((MyView)holder).mess.setText(list.get(position).getMsg());
             if (role.equals("4")) {
                 ((MyView)holder).mess.setVisibility(View.GONE);
             } else {

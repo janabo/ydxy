@@ -171,7 +171,7 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
         mWrappedAdapter.notifyDataSetChanged();
         //加速度传感器 注册监听
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                //还有SENSOR_DELAY_UI、SENSOR_DELAY_FASTEST、SENSOR_DELAY_GAME等，
+                //还有SENSOR_DELAY_UI、SENSOR_DELAY_FASTEST、SENSOR_DELAY_GAME，SENSOR_DELAY_NORMAL等，
                 //根据不同应用，需要的反应速率不同，具体根据实际情况设定
                 SensorManager.SENSOR_DELAY_NORMAL);
     }
@@ -193,7 +193,7 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
               *的时候，瞬时加速度才会突然增大或减少，所以，经过实际测试，只需监听任一轴的
               * 加速度大于14的时候，改变你需要的设置就OK了
               */
-            if ((Math.abs(values[0]) > 20 || Math.abs(values[1]) > 20 || Math.abs(values[2]) > 20)) {
+            if ((Math.abs(values[0]) > 20 || Math.abs(values[1]) > 20 || Math.abs(values[2]) > 60)) {
                 //摇动手机后，设置button上显示的字为空
                 mAdapter.deleteItem();
             }

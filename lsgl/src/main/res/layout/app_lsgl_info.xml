@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#f4f4f4">
+    android:background="#ffffff">
 
     <include layout="@layout/core_title_back"/>
 
@@ -12,7 +12,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:transitionName="item"
-        android:id="@+id/rootview">
+        android:id="@+id/rootview"
+        android:background="#ffffff">
 
         <com.dk.mp.core.widget.ErrorLayout
             android:layout_height="match_parent"
