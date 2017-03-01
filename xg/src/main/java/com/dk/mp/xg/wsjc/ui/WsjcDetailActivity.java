@@ -427,7 +427,7 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
         params.put("kfId",kfId);
         params.put("dfxxId",dfxx.toString());
         params.put("df",dffs.toString());
-        params.put("fjName",filename);
+        params.put("fjName",uuid);
         params.put("bz",bz_edit.getText().toString());
         params.put("id", uuid);
         params.put("zzdf",mScore);

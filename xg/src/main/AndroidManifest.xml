@@ -30,6 +30,12 @@
         </activity>
 
         <activity
+            android:name="com.dk.mp.xg.wsjc.ui.WsjcRecordDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep">
+        </activity>
+
+        <activity
             android:name="com.dk.mp.xg.wsjc.ui.WsjcRecordListActivity"
             android:screenOrientation="portrait">
         </activity>
@@ -239,6 +245,11 @@
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZssglPutupActivity"
             android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.zssgl.ZssglSearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep.noAnimThemeStatusBarColorGray"/>
 
     </application>
 

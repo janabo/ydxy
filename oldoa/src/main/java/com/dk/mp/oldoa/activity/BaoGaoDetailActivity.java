@@ -1,6 +1,5 @@
 package com.dk.mp.oldoa.activity;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.TextView;
@@ -62,9 +61,13 @@ public class BaoGaoDetailActivity extends DetailActivity {
 	};
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.oa_bao_gao_view);
+	protected int getLayoutID() {
+		return R.layout.oa_bao_gao_view;
+	}
+
+	@Override
+	protected void initView() {
+		super.initView();
 		shareHelper = new CoreSharedPreferencesHelper(this);
 		dealState = getIntent().getStringExtra("dealState");
 		id = getIntent().getStringExtra(Constant.TYPE_URL);
@@ -72,6 +75,18 @@ public class BaoGaoDetailActivity extends DetailActivity {
 		findUi();
 		getList();
 	}
+
+//	@Override
+//	protected void onCreate(Bundle savedInstanceState) {
+//		super.onCreate(savedInstanceState);
+//		setContentView(R.layout.oa_bao_gao_view);
+//		shareHelper = new CoreSharedPreferencesHelper(this);
+//		dealState = getIntent().getStringExtra("dealState");
+//		id = getIntent().getStringExtra(Constant.TYPE_URL);
+//		title = getIntent().getStringExtra("title");
+//		findUi();
+//		getList();
+//	}
 
 	/**
 	 * 获取发文数据

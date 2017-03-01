@@ -1,6 +1,5 @@
 package com.dk.mp.oldoa.activity;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -73,9 +72,13 @@ public class FaWenDetailActivity extends DetailActivity implements OnClickListen
 	};
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.oa_fa_wen_view);
+	protected int getLayoutID() {
+		return R.layout.oa_fa_wen_view;
+	}
+
+	@Override
+	protected void initView() {
+		super.initView();
 		shareHelper = new CoreSharedPreferencesHelper(this);
 		dealState = getIntent().getStringExtra("dealState");
 		id = getIntent().getStringExtra(Constant.TYPE_URL);
@@ -84,6 +87,19 @@ public class FaWenDetailActivity extends DetailActivity implements OnClickListen
 		findUi();
 		getList();
 	}
+
+//	@Override
+//	protected void onCreate(Bundle savedInstanceState) {
+//		super.onCreate(savedInstanceState);
+//		setContentView(R.layout.oa_fa_wen_view);
+//		shareHelper = new CoreSharedPreferencesHelper(this);
+//		dealState = getIntent().getStringExtra("dealState");
+//		id = getIntent().getStringExtra(Constant.TYPE_URL);
+//		title = getIntent().getStringExtra("title");
+//		bzid = getIntent().getStringExtra("bzid");
+//		findUi();
+//		getList();
+//	}
 
 	/**
 	 * 获取发文数据

@@ -62,7 +62,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
     private String lcid,xqid,ssqid,fjhid,cwhid,tzyyid;//楼层id,校区id,宿舍区id,房间号,床位号,调整原因id
     private EditText bz,shyj;//申请理由
     private TextView ok_text;
-    private String mId,flag,lmlb;
+    private String mId,flag,lmlb,xb;
 
 
     @Override
@@ -108,6 +108,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
         mId = getIntent().getStringExtra("detailid");
         flag = getIntent().getStringExtra("flag");
         lmlb = getIntent().getStringExtra("lmlb");
+        xb = getIntent().getStringExtra("xb");
         getData();
         getXqs();
         getTsyys();
@@ -155,6 +156,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
         Map<String,Object> map = new HashMap<>();
         map.put("ssl",ssl);
         map.put("lc",lc);
+        map.put("xb",xb);
         HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/fjList", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
@@ -784,8 +786,8 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
                         lcid = z.getLc();
                         xqid = z.getXqid();
                         ssqid = z.getSsqid();
-                        fjhid = z.getFjh();
-                        cwhid = z.getCwh();
+                        fjhid = z.getFjhid();
+                        cwhid = z.getCwhid();
                         tzyyid = z.getTzyyid();
                         sslid = z.getSslid();
 //                        TextView xq_pick,ssq_pick,ssl_pick,lc_pick,fjh_pick,cwh_pick,fx_pick,zsf_pick,cws_pick,tzyy_pick;

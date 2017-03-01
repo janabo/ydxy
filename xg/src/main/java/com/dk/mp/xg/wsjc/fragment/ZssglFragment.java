@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -28,6 +29,7 @@ import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.entity.Zssgl;
 import com.dk.mp.xg.wsjc.ui.zssgl.ZssglDetailActivity;
+import com.dk.mp.xg.wsjc.ui.zssgl.ZssglSearchActivity;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -45,6 +47,7 @@ public class ZssglFragment extends BaseFragment implements View.OnClickListener{
     private MyListView myListView;
     private List<Zssgl> mData = new ArrayList<>();
     private String mType,lmlb="";
+    private LinearLayout search_button;
 
     @Override
     protected int getLayoutId() {
@@ -58,6 +61,19 @@ public class ZssglFragment extends BaseFragment implements View.OnClickListener{
         myListView = (MyListView)view.findViewById(oa_list);
         mError.setOnLayoutClickListener(this);
         BroadcastUtil.registerReceiver(getActivity(), mRefreshBroadcastReceiver, "zssgl_refresh");
+        search_button = (LinearLayout) view.findViewById(R.id.search_button);
+        search_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lmlb = StringUtils.isNotEmpty(lmlb)?lmlb:"2";
+                Intent intent = new Intent(mContext, ZssglSearchActivity.class);
+                intent.putExtra("type",mType);
+                intent.putExtra("lmlb",lmlb);
+                intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
+                intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
+                startActivity(intent);
+            }
+        });
     }
 
     private BroadcastReceiver mRefreshBroadcastReceiver = new BroadcastReceiver() {
@@ -192,6 +208,7 @@ public class ZssglFragment extends BaseFragment implements View.OnClickListener{
                     intent.putExtra("detailid",zssgl.getId());
                     intent.putExtra("lmlb",lmlb);
                     intent.putExtra("mType",mType);
+                    intent.putExtra("xb",zssgl.getXb());
                     intent.putExtra("sfksh",zssgl.getSfksh());
                     intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
                     intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));

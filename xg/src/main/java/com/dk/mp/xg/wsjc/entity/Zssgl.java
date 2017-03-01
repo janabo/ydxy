@@ -11,6 +11,7 @@ public class Zssgl {
     private String lx;//类型
     private String shzt;//审核状态
     private String sfksh;//是否可审核
+    private String xb;//性别
 
     public String getId() {
         return id;
@@ -58,5 +59,13 @@ public class Zssgl {
 
     public void setSfksh(String sfksh) {
         this.sfksh = sfksh;
+    }
+
+    public String getXb() {
+        return xb;
+    }
+
+    public void setXb(String xb) {
+        this.xb = xb;
     }
 }

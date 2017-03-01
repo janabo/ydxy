@@ -25,7 +25,6 @@ import com.dk.mp.core.entity.LoginMsg;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
-import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.view.DrawCheckMarkView;
 import com.dk.mp.core.view.DrawCrossMarkView;
@@ -401,11 +400,11 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
         params.put("ssl",sslid);
         params.put("fjh",fjhid);
         params.put("wjxs",wjxsid);
-        params.put("wjrq",wjrq.getText().toString());
+        params.put("wjrq",wjrq.getText().toString()+" 00:00:00");
         params.put("wjdhbh",uuid);
         params.put("wjlb",wjlbid);
         params.put("tbr",tbrid);
-        params.put("fjName","1111");
+        params.put("fjName",uuid);
         params.put("bz",bz.getText().toString());
 
         HttpUtil.getInstance().postJsonObjectRequest("apps/sswzdj/tjwz", params, new HttpListener<JSONObject>() {
@@ -490,15 +489,15 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
 
             @Override
             public void onFailure(Call call, IOException e) {
+                call.cancel();// 上传失败取消请求释放内存
                 errorInfo();
                 showErrorMsg("上传附件失败");
-                call.cancel();// 上传失败取消请求释放内存
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String result = response.body().string();
-                Logger.info("######################result="+result);
+//                String result = response.body().string();
+//                Logger.info("######################result="+result);
                 call.cancel();// 上传失败取消请求释放内存
                 submit();
             }

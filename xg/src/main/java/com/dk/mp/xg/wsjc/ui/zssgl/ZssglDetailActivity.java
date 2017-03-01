@@ -25,7 +25,7 @@ import com.dk.mp.xg.R;
 public class ZssglDetailActivity extends MyActivity implements View.OnClickListener{
     WebView mWebView;
     Button pass,notpass,untread;//通过，不通过，退回
-    String detailid,lmlb,mType,sfksh;
+    String detailid,lmlb,mType,sfksh,xb;
     private ErrorLayout mError;
     private LinearLayout lin_footer,footer2,footer;
     public static ZssglDetailActivity instance;
@@ -58,6 +58,7 @@ public class ZssglDetailActivity extends MyActivity implements View.OnClickListe
         lmlb = getIntent().getStringExtra("lmlb");
         mType = getIntent().getStringExtra("mType");
         sfksh = getIntent().getStringExtra("sfksh");
+        xb = getIntent().getStringExtra("xb");
         if("true".equals(sfksh)) {//可以审核
             if ("3".equals(mType)) {
                 lin_footer.setVisibility(View.VISIBLE);
@@ -244,6 +245,7 @@ public class ZssglDetailActivity extends MyActivity implements View.OnClickListe
         intent.putExtra("detailid",detailid);
         intent.putExtra("flag",flag);
         intent.putExtra("lmlb",lmlb);
+        intent.putExtra("xb",xb);
         startActivity(intent);
     }
 
