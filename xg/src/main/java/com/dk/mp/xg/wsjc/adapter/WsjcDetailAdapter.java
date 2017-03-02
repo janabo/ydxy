@@ -73,7 +73,7 @@ public class WsjcDetailAdapter extends RecyclerView.Adapter<WsjcDetailAdapter.My
                 public void onClick(View view) {
                     int starscore = Integer.parseInt(star.getText().toString());
 
-                    if(starscore>1){
+                    if(starscore>0){
                         star.setText(starscore-1+"");
                         listener.SaveEdit(mData.get(getLayoutPosition()).getId(),-1);
                     }
