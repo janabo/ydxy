@@ -57,6 +57,14 @@
             android:layout_width="match_parent"
             android:gravity="center">
         </com.dk.mp.core.widget.ErrorLayout>
+
+    <RelativeLayout
+        android:id="@+id/update_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top"
+        android:layout_above="@id/bottom"
+        android:visibility="gone">
         <TextView
             android:id="@+id/txt1"
             android:layout_width="match_parent"
@@ -64,8 +72,7 @@
             android:textColor="#646464"
             android:textSize="15sp"
             android:text="移动校园更新日志"
-            android:layout_marginLeft="20dp"
-            android:layout_below="@id/top"/>
+            android:layout_marginLeft="20dp"/>
         <View
             android:id="@+id/view1"
             android:layout_width="match_parent"
@@ -82,7 +89,6 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_below="@id/view1"
-            android:layout_above="@id/bottom"
             android:layout_marginBottom="20dp">
             <TextView
                 android:id="@+id/updateInfo"
@@ -91,8 +97,37 @@
                 android:textSize="12sp"
                 android:textColor="#212121"
                 android:lineSpacingMultiplier="1.2"
-                android:text=""/>
+                android:text="1231313"/>
         </ScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="#e5e5e5"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:gravity="center"
+                android:onClick="toUpdate">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="更新应用"
+                    android:textSize="15sp"
+                    android:textColor="#212121"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="#e5e5e5"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/bottom"
@@ -103,27 +138,6 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:gravity="center_horizontal">
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-            android:background="#e5e5e5"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:gravity="center"
-            android:background="@drawable/ripple_bg_while"
-            android:onClick="toUpdate">
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="更新应用"
-                android:textSize="15sp"
-                android:textColor="#212121"/>
-            </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-            android:background="#e5e5e5"/>
         <TextView
             android:id="@+id/copyright_info_ch"
             android:layout_height="wrap_content"

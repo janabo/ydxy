@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -33,6 +34,7 @@ public class AboutActivity extends MyActivity{
     private Button back;
     private String url="",desc="",versionName="";//下载地址，描述
     private ErrorLayout mError;
+    private RelativeLayout update_layout;
 
     @Override
     protected int getLayoutID() {
@@ -42,6 +44,7 @@ public class AboutActivity extends MyActivity{
     @Override
     protected void initView() {
         super.initView();
+        update_layout = (RelativeLayout) findViewById(R.id.update_layout);
         version = (TextView) findViewById(R.id.version);
         mTitle = (TextView) findViewById(R.id.schoolname);
         updateInfo = (TextView) findViewById(R.id.updateInfo);
@@ -111,6 +114,9 @@ public class AboutActivity extends MyActivity{
                                     desc = (String) map.get("desc");
                                     versionName = (String) map.get("versionName");
                                     updateInfo.setText(desc);
+                                    if(StringUtils.isNotEmpty(url) && StringUtils.isNotEmpty(desc)){
+                                        update_layout.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             } else {
 
