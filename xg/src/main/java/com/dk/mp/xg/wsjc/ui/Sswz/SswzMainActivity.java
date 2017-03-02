@@ -13,7 +13,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -69,7 +68,7 @@ public class SswzMainActivity extends MyActivity implements
         super.onCreate(savedInstanceState);
         getLayoutID();
         Window window = getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+//        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getResources().getColor(R.color.black50));
         }
@@ -167,7 +166,7 @@ public class SswzMainActivity extends MyActivity implements
 
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-
+        isHasSurface = false;
     }
 
     /**

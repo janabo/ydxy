@@ -92,7 +92,17 @@ public class WsjcTjTabActivity extends MyActivity {
                         startActivityForResult(intent, 1);
                         overridePendingTransition(R.anim.push_up_in, 0);
                     } else {
-                        showErrorMsg(mViewpager, "未获取到周次选项");
+                        getWeeks();
+                        if (mWeeks.size() > 0) {
+                            Intent intent = new Intent(mContext, WsjcTjWeekPickActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("kfs", (Serializable) mWeeks);
+                            intent.putExtras(bundle);
+                            startActivityForResult(intent, 1);
+                            overridePendingTransition(R.anim.push_up_in, 0);
+                        }else {
+                            showErrorMsg(mViewpager, "未获取到周次选项");
+                        }
                     }
                 }else if(tabSelect == 1){//按月统计
                     Intent intent = new Intent(mContext, WsjcTjMonthPickActivity.class);
@@ -108,7 +118,19 @@ public class WsjcTjTabActivity extends MyActivity {
                         startActivityForResult(intent, 3);
                         overridePendingTransition(R.anim.push_up_in, 0);
                     }else{
-                        showErrorMsg(mViewpager, "未获取到学期或模板选项");
+                        getSemesters();
+                        getTempl();
+                        if (mSemester.size() > 0 && mTemplet.size()>0) {
+                            Intent intent = new Intent(mContext, WsjcTjSemesterPickActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("xq", (Serializable) mSemester);
+                            bundle.putSerializable("mb", (Serializable) mTemplet);
+                            intent.putExtras(bundle);
+                            startActivityForResult(intent, 3);
+                            overridePendingTransition(R.anim.push_up_in, 0);
+                        }else {
+                            showErrorMsg(mViewpager, "未获取到学期或模板选项");
+                        }
                     }
                 }
             }
@@ -202,6 +224,7 @@ public class WsjcTjTabActivity extends MyActivity {
 //                                fragment1.setMUrl("apps/sswsdftj/tj" +
 //                                        "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
                                 fragment1.setMUrl(getUrl("week",weekid,type,"",weekname));
+//                                fragment1.setMUrl("http://www.baidu.com");
                             }else{
                                 showErrorMsg(mViewpager,getErrorMsg());
                             }

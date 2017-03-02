@@ -1,11 +1,16 @@
 package com.dk.mp.xg.wsjc.ui.Sswz;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.dk.mp.core.entity.LoginMsg;
@@ -36,6 +41,16 @@ public class SswzRecordDetailActivity extends MyActivity{
         mWebView = (WebView) findViewById(R.id.content);
         mProgressBar = (ProgressBar) findViewById(R.id.pb_new_detail);
         mError = (ErrorLayout) findViewById(R.id.error_layout);
+        Button back = (Button) findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (mWebView.canGoBack()) {
+                    mWebView.goBack();
+                } else {
+                    finish();
+                }
+            }
+        });
     }
 
     @Override
@@ -44,7 +59,9 @@ public class SswzRecordDetailActivity extends MyActivity{
         setTitle("宿舍违章登记");
         String id = getIntent().getStringExtra("id");
         setWebView ( );
-        mWebView.loadUrl(getUrl("apps/sswzdj/detail?id="+id));
+        String mUrl = getUrl("apps/sswzdj/detail?id="+id);
+        Logger.info("url =" +mUrl);
+        mWebView.loadUrl(mUrl);
     }
 
     private void setWebView ( ) {
@@ -58,6 +75,15 @@ public class SswzRecordDetailActivity extends MyActivity{
         settings.setCacheMode ( WebSettings.LOAD_NO_CACHE );
         settings.setAppCacheEnabled ( true );
         settings.setJavaScriptEnabled ( true );    //启用JS脚本
+        mWebView.setDownloadListener(new DownloadListener() {
+            @Override
+            public void onDownloadStart(String url, String s1, String s2, String s3, long l) {
+                // 监听下载功能，当用户点击下载链接的时候，直接调用系统的浏览器来下载
+                Uri uri = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -66,6 +92,12 @@ public class SswzRecordDetailActivity extends MyActivity{
         public MyWebViewClient ( ProgressBar progressBar ) {
             super ( );
             mProgressBar = progressBar;
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
         }
 
         @Override
@@ -119,6 +151,16 @@ public class SswzRecordDetailActivity extends MyActivity{
         } else {
             return mContext.getString(R.string.rootUrl)+url;
         }
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack()) {
+            mWebView.goBack();
+            return true;
+        } else {
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

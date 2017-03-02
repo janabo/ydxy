@@ -72,7 +72,13 @@ public class ZssglDetailActivity extends MyActivity implements View.OnClickListe
                 lin_footer.setVisibility(View.GONE);
             }
         }else{
-            lin_footer.setVisibility(View.GONE);
+            if ("4".equals(mType) && "1".equals(lmlb)) {
+                lin_footer.setVisibility(View.VISIBLE);
+                footer.setVisibility(View.GONE);
+                footer2.setVisibility(View.VISIBLE);
+            }else {
+                lin_footer.setVisibility(View.GONE);
+            }
         }
         getData();
     }
@@ -146,6 +152,7 @@ public class ZssglDetailActivity extends MyActivity implements View.OnClickListe
         Intent intent = new Intent(mContext,ZssglPutupActivity.class);
         intent.putExtra("detailid",detailid);
         startActivity(intent);
+        overridePendingTransition(R.anim.push_up_in, 0);
     }
 
     public void setMUrl(String url){
