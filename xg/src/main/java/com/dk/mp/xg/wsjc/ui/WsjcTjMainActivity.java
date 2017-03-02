@@ -95,7 +95,7 @@ public class WsjcTjMainActivity extends MyActivity implements View.OnClickListen
             @Override
             public void onSuccess(JSONObject result) {
                 try {
-                    if(result != null) {
+                     if(result != null) {
                         GsonData<Role> gsonData = new Gson().fromJson(result.toString(), new TypeToken<GsonData<Role>>() {
                         }.getType());
                         if (gsonData.getCode() == 200) {

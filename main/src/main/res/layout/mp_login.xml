@@ -192,6 +192,7 @@
             android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
             android:layout_marginTop="20dip"
+            android:layout_marginBottom="20dip"
             android:elevation="3dp"
             android:background="@color/rcap_gray"
             android:onClick="tologin"

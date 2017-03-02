@@ -3,6 +3,7 @@ package com.dk.mp.xg.wsjc.ui.zssgl;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
@@ -120,7 +121,7 @@ public class ZssglPutupActivity extends MyActivity{
         Intent intent = new Intent(mContext, SswzWjrqPickActivity.class);
         startActivityForResult(intent, 3);
         intent.putExtra("date",xjrq);
-        overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+        overridePendingTransition(R.anim.push_up_in, 0);
     }
 
     @Override
@@ -135,6 +136,21 @@ public class ZssglPutupActivity extends MyActivity{
                     ok.setTextColor(getResources().getColor(R.color.colorPrimary));
                 }
                 break;
+        }
+    }
+
+    public void back() {
+        finish();
+        overridePendingTransition(0, R.anim.push_down_out);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            back();
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
         }
     }
 

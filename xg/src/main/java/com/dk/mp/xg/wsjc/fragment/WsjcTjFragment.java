@@ -31,27 +31,34 @@ public class WsjcTjFragment extends BaseFragment{
         mWebView = (WebView) view.findViewById(R.id.mWebview);
         mProgressBar = (ProgressBar) view.findViewById(R.id.pb_new_detail);
         mError = (ErrorLayout) view.findViewById(R.id.error_layout);
+        setWebView();
     }
 
     public void setMUrl(String url){
-        setWebView();
+        mWebView.removeAllViews();
+        mError.setErrorType(ErrorLayout.LOADDATA);
         url = getUrl(url);
         Logger.info("##########murl="+url);
-        mWebView.removeAllViews();
         mWebView.clearCache(true);
-        mWebView.loadUrl (url);
+        mWebView.removeAllViews();
+        mWebView.clearHistory();
+        if("http://www.baidu.com".equals(url)) {
+            mWebView.loadUrl(url);
+        }else{
+            mWebView.loadUrl(url);
+        }
     }
 
     private void setWebView ( ) {
-        mError.setErrorType(ErrorLayout.LOADDATA);
         WebSettings settings = mWebView.getSettings ( );
         mWebView.setWebViewClient ( new MyWebViewClient ( mProgressBar ) );
         mWebView.setWebChromeClient ( new MyWebChromeClient ( mProgressBar ) );
-        settings.setSupportZoom ( true );          //支持缩放
+        settings.setSupportZoom ( false );          //支持缩放
         settings.setBlockNetworkImage ( false );  //设置图片最后加载
-        settings.setDatabaseEnabled ( true );
+        settings.setDatabaseEnabled ( false );
         settings.setCacheMode ( WebSettings.LOAD_NO_CACHE );
         settings.setJavaScriptEnabled ( true );    //启用JS脚本
+        settings.setAppCacheEnabled(false);
     }
 
 
@@ -61,6 +68,8 @@ public class WsjcTjFragment extends BaseFragment{
             super ( );
             mProgressBar = progressBar;
         }
+
+
 
         @Override
         public void onPageStarted ( WebView view, String url, Bitmap favicon ) {
@@ -96,6 +105,7 @@ public class WsjcTjFragment extends BaseFragment{
         public void onReceivedTitle ( WebView view, String title ) {
             super.onReceivedTitle ( view, title );
         }
+
     }
 
 
