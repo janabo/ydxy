@@ -3,6 +3,7 @@ package com.dk.mp.lsgl;
 import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.dk.mp.core.http.HttpUtil;
@@ -24,10 +25,11 @@ import java.util.List;
 
 public class LsglMainActivity extends MyActivity implements View.OnClickListener{
 
-    private LinearLayout bzr;
-    private LinearLayout xb;
-    private LinearLayout xgc;
-    private LinearLayout fdy;
+//    private LinearLayout bzr;
+//    private LinearLayout xb;
+//    private LinearLayout xgc;
+//    private LinearLayout fdy;
+    private LinearLayout content;
 
     private ErrorLayout mError;
 
@@ -45,10 +47,7 @@ public class LsglMainActivity extends MyActivity implements View.OnClickListener
     }
 
     private void initViews() {
-        bzr = (LinearLayout)findViewById(R.id.bzr);
-        xb = (LinearLayout)findViewById(R.id.xb);
-        xgc = (LinearLayout)findViewById(R.id.xgc);
-        fdy = (LinearLayout)findViewById(R.id.fdy);
+        content = (LinearLayout)findViewById(R.id.maincontext);
         mError = (ErrorLayout) findViewById(R.id.error_layout);
         mError.setOnLayoutClickListener(this);
     }
@@ -66,16 +65,46 @@ public class LsglMainActivity extends MyActivity implements View.OnClickListener
                         } else if (roles.size() == 0) {
                             mError.setErrorType(ErrorLayout.NODATA);
                         } else {
-                            for (RoleEntity role : roles) {
-                                if (role.getId().equals("1")) {
-                                    bzr.setVisibility(View.VISIBLE);
-                                } else if (role.getId().equals("3")) {
-                                    xb.setVisibility(View.VISIBLE);
-                                } else if (role.getId().equals("4")) {
-                                    xgc.setVisibility(View.VISIBLE);
-                                } else if (role.getId().equals("2")) {
-                                    fdy.setVisibility(View.VISIBLE);
+                            for (final RoleEntity role : roles) {
+                                View view = getLayoutInflater().inflate(R.layout.app_lsgl_main_item, null);
+                                view.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        doStartActivity(role.getId(),view);
+                                    }
+                                });
+                                LinearLayout linearboder = (LinearLayout) view.findViewById(R.id.lineborder);
+                                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT,1);
+                                TextView text = (TextView) view.findViewById(R.id.linebordertext);
+                                TextView name = (TextView) view.findViewById(R.id.linebordername);
+                                switch (role.getId()){
+                                    case "1" :{
+                                        linearboder.setBackgroundResource(R.drawable.tro_blue_entry_style);
+                                        text.setText("班");
+                                        name.setText("班主任视角");
+                                        break;
+                                    }
+                                    case "2" : {
+                                        linearboder.setBackgroundResource(R.drawable.tro_org_entry_style);
+                                        text.setText("辅");
+                                        name.setText("辅导员视角");
+                                        break;
+                                    }
+                                    case "3" : {
+                                        linearboder.setBackgroundResource(R.drawable.tro_green_entry_style);
+                                        text.setText("系");
+                                        name.setText("系部视角");
+                                        break;
+                                    }
+                                    case "4" : {
+                                        linearboder.setBackgroundResource(R.drawable.tro_yel_entry_style);
+                                        text.setText("学");
+                                        name.setText("学工处视角");
+                                        break;
+                                    }
+                                    default : break;
                                 }
+                                content.addView(view,params);
                             }
                             mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                         }
@@ -94,19 +123,6 @@ public class LsglMainActivity extends MyActivity implements View.OnClickListener
 
     android.os.Handler handler=new android.os.Handler();
     boolean isposting = false;
-
-    public void tobzr(View v){
-        doStartActivity("1",v);
-    }
-    public void toxb(View v){
-        doStartActivity("3",v);
-    }
-    public void toxg(View v){
-        doStartActivity("4",v);
-    }
-    public void tofdy(View v){
-        doStartActivity("2",v);
-    }
 
     private void doStartActivity(final String role , final View view){
         if (!isposting) {
