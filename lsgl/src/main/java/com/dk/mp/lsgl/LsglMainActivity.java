@@ -65,7 +65,14 @@ public class LsglMainActivity extends MyActivity implements View.OnClickListener
                         } else if (roles.size() == 0) {
                             mError.setErrorType(ErrorLayout.NODATA);
                         } else {
-                            for (final RoleEntity role : roles) {
+                            for (int i=0;i<roles.size();i++) {
+                                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT,1);
+                                final RoleEntity role = roles.get(i);
+                                if (i == roles.size()-1){
+                                    params.setMargins(0,0,0,0);
+                                } else {
+                                    params.setMargins(0,0,0,StringUtils.dip2px(LsglMainActivity.this,10));
+                                }
                                 View view = getLayoutInflater().inflate(R.layout.app_lsgl_main_item, null);
                                 view.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -74,7 +81,6 @@ public class LsglMainActivity extends MyActivity implements View.OnClickListener
                                     }
                                 });
                                 LinearLayout linearboder = (LinearLayout) view.findViewById(R.id.lineborder);
-                                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT,1);
                                 TextView text = (TextView) view.findViewById(R.id.linebordertext);
                                 TextView name = (TextView) view.findViewById(R.id.linebordername);
                                 switch (role.getId()){
