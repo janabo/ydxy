@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 
 import com.android.volley.VolleyError;
+import com.dk.mp.core.application.MyApplication;
 import com.dk.mp.core.entity.LoginMsg;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
@@ -11,6 +12,7 @@ import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.main.R;
 import com.dk.mp.main.home.ui.HomeActivity;
+import com.squareup.leakcanary.RefWatcher;
 
 import org.json.JSONObject;
 
@@ -34,8 +36,8 @@ public class SplashActivity extends MyActivity {
         super.initialize();
         helper = getSharedPreferences();
         //在自己的应用初始Activity中加入如下两行代码 //TODO
-//        RefWatcher refWatcher = MyApplication.getRefWatcher(this);
-//        refWatcher.watch(this);
+        RefWatcher refWatcher = MyApplication.getRefWatcher(this);
+        refWatcher.watch(this);
 
         mHandler.postDelayed(new Runnable() {
             @Override
