@@ -58,6 +58,7 @@ public class CollapseCalendarView extends LinearLayout implements View.OnClickLi
     private ImageView mIvNext;
     private Animation left_in;
     private Animation right_in;
+    private Animation left_out;
     private boolean initialized;
     private String[] weeks;
     private OnTitleClickListener titleClickListener;
@@ -120,6 +121,7 @@ public class CollapseCalendarView extends LinearLayout implements View.OnClickLi
     private void initAnim(){
         left_in = AnimationUtils.makeInAnimation(getContext(), true);
         right_in = AnimationUtils.makeInAnimation(getContext(), false);
+        left_out = AnimationUtils.makeOutAnimation(getContext(),false);
     }
 
     /**

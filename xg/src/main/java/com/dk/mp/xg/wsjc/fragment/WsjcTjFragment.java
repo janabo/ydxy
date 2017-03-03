@@ -31,34 +31,32 @@ public class WsjcTjFragment extends BaseFragment{
         mWebView = (WebView) view.findViewById(R.id.mWebview);
         mProgressBar = (ProgressBar) view.findViewById(R.id.pb_new_detail);
         mError = (ErrorLayout) view.findViewById(R.id.error_layout);
-        setWebView();
     }
 
     public void setMUrl(String url){
-        mWebView.removeAllViews();
         mError.setErrorType(ErrorLayout.LOADDATA);
         url = getUrl(url);
         Logger.info("##########murl="+url);
-        mWebView.clearCache(true);
-        mWebView.removeAllViews();
-        mWebView.clearHistory();
-        if("http://www.baidu.com".equals(url)) {
-            mWebView.loadUrl(url);
-        }else{
-            mWebView.loadUrl(url);
-        }
+        mWebView.loadUrl(url);
+        Logger.info("##########mCount="+mWebView.getChildCount());
+    }
+
+    @Override
+    public void onFirstUserVisible() {
+        super.onFirstUserVisible();
+        setWebView();
     }
 
     private void setWebView ( ) {
         WebSettings settings = mWebView.getSettings ( );
         mWebView.setWebViewClient ( new MyWebViewClient ( mProgressBar ) );
         mWebView.setWebChromeClient ( new MyWebChromeClient ( mProgressBar ) );
-        settings.setSupportZoom ( false );          //支持缩放
+//        settings.setSupportZoom ( false );          //支持缩放
         settings.setBlockNetworkImage ( false );  //设置图片最后加载
-        settings.setDatabaseEnabled ( false );
-        settings.setCacheMode ( WebSettings.LOAD_NO_CACHE );
-        settings.setJavaScriptEnabled ( true );    //启用JS脚本
-        settings.setAppCacheEnabled(false);
+//        settings.setDatabaseEnabled ( false );
+//        settings.setCacheMode ( WebSettings.LOAD_NO_CACHE );
+//        settings.setJavaScriptEnabled ( false );    //启用JS脚本
+//        settings.setAppCacheEnabled(false);
     }
 
 
@@ -122,9 +120,11 @@ public class WsjcTjFragment extends BaseFragment{
         }
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        mWebView.onPause();
-    }
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        mWebView.onPause();
+//    }
+
+
 }
