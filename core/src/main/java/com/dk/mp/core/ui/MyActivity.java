@@ -390,8 +390,4 @@ public abstract class MyActivity extends AppCompatActivity{
         ImageView view = (ImageView) findViewById(R.id.brithday);
         view.setVisibility(View.VISIBLE);
     }
-
-    public void CloseDraw(){
-        drawerLayout.closeDrawers();
-    }
 }
