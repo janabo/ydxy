@@ -122,6 +122,7 @@ public class CoreSharedPreferencesHelper {
         editor.putString("user_info", null);
         editor.putString("user", null);
         editor.putString("loginMsg", null);
+        editor.putString("preferenceItem", null);
         editor.commit();
     }
 
