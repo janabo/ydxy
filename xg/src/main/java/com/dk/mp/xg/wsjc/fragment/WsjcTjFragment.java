@@ -31,34 +31,31 @@ public class WsjcTjFragment extends BaseFragment{
         mWebView = (WebView) view.findViewById(R.id.mWebview);
         mProgressBar = (ProgressBar) view.findViewById(R.id.pb_new_detail);
         mError = (ErrorLayout) view.findViewById(R.id.error_layout);
+        setWebView();
     }
 
     public void setMUrl(String url){
         mError.setErrorType(ErrorLayout.LOADDATA);
+//        mWebView.removeAllViews();
+//        mWebView.clearCache(true);
         url = getUrl(url);
         Logger.info("##########murl="+url);
         mWebView.loadUrl(url);
         Logger.info("##########mCount="+mWebView.getChildCount());
     }
 
-    @Override
-    public void onFirstUserVisible() {
-        super.onFirstUserVisible();
-        setWebView();
-    }
+//    @Override
+//    public void onFirstUserVisible() {
+//        super.onFirstUserVisible();
+//    }
 
     private void setWebView ( ) {
         WebSettings settings = mWebView.getSettings ( );
         mWebView.setWebViewClient ( new MyWebViewClient ( mProgressBar ) );
         mWebView.setWebChromeClient ( new MyWebChromeClient ( mProgressBar ) );
-//        settings.setSupportZoom ( false );          //支持缩放
-        settings.setBlockNetworkImage ( false );  //设置图片最后加载
-//        settings.setDatabaseEnabled ( false );
-//        settings.setCacheMode ( WebSettings.LOAD_NO_CACHE );
-//        settings.setJavaScriptEnabled ( false );    //启用JS脚本
-//        settings.setAppCacheEnabled(false);
+        settings.setJavaScriptEnabled ( true );    //启用JS脚本
+        settings.setCacheMode ( WebSettings.LOAD_NO_CACHE );
     }
-
 
     public class MyWebViewClient extends WebViewClient {
         ProgressBar mProgressBar;
