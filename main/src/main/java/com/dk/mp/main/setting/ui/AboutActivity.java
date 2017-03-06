@@ -119,19 +119,23 @@ public class AboutActivity extends MyActivity{
                                     }
                                 }
                             } else {
-
+//                                showErrorMsg(getReString(R.string.net_no2));
+                                showErrorMsg("获取版本内容失败");
                             }
                         }else{
                             mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+                            showErrorMsg("获取版本内容失败");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                         mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+                        showErrorMsg("获取版本内容失败");
                     }
                 }
                 @Override
                 public void onError(VolleyError error) {
                     mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+                    showErrorMsg("获取版本内容失败");
                 }
             });
         }else{

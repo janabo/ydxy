@@ -487,9 +487,9 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
         LoginMsg loginMsg = getSharedPreferences().getLoginMsg();
         String mUrl = getReString(R.string.uploadUrl);
         if(loginMsg != null) {
-            mUrl +="stargate/attachmentUpload.service?type=sswsjcAttachment&userId="+loginMsg.getUid()+"&password="+loginMsg.getPsw()+"&ownerId="+uuid;
+            mUrl +="attachmentUpload.service?type=sswsjcAttachment&userId="+loginMsg.getUid()+"&password="+loginMsg.getPsw()+"&ownerId="+uuid;
         }else{
-            mUrl +="stargate/attachmentUpload.service?type=sswsjcAttachment&ownerId="+uuid;
+            mUrl +="attachmentUpload.service?type=sswsjcAttachment&ownerId="+uuid;
         }
         List<File> files = new ArrayList<>();
         files.add(new File(noCutFilePath));

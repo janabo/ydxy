@@ -480,9 +480,9 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
         LoginMsg loginMsg = getSharedPreferences().getLoginMsg();
         String mUrl = getReString(R.string.uploadUrl);
         if(loginMsg != null) {
-            mUrl +="stargate/attachmentUpload.service?type=sswzdjAttachment&userId="+loginMsg.getUid()+"&password="+loginMsg.getPsw()+"&ownerId="+uuid;
+            mUrl +="attachmentUpload.service?type=sswzdjAttachment&userId="+loginMsg.getUid()+"&password="+loginMsg.getPsw()+"&ownerId="+uuid;
         }else{
-            mUrl +="stargate/attachmentUpload.service?type=sswzdjAttachment&ownerId="+uuid;
+            mUrl +="attachmentUpload.service?type=sswzdjAttachment&ownerId="+uuid;
         }
         List<File> files = new ArrayList<>();
         files.add(new File(noCutFilePath));
