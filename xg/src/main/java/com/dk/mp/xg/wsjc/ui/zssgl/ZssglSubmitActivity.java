@@ -1,6 +1,7 @@
 package com.dk.mp.xg.wsjc.ui.zssgl;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
+import com.dk.mp.core.dialog.AlertDialog;
 import com.dk.mp.core.entity.JsonData;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
@@ -141,4 +143,14 @@ public class ZssglSubmitActivity extends MyActivity {
             }
         }
     };
+
+    @Override
+    public void back() {
+        new AlertDialog(mContext).show(null, "是否退出审核？", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                ZssglSubmitActivity.super.back();
+            }
+        });
+    }
 }

@@ -1,5 +1,6 @@
 package com.dk.mp.xg.wsjc.ui.zssgl;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
@@ -14,6 +15,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
+import com.dk.mp.core.dialog.AlertDialog;
 import com.dk.mp.core.entity.JsonData;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
@@ -267,5 +269,15 @@ public class ZsstjAddTingSuActivity extends MyActivity implements View.OnClickLi
                 ok.setEnabled(true);
             }
         },1000);
+    }
+
+    @Override
+    public void back() {
+        new AlertDialog(mContext).show(null, "是否退出停宿申请？", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                ZsstjAddTingSuActivity.super.back();
+            }
+        });
     }
 }

@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">刘高职</string>
 
-    <string name="rootUrl">http://192.168.1.155:9095/mp-lgj4_1/</string>
-    <!--<string name="rootUrl">http://192.168.3.163:8082/mp-lgj/</string>-->
-    <string name="uploadUrl">http://192.168.3.14:8081/</string>
+    <!-- <string name="rootUrl">http://192.168.1.155:9095/mp-lgj4_1/</string>-->
+    <string name="rootUrl">http://192.168.3.163:8082/mp-lgj/</string>
+    <string name="uploadUrl">http://192.168.1.154:9081/</string>
 
     <string name="about_copyright_cn">常州刘国钧高等职业技术学校版权所有</string>
     <string name="about_copyright_zn">Copyright xxxxxxxxx</string>

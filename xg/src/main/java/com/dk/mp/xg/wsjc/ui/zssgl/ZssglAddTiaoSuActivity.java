@@ -1,5 +1,6 @@
 package com.dk.mp.xg.wsjc.ui.zssgl;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
+import com.dk.mp.core.dialog.AlertDialog;
 import com.dk.mp.core.entity.GsonData;
 import com.dk.mp.core.entity.JsonData;
 import com.dk.mp.core.http.HttpUtil;
@@ -871,5 +873,15 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
             ok.setBackgroundColor(getResources().getColor(R.color.rcap_gray));
             ok.setEnabled(false);
         }
+    }
+
+    @Override
+    public void back() {
+        new AlertDialog(mContext).show(null, "是否退出调宿申请？", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+               ZssglAddTiaoSuActivity.super.back();
+            }
+        });
     }
 }
