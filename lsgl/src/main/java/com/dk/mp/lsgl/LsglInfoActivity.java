@@ -223,29 +223,11 @@ public class LsglInfoActivity extends MyActivity implements View.OnClickListener
             public void onSuccess(JSONObject result) {
                 try {
                     fklist = getGson().fromJson(result.getJSONArray("data").toString(), new TypeToken<List<FkEntity>>(){}.getType());
-//                    String[] title = new String[fklist.size()];
-//                    for (int i =0;i<fklist.size();i++){
-//                        title[i] = fklist.get(i).getName();
-//                    }
-//                    setTheme(R.style.ActionSheetStyleiOS7);
-//                    ActionSheet.createBuilder(LsglInfoActivity.this, getSupportFragmentManager())
-//                            .setCancelButtonTitle("取消")
-//                            .setOtherButtonTitles(title)
-//                            .setCancelableOnTouchOutside(true)
-//                            .setListener(new ActionSheet.ActionSheetListener() {
-//                                @Override
-//                                public void onDismiss(ActionSheet actionSheet, boolean isCancel) {}
-//                                @Override
-//                                public void onOtherButtonClick(ActionSheet actionSheet, int index) {
-//                                    fktext.setText(fklist.get(index).getName());
-//                                    fktext.setTag(fklist.get(index).getId());
-//                                }
-//                            }).show();
                     error_layout.setVisibility(View.GONE);
                     context.setVisibility(View.VISIBLE);
                     bzline.setVisibility(canBz ? View.VISIBLE:View.GONE);
                     fkline.setVisibility(canFk ? View.VISIBLE:View.GONE);
-                    submitButton.setVisibility( !(canBz && canFk) ? View.GONE : View.VISIBLE );
+                    submitButton.setVisibility( !(canBz || canFk) ? View.GONE : View.VISIBLE );
                 } catch (JSONException e) {
                     error_layout.setErrorType(ErrorLayout.NETWORK_ERROR);
                 }

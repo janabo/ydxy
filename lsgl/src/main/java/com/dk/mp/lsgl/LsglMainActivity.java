@@ -65,52 +65,59 @@ public class LsglMainActivity extends MyActivity implements View.OnClickListener
                         } else if (roles.size() == 0) {
                             mError.setErrorType(ErrorLayout.NODATA);
                         } else {
-                            for (int i=0;i<roles.size();i++) {
-                                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT,1);
-                                final RoleEntity role = roles.get(i);
-                                if (i == roles.size()-1){
-                                    params.setMargins(0,0,0,0);
-                                } else {
-                                    params.setMargins(0,0,0,StringUtils.dip2px(LsglMainActivity.this,10));
+                            if (roles.size() == 1) {
+                                Intent intent = new Intent(LsglMainActivity.this,LsglTabActivity.class);
+                                intent.putExtra("role", roles.get(0).getId());
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                for (int i=0;i<roles.size();i++) {
+                                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT,1);
+                                    final RoleEntity role = roles.get(i);
+                                    if (i == roles.size()-1){
+                                        params.setMargins(0,0,0,0);
+                                    } else {
+                                        params.setMargins(0,0,0,StringUtils.dip2px(LsglMainActivity.this,10));
+                                    }
+                                    View view = getLayoutInflater().inflate(R.layout.app_lsgl_main_item, null);
+                                    view.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            doStartActivity(role.getId(),view);
+                                        }
+                                    });
+                                    LinearLayout linearboder = (LinearLayout) view.findViewById(R.id.lineborder);
+                                    TextView text = (TextView) view.findViewById(R.id.linebordertext);
+                                    TextView name = (TextView) view.findViewById(R.id.linebordername);
+                                    switch (role.getId()){
+                                        case "1" :{
+                                            linearboder.setBackgroundResource(R.drawable.tro_blue_entry_style);
+                                            text.setText("班");
+                                            name.setText("班主任视角");
+                                            break;
+                                        }
+                                        case "2" : {
+                                            linearboder.setBackgroundResource(R.drawable.tro_org_entry_style);
+                                            text.setText("辅");
+                                            name.setText("辅导员视角");
+                                            break;
+                                        }
+                                        case "3" : {
+                                            linearboder.setBackgroundResource(R.drawable.tro_green_entry_style);
+                                            text.setText("系");
+                                            name.setText("系部视角");
+                                            break;
+                                        }
+                                        case "4" : {
+                                            linearboder.setBackgroundResource(R.drawable.tro_yel_entry_style);
+                                            text.setText("学");
+                                            name.setText("学工处视角");
+                                            break;
+                                        }
+                                        default : break;
+                                    }
+                                    content.addView(view,params);
                                 }
-                                View view = getLayoutInflater().inflate(R.layout.app_lsgl_main_item, null);
-                                view.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        doStartActivity(role.getId(),view);
-                                    }
-                                });
-                                LinearLayout linearboder = (LinearLayout) view.findViewById(R.id.lineborder);
-                                TextView text = (TextView) view.findViewById(R.id.linebordertext);
-                                TextView name = (TextView) view.findViewById(R.id.linebordername);
-                                switch (role.getId()){
-                                    case "1" :{
-                                        linearboder.setBackgroundResource(R.drawable.tro_blue_entry_style);
-                                        text.setText("班");
-                                        name.setText("班主任视角");
-                                        break;
-                                    }
-                                    case "2" : {
-                                        linearboder.setBackgroundResource(R.drawable.tro_org_entry_style);
-                                        text.setText("辅");
-                                        name.setText("辅导员视角");
-                                        break;
-                                    }
-                                    case "3" : {
-                                        linearboder.setBackgroundResource(R.drawable.tro_green_entry_style);
-                                        text.setText("系");
-                                        name.setText("系部视角");
-                                        break;
-                                    }
-                                    case "4" : {
-                                        linearboder.setBackgroundResource(R.drawable.tro_yel_entry_style);
-                                        text.setText("学");
-                                        name.setText("学工处视角");
-                                        break;
-                                    }
-                                    default : break;
-                                }
-                                content.addView(view,params);
                             }
                             mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                         }
