@@ -244,7 +244,8 @@ public class ZssglDetailActivity extends MyActivity implements View.OnClickListe
         intent.putExtra("flagName",flagName);
         intent.putExtra("url",url);
         startActivity(intent);
-        overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+//        overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+        overridePendingTransition(R.anim.push_up_in, 0);
     }
 
     private void toTiaosuSubmit(String flag){
