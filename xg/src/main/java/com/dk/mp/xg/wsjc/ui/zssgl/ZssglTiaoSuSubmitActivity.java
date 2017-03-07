@@ -645,7 +645,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
                                 if(ZssglDetailActivity.instance!= null){
                                     ZssglDetailActivity.instance.finish();
                                 }
-                                back();
+                                finish();
                             }
                         },1000);
                     }else{

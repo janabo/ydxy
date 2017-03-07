@@ -137,7 +137,7 @@ public class ZssglAddTuiSuActivity extends MyActivity implements View.OnClickLis
                             public void run() {
                                 ok.setEnabled(true);
                                 BroadcastUtil.sendBroadcast(mContext, "zssgl_refresh");
-                                back();
+                               finish();
                             }
                         },1000);
                     }else{

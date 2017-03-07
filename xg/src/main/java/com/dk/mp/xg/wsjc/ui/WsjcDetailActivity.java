@@ -2,6 +2,7 @@ package com.dk.mp.xg.wsjc.ui;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -365,8 +366,17 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
 
         noCutFilePath = BASEPICPATH + UUID.randomUUID().toString() + ".jpg";
         Intent getImageByCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        getImageByCamera.setFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
-        getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(noCutFilePath)));
+       /*获取当前系统的android版本号*/
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+        if (currentapiVersion<24){
+            getImageByCamera.setFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
+            getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(noCutFilePath)));
+        }else{
+            ContentValues contentValues = new ContentValues(1);
+            contentValues.put(MediaStore.Images.Media.DATA, new File(noCutFilePath).getAbsolutePath());
+            Uri uri = mContext.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues);
+            getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        }
         startActivityForResult(getImageByCamera, 4);
     }
 

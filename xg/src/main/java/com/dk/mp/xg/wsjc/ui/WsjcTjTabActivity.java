@@ -369,4 +369,12 @@ public class WsjcTjTabActivity extends MyActivity {
         return mUrl;
     }
 
+    @Override
+    public void back() {
+        if(WsjcTjMainActivity.instance != null){
+            WsjcTjMainActivity.instance.finish();
+        }
+        super.back();
+
+    }
 }

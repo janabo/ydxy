@@ -811,7 +811,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
                             public void run() {
                                 ok.setEnabled(true);
                                 BroadcastUtil.sendBroadcast(mContext, "zssgl_refresh");
-                                back();
+                                finish();
                             }
                         },1000);
                     }else{

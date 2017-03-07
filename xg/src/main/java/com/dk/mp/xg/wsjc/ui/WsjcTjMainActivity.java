@@ -31,6 +31,7 @@ public class WsjcTjMainActivity extends MyActivity implements View.OnClickListen
     private ErrorLayout mError;
     private LinearLayout content;
 //    private LinearLayout bzr,xb,fdy,xgc;
+    public static WsjcTjMainActivity instance;
 
     @Override
     protected int getLayoutID() {
@@ -44,6 +45,7 @@ public class WsjcTjMainActivity extends MyActivity implements View.OnClickListen
         mError = (ErrorLayout) findViewById(R.id.error_layout);
         mError.setOnLayoutClickListener(this);
         content = (LinearLayout)findViewById(R.id.maincontext);
+        instance = this;
 //        bzr = (LinearLayout) findViewById(bzr);
 //        xb = (LinearLayout) findViewById(xb);
 //        fdy = (LinearLayout) findViewById(fdy);
