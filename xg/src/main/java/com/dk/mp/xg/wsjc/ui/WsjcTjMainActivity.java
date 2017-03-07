@@ -112,6 +112,7 @@ public class WsjcTjMainActivity extends MyActivity implements View.OnClickListen
                             if(dfxxes.size()>0){//获取数据不为空
                                 if(dfxxes.size() == 1) {//如果只有一g个角色数据之间跳转响应界面
                                     toDetail(dfxxes.get(0).getId());
+                                    finish();
                                 }else{
                                     int i=0;
                                     for(final Role r : dfxxes){
