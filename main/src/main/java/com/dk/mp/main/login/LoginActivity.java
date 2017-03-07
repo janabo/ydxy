@@ -85,6 +85,8 @@ public class LoginActivity extends MyActivity implements View.OnClickListener{
         if(yzmcount >2){//错误两次显示验证码
             yzm_lin.setVisibility(View.VISIBLE);
             yzm_view.setVisibility(View.VISIBLE);
+            ok.setBackgroundColor(getResources().getColor(R.color.rcap_gray));
+            ok.setEnabled(false);
             getYzm();
         }
         uid.addTextChangedListener(mTextWatcher);
@@ -103,7 +105,7 @@ public class LoginActivity extends MyActivity implements View.OnClickListener{
     }
 
     private void getYzm(){
-        HttpUtil.getInstance().getGsonRequestJson(JsonData.class, "http://192.168.3.127:8082/mp/getRadomCode",
+        HttpUtil.getInstance().getGsonRequestJson(JsonData.class, "getRadomCode",
             new HttpListener<JsonData>() {
                 @Override
                 public void onSuccess(JsonData result) {
@@ -225,8 +227,10 @@ public class LoginActivity extends MyActivity implements View.OnClickListener{
             if(userId.length()>0 && pass.length()>0 && (yzm_lin.getVisibility()
                     == View.GONE || (yzm_lin.getVisibility() == View.VISIBLE && mYzm.length()>0))){
                 ok.setBackground(getResources().getDrawable(R.drawable.ripple_bg));
+                ok.setEnabled(true);
             }else{
                 ok.setBackgroundColor(getResources().getColor(R.color.rcap_gray));
+                ok.setEnabled(false);
             }
         }
     };

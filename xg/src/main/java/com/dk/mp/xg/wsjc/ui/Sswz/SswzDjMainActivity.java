@@ -2,6 +2,7 @@ package com.dk.mp.xg.wsjc.ui.Sswz;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -178,9 +179,22 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
 //        startActivityForResult(intent, 5);
 
         noCutFilePath = BASEPICPATH + UUID.randomUUID().toString() + ".jpg";
+
         Intent getImageByCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        getImageByCamera.setFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
-        getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(noCutFilePath)));
+       /*获取当前系统的android版本号*/
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+        if (currentapiVersion<24){
+            getImageByCamera.setFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
+            getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(noCutFilePath)));
+        }else{
+            ContentValues contentValues = new ContentValues(1);
+            contentValues.put(MediaStore.Images.Media.DATA, new File(noCutFilePath).getAbsolutePath());
+            Uri uri = mContext.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues);
+            getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        }
+//        Intent getImageByCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        getImageByCamera.setFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
+//        getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(noCutFilePath)));
         startActivityForResult(getImageByCamera, 6);
     }
 
@@ -480,9 +494,9 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
         LoginMsg loginMsg = getSharedPreferences().getLoginMsg();
         String mUrl = getReString(R.string.uploadUrl);
         if(loginMsg != null) {
-            mUrl +="stargate/attachmentUpload.service?type=sswzdjAttachment&userId="+loginMsg.getUid()+"&password="+loginMsg.getPsw()+"&ownerId="+uuid;
+            mUrl +="attachmentUpload.service?type=sswzdjAttachment&userId="+loginMsg.getUid()+"&password="+loginMsg.getPsw()+"&ownerId="+uuid;
         }else{
-            mUrl +="stargate/attachmentUpload.service?type=sswzdjAttachment&ownerId="+uuid;
+            mUrl +="attachmentUpload.service?type=sswzdjAttachment&ownerId="+uuid;
         }
         List<File> files = new ArrayList<>();
         files.add(new File(noCutFilePath));

@@ -9,7 +9,6 @@ import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.CrashHandler;
 import com.dk.mp.core.util.ImagePipelineConfigFactory;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.squareup.leakcanary.RefWatcher;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -53,7 +52,7 @@ public class MyApplication extends Application{
                 .build();
         Realm.setDefaultConfiguration(configuration);
 
-//        //在自己的Application中添加如下代码TODO
+        //在自己的Application中添加如下代码TODO
 //        refWatcher = LeakCanary.install(this);
 
         //初始化图片加载框架
@@ -61,13 +60,13 @@ public class MyApplication extends Application{
     }
 
     //在自己的Application中添加如下代码
-    private RefWatcher refWatcher;
+//    private RefWatcher refWatcher;
 
     //在自己的Application中添加如下代码
-    public static RefWatcher getRefWatcher(Context context) {
-        MyApplication application = (MyApplication) context
-                .getApplicationContext();
-        return application.refWatcher;
-    }
+//    public static RefWatcher getRefWatcher(Context context) {
+//        MyApplication application = (MyApplication) context
+//                .getApplicationContext();
+//        return application.refWatcher;
+//    }
 
 }

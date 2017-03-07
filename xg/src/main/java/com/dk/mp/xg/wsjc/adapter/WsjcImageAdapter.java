@@ -1,6 +1,7 @@
 package com.dk.mp.xg.wsjc.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +11,10 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.dk.mp.xg.R;
+import com.dk.mp.xg.wsjc.ui.ImagePreviewActivity;
 import com.dk.mp.xg.wsjc.ui.WsjcDetailActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -76,7 +79,10 @@ public class WsjcImageAdapter extends RecyclerView.Adapter<WsjcImageAdapter.MyVi
                if("addImage".equals(data.get(getLayoutPosition()))){//添加按钮
                    activity.startReadWi();
                }else{//预览图片
-
+                   Intent intent = new Intent(mContext, ImagePreviewActivity.class);
+                   intent.putExtra("index", 0);
+                   intent.putStringArrayListExtra("list", (ArrayList<String>) data);
+                   mContext.startActivity(intent);
                }
                }
            });

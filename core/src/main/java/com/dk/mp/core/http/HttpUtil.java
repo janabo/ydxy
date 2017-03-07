@@ -16,6 +16,7 @@ import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.http.request.HttpRequest;
 import com.dk.mp.core.http.request.JsonObjectRequest;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
+import com.dk.mp.core.util.Logger;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
@@ -148,6 +149,7 @@ public class HttpUtil {
      * 上传图片
      */
     public void uploadImg(String url,List<File> files,okhttp3.Callback callback){
+        Logger.info("############ uploadImg Url = "+url);
         // mImgUrls为存放图片的url集合
 //        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
 //        for (int i = 0; i <files.size() ; i++) {
