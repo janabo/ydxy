@@ -200,6 +200,13 @@ public class ZsstjTabActivity extends MyActivity {
                     weekid = data.getStringExtra("kfsid");
                     weekname = data.getStringExtra("kfs");
                     setTitle(weekname);
+                    if(tabSelect == 0) {
+                        fragment1.setMUrl(getUrl(weekid, "today", type));
+                    }else if(tabSelect == 1) {
+                        fragment2.setMUrl(getUrl(weekid, "week", type));
+                    }else if(tabSelect == 2){
+                        fragment3.setMUrl(getUrl(weekid, "month", type));
+                    }
                 }
                 break;
         }

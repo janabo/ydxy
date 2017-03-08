@@ -368,7 +368,7 @@ public abstract class MyActivity extends AppCompatActivity{
         }else if("stu".contains(str)){
             v.setBackgroundResource(R.drawable.circle_border_stu);
         }else{
-            v.setBackgroundResource(R.drawable.circle_border_vwxyz);
+            v.setBackgroundResource(R.drawable.circle_border_default);
         }
     }
 
