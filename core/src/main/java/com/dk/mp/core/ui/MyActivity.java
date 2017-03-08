@@ -218,11 +218,17 @@ public abstract class MyActivity extends AppCompatActivity{
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         Animator animator = createRevealAnimator(true, x, y);
                         animator.start();
+                    }else{
+                        finish();
                     }
                 }
             });
         } else {
-            onBackPressed();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                onBackPressed();
+            }else{
+                finish();
+            }
         }
     }
 
