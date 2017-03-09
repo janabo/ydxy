@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:transitionName="item"
+        android:layout_weight="1"
         android:id="@+id/rootview1"
         android:background="#f4f4f4">
 
