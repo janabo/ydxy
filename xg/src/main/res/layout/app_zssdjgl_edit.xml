@@ -38,13 +38,14 @@
 
         <TextView
             android:id="@+id/ok"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimary50"
             android:text="确定"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dip"/>
+            android:layout_marginRight="10dip"
+            android:enabled="false"/>
     </RelativeLayout>
     <View
         android:layout_height="0.8dp"

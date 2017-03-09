@@ -114,7 +114,9 @@ public class ZssdjglSearchActivity extends MyActivity implements View.OnClickLis
                     Logger.info(keywords);
                     hideSoftInput();
                     if (StringUtils.isNotEmpty(keywords)) {
+                        mError.setErrorType(ErrorLayout.LOADDATA);
                         getData();
+                        mData.clear();
                     } else {
                         SnackBarUtil.showShort(layout_search,"请输入关键字");
                     }
@@ -156,7 +158,8 @@ public class ZssdjglSearchActivity extends MyActivity implements View.OnClickLis
                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                 if(result.getList() != null && result.getList().size()>0) {
                     mData.addAll(result.getList());
-                    mRecycle.addList(result.getList());
+//                    mRecycle.addList(result.getList());
+                    mRecycle.finish(result.getTotalPages(),result.getCurrentPage());
                 }else{
                     if(mRecycle.pageNo == 1) {
                         mError.setErrorType(ErrorLayout.SEARCHNODATA);

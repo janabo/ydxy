@@ -16,10 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -28,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dk.mp.core.R;
+import com.dk.mp.core.application.MyApplication;
 import com.dk.mp.core.entity.App;
 import com.dk.mp.core.util.AppUtil;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
@@ -86,7 +85,8 @@ public abstract class MyActivity extends AppCompatActivity{
                 @Override
                 public void run() {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        Animator animator = createRevealAnimator(false, x, y);
+//                        Animator animator = createRevealAnimator(false, x, y);
+                        Animator animator = MyApplication.createRevealAnimator(false,x,y,frameLayout,MyActivity.this);
                         animator.start();
                     }
                 }
@@ -216,7 +216,8 @@ public abstract class MyActivity extends AppCompatActivity{
                 @Override
                 public void run() {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        Animator animator = createRevealAnimator(true, x, y);
+//                        Animator animator = createRevealAnimator(true, x, y);
+                        Animator animator = MyApplication.createRevealAnimator(true,x,y,frameLayout,MyActivity.this);
                         animator.start();
                     }else{
                         finish();
@@ -325,36 +326,36 @@ public abstract class MyActivity extends AppCompatActivity{
         SnackBarUtil.showShort(frameLayout,msg);
     }
 
-    private Animator createRevealAnimator(boolean reversed, int x, int y) {
-        float hypot = (float) Math.hypot(frameLayout.getHeight(), frameLayout.getWidth());
-        float startRadius = reversed ? hypot : 0;
-        float endRadius = reversed ? 0 : hypot;
-
-        Animator animator = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            animator = ViewAnimationUtils.createCircularReveal(
-                    frameLayout, x, y,
-                    startRadius,
-                    endRadius);
-        }
-        animator.setDuration(400);
-        animator.setInterpolator(new AccelerateDecelerateInterpolator());
-        if (reversed)
-            animator.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {}
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    frameLayout.setVisibility(View.INVISIBLE);
-                    finish();
-                }
-                @Override
-                public void onAnimationCancel(Animator animation) {}
-                @Override
-                public void onAnimationRepeat(Animator animation) {}
-            });
-        return animator;
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+//    private Animator createRevealAnimator(boolean reversed, int x, int y) {
+//        float hypot = (float) Math.hypot(frameLayout.getHeight(), frameLayout.getWidth());
+//        float startRadius = reversed ? hypot : 0;
+//        float endRadius = reversed ? 0 : hypot;
+//
+//        Logger.info("###########hypot="+hypot);
+//        Animator animator = ViewAnimationUtils.createCircularReveal(
+//                frameLayout, x, y,
+//                startRadius,
+//                endRadius);
+//        animator.setDuration(400);
+//        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+//        Logger.info("###########duration="+animator.getDuration());
+//        if (reversed)
+//            animator.addListener(new Animator.AnimatorListener() {
+//                @Override
+//                public void onAnimationStart(Animator animation) {}
+//                @Override
+//                public void onAnimationEnd(Animator animation) {
+//                    frameLayout.setVisibility(View.INVISIBLE);
+//                    finish();
+//                }
+//                @Override
+//                public void onAnimationCancel(Animator animation) {}
+//                @Override
+//                public void onAnimationRepeat(Animator animation) {}
+//            });
+//        return animator;
+//    }
 
 
     public static void getBackgroud(View v ,String str){

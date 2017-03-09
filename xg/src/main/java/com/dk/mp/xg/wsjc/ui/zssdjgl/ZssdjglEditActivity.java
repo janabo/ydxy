@@ -198,20 +198,38 @@ public class ZssdjglEditActivity extends MyActivity{
                 if(resultCode == RESULT_OK){
                     String mWjrq = data.getStringExtra("date");
                     ksrq_pick.setText(mWjrq);
+                    if(jsrq_pick.getText().toString().length()>0){
+                        ok.setEnabled(true);
+                        ok.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    }else{
+                        ok.setEnabled(false);
+                        ok.setTextColor(getResources().getColor(R.color.colorPrimary50));
+                    }
                 }
                 break;
             case 2:
                 if(resultCode == RESULT_OK){
                     String mWjrq = data.getStringExtra("date");
                     jsrq_pick.setText(mWjrq);
+                    if(ksrq_pick.getText().toString().length()>0){
+                        ok.setEnabled(true);
+                        ok.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    }else{
+                        ok.setEnabled(false);
+                        ok.setTextColor(getResources().getColor(R.color.colorPrimary50));
+                    }
                 }
                 break;
             case 3:
                 if(resultCode == RESULT_OK){
                     String mWjrq = data.getStringExtra("date");
                     xjrq_pick.setText(mWjrq);
+                    ok.setEnabled(true);
+                    ok.setTextColor(getResources().getColor(R.color.colorPrimary));
                 }
                 break;
         }
     }
+
+
 }

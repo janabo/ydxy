@@ -178,7 +178,7 @@ public class CoreSharedPreferencesHelper {
      */
     public boolean getBoolean(String key) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
-        boolean hello = settings.getBoolean(key, false);
+        boolean hello = settings.getBoolean(key, true);
         return hello;
     }
 

@@ -95,11 +95,13 @@ public class SettingActivity extends MyActivity{
         bmhyx = (TextView) findViewById(R.id.bmhyx);
         pesonphoto = (ImageView) findViewById(R.id.photo);
         checkbox_settting = (SwitchCompat) findViewById(R.id.checkbox_settting);
+        checkbox_settting.setChecked(helper.getBoolean("push_check"));
         checkbox_settting.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 SnackBarUtil.showShort(setting_scro,
                         isChecked?"开启推送设置，您将及时收到学校公布的各类重要消息！":"关闭推送设置，您将不会收到学校公布的各类重要消息！");
+                helper.setBoolean("push_check",isChecked);
             }
         });
         String value = helper.getValue("font_type");
@@ -118,9 +120,11 @@ public class SettingActivity extends MyActivity{
         if(checkbox_settting.isChecked()){
             SnackBarUtil.showShort(setting_scro,"关闭推送设置，您将不会收到学校公布的各类重要消息！");
             checkbox_settting.setChecked(false);
+            helper.setBoolean("push_check",false);
         }else{
             SnackBarUtil.showShort(setting_scro,"开启推送设置，您将及时收到学校公布的各类重要消息！");
             checkbox_settting.setChecked(true);
+            helper.setBoolean("push_check",true);
         }
     }
 

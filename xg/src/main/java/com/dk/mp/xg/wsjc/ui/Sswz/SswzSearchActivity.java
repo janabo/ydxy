@@ -126,6 +126,8 @@ public class SswzSearchActivity extends MyActivity implements View.OnClickListen
 
     public void getData(){
         if(DeviceUtil.checkNet()) {
+            mList.clear();
+            mRecycle.clearList();
             query();
         }else{
             if(mRecycle.pageNo == 1) {

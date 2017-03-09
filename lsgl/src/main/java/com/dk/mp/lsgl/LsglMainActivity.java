@@ -150,7 +150,7 @@ public class LsglMainActivity extends MyActivity implements View.OnClickListener
                     startActivity(intent);
                     isposting = false;
                 }
-            },500);
+            },50);
         }
     }
 
