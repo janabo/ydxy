@@ -58,7 +58,7 @@ public class LsglSearchListFragment extends BaseFragment{
         myListView = (MyListView) view.findViewById(R.id.lsgllistview);
         myListView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         myListView.setAdapterInterface(list,adapterInterface);
-        initDatas();
+//        initDatas();
     }
 
     private void initDatas(){
