@@ -79,6 +79,13 @@ public class ZssdjglEditActivity extends MyActivity{
             }
             ksrq_pick.setText(ksrq);
             jsrq_pick.setText(jsrq);
+            if(ksrq_pick.getText().toString().length()>0 && jsrq_pick.getText().toString().length()>0){
+                ok.setEnabled(true);
+                ok.setTextColor(getResources().getColor(R.color.colorPrimary));
+            }else{
+                ok.setEnabled(false);
+                ok.setTextColor(getResources().getColor(R.color.colorPrimary50));
+            }
         }
     }
 

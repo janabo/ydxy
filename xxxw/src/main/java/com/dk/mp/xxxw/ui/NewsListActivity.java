@@ -27,6 +27,7 @@ import com.dk.mp.core.view.MyListView;
 import com.dk.mp.core.view.RecycleViewDivider;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xxxw.R;
+import com.dk.mp.xxxw.db.RealmHelper;
 import com.dk.mp.xxxw.entity.News;
 import com.google.gson.reflect.TypeToken;
 
@@ -44,6 +45,7 @@ public class NewsListActivity extends MyActivity implements View.OnClickListener
     ErrorLayout mError;
     private MyListView myListView;
     private List<News> list = new ArrayList<>();
+    private RealmHelper mRealmHelper;
 
     @Override
     protected int getLayoutID() {
@@ -54,10 +56,10 @@ public class NewsListActivity extends MyActivity implements View.OnClickListener
     protected void initialize() {
         super.initialize();
         setTitle(getIntent().getStringExtra("title"));
+        mRealmHelper = new RealmHelper(this);
         myListView = (MyListView) findViewById(R.id.newslist);
         mError = (ErrorLayout) findViewById(R.id.error_layout);
         mError.setOnLayoutClickListener(this);
-
         LinearLayoutManager manager = new LinearLayoutManager(this);
         myListView.setLayoutManager(manager);
         myListView.addItemDecoration(new RecycleViewDivider(this, GridLayoutManager.HORIZONTAL, 1, Color.rgb(201, 201, 201)));//添加分割线
@@ -94,11 +96,7 @@ public class NewsListActivity extends MyActivity implements View.OnClickListener
         if(DeviceUtil.checkNet()) {
             getList();
         }else{
-            if(myListView.pageNo == 1) {
-                mError.setErrorType(ErrorLayout.NETWORK_ERROR);
-            }else{
-                SnackBarUtil.showShort(myListView,R.string.net_no2);
-            }
+            getNewsLocal(1,myListView.pageNo);
         }
     }
 
@@ -111,6 +109,10 @@ public class NewsListActivity extends MyActivity implements View.OnClickListener
             public void onSuccess(PageMsg<News> result) {
                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                 if(result.getList() != null && result.getList().size()>0) {
+//                    if(myListView.pageNo == 1){
+//                        mRealmHelper.deleteAllNews();//删除之前的数据
+//                    }
+                    mRealmHelper.addNews(result.getList());
                     list.addAll(result.getList());
                     myListView.finish(result.getTotalPages(),result.getCurrentPage());
                 }else{
@@ -123,11 +125,12 @@ public class NewsListActivity extends MyActivity implements View.OnClickListener
             }
             @Override
             public void onError(VolleyError error) {
-                if(myListView.pageNo == 1) {
-                    mError.setErrorType(ErrorLayout.DATAFAIL);
-                }else{
-                    SnackBarUtil.showShort(myListView,R.string.data_fail);
-                }
+//                if(myListView.pageNo == 1) {
+//                    mError.setErrorType(ErrorLayout.DATAFAIL);
+//                }else{
+//                    SnackBarUtil.showShort(myListView,R.string.data_fail);
+//                }
+                getNewsLocal(2,myListView.pageNo);
             }
         });
     }
@@ -162,6 +165,28 @@ public class NewsListActivity extends MyActivity implements View.OnClickListener
                 }
             });
         }
+    }
+
+    /**
+     * 本地获取数据
+     * @param par  1 无网络  2，获取数据失败
+     */
+    public void getNewsLocal(int par,int pageNo){
+//        List<News> newses = mRealmHelper.queryAllNews();
+//        if(newses != null && newses.size()>0){
+//            list.addAll(newses);
+//            myListView.finish(1,1);
+//        }else{
+//            if(par == 1 && pageNo == 1) {
+//                mError.setErrorType(ErrorLayout.NETWORK_ERROR);
+//            }else if(par ==2 && pageNo == 1){
+//                mError.setErrorType(ErrorLayout.DATAFAIL);
+//            }else if(par == 1 && pageNo != 1){
+//                SnackBarUtil.showShort(myListView,R.string.net_no2);
+//            }else if(par == 2 && pageNo != 1){
+//                SnackBarUtil.showShort(myListView,R.string.data_fail);
+//            }
+//        }
     }
 
 }

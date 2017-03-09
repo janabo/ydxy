@@ -67,6 +67,8 @@ public class ZssdjglAddLiusuActivity extends MyActivity implements ZssdjglPerson
         mRecyclerView = (RecyclerView) findViewById(R.id.person_recycle);
         jsrq_pick = (TextView) findViewById(R.id.jsrq_pick);
         ksrq_pick = (TextView) findViewById(R.id.ksrq_pick);
+        ksrq_title = (TextView) findViewById(R.id.ksrq_title);
+        jsrq_title = (TextView) findViewById(R.id.jrrq_title);
         mRootView = (ScrollView) findViewById(R.id.mRootView);
         ok = (LinearLayout) findViewById(R.id.ok);
         progress = (DrawHookView) findViewById(R.id.progress);
@@ -78,9 +80,12 @@ public class ZssdjglAddLiusuActivity extends MyActivity implements ZssdjglPerson
         type = getIntent().getStringExtra("type");
         if("1".equals(type)) {
             setTitle("留宿登记");
-
+            ksrq_title.setText("留宿开始时间");
+            jsrq_title.setText("留宿结束时间");
         }else{
             setTitle("请假登记");
+            ksrq_title.setText("请假开始时间");
+            jsrq_title.setText("请假结束时间");
         }
         persons.add(new Zssdjgl("addperson",""));
 
@@ -190,7 +195,7 @@ public class ZssdjglAddLiusuActivity extends MyActivity implements ZssdjglPerson
 
     @Override
     public void back() {
-        new AlertDialog(mContext).show(null, "是否退出留宿登记？", new DialogInterface.OnClickListener() {
+        new AlertDialog(mContext).show(null, "1".equals(type)?"是否退出留宿登记？":"是否退出请假登记？", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 ZssdjglAddLiusuActivity.super.back();
