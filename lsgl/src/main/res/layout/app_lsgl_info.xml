@@ -151,14 +151,14 @@
                         android:inputType="textMultiLine"
                         android:id="@+id/bztext"
                         android:background="#ffffff"
-                        android:hint="备注(500字以内)"
+                        android:hint="备注(200字以内)"
                         android:layout_height="150dp"
                         android:gravity="left|top"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:paddingTop="15dp"
                         android:paddingBottom="15dp"
-                        android:maxLength="500"
+                        android:maxLength="200"
                         android:textColor="#212121"
                         android:textSize="?attr/textSize12"/>
 
