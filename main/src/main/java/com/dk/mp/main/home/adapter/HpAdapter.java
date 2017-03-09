@@ -174,7 +174,7 @@ public class HpAdapter extends RecyclerView.Adapter<HpAdapter.MyViewHolder> impl
                                 }
                                 isposting = false;
                             }
-                                                },500);
+                                                },100);
                     }
 
 

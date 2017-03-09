@@ -72,9 +72,9 @@ public class HeaderView {
                         List<SlideNews> list = gson.fromJson(result.getJSONArray("data").toString(),new TypeToken<List<SlideNews>>(){}.getType());
                         if (list.size() != 0) {
                             slideList.clear();
-                            slideList.addAll(list);
-                            mLoopAdapter.notifyDataSetChanged();
                         }
+                        slideList.addAll(list.subList(0,4));
+                        mLoopAdapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
