@@ -45,8 +45,22 @@
             android:screenOrientation="portrait"
             android:theme="@style/noAnimThemep.noAnimThemeStatusBarColorGray"/>
 
+        <!--<activity-->
+            <!--android:name="com.dk.mp.xg.wsjc.ui.WsjcTjMainActivity"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/noAnimThemep">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="sswsdftj" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+
+        <!--<activity-->
+            <!--android:name="com.dk.mp.xg.wsjc.ui.WsjcTjTabActivity"-->
+            <!--android:screenOrientation="portrait"/>-->
+
         <activity
-            android:name="com.dk.mp.xg.wsjc.ui.WsjcTjMainActivity"
+            android:name="com.dk.mp.xg.wsjc.ui.WsjcTjTabActivity"
             android:screenOrientation="portrait"
             android:theme="@style/noAnimThemep">
             <intent-filter>
@@ -54,10 +68,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name="com.dk.mp.xg.wsjc.ui.WsjcTjTabActivity"
-            android:screenOrientation="portrait"/>
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.WsjcTjWeekPickActivity"

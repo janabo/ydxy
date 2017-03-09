@@ -54,7 +54,7 @@ public class ZssglSubmitActivity extends MyActivity {
         set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                InputMethodManager imm =  (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                final InputMethodManager imm =  (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 if(imm != null) {
                     imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),
                             0);
@@ -85,6 +85,12 @@ public class ZssglSubmitActivity extends MyActivity {
         url = getIntent().getStringExtra("url");
         flagName = getIntent().getStringExtra("flagName");
         mTitle.setText(flagName);
+
+        mark.setFocusable(true);
+        mark.setFocusableInTouchMode(true);
+        mark.requestFocus();
+        InputMethodManager inputManager = (InputMethodManager)mark.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.showSoftInput(mark,0);
     }
 
     public void submit(){
