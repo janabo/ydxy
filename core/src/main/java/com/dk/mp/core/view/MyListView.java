@@ -43,6 +43,7 @@ public class MyListView extends SwipeRefreshLayout {
     private List list;
 
     public int pageNo = 1;
+    public int totalPages = -1;
     private int pageSize = 20;
     public enum Error {
         NoNetwork,
@@ -147,7 +148,7 @@ public class MyListView extends SwipeRefreshLayout {
 
     public void flish(){
         adapter.notifyDataSetChanged();
-        if (list.size() % pageSize != 0){
+        if (list.size() % pageSize != 0 || totalPages == pageNo){
             setDatasEnd(true);
         } else {
             setDatasEnd(false);

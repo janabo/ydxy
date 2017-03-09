@@ -42,7 +42,6 @@ public class LsglInfoActivity extends MyActivity implements View.OnClickListener
     private LinearLayout bzline;
     private LinearLayout fkline;
     private LinearLayout context;
-    private LinearLayout rootview;
     private List<FkEntity> fklist;
     private TextView fktext;
     private EditText bztext;
@@ -81,7 +80,6 @@ public class LsglInfoActivity extends MyActivity implements View.OnClickListener
         detailslinelayout = (LinearLayout) findViewById(R.id.detailslinelayout);
         error_layout = (ErrorLayout) findViewById(R.id.error_layout);
         context = (LinearLayout) findViewById(R.id.context);
-        rootview = (LinearLayout) findViewById(R.id.rootview);
 
         bztext.setOnTouchListener(new View.OnTouchListener() {
             @Override

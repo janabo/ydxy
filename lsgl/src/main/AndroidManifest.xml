@@ -24,7 +24,7 @@
         <activity
             android:name="com.dk.mp.lsgl.LsglInfoActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateUnchanged">
+            android:windowSoftInputMode="adjustUnspecified|stateHidden">
         </activity>
 
         <activity
