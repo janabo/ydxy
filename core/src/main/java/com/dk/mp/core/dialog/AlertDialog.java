@@ -51,12 +51,12 @@ public class AlertDialog {
             alertDialog.setTitle(title);
         }
         alertDialog.setMessage(content)
-                .setPositiveButton("取消",new DialogInterface.OnClickListener() {
+                .setNegativeButton("取消",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
-                }).setNegativeButton("确定", okOnClick);
+                }).setPositiveButton("确定", okOnClick);
         alertDialog.create().show();
     }
 
