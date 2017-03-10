@@ -1,12 +1,9 @@
 package com.dk.mp.lsgl;
 
-import android.animation.Animator;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,15 +31,6 @@ public class SearchActivity extends MyActivity {
     protected void initialize() {
         super.initialize();
         findView();
-        layout_search.post(new Runnable() {
-            @Override
-            public void run() {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    Animator animator = createRevealAnimator(false, getIntent().getIntExtra("x",0), getIntent().getIntExtra("y",0));
-                    animator.start();
-                }
-            }
-        });
     }
 
     /**
@@ -80,48 +68,6 @@ public class SearchActivity extends MyActivity {
             @Override
             public void onClick(View v) {
                 back();
-            }
-        });
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private Animator createRevealAnimator(boolean reversed, int x, int y) {
-        float hypot = (float) Math.hypot(layout_search.getHeight(), layout_search.getWidth());
-        float startRadius = reversed ? hypot : 0;
-        float endRadius = reversed ? 0 : hypot;
-
-        Animator animator = ViewAnimationUtils.createCircularReveal(
-                layout_search, x, y,
-                startRadius,
-                endRadius);
-        animator.setDuration(800);
-        animator.setInterpolator(new AccelerateDecelerateInterpolator());
-        if (reversed)
-            animator.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {}
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    layout_search.setVisibility(View.INVISIBLE);
-                    finish();
-                }
-                @Override
-                public void onAnimationCancel(Animator animation) {}
-                @Override
-                public void onAnimationRepeat(Animator animation) {}
-            });
-        return animator;
-    }
-
-    @Override
-    public void back() {
-        layout_search.post(new Runnable() {
-            @Override
-            public void run() {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    Animator animator = createRevealAnimator(true, getIntent().getIntExtra("x",0), getIntent().getIntExtra("y",0));
-                    animator.start();
-                }
             }
         });
     }

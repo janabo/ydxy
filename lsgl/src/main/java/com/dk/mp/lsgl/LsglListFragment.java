@@ -66,6 +66,7 @@ public class LsglListFragment extends BaseFragment{
         map.put("pageNo", myListView.pageNo);
         map.put("type", type);
         map.put("role", role);
+
         if(!DeviceUtil.checkNet()){//判断是否有网络
             myListView.error(MyListView.Error.NoNetwork);
             return;
@@ -75,6 +76,9 @@ public class LsglListFragment extends BaseFragment{
             public void onSuccess(JSONObject result) {
                 if (result.optInt("code") == 200){//成功返回数据
                     try {
+
+                        myListView.totalPages = result.getJSONObject("data").optInt("totalPages");
+
                         List<PersonEntity> persionList = getGson().fromJson(result.getJSONObject("data").getJSONArray("list").toString(),new TypeToken<List<PersonEntity>>(){}.getType());
                         if (persionList == null){
                             myListView.error(MyListView.Error.OnError);
