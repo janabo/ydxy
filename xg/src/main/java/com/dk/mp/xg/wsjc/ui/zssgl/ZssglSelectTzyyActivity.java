@@ -19,6 +19,7 @@ import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.DeviceUtil;
+import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.view.RecycleViewDivider;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
@@ -45,7 +46,8 @@ public class ZssglSelectTzyyActivity extends MyActivity implements View.OnClickL
     private RecyclerView mRecyclerView;
     ZssglSelectTzyyAdapter mAdapter;
     List<Common> mDatas = new ArrayList<>();
-    private String ssqid;
+    private String ssqid,tzyyid;
+    Map<String,String> tzyyMap = new HashMap<>();
 
     @Override
     protected int getLayoutID() {
@@ -59,6 +61,15 @@ public class ZssglSelectTzyyActivity extends MyActivity implements View.OnClickL
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getResources().getColor(R.color.select_title));
         }
+        tzyyid = getIntent().getStringExtra("tzyyid");
+        if(StringUtils.isNotEmpty(tzyyid)){
+            String[] yy = tzyyid.split(",");
+            for(int i=0;i<yy.length;i++){
+                if(StringUtils.isNotEmpty(yy[i])){
+                    tzyyMap.put(yy[i],"true");
+                }
+            }
+        }
         back = (TextView) findViewById(R.id.back);
         ok = (TextView) findViewById(R.id.ok);
         title = (TextView) findViewById(R.id.title);
@@ -68,7 +79,7 @@ public class ZssglSelectTzyyActivity extends MyActivity implements View.OnClickL
         mRecyclerView.setHasFixedSize ( true );
         mRecyclerView.setLayoutManager ( new LinearLayoutManager( mContext ) );
 
-        mAdapter = new ZssglSelectTzyyAdapter(mContext,mDatas,ZssglSelectTzyyActivity.this);
+        mAdapter = new ZssglSelectTzyyAdapter(mContext,mDatas,ZssglSelectTzyyActivity.this,tzyyMap);
         mRecyclerView.setAdapter ( mAdapter );
         mRecyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.HORIZONTAL, DeviceUtil.dip2px(mContext,0.8f), Color.rgb(229, 229, 229)));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());

@@ -45,7 +45,7 @@ public class HeaderView {
         this.view = view;
         slideList.add(new SlideNews("1","http://default","移动校园,老师学生的好帮手","res://com.dk.mp.zjhy/"+ R.mipmap.banner_def,null));
         mLoopViewPager = (RollPagerView) view.findViewById(R.id.loop_view_pager);
-        mLoopViewPager.setPlayDelay(5000);
+        mLoopViewPager.setPlayDelay(3000);
         mLoopAdapter = new TestLoopAdapter(mLoopViewPager);
         mLoopViewPager.setAdapter(mLoopAdapter);
         mLoopViewPager.setHintView(new newColorPointHintView(context, Color.GRAY, Color.WHITE));

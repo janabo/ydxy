@@ -526,6 +526,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
         if(StringUtils.isNotEmpty(ssq_pick.getText().toString())) {
             Intent intent = new Intent(mContext, ZssglSelectTzyyActivity.class);
             intent.putExtra("ssqid", ssqid);
+            intent.putExtra("tzyyid",tzyyid);
             startActivityForResult(intent, 8);
             overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
         }else{

@@ -1,12 +1,18 @@
 package com.dk.mp.main.home.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,15 +21,19 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.dk.mp.core.db.AppManager;
 import com.dk.mp.core.entity.App;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.BroadcastUtil;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
+import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.view.RecycleViewDivider;
 import com.dk.mp.main.R;
 import com.dk.mp.main.home.adapter.HpAdapter;
 import com.dk.mp.main.home.data.HpDataProvider;
+import com.dk.mp.main.home.receiver.NetworkConnectChangedReceiver;
 import com.dk.mp.main.message.ui.MessageActivity;
 import com.dk.mp.main.setting.ui.SettingActivity;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
@@ -54,11 +64,38 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
     private HpDataProvider dataProvider;
 
     private SensorManager mSensorManager;//定义sensor管理器
+    private LinearLayout warn_main;//是否有网络
 
     @Override
     protected int getLayoutID() {
         return R.layout.mp_main;
     }
+
+    @Override
+    protected void initView() {
+        super.initView();
+        warn_main = (LinearLayout) findViewById(R.id.warn_main);
+        //注册网络状态监听
+        BroadcastUtil.registerReceiver(this, mRefreshBroadcastReceiver, new String[]{"checknetwork_true","checknetwork_false"});
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(new NetworkConnectChangedReceiver(), filter);
+    }
+
+    private BroadcastReceiver mRefreshBroadcastReceiver = new BroadcastReceiver() {
+        @SuppressLint("NewApi") @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("checknetwork_true")) {
+                warn_main.setVisibility(View.GONE);
+            }
+            if(action.equals("checknetwork_false")){
+                warn_main.setVisibility(View.VISIBLE);
+            }
+        }
+    };
 
     @Override
     protected void initialize() {
@@ -109,6 +146,7 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
 
         //获取传感器管理服务
         mSensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
+
     }
 
     /**
@@ -165,6 +203,12 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
     @Override
     protected void onResume() {
         super.onResume();
+        if(DeviceUtil.checkNet()){
+            warn_main.setVisibility(View.GONE);
+        }else{
+            warn_main.setVisibility(View.VISIBLE);
+        }
+
         apps.clear();
         apps.addAll(AppManager.getMyAppList(HomeActivity.this));
         dataProvider.changeDatas(apps);

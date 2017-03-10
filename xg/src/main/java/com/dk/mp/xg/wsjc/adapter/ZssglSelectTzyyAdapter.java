@@ -15,6 +15,7 @@ import com.dk.mp.xg.wsjc.ui.zssgl.ZssglSelectTzyyActivity;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 选择调整原因适配器
@@ -26,11 +27,13 @@ public class ZssglSelectTzyyAdapter extends RecyclerView.Adapter<ZssglSelectTzyy
     private List<Common> mData;
     private LayoutInflater inflater;
     private HashMap<String, Object> isSelected = new HashMap<String, Object>();
+    private Map<String,String> tzyyMap = new HashMap<>();
 
-    public ZssglSelectTzyyAdapter(Context mContext, List<Common> mData,ZssglSelectTzyyActivity activity) {
+    public ZssglSelectTzyyAdapter(Context mContext, List<Common> mData,ZssglSelectTzyyActivity activity,Map<String,String> tzyyMap) {
         this.mContext = mContext;
         this.mData = mData;
         this.activity = activity;
+        this.tzyyMap = tzyyMap;
         inflater = LayoutInflater.from(mContext);
     }
 
@@ -61,6 +64,10 @@ public class ZssglSelectTzyyAdapter extends RecyclerView.Adapter<ZssglSelectTzyy
     public void onBindViewHolder(ZssglSelectTzyyAdapter.MyViewHolder holder, int position) {
         Common bean = mData.get(position);
         holder.name.setText(bean.getName());
+        if(!tzyyMap.isEmpty() && tzyyMap.get(bean.getId()) != null){
+            isSelected.put(bean.getId(),bean.getName());
+            tzyyMap.remove(bean.getId());
+        }
         if(isSelected.get(bean.getId()) != null) {
             holder.mRadioButton.setChecked(true);
         }else{
