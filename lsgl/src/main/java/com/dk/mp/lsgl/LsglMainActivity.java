@@ -61,7 +61,7 @@ public class LsglMainActivity extends MyActivity implements View.OnClickListener
                     try {
                         List<RoleEntity> roles = getGson().fromJson(result.getJSONArray("data").toString(),new TypeToken<List<RoleEntity>>(){}.getType());
                         if (roles == null){
-                            mError.setErrorType(ErrorLayout.NETWORK_ERROR);
+                            mError.setErrorType(ErrorLayout.DATAFAIL);
                         } else if (roles.size() == 0) {
                             mError.setErrorType(ErrorLayout.NODATA);
                         } else {
@@ -122,14 +122,14 @@ public class LsglMainActivity extends MyActivity implements View.OnClickListener
                             mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                         }
                     } catch (JSONException e) {
-                        mError.setErrorType(ErrorLayout.NETWORK_ERROR);
+                        mError.setErrorType(ErrorLayout.DATAFAIL);
                     }
                 }
             }
 
             @Override
             public void onError(VolleyError error) {
-                mError.setErrorType(ErrorLayout.NETWORK_ERROR);
+                mError.setErrorType(ErrorLayout.DATAFAIL);
             }
         });
     }

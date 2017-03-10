@@ -69,7 +69,7 @@ public class WsjcTjTabActivity extends MyActivity {
         setTitle(getIntent().getStringExtra("title"));
         findView();
         initViewPager();
-        getWeeks();
+        getWeeks(1);
         getSemesters();
         getTempl();
     }
@@ -92,17 +92,7 @@ public class WsjcTjTabActivity extends MyActivity {
                         startActivityForResult(intent, 1);
                         overridePendingTransition(R.anim.push_up_in, 0);
                     } else {
-                        getWeeks();
-                        if (mWeeks.size() > 0) {
-                            Intent intent = new Intent(mContext, WsjcTjWeekPickActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putSerializable("kfs", (Serializable) mWeeks);
-                            intent.putExtras(bundle);
-                            startActivityForResult(intent, 1);
-                            overridePendingTransition(R.anim.push_up_in, 0);
-                        }else {
-                            showErrorMsg(mViewpager, "未获取到周次选项");
-                        }
+                        getWeeks(2);
                     }
                 }else if(tabSelect == 1){//按月统计
                     Intent intent = new Intent(mContext, WsjcTjMonthPickActivity.class);
@@ -205,7 +195,7 @@ public class WsjcTjTabActivity extends MyActivity {
     /**
      * 获取周次
      */
-    public void getWeeks(){
+    public void getWeeks(final int param){
         HttpUtil.getInstance().postJsonObjectRequest("apps/sswsdftj/week", null, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
@@ -218,6 +208,18 @@ public class WsjcTjTabActivity extends MyActivity {
                             if(dfxxes.size()>0){//获取数据不为空
                                 dropdown_img.setVisibility(View.VISIBLE);
                                 mWeeks.addAll(dfxxes);
+                                if(param == 2) {
+                                    if (mWeeks.size() > 0) {
+                                        Intent intent = new Intent(mContext, WsjcTjWeekPickActivity.class);
+                                        Bundle bundle = new Bundle();
+                                        bundle.putSerializable("kfs", (Serializable) mWeeks);
+                                        intent.putExtras(bundle);
+                                        startActivityForResult(intent, 1);
+                                        overridePendingTransition(R.anim.push_up_in, 0);
+                                    } else {
+                                        showErrorMsg(mViewpager, "未获取到周次选项");
+                                    }
+                                }
                                 weekname = dfxxes.get(0).getName();
                                 setTitle(weekname);
                                 weekid = dfxxes.get(0).getId();
@@ -358,7 +360,7 @@ public class WsjcTjTabActivity extends MyActivity {
     public String getErrorMsg(){
         dropdown_img.setVisibility(View.INVISIBLE);
         fragment1.setMUrl(getUrl("week",weekid,type,"",weekname));
-        return "未获取周次失败";
+        return "获取周次失败";
     }
 
     public String getUrl(String type,String key ,String role,String pfmb,String name){
@@ -369,12 +371,4 @@ public class WsjcTjTabActivity extends MyActivity {
         return mUrl;
     }
 
-//    @Override
-//    public void back() {
-////        if(WsjcTjMainActivity.instance != null){
-////            WsjcTjMainActivity.instance.finish();
-////        }
-//        super.back();
-//
-//    }
 }
