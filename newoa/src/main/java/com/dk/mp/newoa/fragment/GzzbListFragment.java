@@ -135,7 +135,7 @@ public class GzzbListFragment extends BaseFragment implements View.OnClickListen
                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                 if(result.getList() != null && result.getList().size()>0) {//是否获取到数据
                     mList.addAll(result.getList());
-                    myListView.addList(result.getList());
+                    myListView.finish(result.getTotalPages(),result.getCurrentPage());
                 }else{
                     if(myListView.pageNo == 1) {//是否是第一页
                         mError.setErrorType(ErrorLayout.NODATA);

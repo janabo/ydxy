@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
+import com.dk.mp.core.entity.News;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.view.DraweeView;
 import com.dk.mp.main.R;
 import com.dk.mp.main.home.entity.SlideNews;
-import com.dk.mp.xxxw.entity.News;
 import com.dk.mp.xxxw.ui.NewsDetailActivity;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;

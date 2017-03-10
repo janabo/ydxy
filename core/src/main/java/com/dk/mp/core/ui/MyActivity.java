@@ -31,6 +31,7 @@ import com.dk.mp.core.entity.App;
 import com.dk.mp.core.util.AppUtil;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.ImageUtil;
+import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.util.PinyinUtil;
 import com.dk.mp.core.util.SnackBarUtil;
 import com.google.gson.Gson;
@@ -360,6 +361,7 @@ public abstract class MyActivity extends AppCompatActivity{
 
     public static void getBackgroud(View v ,String str){
         str = PinyinUtil.getInitial(str);
+        Logger.info("++++++++++++str="+str);
         if("abc".contains(str)){
             v.setBackgroundResource(R.drawable.circle_border_abc);
         }else if("def".contains(str)){
@@ -374,6 +376,8 @@ public abstract class MyActivity extends AppCompatActivity{
             v.setBackgroundResource(R.drawable.circle_border_pqr);
         }else if("stu".contains(str)){
             v.setBackgroundResource(R.drawable.circle_border_stu);
+        }else if("vwxyz".contains(str)) {
+            v.setBackgroundResource(R.drawable.circle_border_vwxyz);
         }else{
             v.setBackgroundResource(R.drawable.circle_border_default);
         }
