@@ -23,6 +23,7 @@ import com.dk.mp.core.util.FileUtil;
 import com.dk.mp.core.util.SnackBarUtil;
 import com.dk.mp.main.R;
 import com.dk.mp.main.login.LoginActivity;
+import com.dk.mp.main.util.PushUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -101,6 +102,7 @@ public class SettingActivity extends MyActivity{
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 SnackBarUtil.showShort(setting_scro,
                         isChecked?"开启推送设置，您将及时收到学校公布的各类重要消息！":"关闭推送设置，您将不会收到学校公布的各类重要消息！");
+                PushUtil.setStatus(SettingActivity.this,isChecked?1:0);
                 helper.setBoolean("push_check",isChecked);
             }
         });
@@ -121,11 +123,14 @@ public class SettingActivity extends MyActivity{
             SnackBarUtil.showShort(setting_scro,"关闭推送设置，您将不会收到学校公布的各类重要消息！");
             checkbox_settting.setChecked(false);
             helper.setBoolean("push_check",false);
+            PushUtil.setStatus(SettingActivity.this,0);
         }else{
             SnackBarUtil.showShort(setting_scro,"开启推送设置，您将及时收到学校公布的各类重要消息！");
             checkbox_settting.setChecked(true);
             helper.setBoolean("push_check",true);
+            PushUtil.setStatus(SettingActivity.this,1);
         }
+
     }
 
     /**

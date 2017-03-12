@@ -55,7 +55,7 @@
 
     <application
         android:largeHeap="true"
-        android:name="com.dk.mp.core.application.MyApplication"
+        android:name="com.dk.mp.lgj.MpApplication"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme.NoTitle">

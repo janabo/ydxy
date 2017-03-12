@@ -11,6 +11,7 @@ import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.main.R;
 import com.dk.mp.main.home.ui.HomeActivity;
+import com.dk.mp.main.util.PushUtil;
 
 import org.json.JSONObject;
 
@@ -66,7 +67,7 @@ public class SplashActivity extends MyActivity {
                 try {
                     if (result.getInt("code") == 200) {
                         helper.setUserInfo(result.getJSONObject("data").toString());
-//                        new PushUtil(context).setTag();
+                        new PushUtil(mContext).setTag();
                     }
                 }catch (Exception e){
                     e.printStackTrace();
