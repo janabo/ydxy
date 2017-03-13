@@ -56,7 +56,7 @@ public class WsjcTjSemesterPickActivity extends Activity {
 
     private void findView(){
         semester = (WheelView) findViewById(R.id.year);
-        semester.setAdapter(new ArrayWheelAdapter<>(PLANETM));
+        semester.setAdapter(new ArrayWheelAdapter<>(PLANETM,10));
         semester.setCyclic(false);
         template = (WheelView) findViewById(R.id.month);
         template.setAdapter(new ArrayWheelAdapter<>(PLANEMB));

@@ -43,10 +43,10 @@ public class WheelView extends View {
 	private static final int[] SHADOWS_COLORS = new int[] { 0x00000000,0x00000000, 0x00000000 };
 
 	/** Additional items height (is added to standard text item height) */
-	private static final int ADDITIONAL_ITEM_HEIGHT = 65;
+	private static final int ADDITIONAL_ITEM_HEIGHT = 45;
 
 	/** Text size */
-	private static int TEXT_SIZE = 40;
+	private static int TEXT_SIZE = 30;
 
 	/** Top and bottom items offset (to hide that) */
 	private static final int ITEM_OFFSET = TEXT_SIZE / 5;

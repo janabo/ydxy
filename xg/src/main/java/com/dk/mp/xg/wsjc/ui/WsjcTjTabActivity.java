@@ -35,6 +35,7 @@ import java.util.List;
  * 作者：janabo on 2017/1/13 16:12
  */
 public class WsjcTjTabActivity extends MyActivity {
+
     TabLayout mTabLayout;
     MyViewpager mViewpager;
     private String title;
@@ -59,6 +60,11 @@ public class WsjcTjTabActivity extends MyActivity {
     @Override
     protected int getLayoutID() {
         return R.layout.app_wsjctj_tab;
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
     }
 
     @Override

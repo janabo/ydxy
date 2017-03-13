@@ -1,1 +1,1 @@
-include ':app', ':core', ':main', ':xxxw', ':txl', ':schedule', ':newoa', ':xg', ':oldoa', 'lsgl', 'xyfg', ':JPushExample(401728)'
+include ':app', ':core', ':main', ':xxxw', ':txl', ':schedule', ':newoa', ':xg', ':oldoa', 'lsgl', 'xyfg'
