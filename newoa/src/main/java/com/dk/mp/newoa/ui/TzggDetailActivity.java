@@ -53,6 +53,7 @@ public class TzggDetailActivity extends MyActivity implements View.OnClickListen
 
     public void findView(){
         content = (OADetailView)findViewById(R.id.content);
+        content.setActivity(TzggDetailActivity.this);
         mError = (ErrorLayout) findViewById(R.id.error_layout);
         mError.setOnLayoutClickListener(this);
         lin_footer = (LinearLayout) findViewById(R.id.lin_footer);

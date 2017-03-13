@@ -1,11 +1,15 @@
 package com.dk.mp.newoa.widget;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -32,12 +36,17 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 @SuppressLint("NewApi") public class OADetailView extends LinearLayout {
+	private static final int REQUEST_EXTERNAL_STORAGE = 1;
+	private static String[] PERMISSIONS_STORAGE = {
+			Manifest.permission.WRITE_EXTERNAL_STORAGE,
+			Manifest.permission.READ_EXTERNAL_STORAGE};
 	private String mFilepath = Environment.getExternalStorageDirectory() + "/mobileschool/cache/";
 	WebView w;
 	Context context;
+	Activity activity;
 	private String  filename;
 
-	public OADetailView(Context context, AttributeSet attrs) {
+	public OADetailView(Context context,AttributeSet attrs) {
 		super(context, attrs);
 		this.context = context;
 		w = new WebView(context);
@@ -55,12 +64,16 @@ import okhttp3.Response;
 			@Override
 			public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype,
 					long contentLength) {
-				filename(url);
+				verifyStoragePermissions(url);
 			}
 		});
 	}
 
-	//web视图客户端    
+	public void setActivity(Activity activity) {
+		this.activity = activity;
+	}
+
+	//web视图客户端
 	public class HttpWebViewClient extends WebViewClient {
 		public boolean shouldOverviewUrlLoading(WebView view, String url) {
 			view.loadUrl(url);
@@ -205,6 +218,23 @@ import okhttp3.Response;
 		w.isHardwareAccelerated();
 		w.loadDataWithBaseURL(null, s.toString(), "text/html", "utf-8", null);
 		this.addView(w);
+	}
+
+
+	/**
+	 * 请求读写权限
+	 * @param
+	 */
+	public void verifyStoragePermissions(String url) {
+		int permission = ActivityCompat.checkSelfPermission(activity,
+				Manifest.permission.WRITE_EXTERNAL_STORAGE);
+		int rePermission = ActivityCompat.checkSelfPermission(activity,Manifest.permission.READ_EXTERNAL_STORAGE);
+		if (permission != PackageManager.PERMISSION_GRANTED || rePermission != PackageManager.PERMISSION_GRANTED) {
+			ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE,
+					REQUEST_EXTERNAL_STORAGE);
+		}else{
+			filename(url);
+		}
 	}
 
 }
