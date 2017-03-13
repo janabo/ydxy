@@ -215,6 +215,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp">
                         <TextView
+                            android:id="@+id/lsksrq_txt"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:text="留宿开始日期："
@@ -229,12 +230,14 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/lsjsrq_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp">
                         <TextView
+                            android:id="@+id/lsjsrq_txt"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:text="留宿结束日期："

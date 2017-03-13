@@ -162,7 +162,7 @@ public class WsjcTjTabActivity extends MyActivity {
                     if(mWeeks.size()>0){
                         weekname = mWeeks.get(0).getName();
                     }else{
-                        weekname = "第一周";
+                        weekname = getIntent().getStringExtra("title");
                     }
                     setTitle(weekname);
 //                    fragment1.setMUrl("apps/sswsdftj/tj" +
@@ -179,7 +179,7 @@ public class WsjcTjTabActivity extends MyActivity {
                         templetid = mTemplet.get(0).getId();
                         semestername = mSemester.get(0).getName();
                     }else{
-                        semestername= "第一学期";
+                        semestername= getIntent().getStringExtra("title");
                     }
                     setTitle(semestername);
 //                    fragment3.setMUrl("apps/sswsdftj/tj" +

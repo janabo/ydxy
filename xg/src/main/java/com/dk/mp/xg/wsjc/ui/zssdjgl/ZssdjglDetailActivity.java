@@ -36,7 +36,7 @@ public class ZssdjglDetailActivity extends MyActivity {
     private TextView xm,xb,lxdh,bj,fjh,ssl,ssq,xq,lsksrq,lsjsrq,xjrq;
     RelativeLayout mRootView;
     StudentInfo studentInfo =null;
-    private LinearLayout xiaojia,xjrq_lin;
+    private LinearLayout xiaojia,xjrq_lin,lsksrq_txt,lsjsrq_txt;
 
     @Override
     protected int getLayoutID() {

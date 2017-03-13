@@ -87,7 +87,7 @@ public class ZssglSelectPersonsActivity extends MyActivity implements View.OnCli
             public void onClick(View view) {
                 Map<String,Object> map =  mAdapter.getIsSelected();
                 if(map.isEmpty()){
-                    showErrorMsg(mRootView,"请选择调宿学生");
+                    showErrorMsg(mRootView,"请选择"+getIntent().getStringExtra("categoryTitle"));
                 }else{
                     Student s = null;
                     for(Map.Entry<String,Object> entry : map.entrySet()){
@@ -110,7 +110,7 @@ public class ZssglSelectPersonsActivity extends MyActivity implements View.OnCli
     @Override
     protected void initialize() {
         super.initialize();
-        title.setText("调宿学生");
+        title.setText(getIntent().getStringExtra("categoryTitle"));
         lmlb = getIntent().getStringExtra("lmlb");
         getData();
     }

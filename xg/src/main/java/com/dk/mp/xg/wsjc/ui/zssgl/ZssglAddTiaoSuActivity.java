@@ -147,6 +147,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
     public void addTbr(View view){
         Intent intent = new Intent(mContext, ZssglSelectPersonsActivity.class);
         intent.putExtra("lmlb","2");
+        intent.putExtra("categoryTitle","调宿学生");
         startActivityForResult(intent, 1);
         overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
     }

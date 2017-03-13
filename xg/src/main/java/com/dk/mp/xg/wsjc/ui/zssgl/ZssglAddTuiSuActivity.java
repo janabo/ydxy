@@ -176,6 +176,7 @@ public class ZssglAddTuiSuActivity extends MyActivity implements View.OnClickLis
     public void addWjxs(View view){
         Intent intent = new Intent(mContext, ZssglSelectPersonsActivity.class);
         intent.putExtra("lmlb","3");
+        intent.putExtra("categoryTitle","退宿学生");
         startActivityForResult(intent, 2);
         overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
     }

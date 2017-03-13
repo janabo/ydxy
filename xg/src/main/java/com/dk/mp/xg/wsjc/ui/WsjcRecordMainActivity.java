@@ -167,6 +167,7 @@ public class WsjcRecordMainActivity extends MyActivity implements WsjcRecordMain
             selectSsl = 0;
             List<Kf> mKfs = sslMap.get(k.getId());
             mSslList.addAll(mKfs);
+            lAdapter.setSelected(selectSsl);
             lAdapter.notifyDataSetChanged();
             mCList.clear();
             if (mKfs.size() > 0) {
@@ -174,6 +175,17 @@ public class WsjcRecordMainActivity extends MyActivity implements WsjcRecordMain
                 for (String c : cs) {
                     mCList.add(new Kf(c, c));
                 }
+            }
+            cAdapter.notifyDataSetChanged();
+        }else if(type == 2) {
+            selectSsl  = position;
+            lAdapter.setSelected(selectSsl);
+            lAdapter.notifyDataSetChanged();
+            Kf ssl = mSslList.get(selectSsl);
+            mCList.clear();
+            List<String> cs = ssl.getLc();
+            for (String c : cs) {
+                mCList.add(new Kf(c, c));
             }
             cAdapter.notifyDataSetChanged();
         }else if(type == 3){
@@ -186,8 +198,6 @@ public class WsjcRecordMainActivity extends MyActivity implements WsjcRecordMain
             intent.putExtra("ssqId",ssqId);
             intent.putExtra("sslId",sslId);
             intent.putExtra("lcId",lcId);
-//            intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
-//            intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
             startActivity(intent);
         }
     }
