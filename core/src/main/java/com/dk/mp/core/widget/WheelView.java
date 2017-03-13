@@ -141,9 +141,9 @@ public class WheelView extends View {
 	private void initData(Context context) {
         int w= DeviceUtil.getScreenWidth(context);
         if(w<=480){
-            TEXT_SIZE=20;
+            TEXT_SIZE=15;
         }else if(w>480&&w<760){
-            TEXT_SIZE=25;
+            TEXT_SIZE=20;
         }
 
         gestureDetector = new GestureDetector(context, gestureListener);
