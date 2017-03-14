@@ -14,6 +14,8 @@ public class PersonEntity {
     private boolean canFk;//代表该用户有填写反馈信息的权限且必填
     private boolean canBz;// 代表有该用户有填写备注的权限且必填
 
+    private String zy;
+
     public String getRoom() {
         return room;
     }
@@ -76,5 +78,13 @@ public class PersonEntity {
 
     public void setCanBz(boolean canBz) {
         this.canBz = canBz;
+    }
+
+    public String getZy() {
+        return zy;
+    }
+
+    public void setZy(String zy) {
+        this.zy = zy;
     }
 }
