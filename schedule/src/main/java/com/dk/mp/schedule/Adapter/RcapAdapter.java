@@ -85,7 +85,7 @@ public class RcapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, RcapDetailActivity.class);
-                    intent.putExtra("title",date);
+                    intent.putExtra("title",TimeUtils.formatDateTime(date));
                     intent.putExtra("rcapDetail",mData.get(getLayoutPosition()));
                     mContext.startActivity(intent);
                 }

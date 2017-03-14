@@ -209,7 +209,7 @@ public class ZssdjglAddLiusuActivity extends MyActivity implements ZssdjglPerson
      */
     public void submitLiusu(View v){
         if(!TimeUtils.comparedDate(ksrq_pick.getText().toString(),jsrq_pick.getText().toString())){
-            showErrorMsg("留宿开始时间不能大于留宿结束时间");
+            showErrorMsg("1".equals(type)?"留宿开始时间不能大于留宿结束时间":"请假开始时间不能大于请假结束时间");
             return ;
         }
         String users = "";

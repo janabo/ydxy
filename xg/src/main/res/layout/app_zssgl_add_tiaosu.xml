@@ -940,7 +940,10 @@
                         android:textSize="?attr/textSize14"
                         android:layout_weight="1"
                         android:gravity="right"
-                        android:hint="必选">
+                        android:hint="必选"
+                        android:layout_marginLeft="10dp"
+                        android:singleLine="true"
+                        android:ellipsize="end">
                     </TextView>
                     <ImageView
                         android:src="@mipmap/arrow_icon_xg"

@@ -360,10 +360,6 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
     }
 
     public void ablum(){
-//        Intent intent=new Intent(Intent.ACTION_PICK);
-//        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-//        startActivityForResult(intent, 5);
-
         noCutFilePath = BASEPICPATH + UUID.randomUUID().toString() + ".jpg";
         Intent getImageByCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
        /*获取当前系统的android版本号*/
@@ -409,7 +405,12 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
         ok.setVisibility(View.GONE);
         progress.setVisibility(View.VISIBLE);
         if(StringUtils.isNotEmpty(noCutFilePath)){
-            updateImg();
+            File f = new File(noCutFilePath);
+            if(f.exists() && f.isFile()){
+                updateImg();
+            }else{
+                submit("");
+            }
         }else{
             submit("");
         }

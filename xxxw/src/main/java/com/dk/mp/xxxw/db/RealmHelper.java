@@ -2,7 +2,7 @@ package com.dk.mp.xxxw.db;
 
 import android.content.Context;
 
-import com.dk.mp.xxxw.entity.News;
+import com.dk.mp.core.entity.News;
 
 import java.util.List;
 

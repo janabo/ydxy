@@ -18,6 +18,12 @@ import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.main.R;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
+
 /**
  * 用户信息
  * 作者：janabo on 2016/12/14 17:43
@@ -100,6 +106,10 @@ public class UserInfoActivity extends MyActivity{
         h.cleanUser();
         h.setValue("nick", null);
         BroadcastUtil.sendBroadcast(context, "user");
+        JPushInterface.setAliasAndTags(context, null, new LinkedHashSet<String>(), new TagAliasCallback(){
+            @Override
+            public void gotResult(int arg0, String arg1, Set<String> arg2) {
+            }});
         back();
     }
 }

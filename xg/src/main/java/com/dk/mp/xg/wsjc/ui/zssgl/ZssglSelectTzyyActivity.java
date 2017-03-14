@@ -3,7 +3,6 @@ package com.dk.mp.xg.wsjc.ui.zssgl;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,11 +19,12 @@ import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.DeviceUtil;
+import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.view.RecycleViewDivider;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
-import com.dk.mp.xg.wsjc.adapter.ZssglSelectPersonsAdapter;
-import com.dk.mp.xg.wsjc.entity.Student;
+import com.dk.mp.xg.wsjc.adapter.ZssglSelectTzyyAdapter;
+import com.dk.mp.xg.wsjc.entity.Common;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -36,17 +36,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 住宿生管理 获取学生列表
- * 作者：janabo on 2017/1/23 14:41
+ * 选择调整原因   ·
+ * 作者：janabo on 2017/3/9 19:45
  */
-public class ZssglSelectPersonsActivity extends MyActivity implements View.OnClickListener{
+public class ZssglSelectTzyyActivity extends MyActivity implements View.OnClickListener{
     private TextView back,ok,title;
     private LinearLayout mRootView;
     private ErrorLayout mError;
     private RecyclerView mRecyclerView;
-    ZssglSelectPersonsAdapter mAdapter;
-    List<Student> mData = new ArrayList<>();
-    private String lmlb;//栏目类别
+    ZssglSelectTzyyAdapter mAdapter;
+    List<Common> mDatas = new ArrayList<>();
+    private String ssqid,tzyyid;
+    Map<String,String> tzyyMap = new HashMap<>();
 
     @Override
     protected int getLayoutID() {
@@ -60,6 +61,15 @@ public class ZssglSelectPersonsActivity extends MyActivity implements View.OnCli
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getResources().getColor(R.color.select_title));
         }
+        tzyyid = getIntent().getStringExtra("tzyyid");
+        if(StringUtils.isNotEmpty(tzyyid)){
+            String[] yy = tzyyid.split(",");
+            for(int i=0;i<yy.length;i++){
+                if(StringUtils.isNotEmpty(yy[i])){
+                    tzyyMap.put(yy[i],"true");
+                }
+            }
+        }
         back = (TextView) findViewById(R.id.back);
         ok = (TextView) findViewById(R.id.ok);
         title = (TextView) findViewById(R.id.title);
@@ -68,7 +78,8 @@ public class ZssglSelectPersonsActivity extends MyActivity implements View.OnCli
         mRecyclerView = (RecyclerView) findViewById(R.id.person_recycle);
         mRecyclerView.setHasFixedSize ( true );
         mRecyclerView.setLayoutManager ( new LinearLayoutManager( mContext ) );
-        mAdapter = new ZssglSelectPersonsAdapter(mContext,mData,ZssglSelectPersonsActivity.this);
+
+        mAdapter = new ZssglSelectTzyyAdapter(mContext,mDatas,ZssglSelectTzyyActivity.this,tzyyMap);
         mRecyclerView.setAdapter ( mAdapter );
         mRecyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.HORIZONTAL, DeviceUtil.dip2px(mContext,0.8f), Color.rgb(229, 229, 229)));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -87,19 +98,17 @@ public class ZssglSelectPersonsActivity extends MyActivity implements View.OnCli
             public void onClick(View view) {
                 Map<String,Object> map =  mAdapter.getIsSelected();
                 if(map.isEmpty()){
-                    showErrorMsg(mRootView,"请选择"+getIntent().getStringExtra("categoryTitle"));
+                    showErrorMsg(mRootView,"请选择调整原因");
                 }else{
-                    Student s = null;
+                    String tzyyid="";
+                    String tzyyname="";
                     for(Map.Entry<String,Object> entry : map.entrySet()){
-                        s = (Student) entry.getValue();
-                        if(s != null){
-                            break;
-                        }
+                        tzyyid += entry.getKey()+",";
+                        tzyyname += entry.getValue()+",";
                     }
                     Intent in = new Intent();
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("student",s);
-                    in.putExtras(bundle);
+                    in.putExtra("tzyyid",tzyyid);
+                    in.putExtra("tzyyname",tzyyname);
                     setResult(RESULT_OK, in);
                     back();
                 }
@@ -110,8 +119,8 @@ public class ZssglSelectPersonsActivity extends MyActivity implements View.OnCli
     @Override
     protected void initialize() {
         super.initialize();
-        title.setText(getIntent().getStringExtra("categoryTitle"));
-        lmlb = getIntent().getStringExtra("lmlb");
+        title.setText("调整原因");
+        ssqid = getIntent().getStringExtra("ssqid");
         getData();
     }
 
@@ -122,21 +131,22 @@ public class ZssglSelectPersonsActivity extends MyActivity implements View.OnCli
             mError.setErrorType(ErrorLayout.NETWORK_ERROR);
         }
     }
+
     /**
      * 获取数据
      */
     public void getList(){
         Map<String,Object> map = new HashMap<>();
-        map.put("lmlb",lmlb);
-        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/student", map, new HttpListener<JSONObject>() {
+        map.put("ssq",ssqid);
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/tzyyList", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
                     if(result != null) {
-                        GsonData<Student> gsonData = new Gson().fromJson(result.toString(), new TypeToken<GsonData<Student>>() {
+                        GsonData<Common> gsonData = new Gson().fromJson(result.toString(), new TypeToken<GsonData<Common>>() {
                         }.getType());
                         if (gsonData.getCode() == 200) {
-                            List<Student> dfxxes = gsonData.getData();
+                            List<Common> dfxxes = gsonData.getData();
                             if(dfxxes.size()>0){//获取数据不为空
                                 mAdapter.notify(dfxxes);
                                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
@@ -194,5 +204,4 @@ public class ZssglSelectPersonsActivity extends MyActivity implements View.OnCli
             return super.onKeyDown(keyCode, event);
         }
     }
-
 }

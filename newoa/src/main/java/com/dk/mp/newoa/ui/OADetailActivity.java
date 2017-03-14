@@ -74,6 +74,7 @@ public class OADetailActivity extends MyActivity implements View.OnClickListener
         mError = (ErrorLayout) findViewById(R.id.error_layout);
         mError.setOnLayoutClickListener(this);
         content = (OADetailView)findViewById(R.id.content);
+        content.setActivity(OADetailActivity.this);
         footer = (LinearLayout) findViewById(R.id.footer);
         lin_footer = (LinearLayout) findViewById(R.id.lin_footer);
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);

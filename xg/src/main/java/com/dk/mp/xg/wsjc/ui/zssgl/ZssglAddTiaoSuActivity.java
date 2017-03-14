@@ -47,6 +47,8 @@ import java.util.Map;
  * 作者：janabo on 2017/1/23 13:53
  */
 public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickListener{
+    private static final int INIT_GETDATA = 1;
+    private static final int PICK_GETDATA = 2;
     private DrawHookView progress;
     private DrawCheckMarkView progress_check;
     private DrawCrossMarkView progress_cross;
@@ -135,7 +137,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
     protected void initialize() {
         super.initialize();
         setTitle("学生调宿申请");
-        getXqs();
+        getXqs(INIT_GETDATA);
     }
 
     /**
@@ -145,6 +147,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
     public void addTbr(View view){
         Intent intent = new Intent(mContext, ZssglSelectPersonsActivity.class);
         intent.putExtra("lmlb","2");
+        intent.putExtra("categoryTitle","调宿学生");
         startActivityForResult(intent, 1);
         overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
     }
@@ -172,43 +175,78 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
                 break;
             case 2:
                 if (resultCode == RESULT_OK) {
-                    xqid = data.getStringExtra("kfsid");
+                    String mXqid = data.getStringExtra("kfsid");
                     String xqname = data.getStringExtra("kfs");
+                    if(StringUtils.isNotEmpty(xqid) && !xqid.equals(mXqid)){
+                        ssqid ="";sslid="";lcid="";fjhid="";cwhid="";tzyyid="";
+                        ssq_pick.setText("");ssl_pick.setText("");lc_pick.setText("");
+                        fjh_pick.setText("");cwh_pick.setText("");fx_pick.setText("");
+                        zsf_pick.setText("");cws_pick.setText("");tzyy_pick.setText("");
+                    }
+                    xqid = mXqid;
                     xq_pick.setText(xqname);
-                    getSsqs(xqid);
+                    getSsqs(xqid,INIT_GETDATA);
                 }
                 break;
             case 3:
                 if (resultCode == RESULT_OK) {
-                    ssqid = data.getStringExtra("kfsid");
+                    String mSsqid = data.getStringExtra("kfsid");
                     String ssqname = data.getStringExtra("kfs");
+                    if(StringUtils.isNotEmpty(ssqid) && !ssqid.equals(mSsqid)){
+                        sslid="";lcid="";fjhid="";cwhid="";tzyyid="";
+                        ssl_pick.setText("");lc_pick.setText("");
+                        fjh_pick.setText("");cwh_pick.setText("");fx_pick.setText("");
+                        zsf_pick.setText("");cws_pick.setText("");tzyy_pick.setText("");
+                    }
+                    ssqid = mSsqid;
                     ssq_pick.setText(ssqname);
-                    getSsls(ssqid);
-                    getTsyys(ssqid);
+                    getSsls(ssqid,INIT_GETDATA);
+//                    getTsyys(ssqid);
                 }
                 break;
             case 4:
                 if (resultCode == RESULT_OK) {
-                    sslid = data.getStringExtra("kfsid");
+                    String mSslid = data.getStringExtra("kfsid");
                     String sslname = data.getStringExtra("kfs");
+                    if(StringUtils.isNotEmpty(sslid) && !ssqid.equals(mSslid)){
+                        lcid="";fjhid="";cwhid="";tzyyid="";
+                        lc_pick.setText("");
+                        fjh_pick.setText("");cwh_pick.setText("");fx_pick.setText("");
+                        zsf_pick.setText("");cws_pick.setText("");tzyy_pick.setText("");
+                    }
+                    sslid = mSslid;
                     ssl_pick.setText(sslname);
-                    getLcs(sslid);
+                    getLcs(sslid,INIT_GETDATA);
                 }
                 break;
             case 5:
                 if (resultCode == RESULT_OK) {
-                    lcid = data.getStringExtra("kfsid");
+                    String mLcid = data.getStringExtra("kfsid");
                     String lcname = data.getStringExtra("kfs");
+                    if(StringUtils.isNotEmpty(lcid) && !ssqid.equals(mLcid)){
+                        fjhid="";cwhid="";tzyyid="";
+                        fjh_pick.setText("");cwh_pick.setText("");fx_pick.setText("");
+                        zsf_pick.setText("");cws_pick.setText("");tzyy_pick.setText("");
+                    }
+                    lcid = mLcid;
                     lc_pick.setText(lcname);
-                    getFjhs(sslid,lcid);
+                    if(StringUtils.isNotEmpty(xb.getText().toString())) {
+                        getFjhs(sslid, lcid,INIT_GETDATA);
+                    }
                 }
                 break;
             case 6:
                 if (resultCode == RESULT_OK) {
-                    fjhid = data.getStringExtra("kfsid");
+                    String mFjhid = data.getStringExtra("kfsid");
                     String fjhname = data.getStringExtra("kfs");
+                    if(StringUtils.isNotEmpty(fjhid) && !ssqid.equals(mFjhid)){
+                        cwhid="";tzyyid="";
+                        cwh_pick.setText("");fx_pick.setText("");
+                        zsf_pick.setText("");cws_pick.setText("");tzyy_pick.setText("");
+                    }
+                    fjhid = mFjhid;
                     fjh_pick.setText(fjhname);
-                    getCwhs(fjhid);
+                    getCwhs(fjhid,INIT_GETDATA);
                     getFjDetail(fjhid);
                 }
                 break;
@@ -221,8 +259,8 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
                 break;
             case 8:
                 if (resultCode ==RESULT_OK) {
-                    tzyyid = data.getStringExtra("kfsid");
-                    String tzyyname = data.getStringExtra("kfs");
+                    tzyyid = data.getStringExtra("tzyyid");
+                    String tzyyname = data.getStringExtra("tzyyname");
                     tzyy_pick.setText(tzyyname);
                 }
                 break;
@@ -266,7 +304,8 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
     /**
      * 获取楼层列表
      */
-    public void getLcs(String sslid){
+    public void getLcs(String sslid,final int param){
+        lcs.clear();
         Map<String,Object> map = new HashMap<>();
         map.put("ssl",sslid);
         HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/lcList", map, new HttpListener<JSONObject>() {
@@ -280,19 +319,24 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
                             List<Common> dfxxes = gsonData.getData();
                             if(dfxxes.size()>0){//获取数据不为空
                                 lcs.addAll(dfxxes);
+                                toPickActivity(lcs,5,param);
                             }else{
+                                errorMsg(param,"未获取到楼层");
                             }
                         } else {
+                            errorMsg(param,"获取楼层失败");
                         }
                     }else{
+                        errorMsg(param,"获取楼层失败");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    errorMsg(param,"获取楼层失败");
                 }
             }
             @Override
             public void onError(VolleyError error) {
-
+                errorMsg(param,"获取楼层失败");
             }
         });
     }
@@ -300,12 +344,12 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
     /**
      * 获取房间号列表
      */
-    public void getFjhs(String ssl,String lc){
+    public void getFjhs(String ssl,String lc,final int param){
         fjhs.clear();
         Map<String,Object> map = new HashMap<>();
         map.put("ssl",ssl);
         map.put("lc",lc);
-        map.put("xb",xb);
+        map.put("xb",xb.getText().toString());
         HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/fjList", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
@@ -317,19 +361,24 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
                             List<Common> dfxxes = gsonData.getData();
                             if(dfxxes.size()>0){//获取数据不为空
                                 fjhs.addAll(dfxxes);
+                                toPickActivity(fjhs,6,param);
                             }else{
+                                errorMsg(param,"未获取到房间号");
                             }
                         } else {
+                            errorMsg(param,"获取房间号失败");
                         }
                     }else{
+                        errorMsg(param,"获取房间号失败");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    errorMsg(param,"获取房间号失败");
                 }
             }
             @Override
             public void onError(VolleyError error) {
-
+                errorMsg(param,"获取房间号失败");
             }
         });
     }
@@ -337,7 +386,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
     /**
      * 获取床位号列表
      */
-    public void getCwhs(String fjhid){
+    public void getCwhs(String fjhid,final int param){
         cwhs.clear();
         Map<String,Object> map = new HashMap<>();
         map.put("fjh",fjhid);
@@ -352,19 +401,24 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
                             List<Common> dfxxes = gsonData.getData();
                             if(dfxxes.size()>0){//获取数据不为空
                                 cwhs.addAll(dfxxes);
+                                toPickActivity(cwhs,7,param);
                             }else{
+                                errorMsg(param,"未获取到床位号");
                             }
                         } else {
+                            errorMsg(param,"获取床位号失败");
                         }
                     }else{
+                        errorMsg(param,"获取床位号失败");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    errorMsg(param,"获取床位号失败");
                 }
             }
             @Override
             public void onError(VolleyError error) {
-
+                errorMsg(param,"获取床位号失败");
             }
         });
     }
@@ -372,7 +426,8 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
     /**
      * 获取校区列表
      */
-    public void getXqs(){
+    public void getXqs(final int param){
+        xqs.clear();
         HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/xqList", null, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
@@ -384,18 +439,24 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
                             List<Common> dfxxes = gsonData.getData();
                             if(dfxxes.size()>0){//获取数据不为空
                                 xqs.addAll(dfxxes);
+                                toPickActivity(xqs,2,param);
                             }else{
+                                errorMsg(param,"未获取到校区");
                             }
                         } else {
+                            errorMsg(param,"获取校区失败");
                         }
                     }else{
+                        errorMsg(param,"获取校区失败");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    errorMsg(param,"获取校区失败");
                 }
             }
             @Override
             public void onError(VolleyError error) {
+                errorMsg(param,"获取校区失败");
             }
         });
     }
@@ -403,7 +464,8 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
     /**
      * 获取宿舍区列表
      */
-    public void getSsqs(String mXqid){
+    public void getSsqs(String mXqid, final int param){
+        ssqs.clear();
         Map<String,Object> map = new HashMap<>();
         map.put("xq",mXqid);
         HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/ssqList", map, new HttpListener<JSONObject>() {
@@ -417,18 +479,24 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
                             List<Common> dfxxes = gsonData.getData();
                             if(dfxxes.size()>0){//获取数据不为空
                                 ssqs.addAll(dfxxes);
+                                toPickActivity(ssqs,3,param);
                             }else{
+                                errorMsg(param,"未获取到宿舍区");
                             }
                         } else {
+                            errorMsg(param,"获取宿舍区失败");
                         }
                     }else{
+                        errorMsg(param,"获取宿舍区失败");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    errorMsg(param,"获取宿舍区失败");
                 }
             }
             @Override
             public void onError(VolleyError error) {
+                errorMsg(param,"获取宿舍区失败");
             }
         });
     }
@@ -436,7 +504,8 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
     /**
      * 获取宿舍楼列表
      */
-    public void getSsls(String mSsqid){
+    public void getSsls(String mSsqid, final int param){
+        ssls.clear();
         Map<String,Object> map = new HashMap<>();
         map.put("ssq",mSsqid);
         HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/sslList", map, new HttpListener<JSONObject>() {
@@ -450,18 +519,24 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
                             List<Common> dfxxes = gsonData.getData();
                             if(dfxxes.size()>0){//获取数据不为空
                                 ssls.addAll(dfxxes);
+                                toPickActivity(ssls,4,param);
                             }else{
+                                errorMsg(param,"未获取到宿舍楼");
                             }
                         } else {
+                            errorMsg(param,"获取宿舍楼失败");
                         }
                     }else{
+                        errorMsg(param,"获取宿舍楼失败");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    errorMsg(param,"获取宿舍楼失败");
                 }
             }
             @Override
             public void onError(VolleyError error) {
+                errorMsg(param,"获取宿舍楼失败");
             }
         });
     }
@@ -469,41 +544,42 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
     /**
      * 退宿原因和调整原因
      */
-    public void getTsyys(String ssqid){
-        Map<String,Object> map = new HashMap<>();
-        map.put("ssq",ssqid);
-        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/tzyyList", map, new HttpListener<JSONObject>() {
-            @Override
-            public void onSuccess(JSONObject result) {
-                try {
-                    if(result != null) {
-                        GsonData<Common> gsonData = new Gson().fromJson(result.toString(), new TypeToken<GsonData<Common>>() {
-                        }.getType());
-                        if (gsonData.getCode() == 200) {
-                            List<Common> dfxxes = gsonData.getData();
-                            if(dfxxes.size()>0){//获取数据不为空
-                                tzyys.addAll(dfxxes);
-                            }else{
-                            }
-                        } else {
-                        }
-                    }else{
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void onError(VolleyError error) {
-            }
-        });
-    }
+//    public void getTsyys(String ssqid){
+//        Map<String,Object> map = new HashMap<>();
+//        map.put("ssq",ssqid);
+//        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/tzyyList", map, new HttpListener<JSONObject>() {
+//            @Override
+//            public void onSuccess(JSONObject result) {
+//                try {
+//                    if(result != null) {
+//                        GsonData<Common> gsonData = new Gson().fromJson(result.toString(), new TypeToken<GsonData<Common>>() {
+//                        }.getType());
+//                        if (gsonData.getCode() == 200) {
+//                            List<Common> dfxxes = gsonData.getData();
+//                            if(dfxxes.size()>0){//获取数据不为空
+//                                tzyys.addAll(dfxxes);
+//                            }else{
+//                            }
+//                        } else {
+//                        }
+//                    }else{
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            @Override
+//            public void onError(VolleyError error) {
+//            }
+//        });
+//    }
 
     /**
      * 获取房间详情
      * @param fjh 房间号
      */
     public void getFjDetail(String fjh){
+        fjhs.clear();
         Map<String,Object> map = new HashMap<>();
         map.put("fjh",fjh);
         HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/fjDetail", map, new HttpListener<JSONObject>() {
@@ -539,25 +615,10 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      * @param v
      */
     public void toPickXq(View v){
-        if (xqs.size() > 0) {
-            Intent intent = new Intent(mContext, ZsstjPickActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("kfs", (Serializable) xqs);
-            intent.putExtras(bundle);
-            startActivityForResult(intent, 2);
-            overridePendingTransition(R.anim.push_up_in, 0);
+        if (xqs.size() > 0) {//初始化获取到校区就无须再请求
+            toPickActivity(xqs,2,PICK_GETDATA);
         } else {
-            getXqs();
-            if (xqs.size() > 0) {
-                Intent intent = new Intent(mContext, ZsstjPickActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("kfs", (Serializable) xqs);
-                intent.putExtras(bundle);
-                startActivityForResult(intent, 2);
-                overridePendingTransition(R.anim.push_up_in, 0);
-            }else {
-                showErrorMsg(mRootView, "未获取到校区选项");
-            }
+            getXqs(PICK_GETDATA);
         }
     }
 
@@ -566,24 +627,13 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      * @param v
      */
     public void toPickSsq(View v){
-        if (ssqs.size() > 0) {
-            Intent intent = new Intent(mContext, ZsstjPickActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("kfs", (Serializable) ssqs);
-            intent.putExtras(bundle);
-            startActivityForResult(intent, 3);
-            overridePendingTransition(R.anim.push_up_in, 0);
+        if (ssqs.size() > 0) {//初始化获取到校区就无须再请求
+            toPickActivity(ssqs,3,PICK_GETDATA);
         } else {
-            getSsqs(xqid);
-            if (ssqs.size() > 0) {
-                Intent intent = new Intent(mContext, ZsstjPickActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("kfs", (Serializable) ssqs);
-                intent.putExtras(bundle);
-                startActivityForResult(intent, 3);
-                overridePendingTransition(R.anim.push_up_in, 0);
-            } else {
-                showErrorMsg(mRootView, "未获取到宿舍区选项");
+            if(StringUtils.isNotEmpty(xqid)) {
+                getSsqs(xqid, PICK_GETDATA);
+            }else{
+                showErrorMsg(mRootView,"请先选择校区");
             }
         }
     }
@@ -594,23 +644,12 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      */
     public void toPickSsl(View v){
         if (ssls.size() > 0) {
-            Intent intent = new Intent(mContext, ZsstjPickActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("kfs", (Serializable) ssls);
-            intent.putExtras(bundle);
-            startActivityForResult(intent, 4);
-            overridePendingTransition(R.anim.push_up_in, 0);
+            toPickActivity(ssls,4,PICK_GETDATA);
         } else {
-            getSsls(ssqid);
-            if (ssls.size() > 0) {
-                Intent intent = new Intent(mContext, ZsstjPickActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("kfs", (Serializable) ssls);
-                intent.putExtras(bundle);
-                startActivityForResult(intent, 4);
-                overridePendingTransition(R.anim.push_up_in, 0);
-            } else {
-                showErrorMsg(mRootView, "未获取到宿舍楼选项");
+            if(StringUtils.isNotEmpty(ssqid)) {
+                getSsls(ssqid,PICK_GETDATA);
+            }else{
+                showErrorMsg(mRootView,"请先选择宿舍区");
             }
         }
     }
@@ -621,23 +660,12 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      */
     public void toPickLc(View v){
         if (lcs.size() > 0) {
-            Intent intent = new Intent(mContext, ZsstjPickActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("kfs", (Serializable) lcs);
-            intent.putExtras(bundle);
-            startActivityForResult(intent, 5);
-            overridePendingTransition(R.anim.push_up_in, 0);
+            toPickActivity(lcs,5,PICK_GETDATA);
         } else {
-            getLcs(sslid);
-            if (lcs.size() > 0) {
-                Intent intent = new Intent(mContext, ZsstjPickActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("kfs", (Serializable) lcs);
-                intent.putExtras(bundle);
-                startActivityForResult(intent, 5);
-                overridePendingTransition(R.anim.push_up_in, 0);
-            }else {
-                showErrorMsg(mRootView, "未获取到楼层选项");
+            if(StringUtils.isNotEmpty(sslid)) {
+                getLcs(sslid,PICK_GETDATA);
+            }else{
+                showErrorMsg(mRootView,"请先选择宿舍楼");
             }
         }
     }
@@ -648,23 +676,16 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      */
     public void toPickFjh(View v){
         if (fjhs.size() > 0) {
-            Intent intent = new Intent(mContext, ZsstjPickActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("kfs", (Serializable) fjhs);
-            intent.putExtras(bundle);
-            startActivityForResult(intent, 6);
-            overridePendingTransition(R.anim.push_up_in, 0);
+            toPickActivity(fjhs,6,PICK_GETDATA);
         } else {
-            getFjhs(sslid,lcid);
-            if (fjhs.size() > 0) {
-                Intent intent = new Intent(mContext, ZsstjPickActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("kfs", (Serializable) fjhs);
-                intent.putExtras(bundle);
-                startActivityForResult(intent, 6);
-                overridePendingTransition(R.anim.push_up_in, 0);
-            } else {
-                showErrorMsg(mRootView, "未获取到房间号选项");
+            if(!StringUtils.isNotEmpty(xb.getText().toString())){
+                showErrorMsg(mRootView, "请先选择提名学生");
+            }else if(!StringUtils.isNotEmpty(sslid)){
+                showErrorMsg(mRootView,"请先选择宿舍楼");
+            }else if(!StringUtils.isNotEmpty(lcid)){
+                showErrorMsg(mRootView,"请先选择楼层");
+            }else {
+                getFjhs(sslid, lcid, PICK_GETDATA);
             }
         }
     }
@@ -675,23 +696,12 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      */
     public void toPickCwh(View v){
         if (cwhs.size() > 0) {
-            Intent intent = new Intent(mContext, ZsstjPickActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("kfs", (Serializable) cwhs);
-            intent.putExtras(bundle);
-            startActivityForResult(intent, 7);
-            overridePendingTransition(R.anim.push_up_in, 0);
+            toPickActivity(cwhs,7,PICK_GETDATA);
         } else {
-            getCwhs(fjhid);
-            if (cwhs.size() > 0) {
-                Intent intent = new Intent(mContext, ZsstjPickActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("kfs", (Serializable) cwhs);
-                intent.putExtras(bundle);
-                startActivityForResult(intent, 7);
-                overridePendingTransition(R.anim.push_up_in, 0);
-            } else {
-                showErrorMsg(mRootView, "未获取到床位号选项");
+            if(StringUtils.isNotEmpty(fjhid)) {
+                getCwhs(fjhid,PICK_GETDATA);
+            }else{
+                showErrorMsg(mRootView,"请先选择房间号");
             }
         }
     }
@@ -701,26 +711,16 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      * @param v
      */
     public void toPickTzyy(View v){
-        if (tzyys.size() > 0) {
-            Intent intent = new Intent(mContext, ZsstjPickActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("kfs", (Serializable) tzyys);
-            intent.putExtras(bundle);
+        if(StringUtils.isNotEmpty(ssq_pick.getText().toString())) {
+            Intent intent = new Intent(mContext, ZssglSelectTzyyActivity.class);
+            intent.putExtra("ssqid", ssqid);
+            intent.putExtra("tzyyid",tzyyid);
             startActivityForResult(intent, 8);
-            overridePendingTransition(R.anim.push_up_in, 0);
-        } else {
-            getTsyys(xqid);
-            if (tzyys.size() > 0) {
-                Intent intent = new Intent(mContext, ZsstjPickActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("kfs", (Serializable) tzyys);
-                intent.putExtras(bundle);
-                startActivityForResult(intent, 8);
-                overridePendingTransition(R.anim.push_up_in, 0);
-            } else {
-                showErrorMsg(mRootView, "未获取到调整原因选项");
-            }
+            overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+        }else{
+            showErrorMsg(mRootView, "请先选择宿舍区");
         }
+
     }
 
 
@@ -883,5 +883,32 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
                ZssglAddTiaoSuActivity.super.back();
             }
         });
+    }
+
+    /**
+     * 跳转到选择页面
+     * @param picks
+     * @param result
+     */
+    public void toPickActivity(List<Common> picks,int result,int param){
+        if(param == PICK_GETDATA) {
+            Intent intent = new Intent(mContext, ZsstjPickActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("kfs", (Serializable) picks);
+            intent.putExtras(bundle);
+            startActivityForResult(intent, result);
+            overridePendingTransition(R.anim.push_up_in, 0);
+        }
+    }
+
+    /**
+     * 展示错误信息
+     * @param param
+     * @param msg
+     */
+    private void errorMsg(int param,String msg){
+        if(param == PICK_GETDATA){
+            showErrorMsg(mRootView, msg);
+        }
     }
 }

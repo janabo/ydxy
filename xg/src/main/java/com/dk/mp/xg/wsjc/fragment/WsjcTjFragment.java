@@ -9,6 +9,7 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.dk.mp.core.ui.BaseFragment;
+import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
@@ -35,13 +36,15 @@ public class WsjcTjFragment extends BaseFragment{
     }
 
     public void setMUrl(String url){
-        mError.setErrorType(ErrorLayout.LOADDATA);
-//        mWebView.removeAllViews();
-//        mWebView.clearCache(true);
-        url = getUrl(url);
-        Logger.info("##########murl="+url);
-        mWebView.loadUrl(url);
-        Logger.info("##########mCount="+mWebView.getChildCount());
+        if(DeviceUtil.checkNet()){
+            mError.setErrorType(ErrorLayout.LOADDATA);
+            url = getUrl(url);
+            Logger.info("##########murl=" + url);
+            mWebView.loadUrl(url);
+            Logger.info("##########mCount=" + mWebView.getChildCount());
+        }else {
+            mError.setErrorType(ErrorLayout.NETWORK_ERROR);
+        }
     }
 
 //    @Override

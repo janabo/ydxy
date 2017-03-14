@@ -1,12 +1,14 @@
-package com.dk.mp.xxxw.entity;
+package com.dk.mp.core.entity;
+
+import java.io.Serializable;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 /**
- * 作者：janabo on 2017/3/9 14:54
+ * 作者：janabo on 2016/12/19 10:06
  */
-public class Xxxw extends RealmObject {
+public class News extends RealmObject implements Serializable {
     @PrimaryKey
     private String id;
     private String content; //内容
@@ -16,20 +18,20 @@ public class Xxxw extends RealmObject {
     private String publishTime;
     private boolean load = false;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getImage() {

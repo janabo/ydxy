@@ -401,7 +401,14 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
         ok.setVisibility(View.GONE);
         progress.setVisibility(View.VISIBLE);
         if(StringUtils.isNotEmpty(noCutFilePath)){
-            updateImg();
+            if(StringUtils.isNotEmpty(noCutFilePath)) {
+                File f = new File(noCutFilePath);
+                if (f.exists() && f.isFile()) {
+                    updateImg();
+                } else {
+                    submit();
+                }
+            }
         }else{
             submit();
         }

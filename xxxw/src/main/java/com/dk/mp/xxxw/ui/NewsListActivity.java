@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
+import com.dk.mp.core.entity.News;
 import com.dk.mp.core.entity.PageMsg;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
@@ -28,7 +29,6 @@ import com.dk.mp.core.view.RecycleViewDivider;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xxxw.R;
 import com.dk.mp.xxxw.db.RealmHelper;
-import com.dk.mp.xxxw.entity.News;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.Serializable;
@@ -109,9 +109,9 @@ public class NewsListActivity extends MyActivity implements View.OnClickListener
             public void onSuccess(PageMsg<News> result) {
                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                 if(result.getList() != null && result.getList().size()>0) {
-//                    if(myListView.pageNo == 1){
-//                        mRealmHelper.deleteAllNews();//删除之前的数据
-//                    }
+                    if(myListView.pageNo == 1){
+                        mRealmHelper.deleteAllNews();//删除之前的数据
+                    }
                     mRealmHelper.addNews(result.getList());
                     list.addAll(result.getList());
                     myListView.finish(result.getTotalPages(),result.getCurrentPage());
@@ -172,21 +172,23 @@ public class NewsListActivity extends MyActivity implements View.OnClickListener
      * @param par  1 无网络  2，获取数据失败
      */
     public void getNewsLocal(int par,int pageNo){
-//        List<News> newses = mRealmHelper.queryAllNews();
-//        if(newses != null && newses.size()>0){
-//            list.addAll(newses);
-//            myListView.finish(1,1);
-//        }else{
-//            if(par == 1 && pageNo == 1) {
-//                mError.setErrorType(ErrorLayout.NETWORK_ERROR);
-//            }else if(par ==2 && pageNo == 1){
-//                mError.setErrorType(ErrorLayout.DATAFAIL);
-//            }else if(par == 1 && pageNo != 1){
-//                SnackBarUtil.showShort(myListView,R.string.net_no2);
-//            }else if(par == 2 && pageNo != 1){
-//                SnackBarUtil.showShort(myListView,R.string.data_fail);
-//            }
-//        }
+        mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+        List<News> newses = mRealmHelper.queryAllNews();
+        if(newses != null && newses.size()>0){
+            SnackBarUtil.showShort(myListView,R.string.net_no2);
+            list.addAll(newses);
+            myListView.finish(1,1);
+        }else{
+            if(par == 1 && pageNo == 1) {
+                mError.setErrorType(ErrorLayout.NETWORK_ERROR);
+            }else if(par ==2 && pageNo == 1){
+                mError.setErrorType(ErrorLayout.DATAFAIL);
+            }else if(par == 1 && pageNo != 1){
+                SnackBarUtil.showShort(myListView,R.string.net_no2);
+            }else if(par == 2 && pageNo != 1){
+                SnackBarUtil.showShort(myListView,R.string.data_fail);
+            }
+        }
     }
 
 }

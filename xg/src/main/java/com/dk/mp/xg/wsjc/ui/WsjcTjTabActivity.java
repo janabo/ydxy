@@ -35,6 +35,7 @@ import java.util.List;
  * 作者：janabo on 2017/1/13 16:12
  */
 public class WsjcTjTabActivity extends MyActivity {
+
     TabLayout mTabLayout;
     MyViewpager mViewpager;
     private String title;
@@ -62,6 +63,11 @@ public class WsjcTjTabActivity extends MyActivity {
     }
 
     @Override
+    protected void initView() {
+        super.initView();
+    }
+
+    @Override
     protected void initialize() {
         super.initialize();
         loginMsg = getSharedPreferences().getLoginMsg();
@@ -69,7 +75,7 @@ public class WsjcTjTabActivity extends MyActivity {
         setTitle(getIntent().getStringExtra("title"));
         findView();
         initViewPager();
-        getWeeks();
+        getWeeks(1);
         getSemesters();
         getTempl();
     }
@@ -92,17 +98,7 @@ public class WsjcTjTabActivity extends MyActivity {
                         startActivityForResult(intent, 1);
                         overridePendingTransition(R.anim.push_up_in, 0);
                     } else {
-                        getWeeks();
-                        if (mWeeks.size() > 0) {
-                            Intent intent = new Intent(mContext, WsjcTjWeekPickActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putSerializable("kfs", (Serializable) mWeeks);
-                            intent.putExtras(bundle);
-                            startActivityForResult(intent, 1);
-                            overridePendingTransition(R.anim.push_up_in, 0);
-                        }else {
-                            showErrorMsg(mViewpager, "未获取到周次选项");
-                        }
+                        getWeeks(2);
                     }
                 }else if(tabSelect == 1){//按月统计
                     Intent intent = new Intent(mContext, WsjcTjMonthPickActivity.class);
@@ -166,7 +162,7 @@ public class WsjcTjTabActivity extends MyActivity {
                     if(mWeeks.size()>0){
                         weekname = mWeeks.get(0).getName();
                     }else{
-                        weekname = "第一周";
+                        weekname = getIntent().getStringExtra("title");
                     }
                     setTitle(weekname);
 //                    fragment1.setMUrl("apps/sswsdftj/tj" +
@@ -183,7 +179,7 @@ public class WsjcTjTabActivity extends MyActivity {
                         templetid = mTemplet.get(0).getId();
                         semestername = mSemester.get(0).getName();
                     }else{
-                        semestername= "第一学期";
+                        semestername= getIntent().getStringExtra("title");
                     }
                     setTitle(semestername);
 //                    fragment3.setMUrl("apps/sswsdftj/tj" +
@@ -205,7 +201,7 @@ public class WsjcTjTabActivity extends MyActivity {
     /**
      * 获取周次
      */
-    public void getWeeks(){
+    public void getWeeks(final int param){
         HttpUtil.getInstance().postJsonObjectRequest("apps/sswsdftj/week", null, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
@@ -218,6 +214,18 @@ public class WsjcTjTabActivity extends MyActivity {
                             if(dfxxes.size()>0){//获取数据不为空
                                 dropdown_img.setVisibility(View.VISIBLE);
                                 mWeeks.addAll(dfxxes);
+                                if(param == 2) {
+                                    if (mWeeks.size() > 0) {
+                                        Intent intent = new Intent(mContext, WsjcTjWeekPickActivity.class);
+                                        Bundle bundle = new Bundle();
+                                        bundle.putSerializable("kfs", (Serializable) mWeeks);
+                                        intent.putExtras(bundle);
+                                        startActivityForResult(intent, 1);
+                                        overridePendingTransition(R.anim.push_up_in, 0);
+                                    } else {
+                                        showErrorMsg(mViewpager, "未获取到周次选项");
+                                    }
+                                }
                                 weekname = dfxxes.get(0).getName();
                                 setTitle(weekname);
                                 weekid = dfxxes.get(0).getId();
@@ -358,7 +366,7 @@ public class WsjcTjTabActivity extends MyActivity {
     public String getErrorMsg(){
         dropdown_img.setVisibility(View.INVISIBLE);
         fragment1.setMUrl(getUrl("week",weekid,type,"",weekname));
-        return "未获取周次失败";
+        return "获取周次失败";
     }
 
     public String getUrl(String type,String key ,String role,String pfmb,String name){
@@ -369,12 +377,4 @@ public class WsjcTjTabActivity extends MyActivity {
         return mUrl;
     }
 
-//    @Override
-//    public void back() {
-////        if(WsjcTjMainActivity.instance != null){
-////            WsjcTjMainActivity.instance.finish();
-////        }
-//        super.back();
-//
-//    }
 }

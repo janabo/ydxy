@@ -106,10 +106,10 @@ public class ZssglAddTuiSuActivity extends MyActivity implements View.OnClickLis
             showErrorMsg(mRootView,"请填写申请理由");
             return;
         }
-        if(dfxx_pick.getText().toString().length()<=0){
-            showErrorMsg(mRootView,"请选择退宿原因");
-            return;
-        }
+//        if(dfxx_pick.getText().toString().length()<=0){
+//            showErrorMsg(mRootView,"请选择退宿原因");
+//            return;
+//        }
         if(shyj.getText().toString().length()<=0){
             showErrorMsg(mRootView,"请填写审核意见");
             return;
@@ -176,6 +176,7 @@ public class ZssglAddTuiSuActivity extends MyActivity implements View.OnClickLis
     public void addWjxs(View view){
         Intent intent = new Intent(mContext, ZssglSelectPersonsActivity.class);
         intent.putExtra("lmlb","3");
+        intent.putExtra("categoryTitle","退宿学生");
         startActivityForResult(intent, 2);
         overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
     }
@@ -286,7 +287,7 @@ public class ZssglAddTuiSuActivity extends MyActivity implements View.OnClickLis
      * 设置ok按钮的样式
      */
     public void dealOkButton(){
-        if(student != null && sqly.getText().toString().length()>0 && dfxx_pick.getText().toString().length()>0 && shyj.getText().toString().length()>0){
+        if(student != null && sqly.getText().toString().length()>0 && shyj.getText().toString().length()>0){
             ok.setBackground(getResources().getDrawable(R.drawable.ripple_bg));
             ok.setEnabled(true);
         }else{

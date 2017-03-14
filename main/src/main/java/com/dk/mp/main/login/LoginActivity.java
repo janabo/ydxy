@@ -19,6 +19,7 @@ import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.SnackBarUtil;
+import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.util.encrypt.Base64Utils;
 import com.dk.mp.core.view.DrawCheckMarkView;
 import com.dk.mp.core.view.DrawCrossMarkView;
@@ -27,6 +28,7 @@ import com.dk.mp.core.view.ValidationCode;
 import com.dk.mp.core.view.edittext.CleanEditText;
 import com.dk.mp.main.R;
 import com.dk.mp.main.setting.ui.SettingActivity;
+import com.dk.mp.main.util.PushUtil;
 
 import org.json.JSONObject;
 
@@ -155,7 +157,8 @@ public class LoginActivity extends MyActivity implements View.OnClickListener{
                             yzm_view.setVisibility(View.VISIBLE);
                         }
                         preference.setInt("yzmcount",yzmcount++);
-                        SnackBarUtil.showShort(putview,result.getString("msg"));
+
+                        SnackBarUtil.showShort(putview, StringUtils.isNotEmpty(result.getString("msg"))?result.getString("msg"):"用户名或密码错误");
                         errorInfo();
                         getYzm();
                     }else{
@@ -164,6 +167,7 @@ public class LoginActivity extends MyActivity implements View.OnClickListener{
                         preference.setInt("yzmcount",0);
                         preference.setLoginMsg(userId,Base64Utils.getBase64(pass));
                         preference.setUserInfo(result.getJSONObject("data").toString());
+                        new PushUtil(mContext).setTag();
                         new Handler().postDelayed(new Runnable() {//等待成功动画结束
                             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                             @Override

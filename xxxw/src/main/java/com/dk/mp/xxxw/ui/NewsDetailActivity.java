@@ -14,11 +14,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
+import com.dk.mp.core.entity.News;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xxxw.R;
-import com.dk.mp.xxxw.entity.News;
 
 /**
  * 学校新闻详情
@@ -62,15 +63,22 @@ public class NewsDetailActivity extends MyActivity{
         }
 
         setNavigationClick ( );
+        ErrorLayout layout = (ErrorLayout)findViewById(R.id.errorlayout);
         if (news.getUrl() == null) {
-            ErrorLayout layout = (ErrorLayout)findViewById(R.id.errorlayout);
             layout.setVisibility(View.VISIBLE);
             mWebView.setVisibility(View.GONE);
             layout.setErrorType(ErrorLayout.NODATA);
         } else {
             String url = getUrl(news.getUrl());
-
-            mWebView.loadUrl (url);
+            if(DeviceUtil.checkNet()) {
+                layout.setVisibility(View.GONE);
+                mWebView.setVisibility(View.VISIBLE);
+                mWebView.loadUrl(url);
+            }else{
+                layout.setVisibility(View.VISIBLE);
+                mWebView.setVisibility(View.GONE);
+                layout.setErrorType(ErrorLayout.NETWORK_ERROR);
+            }
         }
     }
 
