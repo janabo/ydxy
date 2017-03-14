@@ -143,9 +143,13 @@ public class LsglListFragment extends BaseFragment{
                                 intent.putExtra("canFk",canFk);
                                 intent.putExtra("canBz",canBz);
 //                    startActivityForResult(intent,0);
-                                view.setTransitionName("item");
-                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), view, "item");
-                                ActivityCompat.startActivity(getActivity(),intent, options.toBundle());
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                    view.setTransitionName("item");
+                                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), view, "item");
+                                    ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+                                }else{
+                                    startActivity(intent);
+                                }
                                 isposting = false;
                             }
                         }, 500);
