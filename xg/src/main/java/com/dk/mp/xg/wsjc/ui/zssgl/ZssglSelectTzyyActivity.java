@@ -107,8 +107,8 @@ public class ZssglSelectTzyyActivity extends MyActivity implements View.OnClickL
                         tzyyname += entry.getValue()+",";
                     }
                     Intent in = new Intent();
-                    in.putExtra("tzyyid",tzyyid);
-                    in.putExtra("tzyyname",tzyyname);
+                    in.putExtra("tzyyid",tzyyid.substring(0,tzyyid.length()-1));
+                    in.putExtra("tzyyname",tzyyname.substring(0,tzyyname.length()-1));
                     setResult(RESULT_OK, in);
                     back();
                 }
