@@ -17,7 +17,8 @@
             android:name=".wsjc.ui.WsjcDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoTitle"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.WsjcDfyyPickActivity"
@@ -111,7 +112,8 @@
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.Sswz.SswzDjMainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.Sswz.SswzSelectPersonActivity"

@@ -14,6 +14,7 @@ import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.BaseFragment;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.TimeUtils;
 import com.dk.mp.core.util.encrypt.Base64Utils;
 import com.dk.mp.core.widget.MyViewpager;
@@ -89,34 +90,25 @@ public class WsjcTjTabActivity extends MyActivity {
         dropdown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tabSelect == 0) {//按周统计
-                    if (mWeeks.size() > 0) {
-                        Intent intent = new Intent(mContext, WsjcTjWeekPickActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("kfs", (Serializable) mWeeks);
-                        intent.putExtras(bundle);
-                        startActivityForResult(intent, 1);
+                if(DeviceUtil.checkNet()) {
+
+                    if (tabSelect == 0) {//按周统计
+                        if (mWeeks.size() > 0) {
+                            Intent intent = new Intent(mContext, WsjcTjWeekPickActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("kfs", (Serializable) mWeeks);
+                            intent.putExtras(bundle);
+                            startActivityForResult(intent, 1);
+                            overridePendingTransition(R.anim.push_up_in, 0);
+                        } else {
+                            getWeeks(2);
+                        }
+                    } else if (tabSelect == 1) {//按月统计
+                        Intent intent = new Intent(mContext, WsjcTjMonthPickActivity.class);
+                        startActivityForResult(intent, 2);
                         overridePendingTransition(R.anim.push_up_in, 0);
-                    } else {
-                        getWeeks(2);
-                    }
-                }else if(tabSelect == 1){//按月统计
-                    Intent intent = new Intent(mContext, WsjcTjMonthPickActivity.class);
-                    startActivityForResult(intent, 2);
-                    overridePendingTransition(R.anim.push_up_in, 0);
-                }else if(tabSelect == 2){//按学期统计
-                    if (mSemester.size() > 0 && mTemplet.size()>0) {
-                        Intent intent = new Intent(mContext, WsjcTjSemesterPickActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("xq", (Serializable) mSemester);
-                        bundle.putSerializable("mb", (Serializable) mTemplet);
-                        intent.putExtras(bundle);
-                        startActivityForResult(intent, 3);
-                        overridePendingTransition(R.anim.push_up_in, 0);
-                    }else{
-                        getSemesters();
-                        getTempl();
-                        if (mSemester.size() > 0 && mTemplet.size()>0) {
+                    } else if (tabSelect == 2) {//按学期统计
+                        if (mSemester.size() > 0 && mTemplet.size() > 0) {
                             Intent intent = new Intent(mContext, WsjcTjSemesterPickActivity.class);
                             Bundle bundle = new Bundle();
                             bundle.putSerializable("xq", (Serializable) mSemester);
@@ -124,10 +116,24 @@ public class WsjcTjTabActivity extends MyActivity {
                             intent.putExtras(bundle);
                             startActivityForResult(intent, 3);
                             overridePendingTransition(R.anim.push_up_in, 0);
-                        }else {
-                            showErrorMsg(mViewpager, "未获取到学期或模板选项");
+                        } else {
+                            getSemesters();
+                            getTempl();
+                            if (mSemester.size() > 0 && mTemplet.size() > 0) {
+                                Intent intent = new Intent(mContext, WsjcTjSemesterPickActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("xq", (Serializable) mSemester);
+                                bundle.putSerializable("mb", (Serializable) mTemplet);
+                                intent.putExtras(bundle);
+                                startActivityForResult(intent, 3);
+                                overridePendingTransition(R.anim.push_up_in, 0);
+                            } else {
+                                showErrorMsg(mViewpager, "未获取到学期或模板选项");
+                            }
                         }
                     }
+                }else{
+                    showErrorMsg(mViewpager, getReString(R.string.net_no2));
                 }
             }
         });
@@ -169,7 +175,11 @@ public class WsjcTjTabActivity extends MyActivity {
 //                            "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
                     fragment1.setMUrl(getUrl("week",weekid,type,"",weekname));
                 }else if(tabSelect == 1){
-                    setTitle(TimeUtils.getCurrMonth());
+                    if(DeviceUtil.checkNet()) {
+                        setTitle(TimeUtils.getCurrMonth());
+                    }else{
+                        setTitle(getIntent().getStringExtra("title"));
+                    }
 //                    fragment2.setMUrl("apps/sswsdftj/tj" +
 //                            "?type=month&key="+TimeUtils.getCurrMonth()+"&role="+1+"&pfmb="+"&name="+TimeUtils.getCurrMonth());
                     fragment2.setMUrl(getUrl("month",TimeUtils.getCurrMonth(),type,"",TimeUtils.getCurrMonth()));

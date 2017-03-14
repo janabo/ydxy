@@ -44,7 +44,7 @@ import java.util.Map;
  * 作者：janabo on 2017/2/8 09:51
  */
 public class ZssdjglAddLiusuActivity extends MyActivity implements ZssdjglPersonsAdapter.OnItemClickListener{
-    private TextView jsrq_pick,ksrq_pick,jsrq_title,ksrq_title;//结束日期，开始日期
+    private TextView jsrq_pick,ksrq_pick,jsrq_title,ksrq_title,bt_txt;//结束日期，开始日期
     private ScrollView mRootView;
     private LinearLayout ok;
     private DrawHookView progress;
@@ -69,6 +69,7 @@ public class ZssdjglAddLiusuActivity extends MyActivity implements ZssdjglPerson
         ksrq_pick = (TextView) findViewById(R.id.ksrq_pick);
         ksrq_title = (TextView) findViewById(R.id.ksrq_title);
         jsrq_title = (TextView) findViewById(R.id.jrrq_title);
+        bt_txt = (TextView)findViewById(R.id.bt_txt);
         mRootView = (ScrollView) findViewById(R.id.mRootView);
         ok = (LinearLayout) findViewById(R.id.ok);
         progress = (DrawHookView) findViewById(R.id.progress);
@@ -82,10 +83,12 @@ public class ZssdjglAddLiusuActivity extends MyActivity implements ZssdjglPerson
             setTitle("留宿登记");
             ksrq_title.setText("留宿开始时间");
             jsrq_title.setText("留宿结束时间");
+            bt_txt.setText("住宿人员");
         }else{
             setTitle("请假登记");
             ksrq_title.setText("请假开始时间");
             jsrq_title.setText("请假结束时间");
+            bt_txt.setText("请假人员");
         }
         persons.add(new Zssdjgl("addperson",""));
 

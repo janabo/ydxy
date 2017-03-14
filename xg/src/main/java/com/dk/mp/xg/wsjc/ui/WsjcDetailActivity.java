@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -449,27 +450,22 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
                 try {
                     JsonData jd = getGson().fromJson(result.toString(),JsonData.class);
                     if (jd.getCode() == 200 && (Boolean) jd.getData()) {
-                        progress.setVisibility(View.GONE);
-                        progress_check.setVisibility(View.VISIBLE);
-                        new Handler().postDelayed(new Runnable() {//等待成功动画结束
-                            @Override
-                            public void run() {
-                                ok_lin.setEnabled(true);
-                                back();
-                            }
-                        },2000);
+                        mHandler.sendEmptyMessage(1);
                     }else{
                         showErrorMsg(mRootView,result.getString("msg"));
-                        errorInfo();
+                        mHandler.sendEmptyMessage(-1);
+//                        errorInfo();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    errorInfo();
+                    mHandler.sendEmptyMessage(-1);
+//                    errorInfo();
                 }
             }
             @Override
             public void onError(VolleyError error) {
-                errorInfo();
+//                errorInfo();
+                mHandler.sendEmptyMessage(-1);
             }
         });
     }
@@ -492,6 +488,38 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
     }
 
     /**
+     * 成功
+     */
+    private void successInfo(){
+        progress.setVisibility(View.GONE);
+        progress_check.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(new Runnable() {//等待成功动画结束
+            @Override
+            public void run() {
+                ok_lin.setEnabled(true);
+                back();
+            }
+        },2000);
+    }
+
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 1://成功
+                    successInfo();
+                    break;
+                case -1://失败
+                    errorInfo();
+                    break;
+            }
+        }
+    };
+
+
+
+    /**
      * 上传图片
      */
     public void updateImg(){
@@ -508,7 +536,7 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
 
             @Override
             public void onFailure(Call call, IOException e) {
-                errorInfo();
+                mHandler.sendEmptyMessage(-1);
                 showErrorMsg("上传附件失败");
                 call.cancel();// 上传失败取消请求释放内存
             }

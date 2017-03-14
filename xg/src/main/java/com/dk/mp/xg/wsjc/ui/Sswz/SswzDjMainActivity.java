@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
@@ -325,6 +326,8 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
             tbr_lin.setVisibility(View.GONE);
             tbr_name.setVisibility(View.GONE);
             tbr_img.setVisibility(View.VISIBLE);
+            tbrid="";
+            dealOkButton();
         }
     }
 
@@ -435,27 +438,21 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
                 try {
                     if (result.getInt("code") != 200) {
                         showErrorMsg(mRootView,result.getString("msg"));
-                        errorInfo();
+//                        errorInfo();
+                        mHandler.sendEmptyMessage(-1);
                     }else{
-                        progress.setVisibility(View.GONE);
-                        progress_check.setVisibility(View.VISIBLE);
-                        new Handler().postDelayed(new Runnable() {//等待成功动画结束
-                            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-                            @Override
-                            public void run() {
-                                ok_lin.setEnabled(true);
-                                back();
-                            }
-                        },2000);
+                        mHandler.sendEmptyMessage(1);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    errorInfo();
+//                    errorInfo();
+                    mHandler.sendEmptyMessage(-1);
                 }
             }
             @Override
             public void onError(VolleyError error) {
-                errorInfo();
+//                errorInfo();
+                mHandler.sendEmptyMessage(-1);
             }
         });
     }
@@ -475,6 +472,37 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
             }
         },1000);
     }
+
+    /**
+     * 成功
+     */
+    private void successInfo(){
+        progress.setVisibility(View.GONE);
+        progress_check.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(new Runnable() {//等待成功动画结束
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void run() {
+                ok_lin.setEnabled(true);
+                back();
+            }
+        },2000);
+    }
+
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 1://成功
+                    successInfo();
+                    break;
+                case -1://失败
+                    errorInfo();
+                    break;
+            }
+        }
+    };
 
 
     /**
@@ -511,7 +539,8 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
 
             @Override
             public void onFailure(Call call, IOException e) {
-                errorInfo();
+//                errorInfo();
+                mHandler.sendEmptyMessage(-1);
                 showErrorMsg("上传附件失败");
                 call.cancel();// 上传失败取消请求释放内存
             }
