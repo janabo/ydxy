@@ -308,7 +308,7 @@ public class ZssglAddTuiSuActivity extends MyActivity implements View.OnClickLis
 
     @Override
     public void back() {
-        new AlertDialog(mContext).show(null, "是否退出退宿申请？", new DialogInterface.OnClickListener() {
+        new AlertDialog(mContext).show(null, "确定退出退宿申请？", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 ZssglAddTuiSuActivity.super.back();

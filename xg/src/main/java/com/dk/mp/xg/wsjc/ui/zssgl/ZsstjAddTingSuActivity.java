@@ -274,7 +274,7 @@ public class ZsstjAddTingSuActivity extends MyActivity implements View.OnClickLi
 
     @Override
     public void back() {
-        new AlertDialog(mContext).show(null, "是否退出停宿申请？", new DialogInterface.OnClickListener() {
+        new AlertDialog(mContext).show(null, "确定退出停宿申请？", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 ZsstjAddTingSuActivity.super.back();

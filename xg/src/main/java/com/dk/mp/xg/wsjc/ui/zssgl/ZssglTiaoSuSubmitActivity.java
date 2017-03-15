@@ -810,7 +810,7 @@ public class ZssglTiaoSuSubmitActivity extends MyActivity{
 
     @Override
     public void back() {
-        new AlertDialog(mContext).show(null, "是否退出调宿审核？", new DialogInterface.OnClickListener() {
+        new AlertDialog(mContext).show(null, "确定退出调宿审核？", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 ZssglTiaoSuSubmitActivity.super.back();

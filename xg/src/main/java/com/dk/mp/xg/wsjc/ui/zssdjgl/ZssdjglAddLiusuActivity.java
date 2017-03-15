@@ -198,7 +198,7 @@ public class ZssdjglAddLiusuActivity extends MyActivity implements ZssdjglPerson
 
     @Override
     public void back() {
-        new AlertDialog(mContext).show(null, "1".equals(type)?"是否退出留宿登记？":"是否退出请假登记？", new DialogInterface.OnClickListener() {
+        new AlertDialog(mContext).show(null, "1".equals(type)?"确定退出留宿登记？":"确定退出请假登记？", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 ZssdjglAddLiusuActivity.super.back();

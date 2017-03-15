@@ -12,6 +12,7 @@ import com.dk.mp.core.entity.JsonData;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.BroadcastUtil;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.ui.Sswz.SswzWjrqPickActivity;
@@ -116,6 +117,7 @@ public class ZssdjglEditActivity extends MyActivity{
                             try {
                                 JsonData jd = getGson().fromJson(result.toString(),JsonData.class);
                                 if (jd.getCode() == 200 && (Boolean) jd.getData()) {
+                                    BroadcastUtil.sendBroadcast(mContext, "zssdjgl_refresh");
                                     back();
                                 } else {
                                     showErrorMsg(jd.getMsg());
@@ -144,6 +146,7 @@ public class ZssdjglEditActivity extends MyActivity{
                             try {
                                 JsonData jd = getGson().fromJson(result.toString(),JsonData.class);
                                 if (jd.getCode() == 200 && (Boolean) jd.getData()) {
+                                    BroadcastUtil.sendBroadcast(mContext, "zssdjgl_refresh");
                                     back();
                                 } else {
                                     showErrorMsg(jd.getMsg());

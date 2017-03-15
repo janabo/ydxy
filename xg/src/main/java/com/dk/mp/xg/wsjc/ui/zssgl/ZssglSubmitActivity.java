@@ -152,7 +152,7 @@ public class ZssglSubmitActivity extends MyActivity {
 
     @Override
     public void back() {
-        new AlertDialog(mContext).show(null, "是否退出审核？", new DialogInterface.OnClickListener() {
+        new AlertDialog(mContext).show(null, "确定退出审核？", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 ZssglSubmitActivity.super.back();
