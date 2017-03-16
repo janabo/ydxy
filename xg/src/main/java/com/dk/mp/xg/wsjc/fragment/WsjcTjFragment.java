@@ -43,7 +43,9 @@ public class WsjcTjFragment extends BaseFragment{
             mWebView.loadUrl(url);
             Logger.info("##########mCount=" + mWebView.getChildCount());
         }else {
-            mError.setErrorType(ErrorLayout.NETWORK_ERROR);
+            if(mError != null) {
+                mError.setErrorType(ErrorLayout.NETWORK_ERROR);
+            }
         }
     }
 

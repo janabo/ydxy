@@ -161,7 +161,7 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
             ssq = d.getSsqId();
             ssl = d.getSslId();
             lc = d.getLcId();
-            fjh = d.getFjh();
+            fjh = d.getFjhId();
         }
     }
 

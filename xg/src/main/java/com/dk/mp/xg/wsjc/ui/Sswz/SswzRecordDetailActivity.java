@@ -2,7 +2,6 @@ package com.dk.mp.xg.wsjc.ui.Sswz;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.DownloadListener;
@@ -19,6 +18,10 @@ import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.util.encrypt.Base64Utils;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
+import com.dk.mp.xg.wsjc.ui.ImagePreviewActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 作者：janabo on 2017/1/17 09:28
@@ -79,9 +82,15 @@ public class SswzRecordDetailActivity extends MyActivity{
             @Override
             public void onDownloadStart(String url, String s1, String s2, String s3, long l) {
                 // 监听下载功能，当用户点击下载链接的时候，直接调用系统的浏览器来下载
-                Uri uri = Uri.parse(url);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
+//                Uri uri = Uri.parse(url);
+//                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//                startActivity(intent);
+                List<String> data = new ArrayList<String>();
+                data.add(url);
+                Intent intent = new Intent(mContext, ImagePreviewActivity.class);
+                intent.putExtra("index", 0);
+                intent.putStringArrayListExtra("list", (ArrayList<String>) data);
+                mContext.startActivity(intent);
             }
         });
     }

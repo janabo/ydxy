@@ -119,6 +119,7 @@ public class ZssglAddTuiSuActivity extends MyActivity implements View.OnClickLis
         map.put("bz",bz.getText().toString());//备注
         map.put("userIdString",student.getXsid());//学生id
         map.put("sqly",sqly.getText().toString());//申请理由
+        map.put("shyj",shyj.getText().toString());//申请理由
         map.put("tsyy",tsyyid);//学生id
 
         ok_text.setVisibility(View.GONE);
