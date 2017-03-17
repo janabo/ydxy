@@ -73,7 +73,9 @@ public class HeaderView {
                         if (list.size() != 0) {
                             slideList.clear();
                         }
-                        slideList.addAll(list.subList(0,4));
+                        if(list.size()>4) {
+                            slideList.addAll(list.subList(0, 4));
+                        }
                         mLoopAdapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
