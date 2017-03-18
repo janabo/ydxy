@@ -231,7 +231,7 @@ public class ZsstjTabActivity extends MyActivity {
     public String getUrl(String id,String type,String lx){
         String mUrl = "apps/zxzssgltj/tongji?id="+id+"&type="+type+"&lmlb="+lx;
         if(loginMsg != null){
-            mUrl += "&uid="+loginMsg.getUid()+"&pwd="+ Base64Utils.getBase64(loginMsg.getPsw());
+            mUrl += "&uid="+loginMsg.getUid()+"&pwd="+ loginMsg.getPsw();
         }
         return mUrl;
     }

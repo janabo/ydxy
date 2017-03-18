@@ -8,7 +8,6 @@ import com.dk.mp.core.entity.LoginMsg;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.util.StringUtils;
-import com.dk.mp.core.util.encrypt.Base64Utils;
 import com.dk.mp.oldoa.dialog.MsgDialog;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -51,9 +50,9 @@ public class HttpClientUtil {
 		LoginMsg loginMsg = new CoreSharedPreferencesHelper(context).getLoginMsg();
 		if (loginMsg != null&&!"login".equals(url)) {
 			params.addBodyParameter("uid", loginMsg.getUid());
-			params.addBodyParameter("pwd", Base64Utils.getBase64(loginMsg.getPsw()));
+			params.addBodyParameter("pwd", loginMsg.getPsw());
 			Logger.info("POST 请求参数:" + ("uid=" + loginMsg.getUid()));
-			Logger.info("POST 请求参数:" + ("pwd=" + Base64Utils.getBase64(loginMsg.getPsw())));
+			Logger.info("POST 请求参数:" + ("pwd=" + loginMsg.getPsw()));
 		}
 		if (map != null) {
 			
@@ -84,7 +83,7 @@ public class HttpClientUtil {
 		LoginMsg loginMsg = new CoreSharedPreferencesHelper(context).getLoginMsg();
 		if (loginMsg != null&&!"login".equals(url)) {
 			params.addBodyParameter("uid", loginMsg.getUid());
-			params.addBodyParameter("pwd", Base64Utils.getBase64(loginMsg.getPsw()));
+			params.addBodyParameter("pwd", loginMsg.getPsw());
 		}
 		
 		if (map != null) {

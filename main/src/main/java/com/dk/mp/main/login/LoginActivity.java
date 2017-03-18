@@ -165,7 +165,7 @@ public class LoginActivity extends MyActivity implements View.OnClickListener{
                         progress.setVisibility(View.GONE);
                         progress_check.setVisibility(View.VISIBLE);
                         preference.setInt("yzmcount",0);
-                        preference.setLoginMsg(userId,Base64Utils.getBase64(pass));
+                        preference.setLoginMsg(userId,Base64Utils.getBase64(pass.trim().toString()));
                         preference.setUserInfo(result.getJSONObject("data").toString());
                         new PushUtil(mContext).setTag();
                         new Handler().postDelayed(new Runnable() {//等待成功动画结束

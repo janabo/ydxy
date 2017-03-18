@@ -16,7 +16,6 @@ import com.dk.mp.core.ui.BaseFragment;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.TimeUtils;
-import com.dk.mp.core.util.encrypt.Base64Utils;
 import com.dk.mp.core.widget.MyViewpager;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.adapter.MyFragmentPagerAdapter;
@@ -382,7 +381,7 @@ public class WsjcTjTabActivity extends MyActivity {
     public String getUrl(String type,String key ,String role,String pfmb,String name){
         String mUrl = "apps/sswsdftj/tj?type="+type+"&key="+key+"&role="+role+"&pfmb="+pfmb+"&name="+name;
         if(loginMsg != null){
-            mUrl += "&uid="+loginMsg.getUid()+"&pwd="+ Base64Utils.getBase64(loginMsg.getPsw());
+            mUrl += "&uid="+loginMsg.getUid()+"&pwd="+ loginMsg.getPsw();
         }
         return mUrl;
     }

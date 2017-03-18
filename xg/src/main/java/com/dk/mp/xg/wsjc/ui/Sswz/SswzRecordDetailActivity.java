@@ -153,7 +153,7 @@ public class SswzRecordDetailActivity extends MyActivity{
      */
     private String getUrl(String url) {
         if(loginMsg != null){
-            url += "&uid="+loginMsg.getUid()+"&pwd="+ Base64Utils.getBase64(loginMsg.getPsw());
+            url += "&uid="+loginMsg.getUid()+"&pwd="+ loginMsg.getPsw();
         }
         if (url.startsWith("http://") || url.startsWith("https://")) {
             return url;

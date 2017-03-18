@@ -70,7 +70,7 @@ public class WsjcMainActivity extends MyActivity implements
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(getResources().getColor(R.color.black50));
+            window.setStatusBarColor(getResources().getColor(R.color.black));
         }
         mRootView = (RelativeLayout) findViewById(R.id.mRootView);
         scanPreview = (SurfaceView) findViewById(R.id.capture_preview);

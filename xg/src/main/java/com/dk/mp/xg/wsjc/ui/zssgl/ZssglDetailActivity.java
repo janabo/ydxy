@@ -91,7 +91,7 @@ public class ZssglDetailActivity extends MyActivity implements View.OnClickListe
             LoginMsg loginMsg = getSharedPreferences().getLoginMsg();
             String mUrl = "apps/zxzssgl/detail?id="+detailid+"&lmlb="+lmlb+"&uid=";
             if(loginMsg != null){
-                mUrl += loginMsg.getUid()+"&pwd="+ Base64Utils.getBase64(loginMsg.getPsw());
+                mUrl += loginMsg.getUid()+"&pwd="+ loginMsg.getPsw();
             }
             setMUrl(mUrl);
         }else{

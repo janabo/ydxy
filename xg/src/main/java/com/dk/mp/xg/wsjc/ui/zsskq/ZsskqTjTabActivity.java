@@ -14,7 +14,6 @@ import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.BaseFragment;
 import com.dk.mp.core.ui.MyActivity;
-import com.dk.mp.core.util.encrypt.Base64Utils;
 import com.dk.mp.core.widget.MyViewpager;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.adapter.MyFragmentPagerAdapter;
@@ -190,7 +189,7 @@ public class ZsskqTjTabActivity extends MyActivity{
     public void getTjUrl(String id){
         String mUrl="";
         if(loginMsg != null){
-            mUrl = "&uid="+loginMsg.getUid()+"&pwd="+ Base64Utils.getBase64(loginMsg.getPsw());
+            mUrl = "&uid="+loginMsg.getUid()+"&pwd="+ loginMsg.getPsw();
         }
         if(tabSelect == 0){
             fragment1.setMUrl("apps/zsskq/tj?type=today&id="+id+"&role="+type+mUrl);

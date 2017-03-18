@@ -13,7 +13,6 @@ import android.widget.ProgressBar;
 import com.dk.mp.core.entity.LoginMsg;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.Logger;
-import com.dk.mp.core.util.encrypt.Base64Utils;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 
@@ -141,7 +140,7 @@ public class WsjcRecordDetailActivity extends MyActivity{
      */
     private String getUrl(String url) {
         if(loginMsg != null){
-            url += "&uid="+loginMsg.getUid()+"&pwd="+ Base64Utils.getBase64(loginMsg.getPsw());
+            url += "&uid="+loginMsg.getUid()+"&pwd="+ loginMsg.getPsw();
         }
         if (url.startsWith("http://") || url.startsWith("https://")) {
             return url;
