@@ -23,11 +23,13 @@ import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.BroadcastUtil;
+import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.SnackBarUtil;
 import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.view.DrawCheckMarkView;
 import com.dk.mp.core.view.DrawCrossMarkView;
 import com.dk.mp.core.view.DrawHookView;
+import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.entity.Common;
 import com.dk.mp.xg.wsjc.entity.Student;
@@ -71,6 +73,8 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
     private EditText sqly,bz,shyj;//申请理由
     Student student =null;
     private TextView ok_text;
+    private ErrorLayout mError;
+
 
     @Override
     protected int getLayoutID() {
@@ -80,6 +84,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
     @Override
     protected void initView() {
         super.initView();
+        mError = (ErrorLayout) findViewById(R.id.error_layout);
         ok_text = (TextView) findViewById(R.id.ok_text);
         progress = (DrawHookView) findViewById(R.id.progress);
         progress_check = (DrawCheckMarkView) findViewById(R.id.progress_check);
@@ -615,10 +620,15 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      * @param v
      */
     public void toPickXq(View v){
+        mError.setErrorType(ErrorLayout.LOADDATA);
         if (xqs.size() > 0) {//初始化获取到校区就无须再请求
             toPickActivity(xqs,2,PICK_GETDATA);
         } else {
-            getXqs(PICK_GETDATA);
+            if(DeviceUtil.checkNet()) {
+                getXqs(PICK_GETDATA);
+            }else{
+                errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
+            }
         }
     }
 
@@ -627,13 +637,18 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      * @param v
      */
     public void toPickSsq(View v){
+        mError.setErrorType(ErrorLayout.LOADDATA);
         if (ssqs.size() > 0) {//初始化获取到校区就无须再请求
             toPickActivity(ssqs,3,PICK_GETDATA);
         } else {
             if(StringUtils.isNotEmpty(xqid)) {
-                getSsqs(xqid, PICK_GETDATA);
+                if(DeviceUtil.checkNet()) {
+                    getSsqs(xqid, PICK_GETDATA);
+                }else{
+                    errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
+                }
             }else{
-                showErrorMsg(mRootView,"请先选择校区");
+                errorMsg(PICK_GETDATA,"请先选择校区");
             }
         }
     }
@@ -643,13 +658,18 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      * @param v
      */
     public void toPickSsl(View v){
+        mError.setErrorType(ErrorLayout.LOADDATA);
         if (ssls.size() > 0) {
             toPickActivity(ssls,4,PICK_GETDATA);
         } else {
             if(StringUtils.isNotEmpty(ssqid)) {
-                getSsls(ssqid,PICK_GETDATA);
+                if(DeviceUtil.checkNet()) {
+                    getSsls(ssqid,PICK_GETDATA);
+                }else{
+                    errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
+                }
             }else{
-                showErrorMsg(mRootView,"请先选择宿舍区");
+                errorMsg(PICK_GETDATA,"请先选择宿舍区");
             }
         }
     }
@@ -659,13 +679,18 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      * @param v
      */
     public void toPickLc(View v){
+        mError.setErrorType(ErrorLayout.LOADDATA);
         if (lcs.size() > 0) {
             toPickActivity(lcs,5,PICK_GETDATA);
         } else {
             if(StringUtils.isNotEmpty(sslid)) {
-                getLcs(sslid,PICK_GETDATA);
+                if(DeviceUtil.checkNet()) {
+                    getLcs(sslid,PICK_GETDATA);
+                }else{
+                    errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
+                }
             }else{
-                showErrorMsg(mRootView,"请先选择宿舍楼");
+                errorMsg(PICK_GETDATA,"请先选择宿舍楼");
             }
         }
     }
@@ -675,17 +700,22 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      * @param v
      */
     public void toPickFjh(View v){
+        mError.setErrorType(ErrorLayout.LOADDATA);
         if (fjhs.size() > 0) {
             toPickActivity(fjhs,6,PICK_GETDATA);
         } else {
             if(!StringUtils.isNotEmpty(xb.getText().toString())){
-                showErrorMsg(mRootView, "请先选择提名学生");
+                errorMsg(PICK_GETDATA, "请先选择提名学生");
             }else if(!StringUtils.isNotEmpty(sslid)){
-                showErrorMsg(mRootView,"请先选择宿舍楼");
+                errorMsg(PICK_GETDATA,"请先选择宿舍楼");
             }else if(!StringUtils.isNotEmpty(lcid)){
-                showErrorMsg(mRootView,"请先选择楼层");
+                errorMsg(PICK_GETDATA,"请先选择楼层");
             }else {
-                getFjhs(sslid, lcid, PICK_GETDATA);
+                if(DeviceUtil.checkNet()) {
+                    getFjhs(sslid, lcid, PICK_GETDATA);
+                }else{
+                    errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
+                }
             }
         }
     }
@@ -695,13 +725,18 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      * @param v
      */
     public void toPickCwh(View v){
+        mError.setErrorType(ErrorLayout.LOADDATA);
         if (cwhs.size() > 0) {
             toPickActivity(cwhs,7,PICK_GETDATA);
         } else {
             if(StringUtils.isNotEmpty(fjhid)) {
-                getCwhs(fjhid,PICK_GETDATA);
+                if(DeviceUtil.checkNet()) {
+                    getCwhs(fjhid,PICK_GETDATA);
+                }else{
+                    errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
+                }
             }else{
-                showErrorMsg(mRootView,"请先选择房间号");
+                errorMsg(PICK_GETDATA,"请先选择房间号");
             }
         }
     }
@@ -892,6 +927,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      */
     public void toPickActivity(List<Common> picks,int result,int param){
         if(param == PICK_GETDATA) {
+            mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
             Intent intent = new Intent(mContext, ZsstjPickActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable("kfs", (Serializable) picks);
@@ -901,6 +937,8 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
         }
     }
 
+
+
     /**
      * 展示错误信息
      * @param param
@@ -908,6 +946,7 @@ public class ZssglAddTiaoSuActivity extends MyActivity implements View.OnClickLi
      */
     private void errorMsg(int param,String msg){
         if(param == PICK_GETDATA){
+            mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
             showErrorMsg(mRootView, msg);
         }
     }

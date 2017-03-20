@@ -6,6 +6,9 @@
 
     <include layout="@layout/core_title_back"/>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ScrollView
         android:id="@+id/mRootView"
         android:layout_width="match_parent"
@@ -577,4 +580,13 @@
 
         </LinearLayout>
     </ScrollView>
+        <com.dk.mp.core.widget.ErrorLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/error_layout"
+            android:gravity="center_horizontal"
+            android:background="@color/black50"
+            android:visibility="gone">
+        </com.dk.mp.core.widget.ErrorLayout>
+    </FrameLayout>
 </LinearLayout>

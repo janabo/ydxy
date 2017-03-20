@@ -18,7 +18,7 @@ public class Base64Utils {
     // 加密
     public static String getBase64(String str) {
         String strBase64 = new String(Base64.encode(str.getBytes(), Base64.DEFAULT));
-        return strBase64;
+        return strBase64.replaceAll("\n","");
     }
 
     // 解密

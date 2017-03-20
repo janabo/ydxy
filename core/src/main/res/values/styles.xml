@@ -102,6 +102,7 @@
         <item name="textSize14">14sp</item>
         <item name="textSize13">13sp</item>
         <item name="textSize12">12sp</item>
+        <item name="textSize10">10sp</item>
         <item name="image7">7dp</item>
         <item name="image8">8dp</item>
         <item name="image10">10dp</item>
@@ -138,6 +139,7 @@
         <item name="textSize14">16.1sp</item>
         <item name="textSize13">14.95sp</item>
         <item name="textSize12">13.8sp</item>
+        <item name="textSize10">11.5sp</item>
         <item name="image7">8dp</item>
         <item name="image8">9.2dp</item>
         <item name="image10">11.5dp</item>
@@ -174,6 +176,7 @@
         <item name="textSize14">17.5sp</item>
         <item name="textSize13">16.25sp</item>
         <item name="textSize12">15sp</item>
+        <item name="textSize10">12.5sp</item>
         <item name="image7">8.75dp</item>
         <item name="image8">10dp</item>
         <item name="image10">12.5dp</item>

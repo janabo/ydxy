@@ -9,6 +9,7 @@
     <attr name="textSize14" format="dimension" />
     <attr name="textSize13" format="dimension" />
     <attr name="textSize12" format="dimension" />
+    <attr name="textSize10" format="dimension" />
     <attr name="image7" format="dimension" />
     <attr name="image8" format="dimension" />
     <attr name="image10" format="dimension" />
