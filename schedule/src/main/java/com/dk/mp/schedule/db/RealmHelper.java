@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.dk.mp.core.entity.Rcap;
 import com.dk.mp.core.entity.RcapDetail;
+import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.TimeUtils;
 
 import java.util.ArrayList;
@@ -19,9 +20,15 @@ import io.realm.RealmResults;
 public class RealmHelper {
 
     private Realm mRealm;
+    private CoreSharedPreferencesHelper preference;
+    private String uid = "";
 
     public RealmHelper(Context context) {
         mRealm = Realm.getDefaultInstance();
+        preference = new CoreSharedPreferencesHelper(context);
+        if(preference.getLoginMsg() != null){
+            uid = preference.getLoginMsg().getUid();
+        }
     }
 
     /**
@@ -29,8 +36,9 @@ public class RealmHelper {
      * @param rcap
      */
     public void addRcap(Rcap rcap){
+        rcap.setUid(uid);
         mRealm.beginTransaction();
-        if(!isRcapExist(rcap.getId()))
+        if(!isRcapExist(rcap.getId(),rcap.getUid()))
             mRealm.copyToRealm(rcap);
         else
             mRealm.copyToRealmOrUpdate(rcap);
@@ -61,6 +69,7 @@ public class RealmHelper {
             rd.setTime_start(rcap.getTime_start());
             rd.setTime_end(rcap.getTime_end());
             rd.setRcid(rcap.getId());
+            rd.setUid(rcap.getUid());
             rcapDetails.add(rd);
         }
         mRealm.copyToRealm(rcapDetails);
@@ -71,8 +80,8 @@ public class RealmHelper {
      * @param id
      * @return
      */
-    public boolean isRcapExist(String id){
-        Rcap rcap=mRealm.where(Rcap.class).equalTo("id",id).findFirst();
+    public boolean isRcapExist(String id,String mUid){
+        Rcap rcap=mRealm.where(Rcap.class).equalTo("id",id).equalTo("uid",mUid).findFirst();
         if (rcap==null){
             return false;
         }else {
@@ -86,7 +95,7 @@ public class RealmHelper {
      * @return
      */
     public List<RcapDetail> queryRcap(String date){
-        RealmResults<RcapDetail> rcaps = mRealm.where(RcapDetail.class).equalTo("date",date).findAllSorted("stime");
+        RealmResults<RcapDetail> rcaps = mRealm.where(RcapDetail.class).equalTo("date",date).equalTo("uid",uid).findAllSorted("stime");
         return mRealm.copyFromRealm(rcaps);
     }
 

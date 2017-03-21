@@ -50,8 +50,8 @@
         android:layout_height="match_parent"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:layout_height="70dp"
-        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:scaleType="fitXY"
         android:src="@mipmap/add"
         android:layout_alignParentBottom="true"
@@ -60,7 +60,6 @@
         app:borderWidth="0.0dip"
         app:elevation="5.0dip"
         app:fabSize="normal"
-        app:pressedTranslationZ="10.0dip"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="40dp"
         android:onClick="toAdd"

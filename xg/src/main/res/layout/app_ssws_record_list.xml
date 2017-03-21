@@ -39,9 +39,8 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
-            android:layout_height="70dp"
-            android:layout_width="70dp"
-            android:scaleType="fitXY"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:src="@mipmap/search_icon"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"

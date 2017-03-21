@@ -19,6 +19,7 @@ public class RcapDetail extends RealmObject implements Serializable{
     private String rcid;//日程id
     private String time_start;//开始时间
     private String time_end;//结束时间
+    private String uid;//用户id
 
     public String getId() {
         return id;
@@ -90,5 +91,13 @@ public class RcapDetail extends RealmObject implements Serializable{
 
     public void setTime_end(String time_end) {
         this.time_end = time_end;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }

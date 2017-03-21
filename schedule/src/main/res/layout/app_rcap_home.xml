@@ -48,9 +48,8 @@
     </android.support.v7.widget.RecyclerView>
 
     <android.support.design.widget.FloatingActionButton
-        android:layout_height="70dp"
-        android:layout_width="70dp"
-        android:scaleType="fitXY"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:src="@mipmap/floating_add"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"

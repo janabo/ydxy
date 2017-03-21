@@ -93,6 +93,7 @@ public class RcapHomeActivity extends MyActivity{
             String action = intent.getAction();
             if (action.equals("rcap_refresh")) {
                 getRcapDetials();
+                calendarView.init(mManager);
             }
         }
     };

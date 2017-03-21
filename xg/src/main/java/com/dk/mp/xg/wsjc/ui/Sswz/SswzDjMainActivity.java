@@ -409,15 +409,15 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
                 if (f.exists() && f.isFile()) {
                     updateImg();
                 } else {
-                    submit();
+                    submit("");
                 }
             }
         }else{
-            submit();
+            submit("");
         }
     }
 
-    public void submit(){
+    public void submit(String filename){
         Map<String,Object> params = new HashMap<>();
         params.put("id", uuid);
         params.put("xq",xqid);
@@ -429,7 +429,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
         params.put("wjdhbh",uuid);
         params.put("wjlb",wjlbid);
         params.put("tbr",tbrid);
-        params.put("fjName",uuid);
+        params.put("fjName",filename);
         params.put("bz",bz.getText().toString());
 
         HttpUtil.getInstance().postJsonObjectRequest("apps/sswzdj/tjwz", params, new HttpListener<JSONObject>() {
@@ -550,7 +550,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
                 String result = response.body().string();
                 Logger.info("######################result="+result);
                 call.cancel();// 上传失败取消请求释放内存
-                submit();
+                submit(uuid);
             }
         });
     }

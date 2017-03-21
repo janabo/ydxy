@@ -439,7 +439,7 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
         params.put("kfId",kfId);
         params.put("dfxxId",dfxx.toString());
         params.put("df",dffs.toString());
-        params.put("fjName",uuid);
+        params.put("fjName",filename);
         params.put("bz",bz_edit.getText().toString());
         params.put("id", uuid);
         params.put("zzdf",mScore);
@@ -546,7 +546,7 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
                 String result = response.body().string();
                 Logger.info("######################result="+result);
                 call.cancel();// 上传失败取消请求释放内存
-                submit("");
+                submit(uuid);
             }
         });
     }

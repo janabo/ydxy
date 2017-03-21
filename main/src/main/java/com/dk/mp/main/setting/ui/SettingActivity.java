@@ -64,11 +64,9 @@ public class SettingActivity extends MyActivity{
         String today = dateFormat.format(now);
         String brithday = helper.getUser() == null ? null : helper.getUser().getBirthday();
         if (brithday != null && today.substring(5,today.length()).equals(brithday.substring(5,brithday.length()))) {
-//        if (true) {
             showBrithdayTheme();
         }
 
-//        version_new.setText("当前版本:" + DeviceUtil.getVersionName(context));
         BroadcastUtil.registerReceiver(this, mRefreshBroadcastReceiver, new String[]{"login","user"});
         setUser();
     }

@@ -97,26 +97,11 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
         }
     };
 
+
+
     @Override
     protected void initialize() {
         super.initialize();
-
-        CoreSharedPreferencesHelper helper = new CoreSharedPreferencesHelper(this);
-        Date now = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//可以方便地修改日期格式
-        String today = dateFormat.format(now);
-        String brithday = helper.getUser() == null ? null : helper.getUser().getBirthday();
-        if (brithday != null && today.substring(5,today.length()).equals(brithday.substring(5,brithday.length()))) {
-//        if (true) {
-            findViewById(R.id.top_hy).setVisibility(View.VISIBLE);
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.setStatusBarColor(ContextCompat.getColor(this, com.dk.mp.core.R.color.colorPrimaryHy));
-            }
-            showBrirthDayDialog();
-        }
-
 
 //初始化可拖拽列表
 //        apps.addAll(AppManager.getMyAppList(this));
@@ -255,10 +240,26 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
     }
 
-//    @Override
-//    protected void onRestart() {
-//        super.onRestart();
-//        Log.e("--------","-------------recreate------------");
-//        recreate();
-//    }
+    protected void initBirthTheme() {
+        CoreSharedPreferencesHelper helper = new CoreSharedPreferencesHelper(this);
+        Date now = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//可以方便地修改日期格式
+        String today = dateFormat.format(now);
+        String brithday = helper.getUser() == null ? null : helper.getUser().getBirthday();
+        if (brithday != null && today.substring(5,today.length()).equals(brithday.substring(5,brithday.length()))) {
+            findViewById(R.id.top_hy).setVisibility(View.VISIBLE);
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                window.setStatusBarColor(ContextCompat.getColor(this, com.dk.mp.core.R.color.colorPrimaryHy));
+            }
+            showBrirthDayDialog();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initBirthTheme();
+    }
 }

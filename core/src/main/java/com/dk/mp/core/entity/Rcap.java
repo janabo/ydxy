@@ -15,6 +15,7 @@ public class Rcap extends RealmObject {
     private String time_end;//结束时间
     private String location;//地点
     private String stime;//开始时间 08:30
+    private String uid;//用户id
 
     public String getId() {
         return id;
@@ -70,5 +71,13 @@ public class Rcap extends RealmObject {
 
     public void setStime(String stime) {
         this.stime = stime;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }
