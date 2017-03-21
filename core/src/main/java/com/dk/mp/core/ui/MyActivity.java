@@ -401,4 +401,23 @@ public abstract class MyActivity extends AppCompatActivity{
         ImageView view = (ImageView) findViewById(R.id.brithday);
         view.setVisibility(View.VISIBLE);
     }
+
+    public void hideBrithdayTheme(){
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        }
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.top);
+        if (layout == null) {
+            RelativeLayout v = (RelativeLayout) frameLayout.getChildAt(0);
+            RelativeLayout t = (RelativeLayout) v.getChildAt(0);
+            t.setBackgroundColor(ContextCompat.getColor(this, com.dk.mp.core.R.color.colorPrimary));
+        } else {
+            layout.setBackgroundColor(ContextCompat.getColor(this, com.dk.mp.core.R.color.colorPrimary));
+        }
+
+        ImageView view = (ImageView) findViewById(R.id.brithday);
+        view.setVisibility(View.GONE);
+    }
 }

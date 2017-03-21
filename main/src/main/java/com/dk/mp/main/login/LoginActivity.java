@@ -20,6 +20,7 @@ import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.SnackBarUtil;
 import com.dk.mp.core.util.StringUtils;
+import com.dk.mp.core.util.TimeUtils;
 import com.dk.mp.core.util.encrypt.Base64Utils;
 import com.dk.mp.core.view.DrawCheckMarkView;
 import com.dk.mp.core.view.DrawCrossMarkView;
@@ -167,6 +168,7 @@ public class LoginActivity extends MyActivity implements View.OnClickListener{
                         preference.setInt("yzmcount",0);
                         preference.setLoginMsg(userId,Base64Utils.getBase64(pass.trim().toString()));
                         preference.setUserInfo(result.getJSONObject("data").toString());
+                        preference.setValue(TimeUtils.getToday()+userId,"false");
                         new PushUtil(mContext).setTag();
                         new Handler().postDelayed(new Runnable() {//等待成功动画结束
                             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

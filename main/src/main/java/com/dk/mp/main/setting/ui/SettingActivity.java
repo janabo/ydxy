@@ -21,6 +21,7 @@ import com.dk.mp.core.util.BroadcastUtil;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.FileUtil;
 import com.dk.mp.core.util.SnackBarUtil;
+import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.main.R;
 import com.dk.mp.main.login.LoginActivity;
 import com.dk.mp.main.util.PushUtil;
@@ -56,17 +57,7 @@ public class SettingActivity extends MyActivity{
         helper = getSharedPreferences();
         instance = SettingActivity.this;
         findView();
-
         setTitle("设置");
-
-        Date now = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//可以方便地修改日期格式
-        String today = dateFormat.format(now);
-        String brithday = helper.getUser() == null ? null : helper.getUser().getBirthday();
-        if (brithday != null && today.substring(5,today.length()).equals(brithday.substring(5,brithday.length()))) {
-            showBrithdayTheme();
-        }
-
         BroadcastUtil.registerReceiver(this, mRefreshBroadcastReceiver, new String[]{"login","user"});
         setUser();
     }
@@ -219,4 +210,38 @@ public class SettingActivity extends MyActivity{
         }
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initBirthTheme();
+    }
+
+    public void initBirthTheme(){
+        Date now = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//可以方便地修改日期格式
+        String today = dateFormat.format(now);
+        boolean isBrithDay;
+        if(helper.getUser() == null){
+            isBrithDay = false;
+        }else if(StringUtils.isNotEmpty(helper.getUser().getBirthday())){
+            String brithday = helper.getUser().getBirthday();
+//            if(helper.getUser().getUserId().equals("portal")) {
+//                brithday = "2017-03-21";
+//            }
+            if(brithday.length() == 10){
+                isBrithDay = today.substring(5,today.length()).equals(brithday.substring(5,brithday.length()));
+            }else{
+                isBrithDay = today.substring(6,today.length()).equals(brithday.substring(5,brithday.length()));
+            }
+        }else{
+            isBrithDay = false;
+        }
+
+        if (isBrithDay) {
+            showBrithdayTheme();
+        }else{
+            hideBrithdayTheme();
+        }
+    }
 }

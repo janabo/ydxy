@@ -21,6 +21,7 @@ import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.AdapterInterface;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
+import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.view.MyListView;
 import com.dk.mp.lsgl.entity.PersonEntity;
 import com.dk.mp.main.R;
@@ -76,22 +77,6 @@ public class MessageActivity extends MyActivity {
 		mListView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 		mListView.setAdapterInterface(mList,adapterInterface);
 
-		Date now = new Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//可以方便地修改日期格式
-		String today = dateFormat.format(now);
-		String brithday = helper.getUser() == null ? null : helper.getUser().getBirthday();
-		if (brithday != null && today.substring(5,today.length()).equals(brithday.substring(5,brithday.length()))) {
-//        if (true) {
-			showBrithdayTheme();
-			brithdayMess = new Message();
-			brithdayMess.setTitle("标题：生日贺卡");
-			brithdayMess.setContent("内容："+helper.getUser().getUserName()+"生日快乐");
-			brithdayMess.setTime(today.substring(5,7)+"月"+today.substring(8,10)+"日"+" 00 : 00");
-			brithdayMess.setMoudel("生日提醒");
-			brithdayMess.setAction("brithday");
-			brithdayMess.setParam("param:pp,sdf:pp,sd:oo");
-			brithdayMess.setId("brithday");
-		}
 	}
 
 	private AdapterInterface adapterInterface = new AdapterInterface(){
@@ -257,5 +242,47 @@ public class MessageActivity extends MyActivity {
 	protected void onResume() {
 		super.onResume();
 		mListView.reLoadDatas();
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		initBrithDayTheme();
+	}
+
+	public void initBrithDayTheme(){
+		Date now = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//可以方便地修改日期格式
+		String today = dateFormat.format(now);
+
+		boolean isBrithDay;
+		if(helper.getUser() == null){
+			isBrithDay = false;
+		}else if(StringUtils.isNotEmpty(helper.getUser().getBirthday())){
+			String brithday = helper.getUser().getBirthday();
+//			if(helper.getUser().getUserId().equals("portal")) {
+//				brithday = "2017-03-21";
+//			}
+			if(brithday.length() == 10){
+				isBrithDay = today.substring(5,today.length()).equals(brithday.substring(5,brithday.length()));
+			}else{
+				isBrithDay = today.substring(6,today.length()).equals(brithday.substring(5,brithday.length()));
+			}
+		}else{
+			isBrithDay = false;
+		}
+		if (isBrithDay) {
+			showBrithdayTheme();
+			brithdayMess = new Message();
+			brithdayMess.setTitle("标题：生日贺卡");
+			brithdayMess.setContent("内容："+helper.getUser().getUserName()+"生日快乐");
+			brithdayMess.setTime(today.substring(5,7)+"月"+today.substring(8,10)+"日"+" 00 : 00");
+			brithdayMess.setMoudel("生日提醒");
+			brithdayMess.setAction("brithday");
+			brithdayMess.setParam("param:pp,sdf:pp,sd:oo");
+			brithdayMess.setId("brithday");
+		}else{
+			hideBrithdayTheme();
+		}
 	}
 }
