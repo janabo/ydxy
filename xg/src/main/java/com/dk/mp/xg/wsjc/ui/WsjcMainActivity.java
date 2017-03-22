@@ -147,8 +147,6 @@ public class WsjcMainActivity extends MyActivity implements
      */
     public void toWsjcjl(View view) {
         Intent intent = new Intent(this, WsjcRecordMainActivity.class);
-//        intent.putExtra("x",(view.getLeft() + view.getRight()) / 2);
-//        intent.putExtra("y",(view.getTop() + view.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
         startActivity(intent);
     }
 

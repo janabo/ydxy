@@ -52,9 +52,11 @@ public class ZssglSelectRoomAdapter extends RecyclerView.Adapter<ZssglSelectRoom
         if(selected == position){
             holder.isselect.setVisibility(View.VISIBLE);
             holder.lin_lc.setBackgroundColor(mContext.getResources().getColor(R.color.page_bg));
+            holder.name.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
         }else{
             holder.isselect.setVisibility(View.INVISIBLE);
             holder.lin_lc.setBackgroundColor(mContext.getResources().getColor(R.color.white));
+            holder.name.setTextColor(mContext.getResources().getColor(R.color.black50));
         }
     }
 

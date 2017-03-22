@@ -118,6 +118,7 @@ public class ZssdjglEditActivity extends MyActivity{
                                 JsonData jd = getGson().fromJson(result.toString(),JsonData.class);
                                 if (jd.getCode() == 200 && (Boolean) jd.getData()) {
                                     BroadcastUtil.sendBroadcast(mContext, "zssdjgl_refresh");
+                                    BroadcastUtil.sendBroadcast(mContext, "zssdjgl_search_refresh");
                                     back();
                                 } else {
                                     showErrorMsg(jd.getMsg());
@@ -147,6 +148,7 @@ public class ZssdjglEditActivity extends MyActivity{
                                 JsonData jd = getGson().fromJson(result.toString(),JsonData.class);
                                 if (jd.getCode() == 200 && (Boolean) jd.getData()) {
                                     BroadcastUtil.sendBroadcast(mContext, "zssdjgl_refresh");
+                                    BroadcastUtil.sendBroadcast(mContext, "zssdjgl_search_refresh");
                                     back();
                                 } else {
                                     showErrorMsg(jd.getMsg());

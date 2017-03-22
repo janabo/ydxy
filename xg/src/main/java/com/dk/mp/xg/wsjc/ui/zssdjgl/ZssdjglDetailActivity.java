@@ -169,6 +169,7 @@ public class ZssdjglDetailActivity extends MyActivity {
                                 if (code == 200) {
                                     showErrorMsg(mRootView,"删除成功");
                                     BroadcastUtil.sendBroadcast(mContext, "zssdjgl_refresh");
+                                    BroadcastUtil.sendBroadcast(mContext, "zssdjgl_search_refresh");
                                     back();
                                 } else {
                                     showErrorMsg(mRootView,result.getString("msg"));

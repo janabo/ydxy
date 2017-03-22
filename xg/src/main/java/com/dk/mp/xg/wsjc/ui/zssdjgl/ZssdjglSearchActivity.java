@@ -1,5 +1,6 @@
 package com.dk.mp.xg.wsjc.ui.zssdjgl;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,6 +23,7 @@ import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.AdapterInterface;
+import com.dk.mp.core.util.BroadcastUtil;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.util.SnackBarUtil;
@@ -69,7 +71,21 @@ public class ZssdjglSearchActivity extends MyActivity implements View.OnClickLis
         }else{
             mError.setErrorType(ErrorLayout.NETWORK_ERROR);
         }
+        BroadcastUtil.registerReceiver(mContext, mRefreshBroadcastReceiver, "zssdjgl_search_refresh");
     }
+
+    private BroadcastReceiver mRefreshBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("zssdjgl_search_refresh")) {
+                mData.clear();
+                mError.setErrorType(ErrorLayout.LOADDATA);
+                mRecycle.setPageNo(1);
+                getData();
+            }
+        }
+    };
 
     /**
      * 初始化界面
@@ -115,8 +131,8 @@ public class ZssdjglSearchActivity extends MyActivity implements View.OnClickLis
                     hideSoftInput();
                     if (StringUtils.isNotEmpty(keywords)) {
                         mError.setErrorType(ErrorLayout.LOADDATA);
+                        mRecycle.setPageNo(1);
                         getData();
-                        mData.clear();
                     } else {
                         SnackBarUtil.showShort(layout_search,"请输入关键字");
                     }
