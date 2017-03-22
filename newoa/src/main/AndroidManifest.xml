@@ -25,6 +25,35 @@
 
         <activity android:name=".ui.OADetailActivity"
             android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.DatePickActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".ui.TimePickActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".ui.HysPickActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".ui.HcglSubmitActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.HcglSubmitSelectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.OperationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.SubmitActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.PeopleActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

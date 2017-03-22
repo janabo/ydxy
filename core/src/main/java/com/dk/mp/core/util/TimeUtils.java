@@ -428,4 +428,55 @@ public class TimeUtils {
 		lastDate.setDate(lastDay);
 		return sm.format(lastDate);
 	}
+
+	/**
+	 * 格式化日期精确到分.
+	 * @param date  日期
+	 * @return yyyy-MM-dd HH:mm
+	 */
+	public static String dateMinuteToStr(Date date) {
+		SimpleDateFormat formatYMD = new SimpleDateFormat("yyyy-MM-dd HH:mm");// formatYMD表示的是yyyy-MM-dd格式
+		String ret = null;
+		try {
+			ret = formatYMD.format(date);
+
+		} catch (Exception e) {
+		}
+		return ret;
+	}
+
+	/**
+	 * 判断时间先后.
+	 * @param startTime   日期
+	 * @param endTime  日期
+	 * @return 是或否
+	 */
+	public static boolean comparedDateS(String startTime, String endTime) {
+		SimpleDateFormat formatYMD = new SimpleDateFormat("yyyy-MM-dd");// formatYMD表示的是yyyy-MM-dd格式
+		Date d1 = null;
+		Date d2 = null;
+		boolean bool = true;
+		try {
+			d1 = formatYMD.parse(startTime);
+			d2 = formatYMD.parse(endTime);
+			if (d1.before(d2)) {
+				bool = true;
+			} else{
+				bool = false;
+			}
+		} catch (ParseException e) {
+		}
+		return bool;
+	}
+
+	/**
+	 * 格式化日期.
+	 * @param date  日期
+	 * @return String(yyyy-mm-dd)
+	 */
+	public static String parseDate(Date date) {
+		String hehe = new SimpleDateFormat("yyyy-MM-dd").format(date);
+		return hehe;
+
+	}
 }

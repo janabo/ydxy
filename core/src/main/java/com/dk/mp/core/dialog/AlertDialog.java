@@ -61,6 +61,24 @@ public class AlertDialog {
     }
 
     /**
+     * 公共对话框.
+     */
+    public void show(String title,String content) {
+        android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(context);
+        if(StringUtils.isNotEmpty(title)){
+            alertDialog.setTitle(title);
+        }
+        alertDialog.setMessage(content)
+                .setNegativeButton("确定",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.create().show();
+    }
+
+    /**
      * 更新应用对话框.
      */
     public void update(String title,String content,DialogInterface.OnClickListener okOnClick) {

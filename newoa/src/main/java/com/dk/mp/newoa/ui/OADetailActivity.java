@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.BroadcastUtil;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.util.StringUtils;
@@ -29,9 +30,9 @@ import com.dk.mp.newoa.entity.SeriMap;
 import com.dk.mp.newoa.http.Manager;
 import com.dk.mp.newoa.widget.OADetailView;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -113,7 +114,7 @@ public class OADetailActivity extends MyActivity implements View.OnClickListener
                     }else{
                         mError.setErrorType(ErrorLayout.DATAFAIL);
                     }
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                     mError.setErrorType(ErrorLayout.DATAFAIL);
                 }
@@ -195,51 +196,51 @@ public class OADetailActivity extends MyActivity implements View.OnClickListener
         Intent intent;
         if("true".equals(isgzzb)){
             if("hide".equals(detail.getSubmit().getSuggestion()) && ("hide".equals(detail.getSubmit().getUsers()) || !"zb".equals(submitType))){//意见和选人都是hide时直接在当前页面处理
-//                gzzb(submitType);
+                gzzb(submitType);
             }else{
-//                intent = new Intent(OADetailActivity.this,SubmitActivity.class);
-//                intent.putExtra("isgzzb", isgzzb);
-//                intent.putExtra("title", submitName);
-//                if("true".equals(detail.getSubmit().getUsers()) && "zb".equals(submitType)){//
-//                    intent.putExtra("choose", "-1");
-//                }else{
-//                    intent.putExtra("choose", "0");
-//                }
-//                zb(intent, submitType, submitName);
+                intent = new Intent(OADetailActivity.this,SubmitActivity.class);
+                intent.putExtra("isgzzb", isgzzb);
+                intent.putExtra("title", submitName);
+                if("true".equals(detail.getSubmit().getUsers()) && "zb".equals(submitType)){//
+                    intent.putExtra("choose", "-1");
+                }else{
+                    intent.putExtra("choose", "0");
+                }
+                zb(intent, submitType, submitName);
             }
         }else{
-//            if("nextStep".equals(submitType)){
-//                intent = new Intent(OADetailActivity.this,OperationActivity.class);
-//                intent.putExtra("isgzzb", isgzzb);
-//                gw(intent, submitType, submitName);
-//            }else if("tg".equals(submitType)||"btg".equals(submitType)){
-//                intent = new Intent(OADetailActivity.this,HcglSubmitActivity.class);
-//                intent.putExtra("isgzzb", isgzzb);
-//                intent.putExtra("title", submitName);
-//                gw(intent, submitType, submitName);
-//            } else if ("shouyue".equals(submitType)) {
-//                shouyue(submitType);
-//            } else if ("chuanyue".equals(submitType)) {
-//                intent = new Intent(OADetailActivity.this, SubmitActivity.class);
-//                intent.putExtra("isgzzb", isgzzb);
-//                gwcy(intent, submitType);
-//            } else if ("banjie".equals(submitType)) {
-//                intent = new Intent(OADetailActivity.this, SubmitActivity.class);
-//                intent.putExtra("isgzzb", isgzzb);
-//                gwcybj(intent, submitType);
-//            } else if ("addUser_false".equals(submitType)) {
-//                showMessage("不能添加部门负责人");
-//            } else if ("addUser".equals(submitType)) {
-//                intent = new Intent(OADetailActivity.this, SubmitActivity.class);
-//                intent.putExtra("isgzzb", isgzzb);
-//                addUser(intent, "flowSign");
-//            }else{
-//                intent = new Intent(OADetailActivity.this,SubmitActivity.class);
-//                intent.putExtra("isgzzb", isgzzb);
-//                intent.putExtra("choose","0");
-//                intent.putExtra("title", submitName);
-//                gw(intent, submitType, submitName);
-//            }
+            if("nextStep".equals(submitType)){
+                intent = new Intent(OADetailActivity.this,OperationActivity.class);
+                intent.putExtra("isgzzb", isgzzb);
+                gw(intent, submitType, submitName);
+            }else if("tg".equals(submitType)||"btg".equals(submitType)){
+                intent = new Intent(OADetailActivity.this,HcglSubmitActivity.class);
+                intent.putExtra("isgzzb", isgzzb);
+                intent.putExtra("title", submitName);
+                gw(intent, submitType, submitName);
+            } else if ("shouyue".equals(submitType)) {
+                shouyue(submitType);
+            } else if ("chuanyue".equals(submitType)) {
+                intent = new Intent(OADetailActivity.this, SubmitActivity.class);
+                intent.putExtra("isgzzb", isgzzb);
+                gwcy(intent, submitType);
+            } else if ("banjie".equals(submitType)) {
+                intent = new Intent(OADetailActivity.this, SubmitActivity.class);
+                intent.putExtra("isgzzb", isgzzb);
+                gwcybj(intent, submitType);
+            } else if ("addUser_false".equals(submitType)) {
+                showErrorMsg("不能添加部门负责人");
+            } else if ("addUser".equals(submitType)) {
+                intent = new Intent(OADetailActivity.this, SubmitActivity.class);
+                intent.putExtra("isgzzb", isgzzb);
+                addUser(intent, "flowSign");
+            }else{
+                intent = new Intent(OADetailActivity.this,SubmitActivity.class);
+                intent.putExtra("isgzzb", isgzzb);
+                intent.putExtra("choose","0");
+                intent.putExtra("title", submitName);
+                gw(intent, submitType, submitName);
+            }
         }
     }
 
@@ -275,35 +276,35 @@ public class OADetailActivity extends MyActivity implements View.OnClickListener
         startActivity(intent);
     }
 
-//    private void shouyue(String submitType) {
-//        if (DeviceUtil.checkNet(this)) {
-//            Map<String, String> params = detail.getParams();
-//            params.put("type", submitType);
-//            showProgressDialog();
-//            for (String key : params.keySet()) {
-//                System.out.println(key + "=" + params.get(key));
-//            }
-//            HttpClientUtil.post("apps/office/subOpinion", params, new RequestCallBack<String>() {
-//                @Override
-//                public void onSuccess(ResponseInfo<String> responseInfo) {
-//                    hideProgressDialog();
-//                    Result str = NewHttpUtil.submit(responseInfo);
-//                    if (str.isResult()) {
-//                        showMessage(str.getMsg());
-//                        BroadcastUtil.sendBroadcast(context, "com.test.action.refresh");
-//                        finish();
-//                    } else {
-//                        showMessage(str.getMsg());
-//                    }
-//                }
-//                @Override
-//                public void onFailure(HttpException error, String msg) {
-//                    showMessage(getString(R.string.server_failure));
-//                    hideProgressDialog();
-//                }
-//            });
-//        }
-//    }
+    private void shouyue(String submitType) {
+        if (DeviceUtil.checkNet()) {
+            Map<String, String> params = detail.getParams();
+            params.put("type", submitType);
+            Map<String,Object> mObject = new HashMap<>();
+            for (String key : params.keySet()) {
+                System.out.println(key + "=" + params.get(key));
+                mObject.put(key,params.get(key));
+            }
+            HttpUtil.getInstance().postJsonObjectRequest("apps/office/subOpinion", mObject, new HttpListener<JSONObject>() {
+                @Override
+                public void onSuccess(JSONObject result) {
+                    boolean bool = result.optBoolean("data");
+                    String msg = result.optString("msg");
+                    if(bool){
+                        showErrorMsg(msg);
+                        BroadcastUtil.sendBroadcast(mContext, "com.test.action.refresh");
+                        finish();
+                    }else{
+                        showErrorMsg(msg);
+                    }
+                }
+                @Override
+                public void onError(VolleyError error) {
+                    showErrorMsg(getReString(R.string.data_fail));
+                }
+            });
+        }
+    }
 
     private void gwcy(Intent intent, String submitType) {
         Bundle bundle = new Bundle();
@@ -370,33 +371,41 @@ public class OADetailActivity extends MyActivity implements View.OnClickListener
      * 工作周报 办结，通过，不通过
      * @param submitType
      */
-//    private void gzzb(String submitType) {
-//        if (DeviceUtil.checkNet(this)) {
-//            Map<String, String> params = detail.getParams();
-//            params.put("type", submitType);
-//            showProgressDialog();
-//            for (String key : params.keySet()) {
-//                System.out.println(key + "=" + params.get(key));
-//            }
-//            HttpClientUtil.post("apps/gzzb/subOpinion", params, new RequestCallBack<String>() {
-//                @Override
-//                public void onSuccess(ResponseInfo<String> responseInfo) {
-//                    hideProgressDialog();
-//                    Result str = NewHttpUtil.submit(responseInfo);
-//                    if (str.isResult()) {
-//                        showMessage(str.getMsg());
-//                        BroadcastUtil.sendBroadcast(context, "com.test.action.refresh");
-//                        finish();
-//                    } else {
-//                        showMessage(str.getMsg());
-//                    }
-//                }
-//                @Override
-//                public void onFailure(HttpException error, String msg) {
-//                    showMessage(getString(R.string.server_failure));
-//                    hideProgressDialog();
-//                }
-//            });
-//        }
-//    }
+    private void gzzb(String submitType) {
+        if (DeviceUtil.checkNet()) {
+            Map<String, String> params = detail.getParams();
+            params.put("type", submitType);
+            Map<String,Object> mObject = new HashMap<>();
+            for (String key : params.keySet()) {
+                System.out.println(key + "=" + params.get(key));
+                mObject.put(key,params.get(key));
+            }
+            HttpUtil.getInstance().postJsonObjectRequest("apps/gzzb/subOpinion", mObject, new HttpListener<JSONObject>() {
+                @Override
+                public void onSuccess(JSONObject result) {
+                    if(result != null){
+                        try {
+                            boolean bool = result.optBoolean("data");
+                            String msg = result.optString("msg");
+                            if(bool){
+                                showErrorMsg(msg);
+                                BroadcastUtil.sendBroadcast(mContext, "com.test.action.refresh");
+                                finish();
+                            }else{
+                                showErrorMsg(msg);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                @Override
+                public void onError(VolleyError error) {
+                    showErrorMsg(getReString(R.string.data_fail));
+                }
+            });
+        }else {
+            showErrorMsg(getReString(R.string.net_no2));
+        }
+    }
 }

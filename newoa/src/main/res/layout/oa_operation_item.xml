@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dip"
+    android:background="@drawable/more_bg"
+    android:gravity="center_vertical" >
+
+    <TextView
+        android:id="@+id/no"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:layout_marginLeft="10dip"
+        android:background="@color/green"
+        android:gravity="center"
+        android:text="党"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:text="查看投票参与人查看投票参与人查看投票参与人查看投票参与人查看投票参与人"
+        android:textColor="#212121"
+        android:textSize="15sp" />
+
+    <ImageView
+        android:layout_width="7dp"
+        android:layout_height="11dip"
+        android:layout_marginRight="10dip"
+        android:src="@drawable/into_icon" />
+
+</LinearLayout>

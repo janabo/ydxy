@@ -13,4 +13,12 @@
         <item name="android:layout_height">15dp</item>
         <item name="android:background">#C9C9C9</item>
     </style>
+
+    <style name="mylist">
+        <item name="android:cacheColorHint">#00000000</item>
+        <item name="android:dividerHeight">1px</item>
+        <item name="android:divider">@drawable/list_divider</item>
+        <item name="android:fastScrollEnabled">true</item>
+        <item name="android:fadingEdge">none</item>
+    </style>
 </resources>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/view_bg"
+    android:orientation="vertical" >
+
+    <include
+        layout="@layout/core_title_back" />
+
+    <RelativeLayout
+        android:id="@+id/spyj_view"
+        android:layout_width="match_parent"
+        android:layout_height="100dip"
+        android:layout_marginTop="10dip"
+        android:background="@android:color/white" >
+
+        <EditText
+            android:id="@+id/spyj_edit"
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="请填写审批意见"
+            android:padding="10dip"
+            android:textColor="#212121"
+            android:textSize="14sp"
+            android:maxLength="200" />
+
+        <FrameLayout
+            android:id="@+id/spyj_sx_view"
+            android:layout_width="44dip"
+            android:layout_height="44dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dip" >
+
+            <ImageView
+                android:id="@+id/spyj_sx_add"
+                android:layout_width="44dip"
+                android:layout_height="44dip"
+                android:src="@drawable/oa_tjsx"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/spyj_sx_show"
+                android:layout_width="match_parent"
+                android:layout_height="50dip"
+                android:background="@android:color/white" >
+
+                <ImageView
+                    android:id="@+id/spyj_sx_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dip"/>
+
+                <ImageView
+                    android:id="@+id/spyj_sx_sc"
+                    android:layout_width="15dip"
+                    android:layout_height="15dip"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/oa_sx_sc" />
+            </RelativeLayout>
+        </FrameLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ngyj_view"
+        android:layout_width="match_parent"
+        android:layout_height="100dip"
+        android:layout_marginTop="10dip"
+        android:background="@android:color/white" >
+
+        <EditText
+            android:id="@+id/ngyj_edit"
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="请填写拟办意见"
+            android:padding="10dip"
+            android:textColor="#212121"
+            android:textSize="14sp"
+            android:maxLength="200" />
+
+        <FrameLayout
+            android:id="@+id/ngyj_sx_view"
+            android:layout_width="44dip"
+            android:layout_height="44dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dip" >
+
+            <ImageView
+                android:id="@+id/ngyj_sx_add"
+                android:layout_width="44dip"
+                android:layout_height="44dip"
+                android:src="@drawable/oa_tjsx"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/ngyj_sx_show"
+                android:layout_width="match_parent"
+                android:layout_height="50dip"
+                android:background="@android:color/white" >
+
+                <ImageView
+                    android:id="@+id/ngyj_sx_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dip" />
+
+                <ImageView
+                    android:id="@+id/ngyj_sx_sc"
+                    android:layout_width="15dip"
+                    android:layout_height="15dip"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/oa_sx_sc" />
+            </RelativeLayout>
+        </FrameLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/tjlxr_view"
+        android:layout_width="match_parent"
+        android:layout_height="44dip"
+        android:layout_marginTop="10dip"
+        android:background="@android:color/white" >
+
+        <TextView
+            android:id="@+id/tjlxr_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dip"
+            android:text="添加联系人"
+            android:textColor="#212121"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tjlxr_bt_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_toRightOf="@id/tjlxr_tip"
+            android:text="（必选）"
+            android:textColor="@color/red"
+            android:textSize="14sp" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="50dip"
+            android:layout_toLeftOf="@+id/tjlxr"
+            android:layout_toRightOf="@+id/tjlxr_tip" >
+
+            <TextView
+                android:id="@+id/lxr"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dip"
+                android:text=""
+                android:textColor="#2196f3"
+                android:textSize="14sp" />
+        </HorizontalScrollView>
+
+        <ImageView
+            android:id="@+id/tjlxr"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/oa_tjlxr" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="42dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="20dip"
+        android:background="@drawable/button_gray"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+</LinearLayout>

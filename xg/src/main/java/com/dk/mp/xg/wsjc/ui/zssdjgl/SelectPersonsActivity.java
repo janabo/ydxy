@@ -36,6 +36,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,6 +58,7 @@ public class SelectPersonsActivity extends MyActivity implements View.OnClickLis
     int selectRoom = 0;//选择第几个
     int selectPerson = 0;//选择第几个
     private List<Zssdjgl> selectPersons = new ArrayList<>();
+    private String type;
 
     @Override
     protected int getLayoutID() {
@@ -78,7 +80,7 @@ public class SelectPersonsActivity extends MyActivity implements View.OnClickLis
         fjh = (RecyclerView) findViewById(R.id.fjh);
         bj = (RecyclerView) findViewById(R.id.bj);
         mError = (ErrorLayout) findViewById(R.id.error_layout);
-        String type = getIntent().getStringExtra("type");
+        type = getIntent().getStringExtra("type");
         selectPersons.addAll((List<Zssdjgl>)getIntent().getSerializableExtra("persons"));
         title.setText("1".equals(type)?"住宿人员":"请假人员");
         back.setOnClickListener(new View.OnClickListener() {
@@ -157,6 +159,8 @@ public class SelectPersonsActivity extends MyActivity implements View.OnClickLis
     }
 
     public void getList(){
+        Map<String,Object> map = new HashMap<>();
+        map.put("type",type);
         HttpUtil.getInstance().postJsonObjectRequest("apps/zsdjgl/users", null, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {

@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="oa_detail_footer_line">#C9C9C9</color>
+    <color name="press_more">#d5d1d1</color>
+    <drawable name="touming">#00000000</drawable>
+    <color name="item_line">#d9d9d9</color>
+    <color name="green">#2E8B57</color>
+    <color name="rcap_txt">#212121</color>
+    <color name="rcap_txt_no">#9c9c9c</color>
 </resources>
