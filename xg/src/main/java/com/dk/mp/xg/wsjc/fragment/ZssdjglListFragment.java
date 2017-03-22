@@ -91,7 +91,7 @@ public class ZssdjglListFragment extends BaseFragment implements View.OnClickLis
             String action = intent.getAction();
             if (action.equals("zssdjgl_refresh")) {
                 mData.clear();
-                myListView.pageNo = 1;
+                myListView.setPageNo(1);
                 getData();
             }
         }

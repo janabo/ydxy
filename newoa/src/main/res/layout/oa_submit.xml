@@ -178,7 +178,7 @@
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
         android:layout_marginTop="20dip"
-        android:background="@drawable/button_gray"
+        android:background="@drawable/ripple_bg"
         android:text="确定"
         android:textColor="@color/white"
         android:textSize="14sp" />

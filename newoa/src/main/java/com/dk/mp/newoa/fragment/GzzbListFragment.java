@@ -1,5 +1,7 @@
 package com.dk.mp.newoa.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.BaseFragment;
 import com.dk.mp.core.util.AdapterInterface;
+import com.dk.mp.core.util.BroadcastUtil;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.SnackBarUtil;
 import com.dk.mp.core.util.anni.TransitionHelper;
@@ -45,6 +48,7 @@ import java.util.Map;
  * 作者：janabo on 2017/1/4 14:30
  */
 public class GzzbListFragment extends BaseFragment implements View.OnClickListener{
+    public static final String ACTION_REFRESH = "com.test.action.refresh";
     public static final String ARGS_TABS = "args_tabs";
     private OATab mOaTabs;
     private ErrorLayout mError;
@@ -75,7 +79,19 @@ public class GzzbListFragment extends BaseFragment implements View.OnClickListen
         mError = (ErrorLayout) view.findViewById(R.id.error_layout);
         myListView = (MyListView)view.findViewById(R.id.oa_list);
         mError.setOnLayoutClickListener(this);
+        BroadcastUtil.registerReceiver(mContext, receiver, ACTION_REFRESH);
     }
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (ACTION_REFRESH.equals(intent.getAction())) {
+                mList.clear();
+                myListView.setPageNo(1);
+                getData();
+            }
+        }
+    };
 
     @Override
     public void onFirstUserVisible() {
