@@ -12,11 +12,14 @@ import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.main.R;
 import com.dk.mp.main.home.ui.HomeActivity;
 import com.dk.mp.main.util.PushUtil;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * 作者：janabo on 2016/12/14 15:08
@@ -79,4 +82,19 @@ public class SplashActivity extends MyActivity {
             }
         });
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JPushInterface.onPause(mContext);
+        MobclickAgent.onPause(mContext);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(mContext);
+        MobclickAgent.onResume(getApplicationContext());
+    }
+
 }

@@ -22,13 +22,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.xg.R;
+import com.dk.mp.xg.wsjc.entity.WsjcDetail;
 import com.dk.mp.xg.wsjc.util.BeepManager;
 import com.dk.mp.xg.wsjc.util.CameraManager;
 import com.dk.mp.xg.wsjc.util.InactivityTimer;
 import com.dk.mp.xg.wsjc.util.SswzDecodeThread;
 import com.dk.mp.xg.wsjc.util.SswzHandler;
+import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
 import com.google.zxing.Result;
 
 import java.io.IOException;
@@ -329,20 +333,20 @@ public class SswzMainActivity extends MyActivity implements
     }
 
     private void handleText(String text) {
+        Logger.info("XXXXXXXXXXXXXXXXXXXXXXXXX"+text);
         //判断是否是合法的json
         if (StringUtils.isUrl(text)) {
             showErrorMsg(mRootView,"二维码有误，请重新扫描");
-            if (scanPreview != null) {
-                handler = null;
-                if (isHasSurface) {
-                    initCamera(scanPreview.getHolder());
-                }
-            }
-            if (inactivityTimer != null) {
-                inactivityTimer.onResume();
-            }
+            onPause();
+            onResume();
         } else {
-            handleOtherText(text);
+            if(StringUtils.isNotEmpty(text) && validate(text)) {
+                handleOtherText(text);
+            }else{
+                showErrorMsg(mRootView,"二维码有误，请重新扫描");
+                onPause();
+                onResume();
+            }
         }
     }
 
@@ -352,5 +356,24 @@ public class SswzMainActivity extends MyActivity implements
         Intent intent = new Intent(this,SswzDjMainActivity.class);
         intent.putExtra("wsjcDetail",text);
         startActivity(intent);
+    }
+
+    /**
+     * 验证一个字符串是否是合法的JSON串
+     *
+     * @param input 要验证的字符串
+     * @return true-合法 ，false-非法
+     */
+    public boolean validate(String input) {
+        if (!StringUtils.isNotEmpty(input)) {
+            return false;
+        }
+        try {
+            new Gson().fromJson(input,WsjcDetail.class);
+            return true;
+        } catch (JsonParseException e) {
+            Logger.info("bad json: " + input);
+            return false;
+        }
     }
 }

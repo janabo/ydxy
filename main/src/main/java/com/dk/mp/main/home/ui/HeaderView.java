@@ -1,9 +1,13 @@
 package com.dk.mp.main.home.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -108,7 +112,13 @@ public class HeaderView {
                     news.setImage(slideList.get(position).getImage());
                     news.setUrl(slideList.get(position).getUrl());
                     intent.putExtra("news", (Serializable)news);
-                    context.startActivity(intent);
+//                    context.startActivity(intent);
+                    ViewCompat.setTransitionName(v, "detail_element");
+                    ActivityOptionsCompat options =
+                            ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context,v,
+                                    context.getString(com.dk.mp.xxxw.R.string.transition__img));
+                    ActivityCompat.startActivity((Activity) context,intent,options.toBundle());
+                    ((Activity) context).overridePendingTransition(com.dk.mp.xxxw.R.anim.slide_up, com.dk.mp.xxxw.R.anim.scale_down);
                 }
             });
 

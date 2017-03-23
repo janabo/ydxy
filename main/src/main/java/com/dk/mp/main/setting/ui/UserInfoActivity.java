@@ -18,6 +18,8 @@ import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.main.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -111,5 +113,35 @@ public class UserInfoActivity extends MyActivity{
             public void gotResult(int arg0, String arg1, Set<String> arg2) {
             }});
         back();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initBirthTheme();
+    }
+
+    public void initBirthTheme(){
+        Date now = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//可以方便地修改日期格式
+        String today = dateFormat.format(now);
+        boolean isBrithDay;
+        if(h.getUser() == null){
+            isBrithDay = false;
+        }else if(StringUtils.isNotEmpty(h.getUser().getBirthday())){
+            String brithday = h.getUser().getBirthday();
+            if(brithday.length() == 10){
+                isBrithDay = today.substring(5,today.length()).equals(brithday.substring(5,brithday.length()));
+            }else{
+                isBrithDay = today.substring(6,today.length()).equals(brithday.substring(5,brithday.length()));
+            }
+        }else{
+            isBrithDay = false;
+        }
+        if (isBrithDay) {
+            showBrithdayTheme();
+        }else{
+            hideBrithdayTheme();
+        }
     }
 }

@@ -110,11 +110,11 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
         setTitle("宿舍卫生检查");
         findView();
         String wsjcDetail = getIntent().getStringExtra("wsjcDetail");
-        if(wsjcDetail!= null){
+        if(StringUtils.isNotEmpty(wsjcDetail)){
+            Logger.info("##########################"+wsjcDetail);
             detail = new Gson().fromJson(wsjcDetail,WsjcDetail.class);
+            setDetailSetText(detail);
         }
-
-        setDetailSetText(detail);
     }
 
     private void findView(){

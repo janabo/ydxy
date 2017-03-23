@@ -56,7 +56,7 @@ public class NewsDetailActivity extends MyActivity{
         Glide.with(mContext).load(news.getImage()).fitCenter().into(mImageViewTop);
         setWebView ( );
         if ( mToolbar != null ) {
-            mToolbar.setTitle ( "校园新闻" );
+            mToolbar.setTitle ( "学校新闻" );
             setSupportActionBar ( mToolbar );
             getSupportActionBar ( ).setHomeButtonEnabled ( true );
             getSupportActionBar ( ).setDisplayHomeAsUpEnabled ( true );
