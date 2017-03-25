@@ -12,6 +12,7 @@ public class Zssgl {
     private String shzt;//审核状态
     private String sfksh;//是否可审核
     private String xb;//性别
+    private String rzzt;//入住状态
 
     public String getId() {
         return id;
@@ -67,5 +68,13 @@ public class Zssgl {
 
     public void setXb(String xb) {
         this.xb = xb;
+    }
+
+    public String getRzzt() {
+        return rzzt;
+    }
+
+    public void setRzzt(String rzzt) {
+        this.rzzt = rzzt;
     }
 }

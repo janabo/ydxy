@@ -14,7 +14,6 @@ import com.dk.mp.core.entity.LoginMsg;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.Logger;
-import com.dk.mp.core.util.encrypt.Base64Utils;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 
@@ -25,7 +24,7 @@ import com.dk.mp.xg.R;
 public class ZssglDetailActivity extends MyActivity implements View.OnClickListener{
     WebView mWebView;
     Button pass,notpass,untread;//通过，不通过，退回
-    String detailid,lmlb,mType,sfksh,xb;
+    String detailid,lmlb,mType,sfksh,xb,rzzt;
     private ErrorLayout mError;
     private LinearLayout lin_footer,footer2,footer;
     public static ZssglDetailActivity instance;
@@ -58,13 +57,14 @@ public class ZssglDetailActivity extends MyActivity implements View.OnClickListe
         lmlb = getIntent().getStringExtra("lmlb");
         mType = getIntent().getStringExtra("mType");
         sfksh = getIntent().getStringExtra("sfksh");
+        rzzt = getIntent().getStringExtra("rzzt");
         xb = getIntent().getStringExtra("xb");
         if("true".equals(sfksh)) {//可以审核
             if ("3".equals(mType)) {
                 lin_footer.setVisibility(View.VISIBLE);
                 footer2.setVisibility(View.GONE);
                 footer.setVisibility(View.VISIBLE);
-            } else if ("4".equals(mType) && "1".equals(lmlb)) {
+            } else if ("4".equals(mType) && "1".equals(lmlb) && "true".equals(rzzt)) {
                 lin_footer.setVisibility(View.VISIBLE);
                 footer.setVisibility(View.GONE);
                 footer2.setVisibility(View.VISIBLE);
@@ -72,7 +72,7 @@ public class ZssglDetailActivity extends MyActivity implements View.OnClickListe
                 lin_footer.setVisibility(View.GONE);
             }
         }else{
-            if ("4".equals(mType) && "1".equals(lmlb)) {
+            if ("4".equals(mType) && "1".equals(lmlb) && "true".equals(rzzt)) {
                 lin_footer.setVisibility(View.VISIBLE);
                 footer.setVisibility(View.GONE);
                 footer2.setVisibility(View.VISIBLE);
