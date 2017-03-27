@@ -134,15 +134,15 @@ public class ValidationCode extends View {
             canvas.restore();
         }
         // 产生干扰效果1 -- 干扰点
-        for(PointF pointF : mPoints){
-            mPointPaint.setARGB(255,mRandom.nextInt(200)+20,mRandom.nextInt(200)+20,mRandom.nextInt(200)+20);
-            canvas.drawPoint(pointF.x,pointF.y,mPointPaint);
-        }
+//        for(PointF pointF : mPoints){
+//            mPointPaint.setARGB(255,mRandom.nextInt(200)+20,mRandom.nextInt(200)+20,mRandom.nextInt(200)+20);
+//            canvas.drawPoint(pointF.x,pointF.y,mPointPaint);
+//        }
         // 产生干扰效果2 -- 干扰线
-        for(Path path : mPaths){
-            mPathPaint.setARGB(255, mRandom.nextInt(200) + 20, mRandom.nextInt(200) + 20, mRandom.nextInt(200) + 20);
-            canvas.drawPath(path, mPathPaint);
-        }
+//        for(Path path : mPaths){
+//            mPathPaint.setARGB(255, mRandom.nextInt(200) + 20, mRandom.nextInt(200) + 20, mRandom.nextInt(200) + 20);
+//            canvas.drawPath(path, mPathPaint);
+//        }
     }
     private void initData() {
     // 获取控件的宽和高，此时已经测量完成

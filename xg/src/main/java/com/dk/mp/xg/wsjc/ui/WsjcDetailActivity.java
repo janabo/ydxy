@@ -5,6 +5,9 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -50,6 +53,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -317,9 +322,18 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
                     wImageAdapter.notifyDataSetChanged();
                 }
                 break;
-            case 4:
+            case 4://拍照
                 if (resultCode == RESULT_OK) {
                     if (StringUtils.isNotEmpty(noCutFilePath) && new File(noCutFilePath).exists()) {
+                        Bitmap bitmap = createThumbnail(noCutFilePath);
+                        FileOutputStream fos = null;
+                        try {
+                            fos = new FileOutputStream(new File(noCutFilePath));
+                            bitmap.compress(Bitmap.CompressFormat.JPEG,30,fos);// 把数据写入文件
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
                         imgs.remove(0);
                         imgs.add(noCutFilePath);
                         wImageAdapter.notifyDataSetChanged();
@@ -327,6 +341,38 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
                 }
                 break;
         }
+    }
+
+    /**
+     * 压缩图片
+     *
+     *
+     */
+    private Bitmap createThumbnail(String filepath) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        // 开始读入图片，此时把options.inJustDecodeBounds 设回true，即只读边不读内容
+        options.inJustDecodeBounds = true;
+        options.inPreferredConfig = Config.RGB_565;
+        BitmapFactory.decodeFile(filepath, options);
+
+        options.inJustDecodeBounds = false;
+        int w = options.outWidth;
+        int h = options.outHeight;
+        // 想要缩放的目标尺寸
+        float hh = h/2;// 设置高度为240f时，可以明显看到图片缩小了
+        float ww = w;// 设置宽度为120f，可以明显看到图片缩小了
+        // 缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
+        int be = 1;//be=1表示不缩放
+        if (w > h && w > ww) {//如果宽度大的话根据宽度固定大小缩放
+            be = (int) (options.outWidth / ww);
+        } else if (w < h && h > hh) {//如果高度高的话根据宽度固定大小缩放
+            be = (int) (options.outHeight / hh);
+        }
+        if (be <= 0) be = 1;
+        options.inSampleSize = be;//设置缩放比例
+        // 开始压缩图片，注意此时已经把options.inJustDecodeBounds 设回false了
+
+        return BitmapFactory.decodeFile(filepath, options);
     }
 
     /**
@@ -361,16 +407,28 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
     }
 
     public void ablum(){
+        File appDir = new File(BASEPICPATH);
+        if(!appDir.exists()){
+            appDir.mkdir();
+        }
         noCutFilePath = BASEPICPATH + UUID.randomUUID().toString() + ".jpg";
+        File file = new File(noCutFilePath);
+        try {
+            if(!file.exists()){
+                file.createNewFile();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         Intent getImageByCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
        /*获取当前系统的android版本号*/
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         if (currentapiVersion<24){
             getImageByCamera.setFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
-            getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(noCutFilePath)));
+            getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
         }else{
             ContentValues contentValues = new ContentValues(1);
-            contentValues.put(MediaStore.Images.Media.DATA, new File(noCutFilePath).getAbsolutePath());
+            contentValues.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
             Uri uri = mContext.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues);
             getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         }

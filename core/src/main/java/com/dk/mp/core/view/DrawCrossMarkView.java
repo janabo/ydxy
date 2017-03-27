@@ -82,7 +82,8 @@ public class DrawCrossMarkView extends View {
 
         totalWidth = DeviceUtil.dip2px(context, totalWidth);
 
-        maxLineIncrement = (int) (totalWidth * 2 / 5);
+//        maxLineIncrement = (int) (totalWidth * 2 / 5);
+        maxLineIncrement = (int) (totalWidth * 2 / 4);
 
         init();
     }

@@ -7,7 +7,7 @@ android {
         applicationId "com.dk.mp.lgj"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 210
+        versionCode 212
         versionName "2.1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
