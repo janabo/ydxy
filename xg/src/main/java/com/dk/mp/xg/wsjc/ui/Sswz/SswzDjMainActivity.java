@@ -568,10 +568,16 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String result = response.body().string();
-                Logger.info("######################result="+result);
-                call.cancel();// 上传失败取消请求释放内存
-                submit(uuid);
+                if(response.code() == 200) {
+                    String result = response.body().string();
+                    Logger.info("######################result=" + result);
+                    call.cancel();// 上传失败取消请求释放内存
+                    submit(uuid);
+                }else{
+                    mHandler.sendEmptyMessage(-1);
+                    showErrorMsg("上传附件失败");
+                    call.cancel();// 上传失败取消请求释放内存
+                }
             }
         });
     }
