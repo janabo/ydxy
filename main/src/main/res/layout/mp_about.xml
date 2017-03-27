@@ -144,7 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_marginTop="30dp"
             android:text="江苏达科信息科技有限公司版权所有"
-            android:textSize="14sp"
+            android:textSize="9sp"
             android:textColor="#646464"/>
         <TextView
             android:id="@+id/copyright_info_en"
@@ -152,7 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_marginTop="5dp"
             android:text="CopyrightXXXXXXXX"
-            android:textSize="14sp"
+            android:textSize="9sp"
             android:textColor="#646464"
             android:layout_marginBottom="15dp"/>
         </LinearLayout>

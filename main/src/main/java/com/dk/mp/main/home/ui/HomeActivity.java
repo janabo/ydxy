@@ -66,6 +66,8 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
 
     private SensorManager mSensorManager;//定义sensor管理器
     private LinearLayout warn_main;//是否有网络
+    private String theme="标准";
+
 
     @Override
     protected int getLayoutID() {
@@ -75,6 +77,7 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
     @Override
     protected void initView() {
         super.initView();
+        theme =  getSharedPreferences().getValue("font_type");
         warn_main = (LinearLayout) findViewById(R.id.warn_main);
         //注册网络状态监听
         BroadcastUtil.registerReceiver(this, mRefreshBroadcastReceiver, new String[]{"checknetwork_true","checknetwork_false"});
@@ -189,6 +192,9 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
     @Override
     protected void onResume() {
         super.onResume();
+        if(StringUtils.isNotEmpty(theme) && !theme.equals(getSharedPreferences().getValue("font_type"))){
+            reload();
+        }
         if(DeviceUtil.checkNet()){
             warn_main.setVisibility(View.GONE);
         }else{
@@ -287,5 +293,14 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
     protected void onStart() {
         super.onStart();
         initBirthTheme();
+    }
+
+    public void reload() {
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);//不设置进入退出动画
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
     }
 }
