@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.dk.mp.core.entity.GsonData;
 import com.dk.mp.core.entity.LoginMsg;
+import com.dk.mp.core.entity.ResultCode;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
@@ -550,9 +551,11 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
         LoginMsg loginMsg = getSharedPreferences().getLoginMsg();
         String mUrl = getReString(R.string.uploadUrl);
         if(loginMsg != null) {
-            mUrl +="attachmentUpload.service?type=sswzdjAttachment&userId="+loginMsg.getUid()+"&password="+loginMsg.getPsw()+"&ownerId="+uuid;
+            mUrl +="/independent.service?.lm=ssgl-dwjk&.ms=view&action=fjscjk&.ir=true&type=sswzdjAttachment&userId="+loginMsg.getUid()+"&password="+ loginMsg.getEncpsw() +"&ownerId="+uuid;
+//            mUrl +="attachmentUpload.service?type=sswzdjAttachment&userId="+loginMsg.getUid()+"&password="+ loginMsg.getEncpsw()+"&ownerId="+uuid;
         }else{
-            mUrl +="attachmentUpload.service?type=sswzdjAttachment&ownerId="+uuid;
+//            mUrl +="attachmentUpload.service?type=sswzdjAttachment&ownerId="+uuid;
+            mUrl +="/independent.service?.lm=ssgl-dwjk&.ms=view&action=fjscjk&.ir=true&type=sswzdjAttachment&ownerId="+uuid;
         }
         List<File> files = new ArrayList<>();
         files.add(new File(noCutFilePath));
@@ -568,16 +571,40 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if(response.code() == 200) {
+                if(response.code() == 200 ){
                     String result = response.body().string();
-                    Logger.info("######################result=" + result);
-                    call.cancel();// 上传失败取消请求释放内存
-                    submit(uuid);
+                    Logger.info("######################result="+result);
+                    if(StringUtils.isNotEmpty(result)){
+                    ResultCode rcode = getGson().fromJson(result,ResultCode.class);
+                        if(rcode.getCode() == 200) {
+                            call.cancel();// 上传失败取消请求释放内存
+                            submit(uuid);
+                        }else{
+                            mHandler.sendEmptyMessage(-1);
+                            showErrorMsg(rcode.getMsg());
+                            call.cancel();// 上传失败取消请求释放内存
+                        }
+                    }else{
+                        mHandler.sendEmptyMessage(-1);
+                        showErrorMsg("上传附件失败");
+                        call.cancel();// 上传失败取消请求释放内存
+                    }
                 }else{
                     mHandler.sendEmptyMessage(-1);
                     showErrorMsg("上传附件失败");
                     call.cancel();// 上传失败取消请求释放内存
                 }
+//
+//                if(response.code() == 200) {
+//                    String result = response.body().string();
+//                    Logger.info("######################result=" + result);
+//                    call.cancel();// 上传失败取消请求释放内存
+//                    submit(uuid);
+//                }else{
+//                    mHandler.sendEmptyMessage(-1);
+//                    showErrorMsg("上传附件失败");
+//                    call.cancel();// 上传失败取消请求释放内存
+//                }
             }
         });
     }
@@ -608,7 +635,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
             be = (int) (options.outHeight / hh);
         }
         if (be <= 0) be = 1;
-        options.inSampleSize = be;//设置缩放比例
+        options.inSampleSize = 4;//设置缩放比例
         // 开始压缩图片，注意此时已经把options.inJustDecodeBounds 设回false了
 
         return BitmapFactory.decodeFile(filepath, options);

@@ -64,8 +64,10 @@ public class CoreSharedPreferencesHelper {
         LoginMsg l = null;
         if (hello != null) {
             l = new LoginMsg();
-            l.setUid(hello.split(",")[0]);
-            l.setPsw(hello.split(",")[1]);
+            String[] lo = hello.split(",");
+            l.setUid(lo[0]);
+            l.setPsw(lo[1]);
+            l.setEncpsw(lo[2]);
         }
         return l;
     }
@@ -75,10 +77,10 @@ public class CoreSharedPreferencesHelper {
      * @param user
      * @param psw
      */
-    public void setLoginMsg(String user, String psw) {
+    public void setLoginMsg(String user, String psw,String encpsw) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putString("loginMsg", user + "," + psw);
+        editor.putString("loginMsg", user + "," + psw+ "," + encpsw);
         editor.commit();
     }
 

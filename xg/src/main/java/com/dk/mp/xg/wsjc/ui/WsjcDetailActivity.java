@@ -28,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.dk.mp.core.entity.GsonData;
 import com.dk.mp.core.entity.JsonData;
 import com.dk.mp.core.entity.LoginMsg;
+import com.dk.mp.core.entity.ResultCode;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
@@ -356,11 +357,13 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
         BitmapFactory.decodeFile(filepath, options);
 
         options.inJustDecodeBounds = false;
+//        int w = options.outWidth;
+//        int h = options.outHeight;
         int w = options.outWidth;
         int h = options.outHeight;
         // 想要缩放的目标尺寸
         float hh = h/2;// 设置高度为240f时，可以明显看到图片缩小了
-        float ww = w;// 设置宽度为120f，可以明显看到图片缩小了
+        float ww = w/2;// 设置宽度为120f，可以明显看到图片缩小了
         // 缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
         int be = 1;//be=1表示不缩放
         if (w > h && w > ww) {//如果宽度大的话根据宽度固定大小缩放
@@ -369,7 +372,8 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
             be = (int) (options.outHeight / hh);
         }
         if (be <= 0) be = 1;
-        options.inSampleSize = be;//设置缩放比例
+//        options.inSampleSize = be;//设置缩放比例
+        options.inSampleSize = 4;//设置缩放比例
         // 开始压缩图片，注意此时已经把options.inJustDecodeBounds 设回false了
 
         return BitmapFactory.decodeFile(filepath, options);
@@ -584,9 +588,11 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
         LoginMsg loginMsg = getSharedPreferences().getLoginMsg();
         String mUrl = getReString(R.string.uploadUrl);
         if(loginMsg != null) {
-            mUrl +="attachmentUpload.service?type=sswsjcAttachment&userId="+loginMsg.getUid()+"&password="+loginMsg.getPsw()+"&ownerId="+uuid;
+//            mUrl +="attachmentUpload.service?type=sswsjcAttachment&userId="+loginMsg.getUid()+"&password="+loginMsg.getPsw()+"&ownerId="+uuid;
+            mUrl +="/independent.service?.lm=ssgl-dwjk&.ms=view&action=fjscjk&.ir=true&type=sswsjcAttachment&userId="+loginMsg.getUid()+"&password="+ loginMsg.getEncpsw() +"&ownerId="+uuid;
         }else{
-            mUrl +="attachmentUpload.service?type=sswsjcAttachment&ownerId="+uuid;
+//            mUrl +="attachmentUpload.service?type=sswsjcAttachment&ownerId="+uuid;
+            mUrl +="/independent.service?.lm=ssgl-dwjk&.ms=view&action=fjscjk&.ir=true&type=sswsjcAttachment&ownerId="+uuid;
         }
         List<File> files = new ArrayList<>();
         files.add(new File(noCutFilePath));
@@ -604,8 +610,21 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
                 if(response.code() == 200){
                     String result = response.body().string();
                     Logger.info("######################result="+result);
-                    call.cancel();// 上传失败取消请求释放内存
-                    submit(uuid);
+                    if(StringUtils.isNotEmpty(result)) {
+                        ResultCode rcode = getGson().fromJson(result, ResultCode.class);
+                        if (rcode.getCode() == 200) {
+                            call.cancel();// 上传失败取消请求释放内存
+                            submit(uuid);
+                        } else {
+                            mHandler.sendEmptyMessage(-1);
+                            showErrorMsg(rcode.getMsg());
+                            call.cancel();// 上传失败取消请求释放内存
+                        }
+                    }else{
+                        mHandler.sendEmptyMessage(-1);
+                        showErrorMsg("上传附件失败");
+                        call.cancel();// 上传失败取消请求释放内存
+                    }
                 }else{
                     mHandler.sendEmptyMessage(-1);
                     showErrorMsg("上传附件失败");

@@ -194,6 +194,8 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
         super.onResume();
         if(StringUtils.isNotEmpty(theme) && !theme.equals(getSharedPreferences().getValue("font_type"))){
             reload();
+        }else if(!StringUtils.isNotEmpty(theme) && StringUtils.isNotEmpty(getSharedPreferences().getValue("font_type"))){
+            reload();
         }
         if(DeviceUtil.checkNet()){
             warn_main.setVisibility(View.GONE);

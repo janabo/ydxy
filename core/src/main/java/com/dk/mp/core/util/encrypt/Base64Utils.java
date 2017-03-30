@@ -23,6 +23,9 @@ public class Base64Utils {
 
     // 解密
     public static String getFromBase64(String str) {
+        if(!str.contains("\n")){
+           str = str+"\n";
+        }
         String enToStr = Base64.encodeToString(str.getBytes(), Base64.DEFAULT);
         return enToStr;
     }

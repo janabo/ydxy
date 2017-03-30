@@ -166,7 +166,7 @@ public class LoginActivity extends MyActivity implements View.OnClickListener{
                         progress.setVisibility(View.GONE);
                         progress_check.setVisibility(View.VISIBLE);
                         preference.setInt("yzmcount",0);
-                        preference.setLoginMsg(userId,Base64Utils.getBase64(pass.trim().toString()));
+                        preference.setLoginMsg(userId,Base64Utils.getBase64(pass.trim().toString()),pass.trim().toString());
                         preference.setUserInfo(result.getJSONObject("data").toString());
                         preference.setValue(TimeUtils.getToday()+userId,"false");
                         new PushUtil(mContext).setTag();

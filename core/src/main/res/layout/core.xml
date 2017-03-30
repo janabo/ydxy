@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="?attr/image40"
-            android:text="最近使用的应用"
+            android:text="最近应用"
             android:textSize="?attr/textSize10"
             android:background="#ededed"
             android:textColor="#212121"

@@ -3,6 +3,7 @@ package com.dk.mp.core.entity;
 public class LoginMsg {
   private String uid;
   private String psw;
+	private String encpsw;
 public String getUid() {
 	return uid;
 }
@@ -15,5 +16,12 @@ public String getPsw() {
 public void setPsw(String psw) {
 	this.psw = psw;
 }
-  
+
+	public String getEncpsw() {
+		return encpsw;
+	}
+
+	public void setEncpsw(String encpsw) {
+		this.encpsw = encpsw;
+	}
 }
