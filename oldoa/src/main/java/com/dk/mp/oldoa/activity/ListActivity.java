@@ -1,14 +1,18 @@
 package com.dk.mp.oldoa.activity;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 
+import com.dk.mp.core.application.MyApplication;
 import com.dk.mp.core.entity.PageMsg;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.DeviceUtil;
@@ -41,6 +45,8 @@ public class ListActivity extends MyActivity implements XListView.IXListViewList
 	private int countPage =1;
 	private ErrorLayout mError;
 	private LinearLayout mRootView;
+	private int x;
+	private int y;
 
 //	@Override
 //	protected int getLayoutID() {
@@ -99,6 +105,8 @@ public class ListActivity extends MyActivity implements XListView.IXListViewList
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.oa_list);
+		x = getIntent().getIntExtra("x",-10);
+		y = getIntent().getIntExtra("y",-10);
 		shareHelper = new CoreSharedPreferencesHelper(this);
 		context = ListActivity.this;
 		state = getIntent().getStringExtra("state");
@@ -276,6 +284,40 @@ public class ListActivity extends MyActivity implements XListView.IXListViewList
 			@Override
 			public void onFailure(HttpException error, String msg) {
 				
+			}
+		});
+	}
+
+
+	/**
+	 * 公共手机返回按钮事件.
+	 * @param keyCode keyCode
+	 * @param event  KeyEvent
+	 * @return  boolean
+	 */
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			back();
+			return true;
+		} else {
+			return super.onKeyDown(keyCode, event);
+		}
+	}
+
+	/**
+	 * 返回
+	 */
+	public void back() {
+		mRootView.post(new Runnable() {
+			@Override
+			public void run() {
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+					Animator animator = MyApplication.createRevealAnimator(true,x,y,mRootView, com.dk.mp.oldoa.activity.ListActivity.this);
+					animator.start();
+				}else{
+					finish();
+				}
 			}
 		});
 	}

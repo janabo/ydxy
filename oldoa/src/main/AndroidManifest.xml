@@ -4,9 +4,9 @@
         android:supportsRtl="true">
 
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.OldOaTabActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:theme="@style/AppTheme.NoTitle">
+            android:theme="@style/noAnimThemep">
             <intent-filter>
                 <action android:name="gwgl" />
 
