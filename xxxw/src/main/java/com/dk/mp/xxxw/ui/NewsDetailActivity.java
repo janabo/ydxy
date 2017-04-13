@@ -25,7 +25,7 @@ import com.dk.mp.xxxw.R;
  * 学校新闻详情
  * 作者：janabo on 2016/12/20 15:01
  */
-public class NewsDetailActivity extends MyActivity{
+public class NewsDetailActivity extends MyActivity implements View.OnClickListener{
     Context context = NewsDetailActivity.this;
     ImageView mImageViewTop;
     ProgressBar mProgressBar;
@@ -106,6 +106,11 @@ public class NewsDetailActivity extends MyActivity{
         settings.setCacheMode ( WebSettings.LOAD_CACHE_ELSE_NETWORK );
         settings.setAppCacheEnabled ( true );
         settings.setJavaScriptEnabled ( true );    //启用JS脚本
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 
 

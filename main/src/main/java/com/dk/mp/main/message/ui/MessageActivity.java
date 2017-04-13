@@ -3,7 +3,6 @@ package com.dk.mp.main.message.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
@@ -23,12 +22,11 @@ import com.dk.mp.core.util.AdapterInterface;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.view.MyListView;
-import com.dk.mp.lsgl.entity.PersonEntity;
 import com.dk.mp.main.R;
 import com.dk.mp.main.message.entity.Message;
-import com.dk.mp.newoa.entity.NewDoc;
-import com.dk.mp.newoa.entity.SeriMap;
-import com.dk.mp.newoa.ui.OADetailActivity;
+import com.dk.mp.main.message.entity.MessageEntity;
+import com.dk.mp.oldoa.activity.BaoGaoDetailActivity;
+import com.dk.mp.oldoa.utils.Constant;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
@@ -108,11 +106,11 @@ public class MessageActivity extends MyActivity {
 
 			((MyView)holder).type.setText(examInfo.getMoudel());
 			//标题颜色
-			if(examInfo.getAction().equals("fw")){
+			if(examInfo.getAction().equals("OA_FW")){
 				((MyView)holder).type.setBackgroundColor(Color.rgb(255, 41, 42));
-			}else if(examInfo.getAction().equals("sw")){
+			}else if(examInfo.getAction().equals("OA_SW")){
 				((MyView)holder).type.setBackgroundColor(Color.rgb(250, 184, 31));
-			}else if(examInfo.getAction().equals("qsbg")){
+			}else if(examInfo.getAction().equals("OA_QSBG")){
 				((MyView)holder).type.setBackgroundColor(Color.rgb(0, 188, 184));
 			}else if(examInfo.getAction().equals("brithday")){
 				((MyView)holder).type.setBackgroundColor(Color.rgb(55,199,190));
@@ -122,46 +120,28 @@ public class MessageActivity extends MyActivity {
 			((MyView)holder).getInfo.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					String par = examInfo.getParam();
-					if(par.startsWith("{")){
-						par = par.substring(1, par.length()-1);
-					}
-					String[] param = par.split(",");
-					Map<String, String> m = new HashMap<String, String>();
-					for(String p:param){
-						m.put(p.split(":")[0].replace("\"", ""), p.split(":")[1].replace("\"", ""));
-					}
 					Intent intent;
 					if(examInfo.getAction().equals("fw") || examInfo.getAction().equals("sw") || examInfo.getAction().equals("qsbg")){
-						intent = new Intent(mContext, OADetailActivity.class);
-						NewDoc doc = new NewDoc();
-						doc.setType(examInfo.getMoudel());
-						SeriMap map = new SeriMap();
-						map.setMap(m);
-						Bundle bundle = new Bundle();
-						bundle.putParcelable("doc", doc);
-						bundle.putSerializable("map", map);
-						intent.putExtras(bundle);
-					} else if (examInfo.getAction().equals("brithday")) {
+//						intent = new Intent(mContext, OADetailActivity.class);
+//						NewDoc doc = new NewDoc();
+//						doc.setType(examInfo.getMoudel());
+//						SeriMap map = new SeriMap();
+//						map.setMap(m);
+//						Bundle bundle = new Bundle();
+//						bundle.putParcelable("doc", doc);
+//						bundle.putSerializable("map", map);
+//						intent.putExtras(bundle);
+					}else if(examInfo.getAction().equals("OA_QSBG")) {
+						intent = new Intent(mContext, BaoGaoDetailActivity.class);
+//						intent.putExtra("dealState", state);
+						intent.putExtra("title", examInfo.getTitle());
+						intent.putExtra(Constant.TYPE_URL, examInfo.getParam());
+					}else if (examInfo.getAction().equals("brithday")) {
 						intent = new Intent(mContext, BrithdayMessageActivity.class);
 					}else{
 						intent = null;
-//						Malfunction malfunction = new Malfunction();
-//						malfunction.setName(m.get("userName"));
-//						malfunction.setTitle(m.get("userName"));
-//						malfunction.setStatusname(m.get("zt"));
-//						malfunction.setAddress(m.get("dd"));
-//						malfunction.setDevice(m.get("sb"));
-//						malfunction.setDes(m.get("wtms"));
-//						malfunction.setId(m.get("id"));
-//						Bundle bundle = new Bundle();
-//						bundle.putSerializable("malfunction", malfunction);
-//						bundle.putString("type", "wait");
-//						intent = new Intent(mContext, PushProcessActivity.class);
-//						intent.putExtras(bundle);
-//						intent.putExtra("item", getGson().toJson(mList.get(position)));
 					}
-					mContext.startActivity(intent);
+//					mContext.startActivity(intent);
 				}
 			});
 		}
@@ -198,7 +178,8 @@ public class MessageActivity extends MyActivity {
 			public void onSuccess(JSONObject result) {
 				if (result.optInt("code") == 200){//成功返回数据
 					try {
-						List<Message> persionList = getGson().fromJson(result.getJSONArray("data").toString(),new TypeToken<List<PersonEntity>>(){}.getType());
+						List<MessageEntity> persionList = getGson().fromJson(result.getJSONArray("data").toString(),new TypeToken<List<MessageEntity>>(){}.getType());
+
 						if (persionList == null){
 							mListView.error(MyListView.Error.OnError);
 						} else if (persionList.size() == 0) {
@@ -214,7 +195,15 @@ public class MessageActivity extends MyActivity {
 									mList.add(brithdayMess);
 								}
 							}
-							mList.addAll(persionList);
+							for(MessageEntity me : persionList) {
+								Message ma = new Message();
+								ma.setAction(me.getApp());
+								ma.setContent(me.getContent());
+								ma.setTime(me.getTime());
+								ma.setParam(me.getParam().getUrl());
+								ma.setTitle(me.getTitle());
+								mList.add(ma);
+							}
 							mListView.flish();
 						}
 					} catch (JSONException e) {

@@ -1,6 +1,7 @@
 package com.dk.mp.main.home.ui;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.dk.mp.core.entity.News;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
+import com.dk.mp.core.util.BroadcastUtil;
 import com.dk.mp.core.view.DraweeView;
 import com.dk.mp.main.R;
 import com.dk.mp.main.home.entity.SlideNews;
@@ -68,6 +70,21 @@ public class HeaderView {
 //            public void onPageScrollStateChanged(int state) {}
 //        });
         this.context = context;
+       getData();
+        //注册网络状态监听
+        BroadcastUtil.registerReceiver(context, mRefreshBroadcastReceiver, new String[]{"ref_headerview"});
+    }
+    private BroadcastReceiver mRefreshBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("ref_headerview")) {
+                getData();
+            }
+        }
+    };
+
+    public void getData(){
         HttpUtil.getInstance().postJsonObjectRequest("apps/xxxw/slide", null, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
@@ -93,6 +110,7 @@ public class HeaderView {
             }
         });
     }
+
 
     private class TestLoopAdapter extends LoopPagerAdapter {
         public TestLoopAdapter(RollPagerView viewPager) {

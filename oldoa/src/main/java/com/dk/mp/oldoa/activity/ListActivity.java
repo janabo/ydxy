@@ -16,6 +16,7 @@ import com.dk.mp.core.application.MyApplication;
 import com.dk.mp.core.entity.PageMsg;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.DeviceUtil;
+import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.oldoa.R;
 import com.dk.mp.oldoa.adapter.DocAdapter;
@@ -31,6 +32,8 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.dk.mp.core.http.HttpUtil.mContext;
 
 
 public class ListActivity extends MyActivity implements XListView.IXListViewListener {
@@ -126,6 +129,8 @@ public class ListActivity extends MyActivity implements XListView.IXListViewList
 					intentActivity.setClass(context, ShouWenDetailActivity.class);
 					intentActivity.putExtra("dealState", state);
 					intentActivity.putExtra("title", doc.getTitle());
+//					intentActivity.putExtra("x",(arg1.getLeft() + arg1.getRight()) / 2);
+//					intentActivity.putExtra("y",(arg1.getTop() + arg1.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
 					intentActivity.putExtra(Constant.TYPE_URL, doc.getUrl());
 					startActivity(intentActivity);
 				} else if ("OA_FW".equals(doc.getType())) {
@@ -133,12 +138,16 @@ public class ListActivity extends MyActivity implements XListView.IXListViewList
 					intentActivity.putExtra("dealState", state);
 					intentActivity.putExtra("title", doc.getTitle());
 					intentActivity.putExtra("bzid", doc.getId());
+					intentActivity.putExtra("x",(arg1.getLeft() + arg1.getRight()) / 2);
+					intentActivity.putExtra("y",(arg1.getTop() + arg1.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
 					intentActivity.putExtra(Constant.TYPE_URL, doc.getUrl());
 					startActivity(intentActivity);
 				} else {
 					intentActivity.setClass(context, BaoGaoDetailActivity.class);
 					intentActivity.putExtra("dealState", state);
 					intentActivity.putExtra("title", doc.getTitle());
+					intentActivity.putExtra("x",(arg1.getLeft() + arg1.getRight()) / 2);
+					intentActivity.putExtra("y",(arg1.getTop() + arg1.getBottom()) / 2 + StringUtils.dip2px(mContext,40));
 					intentActivity.putExtra(Constant.TYPE_URL, doc.getUrl());
 					startActivity(intentActivity);
 				}

@@ -94,6 +94,7 @@ public class HomeActivity extends MyActivity implements SensorEventListener {
             String action = intent.getAction();
             if (action.equals("checknetwork_true")) {
                 warn_main.setVisibility(View.GONE);
+                BroadcastUtil.sendBroadcast(context,"ref_headerview");
             }
             if(action.equals("checknetwork_false")){
                 warn_main.setVisibility(View.VISIBLE);

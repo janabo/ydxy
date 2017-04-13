@@ -1,6 +1,5 @@
 package com.dk.mp.oldoa.activity;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.TextView;
@@ -74,19 +73,19 @@ public class ShouWenDetailActivity extends DetailActivity {
 		getList();
 	}
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.oa_shou_wen_view);
-		shareHelper = new CoreSharedPreferencesHelper(this);
-		dealState = getIntent().getStringExtra("dealState");
-		id = getIntent().getStringExtra(Constant.TYPE_URL);
-		title = getIntent().getStringExtra("title");
-		findUi();
-//		showProgressDialog();
-		mError.setErrorType(ErrorLayout.LOADDATA);
-		getList();
-	}
+//	@Override
+//	protected void onCreate(Bundle savedInstanceState) {
+//		super.onCreate(savedInstanceState);
+//		setContentView(R.layout.oa_shou_wen_view);
+//		shareHelper = new CoreSharedPreferencesHelper(this);
+//		dealState = getIntent().getStringExtra("dealState");
+//		id = getIntent().getStringExtra(Constant.TYPE_URL);
+//		title = getIntent().getStringExtra("title");
+//		findUi();
+////		showProgressDialog();
+//		mError.setErrorType(ErrorLayout.LOADDATA);
+//		getList();
+//	}
 
 	/**
 	 * 获取发文数据

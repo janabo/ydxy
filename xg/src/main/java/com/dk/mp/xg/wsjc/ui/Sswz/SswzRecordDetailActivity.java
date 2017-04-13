@@ -15,7 +15,6 @@ import android.widget.ProgressBar;
 import com.dk.mp.core.entity.LoginMsg;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.Logger;
-import com.dk.mp.core.util.encrypt.Base64Utils;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.ui.ImagePreviewActivity;
@@ -167,7 +166,7 @@ public class SswzRecordDetailActivity extends MyActivity{
             mWebView.goBack();
             return true;
         } else {
-            finish();
+            back();
         }
         return super.onKeyDown(keyCode, event);
     }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -52,7 +53,7 @@ public class DetailActivity extends MyActivity {
 	private String url;
 	private String opinions;
 	private String result;// 处理的结果状态
-	private String flowend;// 处理的结果状态
+	private String flowend;// 处理的结果状态dealState
 	private boolean needInput;
 	private EditText opinionsEdit;
 	private Handler mHandler = new Handler() {
@@ -190,7 +191,7 @@ public class DetailActivity extends MyActivity {
 			back.setOnClickListener(new OnClickListener() {
 				public void onClick(View v) {
 //					Logger.info("back:" + type);
-					finish();
+					back();
 //					startAnim(type);
 				}
 			});
@@ -641,5 +642,21 @@ public class DetailActivity extends MyActivity {
 	@Override
 	protected int getLayoutID() {
 		return 0;
+	}
+
+	/**
+	 * 公共手机返回按钮事件.
+	 * @param keyCode keyCode
+	 * @param event  KeyEvent
+	 * @return  boolean
+	 */
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			back();
+			return true;
+		} else {
+			return super.onKeyDown(keyCode, event);
+		}
 	}
 }

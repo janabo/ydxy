@@ -20,16 +20,19 @@
 
         <activity
             android:name=".activity.ShouWenDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep"/>
         <activity
             android:name=".activity.NextStepActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.BaoGaoDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep"/>
         <activity
             android:name=".activity.FaWenDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep"/>
 
         <activity
             android:name=".activity.WeekEventsActivity"

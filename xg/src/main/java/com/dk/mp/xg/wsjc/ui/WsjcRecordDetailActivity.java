@@ -2,6 +2,7 @@ package com.dk.mp.xg.wsjc.ui;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
@@ -147,5 +148,16 @@ public class WsjcRecordDetailActivity extends MyActivity{
         } else {
             return mContext.getString(R.string.rootUrl)+url;
         }
+    }
+
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack()) {
+            mWebView.goBack();
+            return true;
+        } else {
+            back();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
