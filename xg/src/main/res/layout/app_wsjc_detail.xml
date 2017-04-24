@@ -12,7 +12,7 @@
         android:id="@+id/error_layout"
         android:gravity="center_horizontal"/>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/mRootView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -378,5 +378,5 @@
             </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

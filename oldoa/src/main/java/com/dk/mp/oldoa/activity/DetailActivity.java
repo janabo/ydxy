@@ -1,5 +1,6 @@
 package com.dk.mp.oldoa.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -42,8 +43,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
+
+
 @SuppressLint("ResourceAsColor")
-public class DetailActivity extends MyActivity {
+public class DetailActivity extends MyActivity implements EasyPermissions.PermissionCallbacks{
+	private static final int WRITE_RERD = 1;
 	private List<UiEntity> listUpdateUi = new ArrayList<UiEntity>();// 存储附件中
 	private String message;
 	private List<View> viewLists = new ArrayList<View>();
@@ -416,9 +422,9 @@ public class DetailActivity extends MyActivity {
 				ui.setImageView(attachmenImage);
 				listUpdateUi.add(ui);
 				if (isFileExits(doc.getFujian().get(i).getId(), fileTitle)) {
-					// attachmenDWstate.setText("已下载");
 					attachmenProgress.setVisibility(View.GONE);
-					attachmenImage.setVisibility(View.INVISIBLE);
+					attachmenImage.setVisibility(View.INVISIBLE);	// attachmenDWstate.setText("已下载");
+
 
 				} else {
 					// attachmenDWstate.setText("未下载");
@@ -430,41 +436,7 @@ public class DetailActivity extends MyActivity {
 
 					@Override
 					public void onClick(View v) {
-
-						if (isFileExits(fileId, fileTitle)) {
-
-							startActivity(FileUtil
-									.openFile(CoreConstants.DOWNLOADPATH
-											+ fileName(fileId, fileTitle)));
-
-						} else {
-							if (DeviceUtil.checkNet()) {
-								attachmenProgress.setVisibility(View.VISIBLE);
-								attachmenImage.setVisibility(View.INVISIBLE);
-								try {
-
-									new Thread(new Runnable() {
-
-										@Override
-										public void run() {
-											try {
-												updateIndex = index;
-												FileUtil.downFile(
-														fileUrl,
-														fileName(fileId,
-																fileTitle),
-														mHandler);
-											} catch (IOException e) {
-												e.printStackTrace();
-											}
-
-										}
-									}).start();
-								} catch (Exception e) {
-									e.printStackTrace();
-								}
-							}
-						}
+						startReadWi(fileId,fileTitle,attachmenProgress,attachmenImage,index,fileUrl);
 					}
 				});
 				layoutAttachment.addView(attachmentView);
@@ -657,6 +629,66 @@ public class DetailActivity extends MyActivity {
 			return true;
 		} else {
 			return super.onKeyDown(keyCode, event);
+		}
+	}
+
+	@Override
+	public void onPermissionsGranted(int requestCode, List<String> perms) {
+	}
+
+	@Override
+	public void onPermissionsDenied(int requestCode, List<String> perms) {
+		showErrorMsg("请正确授权");
+	}
+
+	@AfterPermissionGranted(WRITE_RERD)
+	public void startReadWi(final String fileId, final String fileTitle, ProgressBar attachmenProgress, ImageView attachmenImage, final int index, final String fileUrl){
+		String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE};
+		if (EasyPermissions.hasPermissions(mContext, perms)) {
+			try {
+				downloadFile(fileId,fileTitle,attachmenProgress,attachmenImage,index,fileUrl);
+			} catch (Exception e) {
+				showErrorMsg("请正确授权");
+			}
+		} else {
+			EasyPermissions.requestPermissions(this,
+					"请求读写权限",
+					WRITE_RERD, perms);
+		}
+	}
+
+	public void downloadFile(final String fileId, final String fileTitle, ProgressBar attachmenProgress, ImageView attachmenImage, final int index, final String fileUrl){
+		if (isFileExits(fileId, fileTitle)) {
+			startActivity(FileUtil
+					.openFile(CoreConstants.DOWNLOADPATH
+							+ fileName(fileId, fileTitle)));
+		} else {
+			if (DeviceUtil.checkNet()) {
+				attachmenProgress.setVisibility(View.VISIBLE);
+				attachmenImage.setVisibility(View.INVISIBLE);
+				try {
+
+					new Thread(new Runnable() {
+
+						@Override
+						public void run() {
+							try {
+								updateIndex = index;
+								FileUtil.downFile(
+										fileUrl,
+										fileName(fileId,
+												fileTitle),
+										mHandler);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+
+						}
+					}).start();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 }
