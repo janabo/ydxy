@@ -34,7 +34,8 @@
             android:paddingRight="70dip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
     <LinearLayout
@@ -112,16 +113,19 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:background="@android:color/black"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_alignParentBottom="true">
         <LinearLayout
             android:layout_height="?attr/image44"
             android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_weight="1"
             android:background="@drawable/button_black"
             android:gravity="center"
+            android:layout_marginRight="5dp"
             android:onClick="toWsjcjl">
             <TextView
                 android:id="@+id/jcrecord"
@@ -130,6 +134,26 @@
                 android:layout_width="wrap_content"
                 android:textColor="#ffffff"
                 android:textSize="?attr/textSize17"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_height="?attr/image44"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/button_black"
+            android:gravity="center"
+            android:layout_marginLeft="5dp"
+            android:onClick="toSdlr">
+
+            <TextView
+                android:id="@+id/anualentry"
+                android:text="手动录入"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textColor="#ffffff"
+                android:textSize="?attr/textSize17"/>
+
         </LinearLayout>
     </LinearLayout>
 

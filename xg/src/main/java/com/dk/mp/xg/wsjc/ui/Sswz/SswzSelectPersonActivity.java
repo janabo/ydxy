@@ -44,7 +44,7 @@ public class SswzSelectPersonActivity extends MyActivity implements View.OnClick
     private RecyclerView mRecyclerView;
     PeopleAdapter mAdapter;
     List<Sswz> mData = new ArrayList<>();
-    private String fjhid;
+    private String xqid,ssqid,sslid,fjhid;
     String mUrl="";
 
     @Override
@@ -113,6 +113,7 @@ public class SswzSelectPersonActivity extends MyActivity implements View.OnClick
         }else{
             title.setText("违纪学生");
             mUrl = "apps/sswzdj/xsList";
+
         }
         getData();
     }

@@ -19,22 +19,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-         android:layout_margin="10dip">
+		android:layout_toRightOf="@+id/img"
+		android:layout_margin="10dip">
         <TextView
 	        android:id="@+id/title"
-	        android:layout_width="fill_parent"
-	        android:layout_height="0dp"
-	        android:layout_toRightOf="@+id/img"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
 	        android:maxLines="2"
-	        android:lineSpacingMultiplier="1.2"
+	        android:lineSpacingMultiplier="1.0"
 	        android:textColor="#323232"
-	        android:text="查看投票参与人查看投票参与人查看投票参与人查看投票参与人查看投票参与人查看投票参与人"
-	        android:textSize="18sp"
-	        android:layout_weight="1" 
+			android:textSize="?attr/textSize16"
+	        android:text="查看投票参与人查看投票参与人查看投票参与人查看投票dfs参与人查看投票参与人查看投票参与人"
+	        android:layout_weight="1"
 	        android:ellipsize="end"/>
 
 	    <LinearLayout
-	        android:layout_width="fill_parent"
+	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="horizontal" >
 	
@@ -42,11 +42,11 @@
 	            android:id="@+id/bumen"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_weight="1"
+				android:layout_weight="1"
 	            android:singleLine="true"
-	            android:textSize="18sp"
 	            android:textColor="#9f9f9f"
-	            android:text="拟稿部门:小办公室" 
+				android:textSize="?attr/textSize14"
+	            android:text="拟稿部门:小办公室"
 	            android:ellipsize="end"/>
 	
 	        <TextView
@@ -54,8 +54,8 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:textColor="#0376c6"
-	        	android:textSize="18sp"
 	            android:text="30分钟前"
+				android:textSize="?attr/textSize14"
 	            android:ellipsize="end" />
 	    </LinearLayout>
 	</LinearLayout>

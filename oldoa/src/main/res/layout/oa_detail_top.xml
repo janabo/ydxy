@@ -28,7 +28,7 @@
         android:layout_marginLeft="10dip"
         android:layout_marginTop="10dip"
         android:textColor="#323232"
-        android:textSize="17sp"
+        android:textSize="?attr/textSize16"
         android:text=""
         android:layout_weight="1" />
     <LinearLayout
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#9f9f9f"
-            android:textSize="14sp"
+            android:textSize="?attr/textSize14"
             android:layout_marginLeft="10dip" />
 
         <TextView
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#0376c6"
-            android:textSize="14sp" />
+            android:textSize="?attr/textSize14" />
 
         <TextView
             android:id="@+id/bumen"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dip"
             android:textColor="#9f9f9f"
-            android:textSize="14sp"
+            android:textSize="?attr/textSize14"
             android:text="" />
     </LinearLayout>
 </LinearLayout>

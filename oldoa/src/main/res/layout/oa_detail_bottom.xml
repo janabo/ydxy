@@ -22,7 +22,7 @@
             android:singleLine="true"
             android:text="相关附件:"
             android:textColor="#9f9f9f"
-            android:textSize="17sp" />
+            android:textSize="?attr/textSize16" />
 
         <LinearLayout
             android:id="@+id/layout_attachment"
@@ -49,7 +49,7 @@
             android:singleLine="true"
             android:text="当前状态"
             android:textColor="#333333"
-            android:textSize="17sp" />
+            android:textSize="?attr/textSize16" />
 
         <TextView
             android:id="@+id/current_bz"
@@ -59,7 +59,7 @@
             android:drawableLeft="@mipmap/dqbz"
             android:singleLine="true"
             android:textColor="#0275c5"
-            android:textSize="17sp" />
+            android:textSize="?attr/textSize16" />
 
         <TextView
             android:id="@+id/deal_state"
@@ -69,7 +69,7 @@
             android:layout_marginTop="5dip"
             android:drawableLeft="@mipmap/dcl"
             android:textColor="#fa9181"
-            android:textSize="17sp" />
+            android:textSize="?attr/textSize16" />
 
         <TextView
             android:id="@+id/alread_deal_txt"
@@ -80,7 +80,7 @@
             android:drawableLeft="@mipmap/ycl"
             android:singleLine="true"
             android:textColor="#a0a0a0"
-            android:textSize="17sp" />
+            android:textSize="?attr/textSize16" />
     </LinearLayout>
 
     <LinearLayout
@@ -99,7 +99,7 @@
             android:singleLine="true"
             android:text="相关意见"
             android:textColor="#333333"
-            android:textSize="17sp" />
+            android:textSize="?attr/textSize16" />
 
         <LinearLayout
             android:id="@+id/layout_opinions"

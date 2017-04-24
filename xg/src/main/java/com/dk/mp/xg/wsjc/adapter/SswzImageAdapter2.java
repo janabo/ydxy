@@ -21,13 +21,13 @@ import java.util.List;
 /**
  * 作者：janabo on 2017/1/17 14:07
  */
-public class SswzImageAdapter extends RecyclerView.Adapter<SswzImageAdapter.MyViewHolder>{
-    private SswzDjMainActivity activity;
+public class SswzImageAdapter2 extends RecyclerView.Adapter<SswzImageAdapter2.MyViewHolder>{
+    private SswzSdluActivity activity;
     private Context mContext;
     private List<String> data;
     private LayoutInflater inflater;
 
-    public SswzImageAdapter(Context context, SswzDjMainActivity activity,List<String> basicList) {
+    public SswzImageAdapter2(Context context, SswzSdluActivity activity, List<String> basicList) {
         this.mContext = context;
         this.data = basicList;
         this.activity = activity;
@@ -35,13 +35,13 @@ public class SswzImageAdapter extends RecyclerView.Adapter<SswzImageAdapter.MyVi
     }
 
     @Override
-    public SswzImageAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SswzImageAdapter2.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = inflater.inflate(R.layout.app_wsjc_img,parent,false);
         return new MyViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(SswzImageAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(SswzImageAdapter2.MyViewHolder holder, int position) {
         String imgurl = data.get(position);
         if("addImage".equals(imgurl)){
             Glide.with(mContext).load(R.mipmap.addfile).fitCenter().into(holder.img);

@@ -154,6 +154,12 @@ public class WsjcMainActivity extends MyActivity implements
         startActivity(intent);
     }
 
+    public void toSdlr(View view){
+        Intent intent = new Intent(this,WsjcManualentryActivity.class);
+        startActivity(intent);
+
+    }
+
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         if (holder == null) {

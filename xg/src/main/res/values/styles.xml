@@ -12,4 +12,19 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="detail_title">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">#212121</item>
+        <item name="android:textSize">?attr/textSize15</item>
+        <item name="android:paddingLeft">10dip</item>
+    </style>
+
+    <style name="detail_value">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">#212121</item>
+        <item name="android:textSize">?attr/textSize15</item>
+        <item name="android:paddingLeft">20dip</item>
+        <item name="android:paddingRight">10dip</item>
+    </style>
+
 </resources>

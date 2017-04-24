@@ -44,8 +44,11 @@ public class DetailView extends LinearLayout {
 		webSetting.setUseWideViewPort(true);
 		webSetting.setLoadWithOverviewMode(true);
 		webSetting.setJavaScriptEnabled(true);
-		webSetting.setBuiltInZoomControls(false);
-		webSetting.setSupportZoom(false);
+		webSetting.setBuiltInZoomControls(true);
+		webSetting.setSupportZoom(true);
+
+		//不显示webview缩放按钮
+		webSetting.setDisplayZoomControls(false);
 
 		w.setWebViewClient(new HttpWebViewClient());
 		w.setDownloadListener(new DownloadListener() {

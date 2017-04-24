@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/view_bg"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/core_title_back" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/mRootView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="宿舍基本信息"
+                        android:textColor="@color/rcap_gray"
+                        android:textSize="?attr/textSize14" />
+
+                    <include layout="@layout/core_line_padding" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ripple_bg_while"
+                        android:onClick="toPickXq"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="校区"
+                            android:textColor="#212121"
+                            android:textSize="?attr/textSize15"></TextView>
+
+                        <TextView
+                            android:id="@+id/xq_pick"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:hint="必填"
+                            android:textColor="#212121"
+                            android:textSize="?attr/textSize14"></TextView>
+
+                        <ImageView
+                            android:layout_width="?attr/image8"
+                            android:layout_height="?attr/image13"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:src="@mipmap/arrow_icon_xg" />
+                    </LinearLayout>
+
+                    <include layout="@layout/core_line_padding" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ripple_bg_while"
+                        android:onClick="toPickSsq"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="宿舍区"
+                            android:textColor="#212121"
+                            android:textSize="?attr/textSize15"></TextView>
+
+                        <TextView
+                            android:id="@+id/ssq_pick"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:hint="必填"
+                            android:textColor="#212121"
+                            android:textSize="?attr/textSize14"></TextView>
+
+                        <ImageView
+                            android:layout_width="?attr/image8"
+                            android:layout_height="?attr/image13"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:src="@mipmap/arrow_icon_xg" />
+                    </LinearLayout>
+
+                    <include layout="@layout/core_line_padding" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ripple_bg_while"
+                        android:onClick="toPickSsl"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="宿舍楼"
+                            android:textColor="#212121"
+                            android:textSize="?attr/textSize15"></TextView>
+
+                        <TextView
+                            android:id="@+id/ssl_pick"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:hint="必填"
+                            android:textColor="#212121"
+                            android:textSize="?attr/textSize14"></TextView>
+
+                        <ImageView
+                            android:layout_width="?attr/image8"
+                            android:layout_height="?attr/image13"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:src="@mipmap/arrow_icon_xg" />
+                    </LinearLayout>
+
+                    <include layout="@layout/core_line_padding" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ripple_bg_while"
+                        android:onClick="toPickLc"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="楼层"
+                            android:textColor="#212121"
+                            android:textSize="?attr/textSize15"></TextView>
+
+                        <TextView
+                            android:id="@+id/lc_pick"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:hint="必填"
+                            android:textColor="#212121"
+                            android:textSize="?attr/textSize14"></TextView>
+
+                        <ImageView
+                            android:layout_width="?attr/image8"
+                            android:layout_height="?attr/image13"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:src="@mipmap/arrow_icon_xg" />
+                    </LinearLayout>
+
+                    <include layout="@layout/core_line_padding" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ripple_bg_while"
+                        android:onClick="toPickFjh"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="房间号"
+                            android:textColor="#212121"
+                            android:textSize="?attr/textSize15"></TextView>
+
+                        <TextView
+                            android:id="@+id/fjh_pick"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:hint="必填"
+                            android:textColor="#212121"
+                            android:textSize="?attr/textSize14"></TextView>
+
+                        <ImageView
+                            android:layout_width="?attr/image8"
+                            android:layout_height="?attr/image13"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:src="@mipmap/arrow_icon_xg" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.8dp"
+                        android:background="@color/linecolor"/>
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:text="宿舍打分信息"
+                        android:textColor="#9c9c9c"
+                        android:textSize="12sp"
+                        android:layout_margin="10dp">
+                    </TextView>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.8dp"
+                        android:background="@color/linecolor"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:id="@+id/ssdfxx"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.8dp"
+                        android:background="@color/linecolor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/ripple_bg_while"
+                    android:onClick="toPickKfyy"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="卫生扣分原因"
+                        android:textColor="#212121"
+                        android:textSize="?attr/textSize15"></TextView>
+
+                    <TextView
+                        android:id="@+id/kfyy_pick"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:hint=""
+                        android:textColor="#212121"
+                        android:textSize="?attr/textSize14"></TextView>
+
+                    <ImageView
+                        android:layout_width="?attr/image8"
+                        android:layout_height="?attr/image13"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/arrow_icon_xg" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/bz_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:gravity="top"
+                    android:hint="备注(200字以内)"
+                    android:maxLength="200"
+                    android:minHeight="100dp"
+                    android:padding="10dp"
+                    android:textSize="?attr/textSize14" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.8dp"
+                        android:background="@color/linecolor" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="上传附件"
+                        android:textColor="#9c9c9c"
+                        android:textSize="?attr/textSize12" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.8dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/linecolor" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/imgView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.8dp"
+                        android:background="@color/linecolor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ok"
+                    android:layout_width="fill_parent"
+                    android:layout_height="?attr/image42"
+                    android:layout_marginBottom="20dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="20dip"
+                    android:background="@color/rcap_gray"
+                    android:elevation="2dp"
+                    android:gravity="center"
+                    android:onClick="submitWs">
+
+                    <TextView
+                        android:id="@+id/ok_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="提交最终分值（0分）"
+                        android:textColor="@color/white"
+                        android:textSize="?attr/textSize14" />
+
+                    <com.dk.mp.core.view.DrawHookView
+                        android:id="@+id/progress"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:visibility="gone"></com.dk.mp.core.view.DrawHookView>
+
+                    <com.dk.mp.core.view.DrawCheckMarkView
+                        android:id="@+id/progress_check"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:visibility="gone"></com.dk.mp.core.view.DrawCheckMarkView>
+
+                    <com.dk.mp.core.view.DrawCrossMarkView
+                        android:id="@+id/progress_cross"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:visibility="gone"></com.dk.mp.core.view.DrawCrossMarkView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <com.dk.mp.core.widget.ErrorLayout
+            android:id="@+id/error_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black50"
+            android:gravity="center_horizontal"
+            android:visibility="gone"></com.dk.mp.core.widget.ErrorLayout>
+    </FrameLayout>
+
+
+</LinearLayout>

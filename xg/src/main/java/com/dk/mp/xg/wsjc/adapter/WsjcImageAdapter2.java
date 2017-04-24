@@ -12,22 +12,22 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.ui.ImagePreviewActivity;
-import com.dk.mp.xg.wsjc.ui.Sswz.SswzDjMainActivity;
-import com.dk.mp.xg.wsjc.ui.Sswz.SswzSdluActivity;
+import com.dk.mp.xg.wsjc.ui.WsjcDetailActivity;
+import com.dk.mp.xg.wsjc.ui.WsjcManualentryActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 作者：janabo on 2017/1/17 14:07
+ * 作者：janabo on 2017/1/11 13:58
  */
-public class SswzImageAdapter extends RecyclerView.Adapter<SswzImageAdapter.MyViewHolder>{
-    private SswzDjMainActivity activity;
+public class WsjcImageAdapter2 extends RecyclerView.Adapter<WsjcImageAdapter2.MyViewHolder>{
+    private WsjcManualentryActivity activity;
     private Context mContext;
     private List<String> data;
     private LayoutInflater inflater;
 
-    public SswzImageAdapter(Context context, SswzDjMainActivity activity,List<String> basicList) {
+    public WsjcImageAdapter2(Context context, WsjcManualentryActivity activity, List<String> basicList) {
         this.mContext = context;
         this.data = basicList;
         this.activity = activity;
@@ -35,13 +35,13 @@ public class SswzImageAdapter extends RecyclerView.Adapter<SswzImageAdapter.MyVi
     }
 
     @Override
-    public SswzImageAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = inflater.inflate(R.layout.app_wsjc_img,parent,false);
         return new MyViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(SswzImageAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, int position) {
         String imgurl = data.get(position);
         if("addImage".equals(imgurl)){
             Glide.with(mContext).load(R.mipmap.addfile).fitCenter().into(holder.img);
@@ -74,19 +74,19 @@ public class SswzImageAdapter extends RecyclerView.Adapter<SswzImageAdapter.MyVi
                 }
             });
 
-            img.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View view) {
-                    if("addImage".equals(data.get(getLayoutPosition()))){//添加按钮
-                        activity.startReadWi();
-                    }else{//预览图片
-                        Intent intent = new Intent(mContext, ImagePreviewActivity.class);
-                        intent.putExtra("index", 0);
-                        intent.putStringArrayListExtra("list", (ArrayList<String>) data);
-                        mContext.startActivity(intent);
-                    }
-                }
-            });
+           img.setOnClickListener(new View.OnClickListener(){
+               @Override
+               public void onClick(View view) {
+               if("addImage".equals(data.get(getLayoutPosition()))){//添加按钮
+                   activity.startReadWi();
+               }else{//预览图片
+                   Intent intent = new Intent(mContext, ImagePreviewActivity.class);
+                   intent.putExtra("index", 0);
+                   intent.putStringArrayListExtra("list", (ArrayList<String>) data);
+                   mContext.startActivity(intent);
+               }
+               }
+           });
 
         }
     }

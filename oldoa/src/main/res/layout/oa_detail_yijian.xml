@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:textColor="#ef6550"
-                android:textSize="18sp" />
+                android:textSize="?attr/textSize15" />
 
             <TextView
                 android:id="@+id/yijian_time"
@@ -33,7 +33,7 @@
                 android:layout_marginLeft="5dip"
                 android:singleLine="true"
                 android:textColor="#a0a0a0"
-                android:textSize="15sp" />
+                android:textSize="?attr/textSize15" />
         </LinearLayout>
 
         <TextView
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dip"
             android:textColor="#333333"
-            android:textSize="18sp" />
+            android:textSize="?attr/textSize15" />
     </LinearLayout>
 
 </LinearLayout>

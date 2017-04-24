@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="50dip"
-    android:background="#f7f7f7" android:orientation="horizontal" android:gravity="center_vertical">
+    android:background="#f7f7f7"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
 
     <EditText
         android:id="@+id/opinions_edit"
@@ -13,7 +15,7 @@
         android:hint="批阅意见"
         android:paddingLeft="10dip"
         android:singleLine="true" android:layout_weight="1"
-         android:visibility="gone" 
+         android:visibility="gone"
          />
 
     <LinearLayout

@@ -37,6 +37,11 @@
         </activity>
 
         <activity
+            android:name="com.dk.mp.xg.wsjc.ui.WsjcManualentryActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
             android:name="com.dk.mp.xg.wsjc.ui.WsjcRecordListActivity"
             android:screenOrientation="portrait">
         </activity>
@@ -97,6 +102,10 @@
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.Sswz.SswzRecordListActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.Sswz.SswzSdluActivity"
             android:screenOrientation="portrait"/>
 
         <activity

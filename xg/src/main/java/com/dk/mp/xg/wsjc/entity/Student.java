@@ -25,6 +25,16 @@ public class Student implements Serializable{
     private String xb;//性别
     private String xsid;//学生id
 
+    public String getKfyy() {
+        return kfyy;
+    }
+
+    public void setKfyy(String kfyy) {
+        this.kfyy = kfyy;
+    }
+
+    private String kfyy; //扣分原因
+
     public String getSsl() {
         return ssl;
     }

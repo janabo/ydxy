@@ -154,6 +154,11 @@ public class SswzMainActivity extends MyActivity implements
         startActivity(intent);
     }
 
+    public void toSdlr(View v){
+        Intent intent = new Intent(this,SswzSdluActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         if (holder == null) {
