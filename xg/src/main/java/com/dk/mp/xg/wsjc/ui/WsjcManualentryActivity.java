@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -73,13 +74,11 @@ import okhttp3.Response;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-import static com.dk.mp.xg.wsjc.ui.WsjcDetailActivity.BASEPICPATH;
-
 /**
  * Created by cobb on 2017/4/17.
  */
 
-public class WsjcManualentryActivity extends MyActivity implements WsjcDetailAdapter.SaveEditListener{
+public class WsjcManualentryActivity extends MyActivity implements EasyPermissions.PermissionCallbacks,WsjcDetailAdapter.SaveEditListener{
 
     private static final int INIT_GETDATA = 1;
     private static final int PICK_GETDATA = 2;
@@ -106,6 +105,7 @@ public class WsjcManualentryActivity extends MyActivity implements WsjcDetailAda
     private List<Common> fjhs = new ArrayList<>();//存放房间号信息
     private List<Common> kfyys = new ArrayList<>();//扣分原因
 
+    public static final String BASEPICPATH = Environment.getExternalStorageDirectory() + "/mobileschool/cache/";
     private RecyclerView gRecyclerView;//图片
     List<String> imgs = new ArrayList<>();//保存图片地址
     WsjcImageAdapter2 wImageAdapter;
@@ -231,6 +231,22 @@ public class WsjcManualentryActivity extends MyActivity implements WsjcDetailAda
 //        getImageByCamera.setFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
 //        getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(noCutFilePath)));
         startActivityForResult(getImageByCamera, 1);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        try {
+            if(requestCode == WRITE_RERD) {
+                ablum();
+            }
+        } catch (Exception e) {
+            showErrorMsg(mRootView,"请正确授权");
+        }
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        showErrorMsg(mRootView,"请正确授权");
     }
 
     @Override

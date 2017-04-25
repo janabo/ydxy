@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -67,13 +68,11 @@ import okhttp3.Response;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-import static com.dk.mp.xg.wsjc.ui.WsjcDetailActivity.BASEPICPATH;
-
 /**
  * Created by cobb on 2017/4/17.
  */
 
-public class SswzSdluActivity extends MyActivity implements View.OnClickListener {
+public class SswzSdluActivity extends MyActivity implements EasyPermissions.PermissionCallbacks,View.OnClickListener {
 
     private static final int INIT_GETDATA = 1;
     private static final int PICK_GETDATA = 2;
@@ -107,6 +106,7 @@ public class SswzSdluActivity extends MyActivity implements View.OnClickListener
     private LinearLayout wjrq_lin,wjlb_lin;//违纪日期,违纪类别
     List<Common> wjlbs = new ArrayList<>();//违纪类别
 
+    public static final String BASEPICPATH = Environment.getExternalStorageDirectory() + "/mobileschool/cache/";
     private RecyclerView gRecyclerView;//图片
     List<String> imgs = new ArrayList<>();//保存图片地址
     SswzImageAdapter2 wImageAdapter;
@@ -240,6 +240,22 @@ public class SswzSdluActivity extends MyActivity implements View.OnClickListener
 //        getImageByCamera.setFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
 //        getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(noCutFilePath)));
         startActivityForResult(getImageByCamera, 10);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        try {
+            if(requestCode == WRITE_RERD) {
+                ablum();
+            }
+        } catch (Exception e) {
+            showErrorMsg(mRootView,"请正确授权");
+        }
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        showErrorMsg(mRootView,"请正确授权");
     }
 
     @Override
@@ -933,7 +949,7 @@ public class SswzSdluActivity extends MyActivity implements View.OnClickListener
         params.put("fjh",fjhid);
         params.put("wjxs",wjxsid);
         params.put("wjrq",wjrq.getText().toString()+" 00:00:00");
-        params.put("wjdhbh",dhbh.getText().toString());
+        params.put("wjdhbh",uuid);
         params.put("wjlb",wjlbid);
         params.put("tbr",tbrid);
         params.put("fjName",filename);
