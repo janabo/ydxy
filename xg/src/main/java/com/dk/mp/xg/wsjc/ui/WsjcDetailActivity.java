@@ -15,13 +15,13 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -83,7 +83,7 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
     DrawCrossMarkView progress_cross;//错误动画
     private static final int WRITE_RERD = 1;
     private String noCutFilePath ="";
-    ScrollView mRootView;
+    NestedScrollView mRootView;
     WsjcDetailAdapter mAdapter;
     private RecyclerView mRecyclerView;//打分信息list
     List<Dfxx> mData = new ArrayList<>();
@@ -133,7 +133,7 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
         cwsName = (TextView) findViewById(R.id.cwsName);
         bz_edit = (EditText) findViewById(R.id.bz_edit);
 
-        mRootView = (ScrollView) findViewById(R.id.mRootView);
+        mRootView = (NestedScrollView) findViewById(R.id.mRootView);
         mdfxx = (TextView) findViewById(R.id.dfxx_pick);
         ok_lin = (LinearLayout) findViewById(R.id.ok);
         ok = (TextView) findViewById(R.id.ok_text);
