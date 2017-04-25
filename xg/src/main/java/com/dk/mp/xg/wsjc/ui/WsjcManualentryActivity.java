@@ -150,7 +150,7 @@ public class WsjcManualentryActivity extends MyActivity implements EasyPermissio
 
         ok_lin = (LinearLayout) findViewById(R.id.ok);
         ok = (TextView) findViewById(R.id.ok_text);
-        ok.setEnabled(false);
+        ok_lin.setEnabled(false);
 
         progress = (DrawHookView) findViewById(R.id.progress);
         progress_check = (DrawCheckMarkView) findViewById(R.id.progress_check);
