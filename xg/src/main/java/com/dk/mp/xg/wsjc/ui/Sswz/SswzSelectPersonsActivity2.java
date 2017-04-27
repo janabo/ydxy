@@ -3,9 +3,11 @@ package com.dk.mp.xg.wsjc.ui.Sswz;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -18,32 +20,40 @@ import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.DeviceUtil;
+import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.view.RecycleViewDivider;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.adapter.PeopleAdapter;
+import com.dk.mp.xg.wsjc.adapter.PeopleAdapter2;
+import com.dk.mp.xg.wsjc.adapter.ZssdjglSelectPersonsAdapter;
+import com.dk.mp.xg.wsjc.adapter.ZssglSelectClassAdapter;
+import com.dk.mp.xg.wsjc.adapter.ZssglSelectRoomAdapter;
+import com.dk.mp.xg.wsjc.entity.Class;
+import com.dk.mp.xg.wsjc.entity.Room;
 import com.dk.mp.xg.wsjc.entity.Sswz;
+import com.dk.mp.xg.wsjc.entity.Zssdjgl;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * 选择违章人员
- * 作者：janabo on 2017/1/17 14:15
+ * 作者：janabo on 2017/2/8 11:22
  */
-public class SswzSelectPersonActivity extends MyActivity implements View.OnClickListener{
+public class SswzSelectPersonsActivity2 extends MyActivity implements View.OnClickListener{
     private TextView back,ok,title;
-    private LinearLayout mRootView;
     private ErrorLayout mError;
+    private LinearLayout mRootView;
     private RecyclerView mRecyclerView;
-    PeopleAdapter mAdapter;
-    List<Sswz> mData = new ArrayList<>();
+    PeopleAdapter2 mAdapter;
+    List<Zssdjgl> mData = new ArrayList<>();
     private String fjhid;
     String mUrl="";
 
@@ -59,19 +69,25 @@ public class SswzSelectPersonActivity extends MyActivity implements View.OnClick
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getResources().getColor(R.color.select_title));
         }
+
         fjhid = getIntent().getStringExtra("fjhid");
         back = (TextView) findViewById(R.id.back);
         ok = (TextView) findViewById(R.id.ok);
         title = (TextView) findViewById(R.id.title);
         mRootView = (LinearLayout) findViewById(R.id.mRootView);
         mError = (ErrorLayout) findViewById(R.id.error_layout);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.person_recycle);
         mRecyclerView.setHasFixedSize ( true );
         mRecyclerView.setLayoutManager ( new LinearLayoutManager( mContext ) );
-        mAdapter = new PeopleAdapter(mContext,mData,SswzSelectPersonActivity.this);
+        mAdapter = new PeopleAdapter2(mContext,mData,SswzSelectPersonsActivity2.this);
         mRecyclerView.setAdapter ( mAdapter );
         mRecyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.HORIZONTAL, DeviceUtil.dip2px(mContext,0.8f), Color.rgb(229, 229, 229)));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        for(Zssdjgl z : mData){
+            mAdapter.getIsSelected().put(z.getId(),z);
+        }
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,43 +97,47 @@ public class SswzSelectPersonActivity extends MyActivity implements View.OnClick
         });
 
         ok.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
                 Map<String,Object> map =  mAdapter.getIsSelected();
                 if(map.isEmpty()){
-                    showErrorMsg(mRootView,"请选择违纪学生");
+                    showErrorMsg(mRootView,"请选择人员");
                 }else{
-                    Sswz s = null;
+                    ArrayList<Zssdjgl> zssdjgls = new ArrayList<Zssdjgl>();
                     for(Map.Entry<String,Object> entry : map.entrySet()){
-                        s = (Sswz) entry.getValue();
-                        if(s != null){
-                            break;
+                        Zssdjgl p = (Zssdjgl) entry.getValue();
+                        if(p != null && !"addperson".equals(p.getId())){
+                            zssdjgls.add(p);
                         }
                     }
                     Intent in = new Intent();
-                    in.putExtra("userIds", s.getId());
-                    in.putExtra("userNames", s.getName());
+                    in.putExtra("persons",(Serializable)zssdjgls);
                     setResult(RESULT_OK, in);
                     back();
                 }
             }
         });
+
+        for(Zssdjgl z : mData){
+            mAdapter.getIsSelected().put(z.getId(),z);
+        }
+
     }
 
     @Override
     protected void initialize() {
         super.initialize();
-        if("tbr".equals(getIntent().getStringExtra("type"))) {
-            title.setText("提报人");
-            mUrl = "apps/sswzdj/tbr";
-        }else{
-            title.setText("违纪学生");
-            mUrl = "apps/sswzdj/xsList";
 
-        }
+        title.setText("违纪学生");
+        mUrl = "apps/sswzdj/xsList";
+
         getData();
     }
 
+    /**
+     * 获取数据
+     */
     public void getData(){
         if(DeviceUtil.checkNet()){
             getList();
@@ -125,9 +145,7 @@ public class SswzSelectPersonActivity extends MyActivity implements View.OnClick
             mError.setErrorType(ErrorLayout.NETWORK_ERROR);
         }
     }
-    /**
-     * 获取数据
-     */
+
     public void getList(){
         Map<String,Object> map = new HashMap<>();
         map.put("fjh",fjhid);
@@ -136,14 +154,14 @@ public class SswzSelectPersonActivity extends MyActivity implements View.OnClick
             public void onSuccess(JSONObject result) {
                 try {
                     if(result != null) {
-                        GsonData<Sswz> gsonData = new Gson().fromJson(result.toString(), new TypeToken<GsonData<Sswz>>() {
+                        GsonData<Zssdjgl> gsonData = new Gson().fromJson(result.toString(), new TypeToken<GsonData<Zssdjgl>>() {
                         }.getType());
                         if (gsonData.getCode() == 200) {
-                            List<Sswz> dfxxes = gsonData.getData();
+                            List<Zssdjgl> dfxxes = gsonData.getData();
                             if(dfxxes.size()>0){//获取数据不为空
                                 mAdapter.notify(dfxxes);
-//                                mData.addAll(dfxxes);
-//                                mAdapter.notifyDataSetChanged();
+                                mData.addAll(dfxxes);
+                                mAdapter.notifyDataSetChanged();
                                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                             }else{
                                 mError.setErrorType(ErrorLayout.NODATA);
@@ -165,6 +183,7 @@ public class SswzSelectPersonActivity extends MyActivity implements View.OnClick
             }
         });
     }
+
 
     @Override
     public void onClick(View view) {

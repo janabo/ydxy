@@ -129,6 +129,10 @@
             android:screenOrientation="portrait"/>
 
         <activity
+            android:name="com.dk.mp.xg.wsjc.ui.Sswz.SswzSelectPersonsActivity2"
+            android:screenOrientation="portrait"/>
+
+        <activity
             android:name="com.dk.mp.xg.wsjc.ui.Sswz.SswzWjrqPickActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">

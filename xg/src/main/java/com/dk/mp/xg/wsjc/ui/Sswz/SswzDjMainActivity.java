@@ -14,6 +14,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -36,9 +38,13 @@ import com.dk.mp.core.view.DrawCheckMarkView;
 import com.dk.mp.core.view.DrawCrossMarkView;
 import com.dk.mp.core.view.DrawHookView;
 import com.dk.mp.xg.R;
+import com.dk.mp.xg.wsjc.adapter.SswzDjPersonsAdapter;
 import com.dk.mp.xg.wsjc.adapter.SswzImageAdapter;
+import com.dk.mp.xg.wsjc.adapter.SswzSdluPersonsAdapter;
 import com.dk.mp.xg.wsjc.entity.Common;
 import com.dk.mp.xg.wsjc.entity.WsjcDetail;
+import com.dk.mp.xg.wsjc.entity.Zssdjgl;
+import com.dk.mp.xg.wsjc.ui.zssdjgl.SelectPersonsActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -67,7 +73,7 @@ import static com.dk.mp.xg.wsjc.ui.WsjcDetailActivity.BASEPICPATH;
 /**
  * 作者：janabo on 2017/1/17 10:09
  */
-public class SswzDjMainActivity extends MyActivity implements EasyPermissions.PermissionCallbacks,View.OnClickListener{
+public class SswzDjMainActivity extends MyActivity implements EasyPermissions.PermissionCallbacks,View.OnClickListener, SswzDjPersonsAdapter.OnItemClickListener{
     DrawHookView progress;//提交动画
     DrawCheckMarkView progress_check;//成功动画
     DrawCrossMarkView progress_cross;//错误动画
@@ -79,9 +85,9 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
     private RecyclerView gRecyclerView;//图片
     private static final int WRITE_RERD = 1;
     private String noCutFilePath ="";
-    private ImageView wjxs_img,tbr_img;//违纪学生,提报人
-    private TextView wjxs_name,wjxs_x,wjrq,wjlb_txt,tbr_name,tbr_x;//违纪学生姓名,违纪日期,违纪类别,提报人姓名
-    private LinearLayout wjxs_lin,wjrq_lin,wjlb_lin,tbr_lin;//违纪日期,违纪类别，提报人
+    private ImageView tbr_img;//违纪学生,提报人
+    private TextView wjrq,wjlb_txt,tbr_name,tbr_x;//违纪学生姓名,违纪日期,违纪类别,提报人姓名
+    private LinearLayout wjrq_lin,wjlb_lin,tbr_lin;//违纪日期,违纪类别，提报人
     List<Common> wjlbs = new ArrayList<>();//违纪类别
  //   private EditText wjdh_txt,bz;//违纪单号,备注
     private EditText bz;//违纪单号,备注
@@ -91,6 +97,9 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
     private String fjhid,sslid,ssqid,xqid;
     private String uuid = UUID.randomUUID().toString();
 
+    private RecyclerView mRecyclerView;
+    private SswzDjPersonsAdapter zAdapter;
+    private List<Zssdjgl> persons = new ArrayList<>();
 
     @Override
     protected int getLayoutID() {
@@ -110,10 +119,21 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
 //        wjdh_txt = (EditText) findViewById(R.id.wjdh_txt);
         wjrq_lin = (LinearLayout) findViewById(R.id.wjrq_lin);
         wjrq = (TextView) findViewById(R.id.wjrq);
-        wjxs_x = (TextView) findViewById(R.id.wjxs_x);
-        wjxs_lin = (LinearLayout) findViewById(R.id.wjxs_lin);
-        wjxs_img = (ImageView) findViewById(R.id.wjxs_img);
-        wjxs_name= (TextView) findViewById(R.id.wjxs_name);
+
+//        wjxs_x = (TextView) findViewById(R.id.wjxs_x);
+//        wjxs_lin = (LinearLayout) findViewById(R.id.wjxs_lin);
+//        wjxs_img = (ImageView) findViewById(R.id.wjxs_img);
+//        wjxs_name= (TextView) findViewById(R.id.wjxs_name);
+        mRecyclerView = (RecyclerView) findViewById(R.id.person_recycle);
+        persons.add(new Zssdjgl("addperson",""));
+        zAdapter = new SswzDjPersonsAdapter(persons,mContext,SswzDjMainActivity.this);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 5, GridLayoutManager.VERTICAL, false);
+        //设置布局管理器
+        mRecyclerView.setLayoutManager(layoutManager);
+        //设置为垂直布局，这也是默认的
+        layoutManager.setOrientation(OrientationHelper.VERTICAL);
+        mRecyclerView.setAdapter(zAdapter);
+
         tbr_x = (TextView) findViewById(R.id.tbr_x);
         tbr_lin = (LinearLayout) findViewById(R.id.tbr_lin);
         tbr_img = (ImageView) findViewById(R.id.tbr_img);
@@ -131,7 +151,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
         wImageAdapter = new SswzImageAdapter(mContext,SswzDjMainActivity.this,imgs);
         gRecyclerView.setAdapter(wImageAdapter);
         wjrq_lin.setOnClickListener(this);
-        wjxs_lin.setOnClickListener(this);
+//        wjxs_lin.setOnClickListener(this);
         tbr_lin.setOnClickListener(this);
         wjlb_lin.setOnClickListener(this);
 
@@ -234,16 +254,21 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
         switch (requestCode) {
             case 1://选择违纪学生
                 if (resultCode == RESULT_OK) {
-                    wjxsid = data.getStringExtra("userIds");
-                    String userName = data.getStringExtra("userNames");
-                    if(userName.length()>0){
-                        wjxs_name.setText(userName);
-                        wjxs_x.setText(userName.substring(0,1));
-                        getBackgroud(wjxs_lin,userName.substring(0,1));
-                    }
-                    wjxs_lin.setVisibility(View.VISIBLE);
-                    wjxs_name.setVisibility(View.VISIBLE);
-                    wjxs_img.setVisibility(View.GONE);
+//                    wjxsid = data.getStringExtra("userIds");
+//                    String userName = data.getStringExtra("userNames");
+//                    if(userName.length()>0){
+//                        wjxs_name.setText(userName);
+//                        wjxs_x.setText(userName.substring(0,1));
+//                        getBackgroud(wjxs_lin,userName.substring(0,1));
+//                    }
+//                    wjxs_lin.setVisibility(View.VISIBLE);
+//                    wjxs_name.setVisibility(View.VISIBLE);
+//                    wjxs_img.setVisibility(View.GONE);
+                    persons.clear();
+                    persons.addAll((List<Zssdjgl>)data.getSerializableExtra("persons"));
+                    persons.add(new Zssdjgl("addperson",""));
+                    zAdapter.notifyDataSetChanged();
+                    dealOkButton();
                 }
                 break;
             case 2://违纪日期
@@ -315,11 +340,12 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
 
     @Override
     public void onClick(View view) {
-        if(R.id.wjxs_lin == view.getId()){//违纪学生
-            wjxs_lin.setVisibility(View.GONE);
-            wjxs_name.setVisibility(View.GONE);
-            wjxs_img.setVisibility(View.VISIBLE);
-        }else if(R.id.wjrq_lin == view.getId()){//选择日期
+//        if(R.id.wjxs_lin == view.getId()){//违纪学生
+//            wjxs_lin.setVisibility(View.GONE);
+//            wjxs_name.setVisibility(View.GONE);
+//            wjxs_img.setVisibility(View.VISIBLE);
+//        }else
+        if(R.id.wjrq_lin == view.getId()){//选择日期
             Intent intent = new Intent(mContext, SswzWjrqPickActivity.class);
             startActivityForResult(intent, 2);
             overridePendingTransition(R.anim.push_up_in, 0);
@@ -357,11 +383,24 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
      * 增加违纪学生
      * @param view
      */
-    public void addWjxs(View view){
-        Intent intent = new Intent(mContext, SswzSelectPersonActivity.class);
-        intent.putExtra("fjhid",fjhid);
-        startActivityForResult(intent, 1);
-        overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+    @Override
+    public void onItemClick(View view, int position) {
+        if (StringUtils.isNotEmpty(fjhid)){
+            if ("addperson".equals(persons.get(position).getId())){
+                Intent intent = new Intent(mContext, SswzSelectPersonsActivity2.class);
+                intent.putExtra("fjhid",fjhid);
+                startActivityForResult(intent, 1);
+                overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+            }else {
+                persons.remove(position);
+                zAdapter.notifyDataSetChanged();
+                dealOkButton();
+            }
+
+        }else {
+            showErrorMsg("请先选择房间号");
+        }
+
     }
 
     /**
@@ -440,13 +479,21 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
     }
 
     public void submit(String filename){
+        String users = "";
+        for(Zssdjgl p : persons){
+            if ("addperson".equals(p.getId())){
+                continue;
+            }
+            users += p.getId() + ",";
+        }
+
         Map<String,Object> params = new HashMap<>();
         params.put("id", uuid);
         params.put("xq",xqid);
         params.put("ssq",ssqid);
         params.put("ssl",sslid);
         params.put("fjh",fjhid);
-        params.put("wjxs",wjxsid);
+        params.put("wjxs",users);
         params.put("wjrq",wjrq.getText().toString()+" 00:00:00");
         params.put("wjdhbh",uuid);
         params.put("wjlb",wjlbid);
@@ -640,4 +687,6 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
 
         return BitmapFactory.decodeFile(filepath, options);
     }
+
+
 }

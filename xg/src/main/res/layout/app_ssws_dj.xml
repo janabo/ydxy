@@ -171,37 +171,43 @@
                     android:layout_marginBottom="20dp"
                     android:layout_marginLeft="10dp"
                     android:orientation="vertical">
-                    <ImageView
-                        android:id="@+id/wjxs_img"
-                        android:layout_width="?attr/image34"
-                        android:layout_height="?attr/image34"
-                        android:src="@mipmap/add_r"
-                        android:onClick="addWjxs"/>
-                    <LinearLayout
-                        android:id = "@+id/wjxs_lin"
-                        android:layout_height="?attr/image34"
-                        android:layout_width="?attr/image34"
-                        android:background="@drawable/circle_border"
-                        android:gravity="center"
-                        android:visibility="gone">
-                        <TextView
-                            android:id="@+id/wjxs_x"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:textSize="?attr/textSize20"
-                            />
-                    </LinearLayout>
+                    <!--<ImageView-->
+                    <!--android:id="@+id/wjxs_img"-->
+                    <!--android:layout_width="?attr/image34"-->
+                    <!--android:layout_height="?attr/image34"-->
+                    <!--android:src="@mipmap/add_r"-->
+                    <!--android:onClick="addWjxs"/>-->
+                    <!--<LinearLayout-->
+                    <!--android:id = "@+id/wjxs_lin"-->
+                    <!--android:layout_height="?attr/image34"-->
+                    <!--android:layout_width="?attr/image34"-->
+                    <!--android:background="@drawable/circle_border"-->
+                    <!--android:gravity="center"-->
+                    <!--android:visibility="gone">-->
+                    <!--<TextView-->
+                    <!--android:id="@+id/wjxs_x"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:textSize="?attr/textSize20"-->
+                    <!--/>
+            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/wjxs_name"
-                        android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/wjxs_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="#212121"
+                android:textSize="?attr/textSize14"
+                android:visibility="gone"
+                android:gravity="center_horizontal"/>-->
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:textColor="#212121"
-                        android:textSize="?attr/textSize14"
-                        android:visibility="gone"/>
-
+                        android:paddingBottom="15dp"
+                        android:id="@+id/person_recycle"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
