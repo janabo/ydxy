@@ -389,6 +389,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
             if ("addperson".equals(persons.get(position).getId())){
                 Intent intent = new Intent(mContext, SswzSelectPersonsActivity2.class);
                 intent.putExtra("fjhid",fjhid);
+                intent.putExtra("persons",(Serializable)persons);
                 startActivityForResult(intent, 1);
                 overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
             }else {

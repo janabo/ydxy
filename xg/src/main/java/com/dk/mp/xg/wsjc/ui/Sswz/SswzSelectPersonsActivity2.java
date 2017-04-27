@@ -54,6 +54,7 @@ public class SswzSelectPersonsActivity2 extends MyActivity implements View.OnCli
     private RecyclerView mRecyclerView;
     PeopleAdapter2 mAdapter;
     List<Zssdjgl> mData = new ArrayList<>();
+    private List<Zssdjgl> selectPersons = new ArrayList<>();
     private String fjhid;
     String mUrl="";
 
@@ -85,9 +86,7 @@ public class SswzSelectPersonsActivity2 extends MyActivity implements View.OnCli
         mRecyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.HORIZONTAL, DeviceUtil.dip2px(mContext,0.8f), Color.rgb(229, 229, 229)));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        for(Zssdjgl z : mData){
-            mAdapter.getIsSelected().put(z.getId(),z);
-        }
+        selectPersons.addAll((List<Zssdjgl>)getIntent().getSerializableExtra("persons"));
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +118,7 @@ public class SswzSelectPersonsActivity2 extends MyActivity implements View.OnCli
             }
         });
 
-        for(Zssdjgl z : mData){
+        for(Zssdjgl z : selectPersons){
             mAdapter.getIsSelected().put(z.getId(),z);
         }
 
