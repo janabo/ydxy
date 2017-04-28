@@ -176,7 +176,7 @@ public class SswzSdluActivity extends MyActivity implements EasyPermissions.Perm
 //        wjxs_name= (TextView) findViewById(R.id.wjxs_name);
 //        wjxs_img = (ImageView) findViewById(R.id.wjxs_img);
 //        wjxs_lin = (LinearLayout) findViewById(R.id.wjxs_lin);
-        mRecyclerView = (RecyclerView) findViewById(R.id.person_recycle);
+        mRecyclerView  = (RecyclerView) findViewById(R.id.person_recycle);
         persons.add(new Zssdjgl("addperson",""));
         zAdapter = new SswzSdluPersonsAdapter(persons,mContext,SswzSdluActivity.this);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 5, GridLayoutManager.VERTICAL, false);

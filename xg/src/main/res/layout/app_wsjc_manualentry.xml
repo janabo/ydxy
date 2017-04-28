@@ -387,5 +387,4 @@
             android:visibility="gone"></com.dk.mp.core.widget.ErrorLayout>
     </FrameLayout>
 
-
 </LinearLayout>

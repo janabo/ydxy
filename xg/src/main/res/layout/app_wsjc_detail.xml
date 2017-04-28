@@ -5,346 +5,517 @@
     android:background="@color/page_bg"
     android:orientation="vertical">
 
-    <include layout="@layout/core_title_back"/>
+    <include layout="@layout/core_title_back" />
+
     <com.dk.mp.core.widget.ErrorLayout
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
         android:id="@+id/error_layout"
-        android:gravity="center_horizontal"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:visibility="gone" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/mRootView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_width="match_parent"
             android:orientation="vertical">
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:background="@color/white">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.8dp"
-                android:background="@color/linecolor"/>
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:text="宿舍基本信息"
-                android:textColor="#9c9c9c"
-                android:textSize="12sp"
-                android:layout_margin="10dp">
-                </TextView>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.8dp"
-                android:background="@color/linecolor"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="宿舍区："
-                    android:textColor="#9c9c9c"
-                    android:textSize="14sp"/>
-                <TextView
-                    android:id="@+id/ssqName"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:textColor="#212121"
-                    android:textSize="14sp"/>
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="宿舍楼："
-                    android:textColor="#9c9c9c"
-                    android:textSize="14sp"/>
-                <TextView
-                    android:id="@+id/sslName"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:textColor="#212121"
-                    android:textSize="14sp"/>
-            </LinearLayout>
+                android:background="@color/white"
+                android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="楼层："
-                    android:textColor="#9c9c9c"
-                    android:textSize="14sp"/>
-                <TextView
-                    android:id="@+id/lcName"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:textColor="#212121"
-                    android:textSize="14sp"/>
-            </LinearLayout>
+                <include layout="@layout/core_line_padding" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
                 <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="房间号："
-                    android:textColor="#9c9c9c"
-                    android:textSize="14sp"/>
-                <TextView
-                    android:id="@+id/fjhName"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:textColor="#212121"
-                    android:textSize="14sp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:visibility="gone">
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="入住性别："
-                    android:textColor="#9c9c9c"
-                    android:textSize="14sp"/>
-                <TextView
-                    android:id="@+id/rzxbName"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="女"
-                    android:textColor="#212121"
-                    android:textSize="14sp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:visibility="gone">
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="床位数："
-                    android:textColor="#9c9c9c"
-                    android:textSize="14sp"/>
-                <TextView
-                    android:id="@+id/cwsName"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:textColor="#212121"
-                    android:textSize="14sp"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.8dp"
-                android:background="@color/linecolor"
-                android:layout_marginTop="15dp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:background="@color/white">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.8dp"
-                android:background="@color/linecolor"/>
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:text="宿舍打分信息"
-                android:textColor="#9c9c9c"
-                android:textSize="12sp"
-                android:layout_margin="10dp">
-            </TextView>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.8dp"
-                android:background="@color/linecolor"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:id="@+id/ssdfxx"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.8dp"
-                android:background="@color/linecolor"/>
-            </LinearLayout>
-
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:background="@color/white">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.8dp"
-                android:background="@color/linecolor"/>
-            <LinearLayout
-                android:id="@+id/wskfyx"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@drawable/ripple_bg_while"
-                android:onClick="toPickKfyy">
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="卫生扣分原因"
-                    android:textColor="#212121"
-                    android:textSize="15sp">
-                </TextView>
-                <TextView
-                    android:id="@+id/dfxx_pick"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:textColor="#212121"
-                    android:textSize="14sp"
-                    android:layout_weight="1"
-                    android:gravity="right">
-                </TextView>
-                <ImageView
-                    android:src="@mipmap/arrow_icon_xg"
-                    android:layout_width="8dp"
-                    android:layout_height="13dp"
-                    android:layout_marginLeft="10dp"/>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.8dp"
-                android:background="@color/linecolor"/>
-        </LinearLayout>
-
-            <LinearLayout
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp"
-                android:background="@color/white">
-                <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.8dp"
-                    android:background="@color/linecolor"/>
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="宿舍基本信息"
+                    android:textColor="#9c9c9c"
+                    android:textSize="12sp"></TextView>
+
+                <include layout="@layout/core_line_padding" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="15dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="宿舍区："
+                                android:textColor="#9c9c9c"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/ssqName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#212121"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="宿舍楼："
+                                android:textColor="#9c9c9c"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/sslName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#212121"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="楼层："
+                                android:textColor="#9c9c9c"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/lcName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#212121"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="房间号："
+                                android:textColor="#9c9c9c"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/fjhName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#212121"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="入住性别："
+                                android:textColor="#9c9c9c"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/rzxbName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="女"
+                                android:textColor="#212121"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="床位数："
+                                android:textColor="#9c9c9c"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/cwsName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#212121"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/sdlr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ripple_bg_while"
+                            android:onClick="toPickXq"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="校区"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize15"></TextView>
+
+                            <TextView
+                                android:id="@+id/xq_pick"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:hint="必填"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize14"></TextView>
+
+                            <ImageView
+                                android:layout_width="?attr/image8"
+                                android:layout_height="?attr/image13"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:src="@mipmap/arrow_icon_xg" />
+                        </LinearLayout>
+
+                        <include layout="@layout/core_line_padding" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ripple_bg_while"
+                            android:onClick="toPickSsq"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="宿舍区"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize15"></TextView>
+
+                            <TextView
+                                android:id="@+id/ssq_pick"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:hint="必填"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize14"></TextView>
+
+                            <ImageView
+                                android:layout_width="?attr/image8"
+                                android:layout_height="?attr/image13"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:src="@mipmap/arrow_icon_xg" />
+                        </LinearLayout>
+
+                        <include layout="@layout/core_line_padding" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ripple_bg_while"
+                            android:onClick="toPickSsl"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="宿舍楼"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize15"></TextView>
+
+                            <TextView
+                                android:id="@+id/ssl_pick"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:hint="必填"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize14"></TextView>
+
+                            <ImageView
+                                android:layout_width="?attr/image8"
+                                android:layout_height="?attr/image13"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:src="@mipmap/arrow_icon_xg" />
+                        </LinearLayout>
+
+                        <include layout="@layout/core_line_padding" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ripple_bg_while"
+                            android:onClick="toPickLc"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="楼层"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize15"></TextView>
+
+                            <TextView
+                                android:id="@+id/lc_pick"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:hint="必填"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize14"></TextView>
+
+                            <ImageView
+                                android:layout_width="?attr/image8"
+                                android:layout_height="?attr/image13"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:src="@mipmap/arrow_icon_xg" />
+                        </LinearLayout>
+
+                        <include layout="@layout/core_line_padding" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ripple_bg_while"
+                            android:onClick="toPickFjh"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="房间号"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize15"></TextView>
+
+                            <TextView
+                                android:id="@+id/fjh_pick"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:hint="必填"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize14"></TextView>
+
+                            <ImageView
+                                android:layout_width="?attr/image8"
+                                android:layout_height="?attr/image13"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:src="@mipmap/arrow_icon_xg" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <include layout="@layout/core_line_padding" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <include layout="@layout/core_line_padding" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="宿舍打分信息"
+                    android:textColor="#9c9c9c"
+                    android:textSize="12sp"></TextView>
+
+                <include layout="@layout/core_line_padding" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/ssdfxx"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp" />
+
+                <include layout="@layout/core_line_padding" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <include layout="@layout/core_line_padding" />
+
+                <LinearLayout
+                    android:id="@+id/wskfyx"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/ripple_bg_while"
+                    android:gravity="center_vertical"
+                    android:onClick="toPickKfyy"
+                    android:orientation="horizontal"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="卫生扣分原因"
+                        android:textColor="#212121"
+                        android:textSize="15sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/dfxx_pick"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textColor="#212121"
+                        android:textSize="14sp"></TextView>
+
+                    <ImageView
+                        android:layout_width="8dp"
+                        android:layout_height="13dp"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/arrow_icon_xg" />
+                </LinearLayout>
+
+                <include layout="@layout/core_line_padding" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <include layout="@layout/core_line_padding" />
 
                 <EditText
                     android:id="@+id/bz_edit"
-                    android:background="@color/white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:padding="10dp"
-                    android:minHeight="100dp"
-                    android:maxLength="200"
-                    android:hint="备注(200字以内)"
+                    android:background="@color/white"
                     android:gravity="top"
-                    android:textSize="14sp"/>
+                    android:hint="备注(200字以内)"
+                    android:maxLength="200"
+                    android:minHeight="100dp"
+                    android:padding="10dp"
+                    android:textSize="14sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.8dp"
-                    android:background="@color/linecolor"/>
+                <include layout="@layout/core_line_padding" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:orientation="vertical"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@color/white">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.8dp"
-                    android:background="@color/linecolor"/>
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <include layout="@layout/core_line_padding" />
 
                 <TextView
-                    android:layout_height="wrap_content"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:text="上传附件"
                     android:textColor="#9c9c9c"
-                    android:textSize="12sp"
-                    android:layout_margin="10dp"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.8dp"
-                    android:background="@color/linecolor"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    />
+                    android:textSize="12sp" />
+
+                <include layout="@layout/core_line_padding" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/imgView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.8dp"
-                    android:background="@color/linecolor"
-                    />
+                <include layout="@layout/core_line_padding" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ok"
                 android:layout_width="fill_parent"
                 android:layout_height="?attr/image42"
+                android:layout_marginBottom="20dip"
                 android:layout_marginLeft="10dip"
                 android:layout_marginRight="10dip"
                 android:layout_marginTop="20dip"
-                android:layout_marginBottom="20dip"
+                android:background="@color/rcap_gray"
                 android:elevation="2dp"
-                android:background="@drawable/ripple_bg"
-                android:onClick="submitWs"
-                android:gravity="center">
+                android:gravity="center"
+                android:onClick="submitWs">
 
                 <TextView
                     android:id="@+id/ok_text"
@@ -352,31 +523,29 @@
                     android:layout_height="wrap_content"
                     android:text="提交最终分值（0分）"
                     android:textColor="@color/white"
-                    android:textSize="?attr/textSize14"/>
+                    android:textSize="?attr/textSize14" />
 
                 <com.dk.mp.core.view.DrawHookView
                     android:id="@+id/progress"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
-                    android:visibility="gone">
-                </com.dk.mp.core.view.DrawHookView>
+                    android:visibility="gone"></com.dk.mp.core.view.DrawHookView>
 
                 <com.dk.mp.core.view.DrawCheckMarkView
                     android:id="@+id/progress_check"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
-                    android:visibility="gone">
-                </com.dk.mp.core.view.DrawCheckMarkView>
+                    android:visibility="gone"></com.dk.mp.core.view.DrawCheckMarkView>
 
                 <com.dk.mp.core.view.DrawCrossMarkView
                     android:id="@+id/progress_cross"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
-                    android:visibility="gone">
-                </com.dk.mp.core.view.DrawCrossMarkView>
+                    android:visibility="gone"></com.dk.mp.core.view.DrawCrossMarkView>
 
             </LinearLayout>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
 </LinearLayout>

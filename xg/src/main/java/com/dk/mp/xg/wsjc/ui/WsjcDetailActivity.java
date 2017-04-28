@@ -1,10 +1,8 @@
 package com.dk.mp.xg.wsjc.ui;
 
 import android.Manifest;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
@@ -20,6 +18,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -44,9 +43,12 @@ import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.adapter.WsjcDetailAdapter;
 import com.dk.mp.xg.wsjc.adapter.WsjcImageAdapter;
+import com.dk.mp.xg.wsjc.entity.Common;
 import com.dk.mp.xg.wsjc.entity.Dfxx;
 import com.dk.mp.xg.wsjc.entity.Kf;
+import com.dk.mp.xg.wsjc.entity.Student;
 import com.dk.mp.xg.wsjc.entity.WsjcDetail;
+import com.dk.mp.xg.wsjc.ui.zssgl.ZsstjPickActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -74,72 +76,143 @@ import pub.devrel.easypermissions.EasyPermissions;
  * 作者：janabo on 2017/1/9 14:20
  */
 public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.SaveEditListener,EasyPermissions.PermissionCallbacks{
+
     String uuid = UUID.randomUUID().toString();
-    public static final String BASEPICPATH = Environment.getExternalStorageDirectory() + "/mobileschool/cache/";
-    ErrorLayout mError;
+
+    private static final int INIT_GETDATA = 1;
+    private static final int PICK_GETDATA = 2;
+
+    private String Type = "";
+    private LinearLayout code, sdlr;
+
+    private DrawHookView progress;
+    private DrawCheckMarkView progress_check;
+    private DrawCrossMarkView progress_cross;
+
+    private LinearLayout ok_lin;
+    private TextView ok;//提交按钮
+
+    private ErrorLayout mError;
+    private NestedScrollView mRootView;
+
+    private String xqid,ssqid,sslid,lcid,fjhid;//校区id,宿舍区,宿舍楼id,楼层id,
+
+    //手动录入
+    private TextView xq,ssq,ssl,lc,fjh,kfyy;//校区,宿舍区,宿舍楼,楼层,房间号,
+    private TextView xq_pick,ssq_pick,ssl_pick,lc_pick,fjh_pick;
+
+    private List<Common> xqs = new ArrayList<>();//存放校区信息
+    private List<Common> ssqs = new ArrayList<>();//存放宿舍区信息
+    private List<Common> ssls = new ArrayList<>();//存放宿舍楼信息
+    private List<Common> lcs = new ArrayList<>();//存放楼层信息
+    private List<Common> fjhs = new ArrayList<>();//存放房间号信息
+
+    //二维码扫入
     private TextView ssqName,sslName,lcName,fjhName,rzxbName,cwsName;//宿舍区，宿舍楼，楼层，房间号，入住性别，床位数
-    DrawHookView progress;//提交动画
-    DrawCheckMarkView progress_check;//成功动画
-    DrawCrossMarkView progress_cross;//错误动画
-    private static final int WRITE_RERD = 1;
-    private String noCutFilePath ="";
-    NestedScrollView mRootView;
-    WsjcDetailAdapter mAdapter;
-    private RecyclerView mRecyclerView;//打分信息list
-    List<Dfxx> mData = new ArrayList<>();
-    List<Kf> mKfs = new ArrayList<>();
-    TextView mdfxx;//扣分原因
-    TextView ok;//提交按钮
-    LinearLayout ok_lin;
-    int mScore = 0;//总分
+
+    private TextView kfyy_pick;
+    private String kfId = "";//扣分id
+
+    public static final String BASEPICPATH = Environment.getExternalStorageDirectory() + "/mobileschool/cache/";
     private RecyclerView gRecyclerView;//图片
     List<String> imgs = new ArrayList<>();//保存图片地址
     WsjcImageAdapter wImageAdapter;
+    private String noCutFilePath ="";
+    private static final int WRITE_RERD = 1;
+
     WsjcDetail detail = null;
+    WsjcDetailAdapter mAdapter;
+    private RecyclerView mRecyclerView;//打分信息list
+    List<Dfxx> mData = new ArrayList<>();
     Map<String,Integer> map = new HashMap<>();//存储打分信息
-    String ssq = "";//宿舍区id
-    String ssl = "";//宿舍楼id
-    String lc = "";//楼层
-    String fjh = "";//房间号id
-    String kfId = "";//扣分id
-//    String dfxxId = "";//打分信息id（多个，隔开）
-//    String df = "";//打分（多个，隔开，和dfxxId顺序对应）
-    EditText bz_edit;
+    int mScore = 0;//总分
+    List<Kf> mKfs = new ArrayList<>();
+
+    private EditText bz_edit;
+
     @Override
     protected int getLayoutID() {
         return R.layout.app_wsjc_detail;
     }
 
     @Override
-    protected void initialize() {
-        super.initialize();
+    public void back() {
+        super.back();
+        onBackPressed();
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
         setTitle("宿舍卫生检查");
+        getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
         findView();
-        String wsjcDetail = getIntent().getStringExtra("wsjcDetail");
-        if(StringUtils.isNotEmpty(wsjcDetail)){
-            Logger.info("##########################"+wsjcDetail);
-            detail = new Gson().fromJson(wsjcDetail,WsjcDetail.class);
-            setDetailSetText(detail);
+
+        Type = getIntent().getStringExtra("TYPE");
+        if (Type.equals("code")){
+            code.setVisibility(View.VISIBLE);
+            sdlr.setVisibility(View.GONE);
+
+            String wsjcDetail = getIntent().getStringExtra("wsjcDetail");
+            if(StringUtils.isNotEmpty(wsjcDetail)){
+                Logger.info("##########################"+wsjcDetail);
+                detail = new Gson().fromJson(wsjcDetail,WsjcDetail.class);
+                setDetailSetText(detail);
+            }
+        }else {   //if (Type.equals("sdlr"))
+            code.setVisibility(View.GONE);
+            sdlr.setVisibility(View.VISIBLE);
         }
+
+
+        if(DeviceUtil.checkNet()){
+            getDfxx();
+            getKf();
+        }else{
+            SnackBarUtil.showShort(mRootView,getReString(R.string.net_no2));
+            mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+        }
+
     }
 
     private void findView(){
+        code = (LinearLayout) findViewById(R.id.code);
+        sdlr = (LinearLayout) findViewById(R.id.sdlr);
+
         mError = (ErrorLayout) findViewById(R.id.error_layout);
+        mRootView = (NestedScrollView) findViewById(R.id.mRootView);
+
+        ok_lin = (LinearLayout) findViewById(R.id.ok);
+        ok = (TextView) findViewById(R.id.ok_text);
+        ok_lin.setEnabled(false);
+
+        progress = (DrawHookView) findViewById(R.id.progress);
+        progress_check = (DrawCheckMarkView) findViewById(R.id.progress_check);
+        progress_cross = (DrawCrossMarkView) findViewById(R.id.progress_cross);
+
         ssqName = (TextView) findViewById(R.id.ssqName);
         sslName = (TextView) findViewById(R.id.sslName);
         lcName = (TextView) findViewById(R.id.lcName);
         fjhName = (TextView) findViewById(R.id.fjhName);
         rzxbName = (TextView) findViewById(R.id.rzxbName);
         cwsName = (TextView) findViewById(R.id.cwsName);
-        bz_edit = (EditText) findViewById(R.id.bz_edit);
 
-        mRootView = (NestedScrollView) findViewById(R.id.mRootView);
-        mdfxx = (TextView) findViewById(R.id.dfxx_pick);
-        ok_lin = (LinearLayout) findViewById(R.id.ok);
-        ok = (TextView) findViewById(R.id.ok_text);
-        progress = (DrawHookView) findViewById(R.id.progress);
-        progress_check = (DrawCheckMarkView) findViewById(R.id.progress_check);
-        progress_cross = (DrawCrossMarkView) findViewById(R.id.progress_cross);
+        xq_pick= (TextView) findViewById(R.id.xq_pick);
+        ssq_pick = (TextView) findViewById(R.id.ssq_pick);
+        ssl_pick = (TextView) findViewById(R.id.ssl_pick);
+        lc_pick = (TextView) findViewById(R.id.lc_pick);
+        fjh_pick = (TextView) findViewById(R.id.fjh_pick);
+
+        bz_edit = (EditText) findViewById(R.id.bz_edit);
+        kfyy_pick = (TextView) findViewById(R.id.dfxx_pick);
+
+        imgs.add("addImage");
+        gRecyclerView = (RecyclerView) findViewById(R.id.imgView);
+        gRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.HORIZONTAL));
+        wImageAdapter = new WsjcImageAdapter(mContext,WsjcDetailActivity.this,imgs);
+        gRecyclerView.setAdapter(wImageAdapter);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.ssdfxx);
         mRecyclerView.setHasFixedSize ( true );
         mRecyclerView.setLayoutManager ( new LinearLayoutManager( mContext ) );
@@ -147,15 +220,12 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
         mRecyclerView.setAdapter ( mAdapter );
         mRecyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.HORIZONTAL, DeviceUtil.dip2px(mContext,0.8f), Color.rgb(229, 229, 229)));
         mRecyclerView.setNestedScrollingEnabled(false);
-        getData();
-        imgs.add("addImage");
-        gRecyclerView = (RecyclerView) findViewById(R.id.imgView);
-        gRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.HORIZONTAL));
-        wImageAdapter = new WsjcImageAdapter(mContext,WsjcDetailActivity.this,imgs);
-        gRecyclerView.setAdapter(wImageAdapter);
-        ok.setEnabled(false);
+
     }
 
+    /**
+     * 设置值
+     */
     public void setDetailSetText(WsjcDetail d){
         if(d != null) {
             ssqName.setText(d.getSsqName());
@@ -164,21 +234,337 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
             fjhName.setText(d.getFjh());
             rzxbName.setText(d.getXb());
             cwsName.setText(d.getCws());
-            ssq = d.getSsqId();
-            ssl = d.getSslId();
-            lc = d.getLcId();
-            fjh = d.getFjhId();
+            ssqid = d.getSsqId();
+            sslid = d.getSslId();
+            lcid = d.getLcId();
+            fjhid = d.getFjhId();
+
+            dealOkButton();
+        }
+    }
+    public void setText(Student s){
+        xq.setText(s.getXq());
+        ssq.setText(s.getSsq());
+        ssl.setText(s.getSsl());
+        lc.setText(s.getLc());
+        fjh.setText(s.getFjh());
+        kfyy.setText(s.getKfyy());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 1://拍照
+                if (resultCode == RESULT_OK) {
+                    if (StringUtils.isNotEmpty(noCutFilePath) && new File(noCutFilePath).exists()) {
+                        Bitmap bitmap = createThumbnail(noCutFilePath);
+                        FileOutputStream fos = null;
+                        try {
+                            fos = new FileOutputStream(new File(noCutFilePath));
+                            bitmap.compress(Bitmap.CompressFormat.JPEG,30,fos);// 把数据写入文件
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
+                        imgs.remove(0);
+                        imgs.add(noCutFilePath);
+                        wImageAdapter.notifyDataSetChanged();
+                    }
+                }
+                break;
+            case 2: //扣分
+                if(resultCode == RESULT_OK) {
+                    String kfs = data.getStringExtra("kfs");
+                    String kdfid = data.getStringExtra("kfsid");
+                    kfId = kdfid;
+                    kfyy_pick.setText(kfs);
+                }
+                break;
+            case 3: //校区
+                if (resultCode == RESULT_OK) {
+                    String mXqid = data.getStringExtra("kfsid");
+                    String xqname = data.getStringExtra("kfs");
+                    if(StringUtils.isNotEmpty(xqid) && !xqid.equals(mXqid)){
+                        ssqid ="";sslid="";lcid="";fjhid="";
+                        ssq_pick.setText("");ssl_pick.setText("");lc_pick.setText("");
+                        fjh_pick.setText("");
+                    }
+                    xqid = mXqid;
+                    xq_pick.setText(xqname);
+                    getSsqs(xqid,INIT_GETDATA);
+                }
+                break;
+            case 4: //宿舍区
+                if (resultCode == RESULT_OK) {
+                    String mSsqid = data.getStringExtra("kfsid");
+                    String ssqname = data.getStringExtra("kfs");
+                    if(StringUtils.isNotEmpty(ssqid) && !ssqid.equals(mSsqid)){
+                        sslid="";lcid="";fjhid="";
+                        ssl_pick.setText("");lc_pick.setText("");
+                        fjh_pick.setText("");
+                    }
+                    ssqid = mSsqid;
+                    ssq_pick.setText(ssqname);
+                    getSsls(ssqid,INIT_GETDATA);
+//                    getTsyys(ssqid);
+                }
+                break;
+            case 5:    // 宿舍楼
+                if (resultCode == RESULT_OK) {
+                    String mSslid = data.getStringExtra("kfsid");
+                    String sslname = data.getStringExtra("kfs");
+                    if(StringUtils.isNotEmpty(sslid) && !ssqid.equals(mSslid)){
+                        lcid="";fjhid="";
+                        lc_pick.setText("");
+                        fjh_pick.setText("");
+                    }
+                    sslid = mSslid;
+                    ssl_pick.setText(sslname);
+                    getLcs(sslid,INIT_GETDATA);
+                }
+                break;
+            case 6:   //楼层
+                if (resultCode == RESULT_OK) {
+                    String mLcid = data.getStringExtra("kfsid");
+                    String lcname = data.getStringExtra("kfs");
+                    if(StringUtils.isNotEmpty(lcid) && !ssqid.equals(mLcid)){
+                        fjhid="";
+                        fjh_pick.setText("");
+                    }
+                    lcid = mLcid;
+                    lc_pick.setText(lcname);
+                    getFjhs(sslid, lcid,INIT_GETDATA);
+
+                }
+                break;
+            case 7:   //房间号
+                if (resultCode == RESULT_OK) {
+                    String fjhname = data.getStringExtra("kfs");
+                    String mfjhid = data.getStringExtra("kfsid");
+                    fjhid = mfjhid;
+                    fjh_pick.setText(fjhname);
+
+                    dealOkButton();
+                }
+                break;
+
+//            case 5://相册选取不 剪切
+//                if (data != null) {
+//                    Uri uri = data.getData();
+//                    ContentResolver cr = this.getContentResolver();
+//                    Cursor c = cr.query(uri, null, null, null, null);
+//                    if (c.moveToNext()) {
+//                        noCutFilePath=c.getString(c.getColumnIndex(MediaStore.Images.Media.DATA));
+//                    }
+//                    c.close();
+//                    if(StringUtils.isNotEmpty(noCutFilePath)) {
+//                        imgs.remove(0);
+//                        imgs.add(noCutFilePath);
+//                    }
+//                    wImageAdapter.notifyDataSetChanged();
+//                }
+//                break;
         }
     }
 
-    public void getData(){
-        if(DeviceUtil.checkNet()){
-            getDfxx();
-            getKf();
-        }else{
-            SnackBarUtil.showShort(mRootView,getReString(R.string.net_no2));
-            mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
-        }
+    /**
+     * 获取校区列表
+     */
+    public void getXqs(final int param){
+        xqs.clear();
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/xqList", null, new HttpListener<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    if(result != null) {
+                        GsonData<Common> gsonData = new Gson().fromJson(result.toString(), new TypeToken<GsonData<Common>>() {
+                        }.getType());
+                        if (gsonData.getCode() == 200) {
+                            List<Common> dfxxes = gsonData.getData();
+                            if(dfxxes.size()>0){//获取数据不为空
+                                xqs.addAll(dfxxes);
+                                toPickActivity(xqs,3,param);
+                            }else{
+                                errorMsg(param,"获取校区为空");
+                            }
+                        } else {
+                            errorMsg(param,"获取校区为空");
+                        }
+                    }else{
+                        errorMsg(param,"获取校区为空");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    errorMsg(param,"获取校区为空");
+                }
+            }
+            @Override
+            public void onError(VolleyError error) {
+                errorMsg(param,"获取校区为空");
+            }
+        });
+    }
+
+    /**
+     * 获取宿舍区列表
+     */
+    public void getSsqs(String mXqid, final int param){
+        ssqs.clear();
+        Map<String,Object> map = new HashMap<>();
+        map.put("xq",mXqid);
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/ssqList", map, new HttpListener<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    if(result != null) {
+                        GsonData<Common> gsonData = new Gson().fromJson(result.toString(), new TypeToken<GsonData<Common>>() {
+                        }.getType());
+                        if (gsonData.getCode() == 200) {
+                            List<Common> dfxxes = gsonData.getData();
+                            if(dfxxes.size()>0){//获取数据不为空
+                                ssqs.addAll(dfxxes);
+                                toPickActivity(ssqs,4,param);
+                            }else{
+                                errorMsg(param,"获取宿舍区为空");
+                            }
+                        } else {
+                            errorMsg(param,"获取宿舍区为空");
+                        }
+                    }else{
+                        errorMsg(param,"获取宿舍区为空");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    errorMsg(param,"获取宿舍区为空");
+                }
+            }
+            @Override
+            public void onError(VolleyError error) {
+                errorMsg(param,"获取宿舍区为空");
+            }
+        });
+    }
+
+    /**
+     * 获取宿舍楼列表
+     */
+    public void getSsls(String mSsqid, final int param){
+        ssls.clear();
+        Map<String,Object> map = new HashMap<>();
+        map.put("ssq",mSsqid);
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/sslList", map, new HttpListener<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    if(result != null) {
+                        GsonData<Common> gsonData = new Gson().fromJson(result.toString(), new TypeToken<GsonData<Common>>() {
+                        }.getType());
+                        if (gsonData.getCode() == 200) {
+                            List<Common> dfxxes = gsonData.getData();
+                            if(dfxxes.size()>0){//获取数据不为空
+                                ssls.addAll(dfxxes);
+                                toPickActivity(ssls,5,param);
+                            }else{
+                                errorMsg(param,"获取宿舍楼为空");
+                            }
+                        } else {
+                            errorMsg(param,"获取宿舍楼为空");
+                        }
+                    }else{
+                        errorMsg(param,"获取宿舍楼为空");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    errorMsg(param,"获取宿舍楼为空");
+                }
+            }
+            @Override
+            public void onError(VolleyError error) {
+                errorMsg(param,"获取宿舍楼为空");
+            }
+        });
+    }
+
+    /**
+     * 获取楼层列表
+     */
+    public void getLcs(String sslid,final int param){
+        lcs.clear();
+        Map<String,Object> map = new HashMap<>();
+        map.put("ssl",sslid);
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/lcList", map, new HttpListener<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    if(result != null) {
+                        GsonData<Common> gsonData = new Gson().fromJson(result.toString(), new TypeToken<GsonData<Common>>() {
+                        }.getType());
+                        if (gsonData.getCode() == 200) {
+                            List<Common> dfxxes = gsonData.getData();
+                            if(dfxxes.size()>0){//获取数据不为空
+                                lcs.addAll(dfxxes);
+                                toPickActivity(lcs,6,param);
+                            }else{
+                                errorMsg(param,"获取楼层为空");
+                            }
+                        } else {
+                            errorMsg(param,"获取楼层为空");
+                        }
+                    }else{
+                        errorMsg(param,"获取楼层为空");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    errorMsg(param,"获取楼层为空");
+                }
+            }
+            @Override
+            public void onError(VolleyError error) {
+                errorMsg(param,"获取楼层为空");
+            }
+        });
+    }
+
+    /**
+     * 获取房间号列表
+     */
+    public void getFjhs(String ssl,String lc,final int param){
+        fjhs.clear();
+        Map<String,Object> map = new HashMap<>();
+        map.put("ssl",ssl);
+        map.put("lc",lc);
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/roomList", map, new HttpListener<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    if(result != null) {
+                        GsonData<Common> gsonData = new Gson().fromJson(result.toString(), new TypeToken<GsonData<Common>>() {
+                        }.getType());
+                        if (gsonData.getCode() == 200) {
+                            List<Common> dfxxes = gsonData.getData();
+                            if(dfxxes.size()>0){//获取数据不为空
+                                fjhs.addAll(dfxxes);
+                                toPickActivity(fjhs,7,param);
+                            }else{
+                                errorMsg(param,"获取房间号为空");
+                            }
+                        } else {
+                            errorMsg(param,"获取房间号为空");
+                        }
+                    }else{
+                        errorMsg(param,"获取房间号为空");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    errorMsg(param,"获取房间号为空");
+                }
+            }
+            @Override
+            public void onError(VolleyError error) {
+                errorMsg(param,"获取房间号为空");
+            }
+        });
     }
 
     /**
@@ -269,6 +655,112 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
     }
 
     /**
+     * 选择校区
+     * @param v
+     */
+    public void toPickXq(View v){
+//        mError.setErrorType(ErrorLayout.LOADDATA);
+        if (xqs.size() > 0) {  //初始化获取到校区就无须再请求
+            toPickActivity(xqs,3,PICK_GETDATA);
+        } else {
+            if(DeviceUtil.checkNet()) {
+                getXqs(PICK_GETDATA);
+            }else{
+                errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
+            }
+        }
+    }
+
+    /**
+     * 选择宿舍区
+     * @param v
+     */
+    public void toPickSsq(View v){
+        mError.setErrorType(ErrorLayout.LOADDATA);
+        if (ssqs.size() > 0) {//初始化获取到校区就无须再请求
+            toPickActivity(ssqs,4,PICK_GETDATA);
+        } else {
+            if(StringUtils.isNotEmpty(xqid)) {
+                if(DeviceUtil.checkNet()) {
+                    getSsqs(xqid, PICK_GETDATA);
+                }else{
+                    errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
+                }
+            }else{
+                errorMsg(PICK_GETDATA,"请先选择校区");
+            }
+        }
+    }
+
+    /**
+     * 选择宿舍楼
+     * @param v
+     */
+    public void toPickSsl(View v){
+        mError.setErrorType(ErrorLayout.LOADDATA);
+        if (ssls.size() > 0) {
+            toPickActivity(ssls,5,PICK_GETDATA);
+        } else {
+            if(StringUtils.isNotEmpty(ssqid)) {
+                if(DeviceUtil.checkNet()) {
+                    getSsls(ssqid,PICK_GETDATA);
+                }else{
+                    errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
+                }
+            }else{
+                errorMsg(PICK_GETDATA,"请先选择宿舍区");
+            }
+        }
+    }
+
+    /**
+     * 选择楼层
+     * @param v
+     */
+    public void toPickLc(View v){
+        mError.setErrorType(ErrorLayout.LOADDATA);
+        if (lcs.size() > 0) {
+            toPickActivity(lcs,6,PICK_GETDATA);
+        } else {
+            if(StringUtils.isNotEmpty(sslid)) {
+                if(DeviceUtil.checkNet()) {
+                    getLcs(sslid,PICK_GETDATA);
+                }else{
+                    errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
+                }
+            }else{
+                errorMsg(PICK_GETDATA,"请先选择宿舍楼");
+            }
+        }
+    }
+
+    /**
+     * 选择房间号
+     * @param v
+     */
+    public void toPickFjh(View v){
+        mError.setErrorType(ErrorLayout.LOADDATA);
+        if (fjhs.size() > 0) {
+            toPickActivity(fjhs,7,PICK_GETDATA);
+        } else {
+//            if(!StringUtils.isNotEmpty(xb.getText().toString())){
+//                errorMsg(PICK_GETDATA, "请先选择提名学生");
+//            }else
+            if(!StringUtils.isNotEmpty(sslid)){
+                errorMsg(PICK_GETDATA,"请先选择宿舍楼");
+            }else if(!StringUtils.isNotEmpty(lcid)){
+                errorMsg(PICK_GETDATA,"请先选择楼层");
+            }else {
+                if(DeviceUtil.checkNet()) {
+                    getFjhs(sslid, lcid, PICK_GETDATA);
+                }else{
+                    errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
+                }
+            }
+        }
+    }
+
+    /**
      * 选择扣分原因
      * @param v
      */
@@ -278,7 +770,7 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
             Bundle bundle = new Bundle();
             bundle.putSerializable("kfs", (Serializable) mKfs);
             intent.putExtras(bundle);
-            startActivityForResult(intent, 3);
+            startActivityForResult(intent, 2);
             overridePendingTransition(R.anim.push_up_in, 0);
         }else{
             getKf();
@@ -287,7 +779,7 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("kfs", (Serializable) mKfs);
                 intent.putExtras(bundle);
-                startActivityForResult(intent, 3);
+                startActivityForResult(intent, 2);
                 overridePendingTransition(R.anim.push_up_in, 0);
             }else {
                 showErrorMsg(mRootView, "未获取到扣分原因选项");
@@ -295,88 +787,49 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case 3:
-                if(resultCode == RESULT_OK) {
-                    String kfs = data.getStringExtra("kfs");
-                    String kdfid = data.getStringExtra("kfsid");
-                    kfId = kdfid;
-                    mdfxx.setText(kfs);
-                }
-                break;
-            case 5://相册选取不 剪切
-                if (data != null) {
-                    Uri uri = data.getData();
-                    ContentResolver cr = this.getContentResolver();
-                    Cursor c = cr.query(uri, null, null, null, null);
-                    if (c.moveToNext()) {
-                        noCutFilePath=c.getString(c.getColumnIndex(MediaStore.Images.Media.DATA));
-                    }
-                    c.close();
-                    if(StringUtils.isNotEmpty(noCutFilePath)) {
-                        imgs.remove(0);
-                        imgs.add(noCutFilePath);
-                    }
-                    wImageAdapter.notifyDataSetChanged();
-                }
-                break;
-            case 4://拍照
-                if (resultCode == RESULT_OK) {
-                    if (StringUtils.isNotEmpty(noCutFilePath) && new File(noCutFilePath).exists()) {
-                        Bitmap bitmap = createThumbnail(noCutFilePath);
-                        FileOutputStream fos = null;
-                        try {
-                            fos = new FileOutputStream(new File(noCutFilePath));
-                            bitmap.compress(Bitmap.CompressFormat.JPEG,30,fos);// 把数据写入文件
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-
-                        imgs.remove(0);
-                        imgs.add(noCutFilePath);
-                        wImageAdapter.notifyDataSetChanged();
-                    }
-                }
-                break;
+    /**
+     * 跳转到选择页面
+     * @param picks
+     * @param result
+     */
+    public void toPickActivity(List<Common> picks,int result,int param){
+        if(param == PICK_GETDATA) {
+            mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+            Intent intent = new Intent(mContext, ZsstjPickActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("kfs", (Serializable) picks);
+            intent.putExtras(bundle);
+            startActivityForResult(intent, result);
+            overridePendingTransition(R.anim.push_up_in, 0);
         }
     }
 
     /**
-     * 压缩图片
-     *
-     *
+     * 展示错误信息
+     * @param param
+     * @param msg
      */
-    private Bitmap createThumbnail(String filepath) {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        // 开始读入图片，此时把options.inJustDecodeBounds 设回true，即只读边不读内容
-        options.inJustDecodeBounds = true;
-        options.inPreferredConfig = Config.RGB_565;
-        BitmapFactory.decodeFile(filepath, options);
-
-        options.inJustDecodeBounds = false;
-//        int w = options.outWidth;
-//        int h = options.outHeight;
-        int w = options.outWidth;
-        int h = options.outHeight;
-        // 想要缩放的目标尺寸
-        float hh = h/2;// 设置高度为240f时，可以明显看到图片缩小了
-        float ww = w/2;// 设置宽度为120f，可以明显看到图片缩小了
-        // 缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
-        int be = 1;//be=1表示不缩放
-        if (w > h && w > ww) {//如果宽度大的话根据宽度固定大小缩放
-            be = (int) (options.outWidth / ww);
-        } else if (w < h && h > hh) {//如果高度高的话根据宽度固定大小缩放
-            be = (int) (options.outHeight / hh);
+    private void errorMsg(int param,String msg){
+        if(param == PICK_GETDATA){
+            mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+            showErrorMsg(mRootView, msg);
         }
-        if (be <= 0) be = 1;
-//        options.inSampleSize = be;//设置缩放比例
-        options.inSampleSize = 4;//设置缩放比例
-        // 开始压缩图片，注意此时已经把options.inJustDecodeBounds 设回false了
+    }
 
-        return BitmapFactory.decodeFile(filepath, options);
+    /**
+     * 设置ok按钮的样式
+     */
+    public void dealOkButton(){
+//        if(kfyy_pick.getText().toString().length()>0){
+//            ok_lin.setBackground(getResources().getDrawable(R.drawable.ripple_bg));
+//            ok_lin.setEnabled(true);
+//        }else{
+//            ok_lin.setBackgroundColor(getResources().getColor(R.color.rcap_gray));
+//            ok_lin.setEnabled(false);
+//        }
+        ok_lin.setBackground(getResources().getDrawable(R.drawable.ripple_bg));
+        ok_lin.setEnabled(true);
+
     }
 
     /**
@@ -391,68 +844,6 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
         mScore = mScore+score;
         setOkScore(mScore+"");
         map.put(dfid,map.get(dfid)+score);//各打分项 分数
-    }
-
-
-    @AfterPermissionGranted(WRITE_RERD)
-    public void startReadWi(){
-        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA};
-        if (EasyPermissions.hasPermissions(mContext, perms)) {
-            try {
-                ablum();
-            } catch (Exception e) {
-                showErrorMsg(mRootView,"请正确授权");
-            }
-        } else {
-            EasyPermissions.requestPermissions(this,
-                    "请求读写权限",
-                    WRITE_RERD, perms);
-        }
-    }
-
-    public void ablum(){
-        File appDir = new File(BASEPICPATH);
-        if(!appDir.exists()){
-            appDir.mkdir();
-        }
-        noCutFilePath = BASEPICPATH + UUID.randomUUID().toString() + ".jpg";
-        File file = new File(noCutFilePath);
-        try {
-            if(!file.exists()){
-                file.createNewFile();
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        Intent getImageByCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-       /*获取当前系统的android版本号*/
-        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
-        if (currentapiVersion<24){
-            getImageByCamera.setFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
-            getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-        }else{
-            ContentValues contentValues = new ContentValues(1);
-            contentValues.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
-            Uri uri = mContext.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues);
-            getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        }
-        startActivityForResult(getImageByCamera, 4);
-    }
-
-    @Override
-    public void onPermissionsGranted(int requestCode, List<String> perms) {
-        try {
-            if(requestCode == WRITE_RERD) {
-                ablum();
-            }
-        } catch (Exception e) {
-            showErrorMsg(mRootView,"请正确授权");
-        }
-    }
-
-    @Override
-    public void onPermissionsDenied(int requestCode, List<String> perms) {
-        showErrorMsg(mRootView,"请正确授权");
     }
 
     /**
@@ -494,10 +885,10 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
             i++;
         }
         Map<String,Object> params = new HashMap<>();
-        params.put("ssq",ssq);
-        params.put("ssl",ssl);
-        params.put("lc",lc);
-        params.put("fjh",fjh);
+        params.put("ssq",ssqid);
+        params.put("ssl",sslid);
+        params.put("lc",lcid);
+        params.put("fjh",fjhid);
         params.put("kfId",kfId);
         params.put("dfxxId",dfxx.toString());
         params.put("df",dffs.toString());
@@ -579,7 +970,73 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
         }
     };
 
+    /**
+     * 拍照权限
+     */
+    @AfterPermissionGranted(WRITE_RERD)
+    public void startReadWi(){
+        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA};
+        if (EasyPermissions.hasPermissions(mContext, perms)) {
+            try {
+                ablum();
+            } catch (Exception e) {
+                showErrorMsg(mRootView,"请正确授权");
+            }
+        } else {
+            EasyPermissions.requestPermissions(this,
+                    "请求读写权限",
+                    WRITE_RERD, perms);
+        }
+    }
 
+    public void ablum(){
+        File appDir = new File(BASEPICPATH);
+        if(!appDir.exists()){
+            appDir.mkdir();
+        }
+        noCutFilePath = BASEPICPATH + UUID.randomUUID().toString() + ".jpg";
+        File file = new File(noCutFilePath);
+        try {
+            if(!file.exists()){
+                file.createNewFile();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        Intent getImageByCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+       /*获取当前系统的android版本号*/
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+        if (currentapiVersion<24){
+            getImageByCamera.setFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
+            getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+        }else{
+            ContentValues contentValues = new ContentValues(1);
+            contentValues.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
+            Uri uri = mContext.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues);
+            getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        }
+        startActivityForResult(getImageByCamera, 1);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        try {
+            if(requestCode == WRITE_RERD) {
+                ablum();
+            }
+        } catch (Exception e) {
+            showErrorMsg(mRootView,"请正确授权");
+        }
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        showErrorMsg(mRootView,"请正确授权");
+    }
+
+    public void clearImg(){
+        noCutFilePath="";
+    }
 
     /**
      * 上传图片
@@ -630,12 +1087,42 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
                     showErrorMsg("上传附件失败");
                     call.cancel();// 上传失败取消请求释放内存
                 }
-
             }
         });
     }
 
-    public void clearImg(){
-        noCutFilePath="";
+    /**
+     * 压缩图片
+     *
+     */
+    private Bitmap createThumbnail(String filepath) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        // 开始读入图片，此时把options.inJustDecodeBounds 设回true，即只读边不读内容
+        options.inJustDecodeBounds = true;
+        options.inPreferredConfig = Config.RGB_565;
+        BitmapFactory.decodeFile(filepath, options);
+
+        options.inJustDecodeBounds = false;
+//        int w = options.outWidth;
+//        int h = options.outHeight;
+        int w = options.outWidth;
+        int h = options.outHeight;
+        // 想要缩放的目标尺寸
+        float hh = h/2;// 设置高度为240f时，可以明显看到图片缩小了
+        float ww = w/2;// 设置宽度为120f，可以明显看到图片缩小了
+        // 缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
+        int be = 1;//be=1表示不缩放
+        if (w > h && w > ww) {//如果宽度大的话根据宽度固定大小缩放
+            be = (int) (options.outWidth / ww);
+        } else if (w < h && h > hh) {//如果高度高的话根据宽度固定大小缩放
+            be = (int) (options.outHeight / hh);
+        }
+        if (be <= 0) be = 1;
+//        options.inSampleSize = be;//设置缩放比例
+        options.inSampleSize = 4;//设置缩放比例
+        // 开始压缩图片，注意此时已经把options.inJustDecodeBounds 设回false了
+
+        return BitmapFactory.decodeFile(filepath, options);
     }
+
 }

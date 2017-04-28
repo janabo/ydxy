@@ -155,7 +155,8 @@ public class WsjcMainActivity extends MyActivity implements
     }
 
     public void toSdlr(View view){
-        Intent intent = new Intent(this,WsjcManualentryActivity.class);
+        Intent intent = new Intent(this,WsjcDetailActivity.class);
+        intent.putExtra("TYPE","sdlr");
         startActivity(intent);
 
     }
@@ -361,6 +362,7 @@ public class WsjcMainActivity extends MyActivity implements
         // 判断是否符合基本的json格式
         Intent intent = new Intent(this, WsjcDetailActivity.class);
         intent.putExtra("wsjcDetail",text);
+        intent.putExtra("TYPE","code");
         startActivity(intent);
     }
 

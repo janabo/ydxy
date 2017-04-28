@@ -172,7 +172,6 @@ public class WsjcManualentryActivity extends MyActivity implements EasyPermissio
 
         bz_edit = (EditText) findViewById(R.id.bz_edit);
 
-        progress_cross = (DrawCrossMarkView) findViewById(R.id.progress_cross);
         mRecyclerView = (RecyclerView) findViewById(R.id.ssdfxx);
         mRecyclerView.setHasFixedSize ( true );
         mRecyclerView.setLayoutManager ( new LinearLayoutManager( mContext ) );

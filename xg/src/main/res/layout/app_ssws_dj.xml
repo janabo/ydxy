@@ -7,6 +7,13 @@
 
     <include layout="@layout/core_title_back"/>
 
+    <com.dk.mp.core.widget.ErrorLayout
+        android:id="@+id/error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:visibility="gone" />
+
     <ScrollView
         android:id="@+id/mRootView"
         android:layout_width="match_parent"
@@ -15,6 +22,7 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
@@ -40,85 +48,277 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"/>
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp">
-                    <TextView
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="校区："
-                        android:textColor="#9c9c9c"
-                        android:textSize="?attr/textSize14"/>
-                    <TextView
-                        android:id="@+id/xq"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:textColor="#212121"
-                        android:textSize="?attr/textSize14"/>
-                </LinearLayout>
+                    android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp">
-                    <TextView
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="宿舍区："
-                        android:textColor="#9c9c9c"
-                        android:textSize="?attr/textSize14"/>
-                    <TextView
-                        android:id="@+id/ssq"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:textColor="#212121"
-                        android:textSize="?attr/textSize14"/>
-                </LinearLayout>
+                        android:id="@+id/code"
+                        android:visibility="gone"
+                        android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp">
-                    <TextView
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="宿舍楼："
-                        android:textColor="#9c9c9c"
-                        android:textSize="?attr/textSize14"/>
-                    <TextView
-                        android:id="@+id/ssl"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:textColor="#212121"
-                        android:textSize="?attr/textSize14"/>
-                </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp">
+                            <TextView
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:text="校区："
+                                android:textColor="#9c9c9c"
+                                android:textSize="?attr/textSize14"/>
+                            <TextView
+                                android:id="@+id/xq"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize14"/>
+                        </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp">
-                    <TextView
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp">
+                            <TextView
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:text="宿舍区："
+                                android:textColor="#9c9c9c"
+                                android:textSize="?attr/textSize14"/>
+                            <TextView
+                                android:id="@+id/ssq"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize14"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp">
+                            <TextView
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:text="宿舍楼："
+                                android:textColor="#9c9c9c"
+                                android:textSize="?attr/textSize14"/>
+                            <TextView
+                                android:id="@+id/ssl"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize14"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp">
+                            <TextView
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:text="房间号："
+                                android:textColor="#9c9c9c"
+                                android:textSize="?attr/textSize14"/>
+                            <TextView
+                                android:id="@+id/fjh"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize14"/>
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="房间号："
-                        android:textColor="#9c9c9c"
-                        android:textSize="?attr/textSize14"/>
-                    <TextView
-                        android:id="@+id/fjh"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:textColor="#212121"
-                        android:textSize="?attr/textSize14"/>
-                </LinearLayout>
+                        android:id="@+id/sdlr"
+                        android:visibility="visible"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ripple_bg_while"
+                            android:onClick="toPickXq"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="校区"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize15"></TextView>
+
+                            <TextView
+                                android:id="@+id/xq_pick"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:hint="必填"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize14"></TextView>
+
+                            <ImageView
+                                android:layout_width="?attr/image8"
+                                android:layout_height="?attr/image13"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:src="@mipmap/arrow_icon_xg" />
+                        </LinearLayout>
+
+                        <include layout="@layout/core_line_padding" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ripple_bg_while"
+                            android:onClick="toPickSsq"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="宿舍区"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize15"></TextView>
+
+                            <TextView
+                                android:id="@+id/ssq_pick"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:hint="必填"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize14"></TextView>
+
+                            <ImageView
+                                android:layout_width="?attr/image8"
+                                android:layout_height="?attr/image13"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:src="@mipmap/arrow_icon_xg" />
+                        </LinearLayout>
+
+                        <include layout="@layout/core_line_padding" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ripple_bg_while"
+                            android:onClick="toPickSsl"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="宿舍楼"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize15"></TextView>
+
+                            <TextView
+                                android:id="@+id/ssl_pick"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:hint="必填"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize14"></TextView>
+
+                            <ImageView
+                                android:layout_width="?attr/image8"
+                                android:layout_height="?attr/image13"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:src="@mipmap/arrow_icon_xg" />
+                        </LinearLayout>
+
+                        <include layout="@layout/core_line_padding" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ripple_bg_while"
+                            android:onClick="toPickLc"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="楼层"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize15"></TextView>
+
+                            <TextView
+                                android:id="@+id/lc_pick"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:hint="必填"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize14"></TextView>
+
+                            <ImageView
+                                android:layout_width="?attr/image8"
+                                android:layout_height="?attr/image13"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:src="@mipmap/arrow_icon_xg" />
+                        </LinearLayout>
+
+                        <include layout="@layout/core_line_padding" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ripple_bg_while"
+                            android:onClick="toPickFjh"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="房间号"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize15"></TextView>
+
+                            <TextView
+                                android:id="@+id/fjh_pick"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:hint="必填"
+                                android:textColor="#212121"
+                                android:textSize="?attr/textSize14"></TextView>
+
+                            <ImageView
+                                android:layout_width="?attr/image8"
+                                android:layout_height="?attr/image13"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:src="@mipmap/arrow_icon_xg" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </FrameLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -444,44 +644,33 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:orientation="vertical"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@color/white">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.8dp"
-                    android:background="@color/linecolor"/>
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <include layout="@layout/core_line_padding" />
 
                 <TextView
-                    android:layout_height="wrap_content"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:text="上传附件"
                     android:textColor="#9c9c9c"
-                    android:textSize="?attr/textSize12"
-                    android:layout_margin="10dp"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.8dp"
-                    android:background="@color/linecolor"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    />
+                    android:textSize="12sp" />
+
+                <include layout="@layout/core_line_padding" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/imgView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.8dp"
-                    android:background="@color/linecolor"
-                    />
+                <include layout="@layout/core_line_padding" />
             </LinearLayout>
 
             <LinearLayout
