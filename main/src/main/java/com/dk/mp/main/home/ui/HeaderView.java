@@ -119,8 +119,9 @@ public class HeaderView {
         @Override
         public View getView(ViewGroup container, final int position) {
             DraweeView view = new DraweeView(container.getContext());
-//            view.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//            view.setScaleType(ImageView.ScaleType.FIT_CENTER);
             view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+//            view.setScaleType(ImageView.ScaleType.FIT_XY);
             view.setImageURI(Uri.parse(slideList.get(position).getImage()));
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -144,7 +145,7 @@ public class HeaderView {
             GenericDraweeHierarchy hierarchy = builder
                     .setFadeDuration(300)
                     .setPlaceholderImage(R.color.bg)
-                    .setPlaceholderImageScaleType(ScalingUtils.ScaleType.CENTER_CROP)
+                    .setPlaceholderImageScaleType(ScalingUtils.ScaleType.FIT_XY)
                     .build();
             view.setHierarchy(hierarchy);
 
