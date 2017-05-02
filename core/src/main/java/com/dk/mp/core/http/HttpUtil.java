@@ -91,9 +91,11 @@ public class HttpUtil {
         if (loginMsg != null&&!"login".equals(url)) {
             param.put("uid", loginMsg.getUid());
             param.put("pwd", loginMsg.getPsw());
-            httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.POST).addParam(param).build();
-        }else {
+        }
+        if(param.isEmpty()){
             httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.GET).build();
+        }else{
+            httpRequest = new HttpRequest.Builder(getUrl(url)).setMethod(Request.Method.POST).addParam(param).build();
         }
         GsonRequest<T> request = new GsonRequest<T>(typeToken,httpRequest,listener);
         mRequestQueue.add (request);
