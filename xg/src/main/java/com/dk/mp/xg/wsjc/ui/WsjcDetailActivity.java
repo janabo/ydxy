@@ -659,7 +659,7 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
      * @param v
      */
     public void toPickXq(View v){
-//        mError.setErrorType(ErrorLayout.LOADDATA);
+        mError.setErrorType(ErrorLayout.LOADDATA);
         if (xqs.size() > 0) {  //初始化获取到校区就无须再请求
             toPickActivity(xqs,3,PICK_GETDATA);
         } else {
@@ -858,16 +858,24 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
         }
         ok.setVisibility(View.GONE);
         progress.setVisibility(View.VISIBLE);
-        if(StringUtils.isNotEmpty(noCutFilePath)){
-            File f = new File(noCutFilePath);
-            if(f.exists() && f.isFile()){
-                updateImg();
+
+        if (DeviceUtil.checkNet()){
+            if(StringUtils.isNotEmpty(noCutFilePath)){
+                File f = new File(noCutFilePath);
+                if(f.exists() && f.isFile()){
+                    updateImg();
+                }else{
+                    submit("");
+                }
             }else{
                 submit("");
             }
-        }else{
-            submit("");
+        }else {
+            SnackBarUtil.showShort(mRootView,getReString(R.string.net_no2));
+            mHandler.sendEmptyMessage(-1);
         }
+
+
     }
 
     public void submit(String filename){
@@ -921,6 +929,7 @@ public class WsjcDetailActivity extends MyActivity implements WsjcDetailAdapter.
                 mHandler.sendEmptyMessage(-1);
             }
         });
+
     }
 
 

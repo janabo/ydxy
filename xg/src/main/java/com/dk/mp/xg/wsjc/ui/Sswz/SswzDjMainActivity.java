@@ -666,15 +666,21 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
      * @param v
      */
     public void toPickXq(View v){
-//        mError.setErrorType(ErrorLayout.LOADDATA);
-        if (xqs.size() > 0) {//初始化获取到校区就无须再请求
-            toPickActivity(xqs,7,PICK_GETDATA);
-        } else {
-            if(DeviceUtil.checkNet()) {
-                getXqs(PICK_GETDATA);
-            }else{
-                errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
-            }
+        mError.setErrorType(ErrorLayout.LOADDATA);
+//        if (xqs.size() > 0) {//初始化获取到校区就无须再请求
+//            toPickActivity(xqs,7,PICK_GETDATA);
+//        } else {
+//            if(DeviceUtil.checkNet()) {
+//                getXqs(PICK_GETDATA);
+//            }else{
+//                errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
+//            }
+//        }
+
+        if(DeviceUtil.checkNet()) {
+            getXqs(PICK_GETDATA);
+        }else{
+            errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
         }
     }
 
@@ -684,18 +690,28 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
      */
     public void toPickSsq(View v){
         mError.setErrorType(ErrorLayout.LOADDATA);
-        if (ssqs.size() > 0) {//初始化获取到校区就无须再请求
-            toPickActivity(ssqs,8,PICK_GETDATA);
-        } else {
-            if(StringUtils.isNotEmpty(xqid)) {
-                if(DeviceUtil.checkNet()) {
-                    getSsqs(xqid, PICK_GETDATA);
-                }else{
-                    errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
-                }
+//        if (ssqs.size() > 0) {//初始化获取到校区就无须再请求
+//            toPickActivity(ssqs,8,PICK_GETDATA);
+//        } else {
+//            if(StringUtils.isNotEmpty(xqid)) {
+//                if(DeviceUtil.checkNet()) {
+//                    getSsqs(xqid, PICK_GETDATA);
+//                }else{
+//                    errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
+//                }
+//            }else{
+//                errorMsg(PICK_GETDATA,"请先选择校区");
+//            }
+//        }
+
+        if(StringUtils.isNotEmpty(xqid)) {
+            if(DeviceUtil.checkNet()) {
+                getSsqs(xqid, PICK_GETDATA);
             }else{
-                errorMsg(PICK_GETDATA,"请先选择校区");
+                errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
             }
+        }else{
+            errorMsg(PICK_GETDATA,"请先选择校区");
         }
     }
 
@@ -705,18 +721,28 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
      */
     public void toPickSsl(View v){
         mError.setErrorType(ErrorLayout.LOADDATA);
-        if (ssls.size() > 0) {
-            toPickActivity(ssls,9,PICK_GETDATA);
-        } else {
-            if(StringUtils.isNotEmpty(ssqid)) {
-                if(DeviceUtil.checkNet()) {
-                    getSsls(ssqid,PICK_GETDATA);
-                }else{
-                    errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
-                }
+//        if (ssls.size() > 0) {
+//            toPickActivity(ssls,9,PICK_GETDATA);
+//        } else {
+//            if(StringUtils.isNotEmpty(ssqid)) {
+//                if(DeviceUtil.checkNet()) {
+//                    getSsls(ssqid,PICK_GETDATA);
+//                }else{
+//                    errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
+//                }
+//            }else{
+//                errorMsg(PICK_GETDATA,"请先选择宿舍区");
+//            }
+//        }
+
+        if(StringUtils.isNotEmpty(ssqid)) {
+            if(DeviceUtil.checkNet()) {
+                getSsls(ssqid,PICK_GETDATA);
             }else{
-                errorMsg(PICK_GETDATA,"请先选择宿舍区");
+                errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
             }
+        }else{
+            errorMsg(PICK_GETDATA,"请先选择宿舍区");
         }
     }
 
@@ -726,18 +752,28 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
      */
     public void toPickLc(View v){
         mError.setErrorType(ErrorLayout.LOADDATA);
-        if (lcs.size() > 0) {
-            toPickActivity(lcs,10,PICK_GETDATA);
-        } else {
-            if(StringUtils.isNotEmpty(sslid)) {
-                if(DeviceUtil.checkNet()) {
-                    getLcs(sslid,PICK_GETDATA);
-                }else{
-                    errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
-                }
+//        if (lcs.size() > 0) {
+//            toPickActivity(lcs,10,PICK_GETDATA);
+//        } else {
+//            if(StringUtils.isNotEmpty(sslid)) {
+//                if(DeviceUtil.checkNet()) {
+//                    getLcs(sslid,PICK_GETDATA);
+//                }else{
+//                    errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
+//                }
+//            }else{
+//                errorMsg(PICK_GETDATA,"请先选择宿舍楼");
+//            }
+//        }
+
+        if(StringUtils.isNotEmpty(sslid)) {
+            if(DeviceUtil.checkNet()) {
+                getLcs(sslid,PICK_GETDATA);
             }else{
-                errorMsg(PICK_GETDATA,"请先选择宿舍楼");
+                errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
             }
+        }else{
+            errorMsg(PICK_GETDATA,"请先选择宿舍楼");
         }
     }
 
@@ -747,22 +783,31 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
      */
     public void toPickFjh(View v){
         mError.setErrorType(ErrorLayout.LOADDATA);
-        if (fjhs.size() > 0) {
-            toPickActivity(fjhs,11,PICK_GETDATA);
-        } else {
-//            if(!StringUtils.isNotEmpty(xb.getText().toString())){
-//                errorMsg(PICK_GETDATA, "请先选择提名学生");
-//            }else
-            if(!StringUtils.isNotEmpty(sslid)){
-                errorMsg(PICK_GETDATA,"请先选择宿舍楼");
-            }else if(!StringUtils.isNotEmpty(lcid)){
-                errorMsg(PICK_GETDATA,"请先选择楼层");
-            }else {
-                if(DeviceUtil.checkNet()) {
-                    getFjhs(sslid, lcid, PICK_GETDATA);
-                }else{
-                    errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
-                }
+//        if (fjhs.size() > 0) {
+//            toPickActivity(fjhs,11,PICK_GETDATA);
+//        } else {
+//            if(!StringUtils.isNotEmpty(sslid)){
+//                errorMsg(PICK_GETDATA,"请先选择宿舍楼");
+//            }else if(!StringUtils.isNotEmpty(lcid)){
+//                errorMsg(PICK_GETDATA,"请先选择楼层");
+//            }else {
+//                if(DeviceUtil.checkNet()) {
+//                    getFjhs(sslid, lcid, PICK_GETDATA);
+//                }else{
+//                    errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
+//                }
+//            }
+//        }
+
+        if(!StringUtils.isNotEmpty(sslid)){
+            errorMsg(PICK_GETDATA,"请先选择宿舍楼");
+        }else if(!StringUtils.isNotEmpty(lcid)){
+            errorMsg(PICK_GETDATA,"请先选择楼层");
+        }else {
+            if(DeviceUtil.checkNet()) {
+                getFjhs(sslid, lcid, PICK_GETDATA);
+            }else{
+                errorMsg(PICK_GETDATA,getReString(R.string.net_no2));
             }
         }
     }
