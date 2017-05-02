@@ -146,6 +146,7 @@ public class HeaderView {
                     .setFadeDuration(300)
                     .setPlaceholderImage(R.color.bg)
                     .setPlaceholderImageScaleType(ScalingUtils.ScaleType.FIT_XY)
+                    .setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY)
                     .build();
             view.setHierarchy(hierarchy);
 
