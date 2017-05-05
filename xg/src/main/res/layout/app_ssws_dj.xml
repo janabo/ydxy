@@ -427,7 +427,7 @@
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:text="宿舍违章信息"
+                    android:text="宿舍违纪信息"
                     android:textColor="#9c9c9c"
                     android:textSize="?attr/textSize12"
                     android:layout_margin="10dp">

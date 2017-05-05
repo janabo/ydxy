@@ -145,7 +145,7 @@ public class SswzDjMainActivity extends MyActivity implements EasyPermissions.Pe
     protected void initView() {
         super.initView();
 
-        setTitle("宿舍违章登记");
+        setTitle("宿舍违纪登记");
         getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         findView();

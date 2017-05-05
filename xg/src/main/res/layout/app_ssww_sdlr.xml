@@ -281,7 +281,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="宿舍违章信息"
+                    android:text="宿舍违纪信息"
                     android:textColor="@color/rcap_gray"
                     android:textSize="?attr/textSize14" />
 

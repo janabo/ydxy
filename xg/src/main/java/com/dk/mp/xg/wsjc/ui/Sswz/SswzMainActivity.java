@@ -81,7 +81,7 @@ public class SswzMainActivity extends MyActivity implements
         scanPreview.getHolder().addCallback(this);
         setTitle(getIntent().getStringExtra("title"));
         jcrecord = (TextView) findViewById(R.id.jcrecord);
-        jcrecord.setText("宿舍违章登记记录");
+        jcrecord.setText("违纪登记记录");
         cameraTask();
     }
 
