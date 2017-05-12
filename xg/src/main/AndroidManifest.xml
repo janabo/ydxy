@@ -284,6 +284,32 @@
             android:name="com.dk.mp.xg.wsjc.ui.ImagePreviewActivity"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.scorequery.ScoreQueryMainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep">
+            <intent-filter>
+                <action android:name="cjkp" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.scorequery.SchoolYearPickActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
+
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.mispersoninfomation.MissingPersonInfomationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep">
+            <intent-filter>
+                <action android:name="wdryxxcx" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
