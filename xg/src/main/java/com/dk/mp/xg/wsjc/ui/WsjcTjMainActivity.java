@@ -11,6 +11,7 @@ import com.dk.mp.core.entity.Role;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.widget.ErrorLayout;
@@ -32,6 +33,8 @@ public class WsjcTjMainActivity extends MyActivity implements View.OnClickListen
     private LinearLayout content;
 //    private LinearLayout bzr,xb,fdy,xgc;
     public static WsjcTjMainActivity instance;
+
+    private CoreSharedPreferencesHelper preference;
 
     @Override
     protected int getLayoutID() {
@@ -55,6 +58,7 @@ public class WsjcTjMainActivity extends MyActivity implements View.OnClickListen
     @Override
     protected void initialize() {
         super.initialize();
+        preference = getSharedPreferences();
         getData();
     }
 
@@ -108,7 +112,7 @@ public class WsjcTjMainActivity extends MyActivity implements View.OnClickListen
                         }.getType());
                         if (gsonData.getCode() == 200) {
                             mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
-                            List<Role> dfxxes = gsonData.getData();
+                            final List<Role> dfxxes = gsonData.getData();
                             if(dfxxes.size()>0){//获取数据不为空
                                 if(dfxxes.size() == 1) {//如果只有一g个角色数据之间跳转响应界面
                                     toDetail(dfxxes.get(0).getId());
@@ -127,7 +131,7 @@ public class WsjcTjMainActivity extends MyActivity implements View.OnClickListen
                                         view.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                toDetail(r.getId());
+                                               toDetail(r.getId());
                                             }
                                         });
                                         LinearLayout linearboder = (LinearLayout) view.findViewById(R.id.lineborder);
@@ -196,9 +200,25 @@ public class WsjcTjMainActivity extends MyActivity implements View.OnClickListen
      * @param role
      */
     public void toDetail(String role){
-        Intent intent = new Intent(this,WsjcTjTabActivity.class);
-        intent.putExtra("role",role);
-        intent.putExtra("title",getIntent().getStringExtra("title"));
-        startActivity(intent);
+        if (role.equals("4")){
+            String tjSslId = preference.getValue("tjSslId");
+            if ( tjSslId == null){
+                Intent intent = new Intent(this,WsjcChooseSslActivity.class);
+                startActivity(intent);
+            }else {
+                Intent intent = new Intent(this,WsjcTjTabActivity.class);
+                intent.putExtra("role",role);
+                intent.putExtra("title",getIntent().getStringExtra("title"));
+                startActivity(intent);
+            }
+        }else {
+            Intent intent = new Intent(this,WsjcTjTabActivity.class);
+            intent.putExtra("role",role);
+            intent.putExtra("title",getIntent().getStringExtra("title"));
+            startActivity(intent);
+        }
+
     }
+
+
 }

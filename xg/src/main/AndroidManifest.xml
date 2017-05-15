@@ -51,22 +51,22 @@
             android:screenOrientation="portrait"
             android:theme="@style/noAnimThemep.noAnimThemeStatusBarColorGray"/>
 
-        <!--<activity-->
-            <!--android:name="com.dk.mp.xg.wsjc.ui.WsjcTjMainActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/noAnimThemep">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="sswsdftj" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
-
-        <!--<activity-->
-            <!--android:name="com.dk.mp.xg.wsjc.ui.WsjcTjTabActivity"-->
-            <!--android:screenOrientation="portrait"/>-->
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.zsskq.ZsPersonInformationQueryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimThemep">
+            <intent-filter>
+                <action android:name="zsrycx" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <activity
-            android:name="com.dk.mp.xg.wsjc.ui.WsjcTjTabActivity"
+            android:name="com.dk.mp.xg.wsjc.ui.zsskq.ZsPersonGradeQueryActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.WsjcTjMainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/noAnimThemep">
             <intent-filter>
@@ -74,6 +74,24 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.WsjcChooseSslActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.WsjcTjTabActivity"
+            android:screenOrientation="portrait"/>
+
+        <!--<activity-->
+            <!--android:name="com.dk.mp.xg.wsjc.ui.WsjcTjTabActivity"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/noAnimThemep">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="sswsdftj" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
 
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.WsjcTjWeekPickActivity"
