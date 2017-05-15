@@ -143,7 +143,7 @@ public class SswzSdluActivity extends MyActivity implements EasyPermissions.Perm
     protected void initialize() {
         super.initialize();
 
-        setTitle("宿舍违章登记");
+        setTitle("宿舍违纪登记");
 
         getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 

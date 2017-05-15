@@ -49,7 +49,7 @@ public class SswzRecordListActivity extends MyActivity implements View.OnClickLi
     @Override
     protected void initView() {
         super.initView();
-        setTitle("宿舍违章登记");
+        setTitle("宿舍违纪登记");
         mRootView = (LinearLayout) findViewById(R.id.mRootView);
         mError = (ErrorLayout) findViewById(R.id.error_layout);
         mRecycle = (MyListView) findViewById(R.id.person_recycle);

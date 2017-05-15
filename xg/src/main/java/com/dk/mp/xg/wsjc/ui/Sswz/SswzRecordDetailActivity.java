@@ -58,7 +58,7 @@ public class SswzRecordDetailActivity extends MyActivity{
     @Override
     protected void initialize() {
         super.initialize();
-        setTitle("宿舍违章登记");
+        setTitle("宿舍违纪登记");
         String id = getIntent().getStringExtra("id");
         setWebView ( );
         String mUrl = getUrl("apps/sswzdj/detail?id="+id);
