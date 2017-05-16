@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary61"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/colse"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+        <ImageButton
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:background="@mipmap/colse"/>
+    </LinearLayout>
+
+    <com.dk.mp.core.view.edittext.CleanEditText
+        android:id="@+id/name"
+        android:singleLine="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:drawableRight="@mipmap/clear_press"
+        android:layout_marginRight="10dp"
+        android:background="@null"
+        android:gravity="center_vertical"
+        android:hint="请输入学生所在班级"
+        android:textColorHint="#a9dff9"
+        android:textSize="?attr/textSize20"
+        android:textColor="@color/white" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#90cbf9"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="请选择班级"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:textSize="?attr/textSize12"
+        android:textColor="#fffff0" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:background="#90cbf9"/>
+
+    <LinearLayout
+        android:id="@+id/mRootView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <com.dk.mp.core.widget.ErrorLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/error_layout"
+            android:gravity="center_horizontal"/>
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:divider="@color/white"
+            android:dividerHeight="1dp"
+            android:scrollbars="none"/>
+
+    </LinearLayout>
+
+</LinearLayout>

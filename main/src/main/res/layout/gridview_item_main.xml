@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
     android:background="@null"
     android:foreground="?attr/selectableItemBackground"
     android:id="@+id/container">
-    <LinearLayout android:layout_width="match_parent"
-        android:layout_height="match_parent" android:orientation="vertical" android:layout_marginTop="15dip">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="15dip">
 
         <ImageView
             android:id="@+id/item_image"
@@ -28,8 +32,10 @@
 
     </LinearLayout>
     <ImageButton android:id="@+id/gragItemViewDelete"
-        android:layout_width="?attr/image22" android:layout_height="?attr/image22"
-        android:layout_gravity="right" android:src="@mipmap/minus_alt"
+        android:layout_width="?attr/image22"
+        android:layout_height="?attr/image22"
+        android:layout_gravity="right"
+        android:src="@mipmap/minus_alt"
         android:background="@null"
         android:scaleType="fitXY"
         android:visibility="gone"/>

@@ -3,7 +3,9 @@ package com.dk.mp.xg.wsjc.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -14,6 +16,7 @@ import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.BaseFragment;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.TimeUtils;
 import com.dk.mp.core.widget.MyViewpager;
@@ -57,6 +60,12 @@ public class WsjcTjTabActivity extends MyActivity {
     private ImageView dropdown_img;
     LoginMsg loginMsg;
 
+    private String sslId = "";
+    private CoreSharedPreferencesHelper preference;
+
+    private Button qiehuan;
+
+
     @Override
     protected int getLayoutID() {
         return R.layout.app_wsjctj_tab;
@@ -70,10 +79,19 @@ public class WsjcTjTabActivity extends MyActivity {
     @Override
     protected void initialize() {
         super.initialize();
+        preference = getSharedPreferences();
+
+        findView();
+
         loginMsg = getSharedPreferences().getLoginMsg();
         type = getIntent().getStringExtra("role");
+        if (type.equals("4")){
+            sslId = preference.getValue("tjSslId");
+            qiehuan.setVisibility(View.VISIBLE);
+            Log.e("宿舍楼id",sslId+"");
+        }
         setTitle(getIntent().getStringExtra("title"));
-        findView();
+
         initViewPager();
         getWeeks(1);
         getSemesters();
@@ -85,6 +103,7 @@ public class WsjcTjTabActivity extends MyActivity {
         mTabLayout = (TabLayout) findViewById(R.id.tablayout);
         mViewpager = (MyViewpager) findViewById(R.id.viewpager);
         dropdown = (LinearLayout) findViewById(R.id.dropdown);
+        qiehuan = (Button) findViewById(R.id.qiehuan);
 
         dropdown.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +155,14 @@ public class WsjcTjTabActivity extends MyActivity {
                 }
             }
         });
+
+        qiehuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WsjcTjTabActivity.this,WsjcChooseSslActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initViewPager(){
@@ -172,7 +199,7 @@ public class WsjcTjTabActivity extends MyActivity {
                     setTitle(weekname);
 //                    fragment1.setMUrl("apps/sswsdftj/tj" +
 //                            "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
-                    fragment1.setMUrl(getUrl("week",weekid,type,"",weekname));
+                    fragment1.setMUrl(getUrl("week",weekid,type,"",weekname, sslId));
                 }else if(tabSelect == 1){
                     if(DeviceUtil.checkNet()) {
                         setTitle(TimeUtils.getCurrMonth());
@@ -181,7 +208,7 @@ public class WsjcTjTabActivity extends MyActivity {
                     }
 //                    fragment2.setMUrl("apps/sswsdftj/tj" +
 //                            "?type=month&key="+TimeUtils.getCurrMonth()+"&role="+1+"&pfmb="+"&name="+TimeUtils.getCurrMonth());
-                    fragment2.setMUrl(getUrl("month",TimeUtils.getCurrMonth(),type,"",TimeUtils.getCurrMonth()));
+                    fragment2.setMUrl(getUrl("month",TimeUtils.getCurrMonth(),type,"",TimeUtils.getCurrMonth(),sslId));
                 }else if(tabSelect == 2){
                     if(mSemester.size()>0){
                         semesterid = mSemester.get(0).getId();
@@ -193,7 +220,7 @@ public class WsjcTjTabActivity extends MyActivity {
                     setTitle(semestername);
 //                    fragment3.setMUrl("apps/sswsdftj/tj" +
 //                            "?type=year&key="+semesterid+"&role="+1+"&pfmb="+templetid+"&name="+semestername+"&timestamp="+new Date().getTime());
-                    fragment3.setMUrl(getUrl("year",semesterid,type,templetid,semestername));
+                    fragment3.setMUrl(getUrl("year",semesterid,type,templetid,semestername,sslId));
                 }
             }
             @Override
@@ -240,7 +267,7 @@ public class WsjcTjTabActivity extends MyActivity {
                                 weekid = dfxxes.get(0).getId();
 //                                fragment1.setMUrl("apps/sswsdftj/tj" +
 //                                        "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
-                                fragment1.setMUrl(getUrl("week",weekid,type,"",weekname));
+                                fragment1.setMUrl(getUrl("week",weekid,type,"",weekname,sslId));
 //                                fragment1.setMUrl("http://www.baidu.com");
                             }else{
                                 showErrorMsg(mViewpager,getErrorMsg());
@@ -343,7 +370,7 @@ public class WsjcTjTabActivity extends MyActivity {
                     setTitle(weekname);
 //                    fragment1.setMUrl("apps/sswsdftj/tj" +
 //                            "?type=week&key="+weekid+"&role="+1+"&pfmb="+"&name="+weekname);
-                    fragment1.setMUrl(getUrl("week",weekid,type,"",weekname));
+                    fragment1.setMUrl(getUrl("week",weekid,type,"",weekname,sslId));
                 }
                 break;
             case 2:
@@ -352,7 +379,7 @@ public class WsjcTjTabActivity extends MyActivity {
                     setTitle(month);
 //                    fragment2.setMUrl("apps/sswsdftj/tj" +
 //                            "?type=month&key="+month+"&role="+1+"&pfmb="+"&name="+month);
-                    fragment2.setMUrl(getUrl("month",month,type,"",month));
+                    fragment2.setMUrl(getUrl("month",month,type,"",month,sslId));
                 }
                 break;
             case 3:
@@ -362,7 +389,7 @@ public class WsjcTjTabActivity extends MyActivity {
                     templetid = data.getStringExtra("mbs");
 //                    fragment3.setMUrl("apps/sswsdftj/tj" +
 //                            "?type=year&key="+semesterid+"&role="+1+"&pfmb="+templetid+"&name="+data.getStringExtra("xqs"));
-                    fragment3.setMUrl(getUrl("year",semesterid,type,templetid,data.getStringExtra("xqs")));
+                    fragment3.setMUrl(getUrl("year",semesterid,type,templetid,data.getStringExtra("xqs"),sslId));
                 }
                 break;
         }
@@ -374,12 +401,12 @@ public class WsjcTjTabActivity extends MyActivity {
      */
     public String getErrorMsg(){
         dropdown_img.setVisibility(View.INVISIBLE);
-        fragment1.setMUrl(getUrl("week",weekid,type,"",weekname));
+        fragment1.setMUrl(getUrl("week",weekid,type,"",weekname,sslId));
         return "获取周次失败";
     }
 
-    public String getUrl(String type,String key ,String role,String pfmb,String name){
-        String mUrl = "apps/sswsdftj/tj?type="+type+"&key="+key+"&role="+role+"&pfmb="+pfmb+"&name="+name;
+    public String getUrl(String type,String key ,String role,String pfmb,String name,String sslId){
+        String mUrl = "apps/sswsdftj/tj?type="+type+"&key="+key+"&role="+role+"&pfmb="+pfmb+"&name="+name + "&sslId=" +sslId;
         if(loginMsg != null){
             mUrl += "&uid="+loginMsg.getUid()+"&pwd="+ loginMsg.getPsw();
         }
