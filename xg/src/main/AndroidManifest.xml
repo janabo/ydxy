@@ -289,7 +289,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/noAnimThemep">
             <intent-filter>
-                <action android:name="cjkp" />
+                <action android:name="xscjcx" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -301,13 +301,18 @@
         </activity>
 
         <activity
-            android:name="com.dk.mp.xg.wsjc.ui.mispersoninfomation.MissingPersonInfomationActivity"
+            android:name="com.dk.mp.xg.wsjc.ui.mispersoninfomation.SelectDormitoryBuildingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/noAnimThemep">
             <intent-filter>
-                <action android:name="wdryxxcx" />
+                <action android:name="wdrycx" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.mispersoninfomation.MissingPersonInfomationActivity"
+            android:screenOrientation="portrait">
         </activity>
 
     </application>
