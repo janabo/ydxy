@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.dk.mp.core.entity.User;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
-import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.util.StringUtils;
 
 import java.util.LinkedHashSet;
@@ -23,8 +22,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
+//import cn.jpush.android.api.JPushInterface;
+//import cn.jpush.android.api.TagAliasCallback;
 
 /**
  * 推送工具类.
@@ -43,11 +42,11 @@ public class PushUtil {
 	 * @param type 1:开 0：关
 	 */
 	public static void setStatus(Context context,int type){
-		if(type == 1){
-			JPushInterface.stopPush(context.getApplicationContext());
-		}else{
-			JPushInterface.resumePush(context.getApplicationContext());
-		}
+//		if(type == 1){
+//			JPushInterface.stopPush(context.getApplicationContext());
+//		}else{
+//			JPushInterface.resumePush(context.getApplicationContext());
+//		}
 	}
 	
 	public void setTag(){
@@ -96,7 +95,7 @@ public class PushUtil {
             super.handleMessage(msg);
             switch (msg.what) {
             case MSG_SET_TAGS:
-                JPushInterface.setAliasAndTags(context, null, (Set<String>) msg.obj, mTagsCallback);
+//                JPushInterface.setAliasAndTags(context, null, (Set<String>) msg.obj, mTagsCallback);
                 break;
                 
             default:
@@ -104,33 +103,33 @@ public class PushUtil {
         }
     };
 	
-    private final TagAliasCallback mTagsCallback = new TagAliasCallback() {
-
-        @Override
-        public void gotResult(int code, String alias, Set<String> tags) {
-            String logs="gotResult";
-            switch (code) {
-            case 0:
-                logs = "Set tag and alias success";
-                Logger.info("#######################"+logs);
-                break;
-                
-            case 6002:
-                logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
-                Logger.info("#######################"+logs);
-                if (PushUtil.isConnected(context)) {
-                	mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_TAGS, tags), 1000 * 60);
-                } else {
-                }
-                break;
-            
-            default:
-                logs = "Failed with errorCode = " + code;
-                Logger.info("#######################"+logs);
-            }
-        }
-        
-    };
+//    private final TagAliasCallback mTagsCallback = new TagAliasCallback() {
+//
+//        @Override
+//        public void gotResult(int code, String alias, Set<String> tags) {
+//            String logs="gotResult";
+//            switch (code) {
+//            case 0:
+//                logs = "Set tag and alias success";
+//                Logger.info("#######################"+logs);
+//                break;
+//
+//            case 6002:
+//                logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
+//                Logger.info("#######################"+logs);
+//                if (PushUtil.isConnected(context)) {
+//                	mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_TAGS, tags), 1000 * 60);
+//                } else {
+//                }
+//                break;
+//
+//            default:
+//                logs = "Failed with errorCode = " + code;
+//                Logger.info("#######################"+logs);
+//            }
+//        }
+//
+//    };
 	
 	public static final String PREFS_NAME = "JPUSH_EXAMPLE";
 	public static final String PREFS_DAYS = "JPUSH_EXAMPLE_DAYS";

@@ -90,6 +90,11 @@
                 <category android:name="com.dk.mp.lgj" />
             </intent-filter>
         </receiver>
+
+        <!--&lt;!&ndash; 渠道统计报表位于控制台页面的 “统计”-“用户统计”-“渠道分布” 中&ndash;&gt;-->
+        <!--<meta-data android:name="JPUSH_CHANNEL" android:value="${JPUSH_CHANNEL}"/>-->
+        <!--&lt;!&ndash; Required. AppKey copied from Portal &ndash;&gt;-->
+        <!--<meta-data android:name="JPUSH_APPKEY" android:value="${JPUSH_APPKEY} "/>-->
     </application>
 
 </manifest>

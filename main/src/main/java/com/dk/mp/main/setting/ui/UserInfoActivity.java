@@ -20,11 +20,6 @@ import com.dk.mp.main.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
 
 /**
  * 用户信息
@@ -108,10 +103,10 @@ public class UserInfoActivity extends MyActivity{
         h.cleanUser();
         h.setValue("nick", null);
         BroadcastUtil.sendBroadcast(context, "user");
-        JPushInterface.setAliasAndTags(context, null, new LinkedHashSet<String>(), new TagAliasCallback(){
-            @Override
-            public void gotResult(int arg0, String arg1, Set<String> arg2) {
-            }});
+//        JPushInterface.setAliasAndTags(context, null, new LinkedHashSet<String>(), new TagAliasCallback(){
+//            @Override
+//            public void gotResult(int arg0, String arg1, Set<String> arg2) {
+//            }});
         back();
     }
 

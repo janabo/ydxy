@@ -22,9 +22,6 @@ android {
 }
 
 dependencies {
-    compile 'cn.jiguang.sdk:jpush:3.0.0'  // 此处以JPush 3.0.0 版本为例。
-    compile 'cn.jiguang.sdk:jcore:1.0.0'  // 此处以JCore 1.0.0 版本为例。
-
     compile project(':core')
     compile project(':xxxw')
     compile project(':txl')
