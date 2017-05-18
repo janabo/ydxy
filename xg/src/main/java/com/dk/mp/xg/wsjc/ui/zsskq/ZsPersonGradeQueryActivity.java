@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -55,6 +58,7 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
     private String sname;
 
     private EditText name;
+    private ImageButton nameclear;
     private String bjmc = "";
 
     @Override
@@ -70,6 +74,7 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
 
         colse = (LinearLayout) findViewById(R.id.colse);
         name = (EditText) findViewById(R.id.name);
+        nameclear = (ImageButton) findViewById(R.id.nameclear);
 
         mRecycle = (ListView) findViewById(R.id.listview);
         mError = (ErrorLayout) findViewById(R.id.error_layout);
@@ -114,7 +119,6 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
                     if(inputMethodManager.isActive()){
                         inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
                     }
-
                     bjmc = name.getText().toString().trim();
                     mError.setErrorType(ErrorLayout.LOADDATA);
                     getList();
@@ -124,6 +128,41 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
                 return false;
             }
         });
+
+        name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (name.getText().toString().trim().length()>0){
+                    nameclear.setVisibility(View.VISIBLE);
+                }else {
+                    nameclear.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        nameclear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                name.setText("");
+                bjmc = "";
+                nameclear.setVisibility(View.GONE);
+
+                mError.setErrorType(ErrorLayout.LOADDATA);
+                getList();
+
+            }
+        });
+
     }
 
     public void getData(){
@@ -166,7 +205,7 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
                                 Log.e("查询成功了","查询成功了" + mData.size());
                                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                             }else{
-                                mError.setErrorType(ErrorLayout.NODATA);
+                                mError.setErrorType(ErrorLayout.SEARCHNODATA);
                             }
                         } else {
                             mError.setErrorType(ErrorLayout.DATAFAIL);

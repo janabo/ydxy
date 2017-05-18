@@ -109,7 +109,7 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
     protected void initialize() {
         super.initialize();
 
-               name.setOnKeyListener(new View.OnKeyListener() {
+        name.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN){
@@ -120,6 +120,8 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
                     }
 
                     stuname = name.getText().toString().trim();
+
+                    mError.setErrorType(ErrorLayout.LOADDATA);
                     getList();
 
                     return true;
@@ -155,6 +157,8 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
                 name.setText("");
                 stuname = "";
                 nameclear.setVisibility(View.GONE);
+
+                mError.setErrorType(ErrorLayout.LOADDATA);
                 getList();
 
             }
@@ -187,6 +191,8 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
                 grade.setText("学生所在班级");
                 gradeclear.setVisibility(View.GONE);
                 bjId = "";
+
+                mError.setErrorType(ErrorLayout.LOADDATA);
                 getList();
             }
         });
@@ -224,7 +230,7 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
                                 mAdapter.notifyDataSetChanged();
                                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                             }else{
-                                mError.setErrorType(ErrorLayout.NODATA);
+                                mError.setErrorType(ErrorLayout.SEARCHNODATA);
                             }
                         } else {
                             mError.setErrorType(ErrorLayout.DATAFAIL);
