@@ -21,6 +21,7 @@ public class ErrorLayout extends LinearLayout implements
     public static final int NODATA = 3;//没有数据
     public static final int LOADDATA = 5;//加载数据
     public static final int SEARCHNODATA = 6;//搜索无数据
+    public static final int SEARCHNODATA2 = 7; //背景不是白色
     private boolean clickEnable = true;//是否可以点击
     private final Context context;
     public ImageView img;//错误图片
@@ -131,6 +132,16 @@ public class ErrorLayout extends LinearLayout implements
                 img.setVisibility(View.GONE);
                 tv.setVisibility(View.GONE);
                 clickEnable = false;
+                break;
+            case SEARCHNODATA2:
+                mErrorState = SEARCHNODATA;
+                loadview.setVisibility(View.GONE);
+                img.setVisibility(View.VISIBLE);
+                tv.setVisibility(View.VISIBLE);
+                img.setImageResource(R.mipmap.searchnodata);
+                tv.setText(R.string.searchnodata);
+                tv.setTextColor(getResources().getColor(R.color.white));
+                clickEnable = true;
                 break;
             case HIDE_LAYOUT:
                 setVisibility(View.GONE);

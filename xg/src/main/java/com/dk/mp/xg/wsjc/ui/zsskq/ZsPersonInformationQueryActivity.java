@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -49,6 +50,8 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
     private TextView name, grade;
     private ImageButton gradeclear, nameclear;
 
+    private LinearLayout gradequery;
+
     private ErrorLayout mError;
     private RecyclerView mRecyclerView;
     private ZsPersonInformationAdapter mAdapter;
@@ -75,6 +78,7 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
         grade = (TextView) findViewById(R.id.grade);
         gradeclear = (ImageButton) findViewById(R.id.gradeclear);
         nameclear = (ImageButton) findViewById(R.id.nameclear);
+        gradequery = (LinearLayout) findViewById(R.id.gradequery);
 
         mError = (ErrorLayout) findViewById(R.id.error_layout);
         mRecyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
@@ -97,7 +101,7 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
             }
         });
 
-        grade.setOnClickListener(new View.OnClickListener() {
+        gradequery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 gradequ();
@@ -230,7 +234,7 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
                                 mAdapter.notifyDataSetChanged();
                                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                             }else{
-                                mError.setErrorType(ErrorLayout.SEARCHNODATA);
+                                mError.setErrorType(ErrorLayout.SEARCHNODATA2);
                             }
                         } else {
                             mError.setErrorType(ErrorLayout.DATAFAIL);
@@ -255,10 +259,12 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
         Intent intent = new Intent(ZsPersonInformationQueryActivity.this,ZsPersonGradeQueryActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("gradelist", (Serializable) mData);
-        bundle.putString("name",name.getText().toString());
+        if (name.getText().toString() != null){
+            stuname = name.getText().toString();
+        }
+        bundle.putString("name",stuname);
         intent.putExtras(bundle);
         startActivityForResult(intent,1);
-        ;
     }
 
     @Override
@@ -268,6 +274,7 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
         if(resultCode == RESULT_OK){
             switch (requestCode){
                 case 1:
+                    mData.clear();
                     String xs = data.getStringExtra("name");
                     String bj = data.getStringExtra("bjmc");
 
@@ -276,6 +283,7 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
 
                     stuname = xs;
                     bjId = data.getStringExtra("bjId");
+
                     getList();
                     break;
             }

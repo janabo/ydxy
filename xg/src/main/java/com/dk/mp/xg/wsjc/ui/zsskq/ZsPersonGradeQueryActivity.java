@@ -205,7 +205,7 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
                                 Log.e("查询成功了","查询成功了" + mData.size());
                                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                             }else{
-                                mError.setErrorType(ErrorLayout.SEARCHNODATA);
+                                mError.setErrorType(ErrorLayout.SEARCHNODATA2);
                             }
                         } else {
                             mError.setErrorType(ErrorLayout.DATAFAIL);
