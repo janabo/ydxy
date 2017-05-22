@@ -9,10 +9,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.entity.ChooseSsl;
-import com.dk.mp.xg.wsjc.entity.Sswz;
 import com.dk.mp.xg.wsjc.ui.WsjcChooseSslActivity;
 
 import java.util.HashMap;
@@ -55,7 +53,7 @@ public class WsjcChooseSslAdapter extends RecyclerView.Adapter<WsjcChooseSslAdap
 
     @Override
     public WsjcChooseSslAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.app_ssws_selectperson_item,null,false);
+        View view = inflater.inflate(R.layout.app_ssws_selectperson_item,parent,false);
         return new WsjcChooseSslAdapter.MyViewHolder(view);
     }
 
