@@ -151,6 +151,10 @@ public class ErrorLayout extends LinearLayout implements
         }
     }
 
+    public void setTextColor(int color){
+        tv.setTextColor(color);
+    }
+
     public void setOnLayoutClickListener(OnClickListener listener) {
         this.listener = listener;
     }
