@@ -29,7 +29,6 @@ import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.DeviceUtil;
-import com.dk.mp.core.util.SnackBarUtil;
 import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.view.DrawCheckMarkView;
 import com.dk.mp.core.view.DrawCrossMarkView;
@@ -224,31 +223,31 @@ public class ScoreQueryMainActivity extends MyActivity implements View.OnTouchLi
                         xnid = xns.get(0).getId();
                         getXq(xnid,1);
                     }else{
-                        if(par != 1) {
-                            error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
-                            SnackBarUtil.showShort(mRootView, R.string.data_fail);
-                        }else{
+//                        if(par != 1) {
+//                            error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
+//                            SnackBarUtil.showShort(mRootView, R.string.data_fail);
+//                        }else{
                             error_layout.setErrorType(ErrorLayout.DATAFAIL);
-                        }
+//                        }
                     }
                 }catch (Exception e){
                     e.printStackTrace();
-                    if(par != 1) {
-                        error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
-                        SnackBarUtil.showShort(mRootView, R.string.data_fail);
-                    }else{
+//                    if(par != 1) {
+//                        error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
+//                        SnackBarUtil.showShort(mRootView, R.string.data_fail);
+//                    }else{
                         error_layout.setErrorType(ErrorLayout.DATAFAIL);
-                    }
+//                    }
                 }
             }
             @Override
             public void onError(VolleyError error) {
-                if(par != 1) {
-                    error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
-                    SnackBarUtil.showShort(mRootView, R.string.data_fail);
-                }else{
+//                if(par != 1) {
+//                    error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
+//                    SnackBarUtil.showShort(mRootView, R.string.data_fail);
+//                }else{
                     error_layout.setErrorType(ErrorLayout.DATAFAIL);
-                }
+//                }
             }
         });
     }
@@ -272,31 +271,31 @@ public class ScoreQueryMainActivity extends MyActivity implements View.OnTouchLi
                         xqid = xqs.get(0).getId();
                         getScore(mXnid,xqid);
                     }else{
-                        if(par != 1) {
-                            error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
-                            SnackBarUtil.showShort(mRootView, R.string.data_fail);
-                        }else{
+//                        if(par != 1) {
+//                            error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
+//                            SnackBarUtil.showShort(mRootView, R.string.data_fail);
+//                        }else{
                             error_layout.setErrorType(ErrorLayout.DATAFAIL);
-                        }
+//                        }
                     }
                 }catch (Exception e){
                     e.printStackTrace();
-                    if(par != 1) {
-                        error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
-                        SnackBarUtil.showShort(mRootView, R.string.data_fail);
-                    }else{
+//                    if(par != 1) {
+//                        error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
+//                        SnackBarUtil.showShort(mRootView, R.string.data_fail);
+//                    }else{
                         error_layout.setErrorType(ErrorLayout.DATAFAIL);
-                    }
+//                    }
                 }
             }
             @Override
             public void onError(VolleyError error) {
-                if(par != 1) {
-                    error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
-                    SnackBarUtil.showShort(mRootView, R.string.data_fail);
-                }else{
+//                if(par != 1) {
+//                    error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
+//                    SnackBarUtil.showShort(mRootView, R.string.data_fail);
+//                }else{
                     error_layout.setErrorType(ErrorLayout.DATAFAIL);
-                }
+//                }
             }
         });
     }
@@ -327,6 +326,10 @@ public class ScoreQueryMainActivity extends MyActivity implements View.OnTouchLi
                 }else{
                     py_lin.setVisibility(View.GONE);
                     comment_lay.setVisibility(View.VISIBLE);
+                    comment.setText("");
+                    progress_cross.setVisibility(View.GONE);
+                    submit_text.setVisibility(View.VISIBLE);
+                    submit.setEnabled(true);
                 }
             }
 

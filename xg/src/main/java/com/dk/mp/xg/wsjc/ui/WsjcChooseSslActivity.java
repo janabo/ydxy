@@ -6,11 +6,9 @@ import android.os.Build;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,15 +24,12 @@ import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.adapter.WsjcChooseSslAdapter;
 import com.dk.mp.xg.wsjc.entity.ChooseSsl;
-import com.dk.mp.xg.wsjc.entity.Sswz;
-import com.dk.mp.xg.wsjc.entity.Zssdjgl;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -123,7 +118,8 @@ public class WsjcChooseSslActivity extends MyActivity {
      * 获取数据
      */
     public void getList(){
-        HttpUtil.getInstance().postJsonObjectRequest("apps/sswsdftj/ssl", null, new HttpListener<JSONObject>() {
+       // apps/sswsdftj/ssl
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/sslList", null, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {

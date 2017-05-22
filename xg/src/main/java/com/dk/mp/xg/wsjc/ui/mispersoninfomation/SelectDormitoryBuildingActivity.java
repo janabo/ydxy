@@ -124,7 +124,8 @@ public class SelectDormitoryBuildingActivity extends MyActivity implements View.
      */
     public void getList(){
         Map<String,Object> map = new HashMap<>();
-        HttpUtil.getInstance().postJsonObjectRequest("apps/sswsdftj/ssl", map, new HttpListener<JSONObject>() {
+//        apps/sswsdftj/ssl                           apps/zxzssgl/sslList
+        HttpUtil.getInstance().postJsonObjectRequest("apps/zxzssgl/sslList", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
