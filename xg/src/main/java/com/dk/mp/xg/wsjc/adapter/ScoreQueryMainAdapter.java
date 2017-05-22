@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.entity.Score;
 
@@ -42,16 +41,16 @@ public class ScoreQueryMainAdapter extends RecyclerView.Adapter<ScoreQueryMainAd
         if(position == 0){
             holder.coursename.setTextColor(Color.rgb(19,181,177));
             holder.coursescore.setTextColor(Color.rgb(19,181,177));
-            lp_c.height = DeviceUtil.dip2px(mContext,34);
-            holder.coursename.setLayoutParams(lp_c);
-            holder.coursescore.setLayoutParams(lp_c);
+//            lp_c.height = DeviceUtil.dip2px(mContext,34);
+//            holder.coursename.setLayoutParams(lp_c);
+//            holder.coursescore.setLayoutParams(lp_c);
         }else{
             int wColor = ContextCompat.getColor(mContext,R.color.black21);
             holder.coursename.setTextColor(wColor);
             holder.coursescore.setTextColor(wColor);
-            lp_c.height = DeviceUtil.dip2px(mContext,45);
-            holder.coursename.setLayoutParams(lp_c);
-            holder.coursescore.setLayoutParams(lp_c);
+//            lp_c.height = DeviceUtil.dip2px(mContext,45);
+//            holder.coursename.setLayoutParams(lp_c);
+//            holder.coursescore.setLayoutParams(lp_c);
         }
         Score score = mData.get(position);
         holder.coursename.setText(score.getKcmc());

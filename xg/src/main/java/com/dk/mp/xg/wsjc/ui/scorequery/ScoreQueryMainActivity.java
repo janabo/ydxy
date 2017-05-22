@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -55,7 +56,7 @@ import java.util.Map;
 /**
  * 作者：janabo on 2017/5/8 10:39
  */
-public class ScoreQueryMainActivity extends MyActivity{
+public class ScoreQueryMainActivity extends MyActivity implements View.OnTouchListener{
     private RelativeLayout mTop,mRootView;
     private RecyclerView recyclerView;
     private ScoreComment sc;
@@ -95,6 +96,7 @@ public class ScoreQueryMainActivity extends MyActivity{
         submit_text = (TextView) findViewById(R.id.submit_text);
         comment = (EditText) findViewById(R.id.comment);
         comment.addTextChangedListener(mTextWatcher);
+        comment.setOnTouchListener(this);
         submit.setEnabled(false);
         py_lin = (LinearLayout) findViewById(R.id.py_lin);
         py = (TextView) findViewById(R.id.py);
@@ -103,7 +105,7 @@ public class ScoreQueryMainActivity extends MyActivity{
         progress_check = (DrawCheckMarkView) findViewById(R.id.progress_check);
         progress_cross = (DrawCrossMarkView) findViewById(R.id.progress_cross);
         error_layout = (ErrorLayout) findViewById(R.id.error_layout);
-//        error_layout.setTextColor(getResources().getColor(com.dk.mp.core.R.color.white));
+        error_layout.setTextColor(getResources().getColor(com.dk.mp.core.R.color.white));
         mRootView = (RelativeLayout) findViewById(R.id.mRootView);
         schoolterm_lin = (LinearLayout) findViewById(R.id.schoolterm_lin);
         schoolyear_lin = (LinearLayout) findViewById(R.id.schoolyear_lin);
@@ -117,7 +119,7 @@ public class ScoreQueryMainActivity extends MyActivity{
         recyclerView.addItemDecoration(new RecycleViewDivider(mContext, GridLayoutManager.HORIZONTAL, 1, Color.rgb(201, 201, 201)));
         mAdapter = new ScoreQueryMainAdapter(mData,mContext);
         recyclerView.setAdapter(mAdapter);
-        getData();
+        getData(1);
         schoolyear_lin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,7 +131,7 @@ public class ScoreQueryMainActivity extends MyActivity{
                     startActivityForResult(intent, 1);
                     overridePendingTransition(R.anim.push_up_in, 0);
                 }else{
-                    getData();
+                    getData(2);
                 }
             }
         });
@@ -147,7 +149,7 @@ public class ScoreQueryMainActivity extends MyActivity{
                 }else{
                     if(DeviceUtil.checkNet()) {
                         error_layout.setErrorType(ErrorLayout.LOADDATA);
-                        getXq(xnid);
+                        getXq(xnid,2);
                     }else{
                         error_layout.setErrorType(ErrorLayout.NETWORK_ERROR);
                     }
@@ -208,7 +210,7 @@ public class ScoreQueryMainActivity extends MyActivity{
         }
     }
 
-    public void getXn(){
+    public void getXn(final int par){
         Map<String, Object> map = new HashMap<>();
         HttpUtil.getInstance().postJsonObjectRequest("apps/cjpy/xnlb", map, new HttpListener<JSONObject>() {
             @Override
@@ -220,21 +222,33 @@ public class ScoreQueryMainActivity extends MyActivity{
                         xns.addAll(gsonData.getData());
                         schoolyear.setText(xns.get(0).getMc());
                         xnid = xns.get(0).getId();
-                        getXq(xnid);
+                        getXq(xnid,1);
                     }else{
-                        error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
-                        SnackBarUtil.showShort(mRootView,gsonData.getMsg());
+                        if(par != 1) {
+                            error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
+                            SnackBarUtil.showShort(mRootView, R.string.data_fail);
+                        }else{
+                            error_layout.setErrorType(ErrorLayout.DATAFAIL);
+                        }
                     }
                 }catch (Exception e){
                     e.printStackTrace();
-                    error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
-                    SnackBarUtil.showShort(mRootView,R.string.data_fail);
+                    if(par != 1) {
+                        error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
+                        SnackBarUtil.showShort(mRootView, R.string.data_fail);
+                    }else{
+                        error_layout.setErrorType(ErrorLayout.DATAFAIL);
+                    }
                 }
             }
             @Override
             public void onError(VolleyError error) {
-                error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
-                SnackBarUtil.showShort(mRootView,R.string.data_fail);
+                if(par != 1) {
+                    error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
+                    SnackBarUtil.showShort(mRootView, R.string.data_fail);
+                }else{
+                    error_layout.setErrorType(ErrorLayout.DATAFAIL);
+                }
             }
         });
     }
@@ -243,7 +257,7 @@ public class ScoreQueryMainActivity extends MyActivity{
      * 获取学期
      * @param mXnid 学年id
      */
-    public void getXq(final String mXnid){
+    public void getXq(final String mXnid,final int par){
         Map<String, Object> map = new HashMap<>();
         map.put("xnId",mXnid);
         HttpUtil.getInstance().postJsonObjectRequest("apps/cjpy/xqlb", map, new HttpListener<JSONObject>() {
@@ -258,19 +272,31 @@ public class ScoreQueryMainActivity extends MyActivity{
                         xqid = xqs.get(0).getId();
                         getScore(mXnid,xqid);
                     }else{
-                        error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
-                        SnackBarUtil.showShort(mRootView,gsonData.getMsg());
+                        if(par != 1) {
+                            error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
+                            SnackBarUtil.showShort(mRootView, R.string.data_fail);
+                        }else{
+                            error_layout.setErrorType(ErrorLayout.DATAFAIL);
+                        }
                     }
                 }catch (Exception e){
                     e.printStackTrace();
-                    error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
-                    SnackBarUtil.showShort(mRootView,R.string.data_fail);
+                    if(par != 1) {
+                        error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
+                        SnackBarUtil.showShort(mRootView, R.string.data_fail);
+                    }else{
+                        error_layout.setErrorType(ErrorLayout.DATAFAIL);
+                    }
                 }
             }
             @Override
             public void onError(VolleyError error) {
-                error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
-                SnackBarUtil.showShort(mRootView,R.string.data_fail);
+                if(par != 1) {
+                    error_layout.setErrorType(ErrorLayout.HIDE_LAYOUT);
+                    SnackBarUtil.showShort(mRootView, R.string.data_fail);
+                }else{
+                    error_layout.setErrorType(ErrorLayout.DATAFAIL);
+                }
             }
         });
     }
@@ -312,10 +338,10 @@ public class ScoreQueryMainActivity extends MyActivity{
     }
 
 
-    public void getData(){
+    public void getData(int par){
         if(DeviceUtil.checkNet()) {
             error_layout.setErrorType(ErrorLayout.LOADDATA);
-            getXn();
+            getXn(par);
         }else{
             error_layout.setErrorType(ErrorLayout.NETWORK_ERROR);
         }
@@ -335,6 +361,11 @@ public class ScoreQueryMainActivity extends MyActivity{
             if(comment.getText().length()>0){
                 submit_text.setTextColor(ContextCompat.getColor(mContext,R.color.white));
                 submit.setEnabled(true);
+                if(comment.getText().length()>200){
+                    showErrorMsg("学生成绩评语不能大于200字");
+                    comment.setText(comment.getText().toString().substring(0,200));
+                }
+
             }else{
                 submit_text.setTextColor(Color.rgb(119,167,164));
                 submit.setEnabled(false);
@@ -347,6 +378,11 @@ public class ScoreQueryMainActivity extends MyActivity{
      * @param v
      */
     public void submit(View v){
+        if(comment.getText().length()>200){
+            showErrorMsg("学生成绩评语不能大于200字");
+            return;
+        }
+
         Map<String,Object> map = new HashMap<>();
         map.put("xnId",xnid);
         map.put("xqId",xqid);
@@ -400,5 +436,39 @@ public class ScoreQueryMainActivity extends MyActivity{
                 submit.setEnabled(true);
             }
         },1000);
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        //触摸的是EditText并且当前EditText可以滚动则将事件交给EditText处理；否则将事件交由其父类处理
+        if ((view.getId() == R.id.comment && canVerticalScroll(comment))) {
+            view.getParent().requestDisallowInterceptTouchEvent(true);
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                view.getParent().requestDisallowInterceptTouchEvent(false);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * EditText竖直方向是否可以滚动
+     * @param editText  需要判断的EditText
+     * @return  true：可以滚动   false：不可以滚动
+     */
+    private boolean canVerticalScroll(EditText editText) {
+        //滚动的距离
+        int scrollY = editText.getScrollY();
+        //控件内容的总高度
+        int scrollRange = editText.getLayout().getHeight();
+        //控件实际显示的高度
+        int scrollExtent = editText.getHeight() - editText.getCompoundPaddingTop() -editText.getCompoundPaddingBottom();
+        //控件内容总高度与实际显示高度的差值
+        int scrollDifference = scrollRange - scrollExtent;
+
+        if(scrollDifference == 0) {
+            return false;
+        }
+
+        return (scrollY > 0) || (scrollY < scrollDifference - 1);
     }
 }
