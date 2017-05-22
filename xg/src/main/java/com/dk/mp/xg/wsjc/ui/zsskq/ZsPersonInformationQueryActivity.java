@@ -93,7 +93,8 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
 //        mRecyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.HORIZONTAL, 10, ContextCompat.getColor(mContext, R.color.colorPrimary61)));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        setTitle(getIntent().getStringExtra("title"));
+//        setTitle(getIntent().getStringExtra("title"));
+        setTitle("住宿人员信息查询");
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -160,6 +160,7 @@ public class WsjcTjTabActivity extends MyActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(WsjcTjTabActivity.this,WsjcChooseSslActivity.class);
+                intent.putExtra("styles","0");
                 startActivity(intent);
             }
         });

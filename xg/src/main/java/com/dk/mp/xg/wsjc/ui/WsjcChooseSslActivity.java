@@ -93,6 +93,10 @@ public class WsjcChooseSslActivity extends MyActivity {
             }
         });
 
+        if (getIntent().getStringExtra("styles") != null && getIntent().getStringExtra("styles").equals("0")){
+            dealOK(true);
+        }
+
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
