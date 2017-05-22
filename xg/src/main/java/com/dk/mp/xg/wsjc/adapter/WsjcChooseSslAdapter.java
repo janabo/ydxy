@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.entity.ChooseSsl;
 import com.dk.mp.xg.wsjc.entity.Sswz;
@@ -64,6 +65,7 @@ public class WsjcChooseSslAdapter extends RecyclerView.Adapter<WsjcChooseSslAdap
         holder.name.setText(bean.getName());
         if(isSelected.get(bean.getId()) != null) {
             holder.mRadioButton.setChecked(true);
+            isSelected.put(bean.getId(),bean);
         }else{
             holder.mRadioButton.setChecked(false);
         }
@@ -104,6 +106,7 @@ public class WsjcChooseSslAdapter extends RecyclerView.Adapter<WsjcChooseSslAdap
             }else{
                 isSelected.clear();
                 isSelected.put(mData.get(getLayoutPosition()).getId(),mData.get(getLayoutPosition()));
+
             }
 
 //            if(isSelected.get(mData.get(getLayoutPosition()).getId()) != null){

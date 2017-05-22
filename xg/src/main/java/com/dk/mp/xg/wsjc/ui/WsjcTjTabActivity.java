@@ -162,6 +162,7 @@ public class WsjcTjTabActivity extends MyActivity {
                 Intent intent = new Intent(WsjcTjTabActivity.this,WsjcChooseSslActivity.class);
                 intent.putExtra("styles","0");
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -296,6 +297,7 @@ public class WsjcTjTabActivity extends MyActivity {
      * 获取学期
      */
     public void getSemesters(){
+        //接口已换  apps/sswsdftj/year  apps/cjpy/xnlb
         HttpUtil.getInstance().postJsonObjectRequest("apps/sswsdftj/year", null, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {

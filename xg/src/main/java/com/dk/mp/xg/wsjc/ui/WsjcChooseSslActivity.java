@@ -89,7 +89,9 @@ public class WsjcChooseSslActivity extends MyActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                back();
+//                back();
+                overridePendingTransition(0,R.anim.push_down_out);
+                tjintent();
             }
         });
 
@@ -100,24 +102,7 @@ public class WsjcChooseSslActivity extends MyActivity {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Map<String,Object> map =  mAdapter.getIsSelected();
-                if(map.isEmpty()){
-                    showErrorMsg(mRootView,"请选择宿舍楼");
-                }else{
-                    ChooseSsl s = null;
-                    for(Map.Entry<String,Object> entry : map.entrySet()){
-                        s = (ChooseSsl) entry.getValue();
-                        if(s != null){
-                            preference.setValue("tjSslId",s.getId());
-                            Intent intent = new Intent(getApplicationContext(),WsjcTjTabActivity.class);
-                            intent.putExtra("role","4");
-                            intent.putExtra("title",getIntent().getStringExtra("title"));
-                            startActivity(intent);
-                            finish();
-                            break;
-                        }
-                    }
-                }
+               tjintent();
             }
         });
     }
@@ -193,20 +178,42 @@ public class WsjcChooseSslActivity extends MyActivity {
         }
     }
 
-    @Override
-    public void back() {
-        super.back();
-        finish();
-        overridePendingTransition(0,R.anim.push_down_out);
-    }
+//    @Override
+//    public void back() {
+//        super.back();
+//        finish();
+//        overridePendingTransition(0,R.anim.push_down_out);
+//    }
+//
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//            back();
+//            return true;
+//        } else {
+//            return super.onKeyDown(keyCode, event);
+//        }
+//    }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            back();
-            return true;
-        } else {
-            return super.onKeyDown(keyCode, event);
+    public void tjintent(){
+        Map<String,Object> map =  mAdapter.getIsSelected();
+        if(map.isEmpty()){
+            showErrorMsg(mRootView,"请选择宿舍楼");
+        }else{
+            ChooseSsl s = null;
+            for(Map.Entry<String,Object> entry : map.entrySet()){
+                s = (ChooseSsl) entry.getValue();
+                if(s != null){
+                    preference.setValue("tjSslId",s.getId());
+                    preference.setValue("tjSslName",s.getName());
+                    Intent intent = new Intent(getApplicationContext(),WsjcTjTabActivity.class);
+                    intent.putExtra("role","4");
+                    intent.putExtra("title",getIntent().getStringExtra("title"));
+                    startActivity(intent);
+                    finish();
+                    break;
+                }
+            }
         }
     }
 }

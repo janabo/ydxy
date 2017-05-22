@@ -202,7 +202,7 @@ public class WsjcTjMainActivity extends MyActivity implements View.OnClickListen
     public void toDetail(String role){
         if (role.equals("4")){
             String tjSslId = preference.getValue("tjSslId");
-            if ( tjSslId == null){
+            if ( tjSslId == null || tjSslId == ""){
                 Intent intent = new Intent(this,WsjcChooseSslActivity.class);
                 startActivity(intent);
             }else {
