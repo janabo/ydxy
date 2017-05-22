@@ -6,7 +6,6 @@ import android.os.Build;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -129,12 +128,14 @@ public class WsjcChooseSslActivity extends MyActivity {
                         if (gsonData.getCode() == 200) {
                             List<ChooseSsl> dfxxes = gsonData.getData();
                             if(dfxxes.size()>0){//获取数据不为空
-                                mAdapter.notify(dfxxes);
+//                                mAdapter.notify(dfxxes);
                                 mData.addAll(dfxxes);
 
                                 if (preference.getValue("tjSslId") != null){
                                     for (ChooseSsl s : mData){
-                                        mAdapter.getIsSelected().put(preference.getValue("tjSslId"),s);
+                                        if(s.getId().equals(preference.getValue("tjSslId"))) {
+                                            mAdapter.getIsSelected().put(preference.getValue("tjSslId"), s);
+                                        }
                                     }
                                 }
 

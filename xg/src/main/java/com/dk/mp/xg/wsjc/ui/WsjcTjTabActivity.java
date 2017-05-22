@@ -18,6 +18,7 @@ import com.dk.mp.core.ui.BaseFragment;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.DeviceUtil;
+import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.util.TimeUtils;
 import com.dk.mp.core.widget.MyViewpager;
 import com.dk.mp.xg.R;
@@ -413,6 +414,7 @@ public class WsjcTjTabActivity extends MyActivity {
         if(loginMsg != null){
             mUrl += "&uid="+loginMsg.getUid()+"&pwd="+ loginMsg.getPsw();
         }
+        Logger.info("######murl="+mUrl);
         return mUrl;
     }
 
