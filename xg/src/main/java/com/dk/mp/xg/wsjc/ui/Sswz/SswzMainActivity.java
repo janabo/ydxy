@@ -79,7 +79,7 @@ public class SswzMainActivity extends MyActivity implements
         mRootView = (RelativeLayout) findViewById(R.id.mRootView);
         scanPreview = (SurfaceView) findViewById(R.id.capture_preview);
         scanPreview.getHolder().addCallback(this);
-        setTitle(getIntent().getStringExtra("title"));
+        setTitle("宿舍违纪登记");
         jcrecord = (TextView) findViewById(R.id.jcrecord);
         jcrecord.setText("违纪登记记录");
         cameraTask();
