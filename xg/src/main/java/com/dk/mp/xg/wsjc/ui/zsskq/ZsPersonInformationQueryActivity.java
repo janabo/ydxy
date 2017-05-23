@@ -166,6 +166,7 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 //                mError.setErrorType(ErrorLayout.LOADDATA);
+                mRecyclerView.setVisibility(View.GONE);
                 getList();
 
             }
@@ -202,6 +203,7 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
 //                mError.setErrorType(ErrorLayout.LOADDATA);
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                mRecyclerView.setVisibility(View.GONE);
                 getList();
             }
         });
@@ -235,6 +237,7 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
                         if (gsonData.getCode() == 200) {
                             List<InformationQuery> dfxxes = gsonData.getData();
                             if(dfxxes.size()>0){//获取数据不为空
+                                mRecyclerView.setVisibility(View.VISIBLE);
                                 mData.addAll(dfxxes);
                                 Log.e("查询成功了","查询成功了" + mData.size());
                                 mAdapter.notifyDataSetChanged();
