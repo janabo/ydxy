@@ -108,7 +108,7 @@ public class SswzSelectPersonActivity extends MyActivity implements View.OnClick
     protected void initialize() {
         super.initialize();
         if("tbr".equals(getIntent().getStringExtra("type"))) {
-            title.setText("提报人");
+            title.setText("宿管");
             mUrl = "apps/sswzdj/tbr";
         }else{
             title.setText("违纪学生");
