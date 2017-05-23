@@ -58,7 +58,7 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
     private ListView mRecycle;
     ErrorLayout mError;
     List<GradeQu> mData = new ArrayList<>();
-    List<InformationQuery> mData2 = new ArrayList<>();
+    List<GradeQu> mData2 = new ArrayList<>();
 
     private String sname;
 
@@ -173,9 +173,10 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
     public void getData(){
         Bundle bundle = getIntent().getExtras();
         sname = bundle.getString("name");
-        mData2 = (List<InformationQuery>) bundle.getSerializable("gradelist");
+        mData2 = (List<GradeQu>) bundle.getSerializable("gradelist");
         if (mData2 !=null && mData2.size()>0){
             mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+            mData.addAll(mData2);
 //            HashMap<String, InformationQuery> map = new HashMap();
 //            for(int i=0; i<mData2.size(); i++){
 //                map.put(mData2.get(i).getBjmc(),mData2.get(i));
@@ -184,14 +185,14 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
 //                mData.add(new GradeQu(map.get(key).getBjid(),map.get(key).getBjmc()));
 //            }
 
-            for  (int i=0; i<mData2.size(); i ++ ){
-                for  (int j=mData2.size()-1; j>i; j -- )   {
-                    if  (mData2.get(j).getBjmc().equals(mData2.get(i).getBjmc()))   {
-                        mData2.remove(j);
-                    }
-                }
-                mData.add(new GradeQu(mData2.get(i).getBjid(),mData2.get(i).getBjmc()));
-            }
+//            for  (int i=0; i<mData2.size(); i ++ ){
+//                for  (int j=mData2.size()-1; j>i; j -- )   {
+//                    if  (mData2.get(j).getBjmc().equals(mData2.get(i).getBjmc()))   {
+//                        mData2.remove(j);
+//                    }
+//                }
+//                mData.add(new GradeQu(mData2.get(i).getBjid(),mData2.get(i).getBjmc()));
+//            }
         }else {
             if(DeviceUtil.checkNet()){
                 getList();

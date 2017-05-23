@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by cobb on 2017/5/9.
  */
 
-public class GradeQu{
+public class GradeQu implements Serializable{
 
     private String bjid;
     private String bjmc;

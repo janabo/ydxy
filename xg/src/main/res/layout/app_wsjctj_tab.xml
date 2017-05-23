@@ -46,7 +46,6 @@
         <Button
             android:id="@+id/qiehuan"
             android:text="切换"
-            android:visibility="gone"
             android:layout_width="70dip"
             android:layout_height="48dip"
             android:background="@null"

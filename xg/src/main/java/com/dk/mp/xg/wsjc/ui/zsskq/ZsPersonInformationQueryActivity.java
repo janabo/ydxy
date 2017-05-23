@@ -27,6 +27,7 @@ import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.adapter.ZsPersonInformationAdapter;
+import com.dk.mp.xg.wsjc.entity.GradeQu;
 import com.dk.mp.xg.wsjc.entity.InformationQuery;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -269,7 +270,18 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
 
         Intent intent = new Intent(ZsPersonInformationQueryActivity.this,ZsPersonGradeQueryActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("gradelist", (Serializable) mData);
+
+        List<GradeQu> list = new ArrayList<>();
+        for  (int i=0; i<mData.size(); i ++ ){
+            for  (int j=mData.size()-1; j>i; j -- )   {
+                if  (mData.get(j).getBjmc().equals(mData.get(i).getBjmc()))   {
+                    mData.remove(j);
+                }
+            }
+            list.add(new GradeQu(mData.get(i).getBjid(),mData.get(i).getBjmc()));
+        }
+        bundle.putSerializable("gradelist", (Serializable) list);
+
         if (name.getText().toString() != null){
             stuname = name.getText().toString();
         }

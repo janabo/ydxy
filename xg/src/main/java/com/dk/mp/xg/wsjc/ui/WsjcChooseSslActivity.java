@@ -60,12 +60,26 @@ public class WsjcChooseSslActivity extends MyActivity {
         Window window = getWindow();
         preference = getSharedPreferences();
 
+        ok = (TextView) findViewById(R.id.ok);
+
+        if (getIntent().getStringExtra("styles") != null && getIntent().getStringExtra("styles").equals("0")){
+            dealOK(true);
+        }else {
+            String tjSslId = preference.getValue("tjSslId");
+            if ( tjSslId != null || tjSslId != ""){
+                Intent intent = new Intent(this,WsjcTjTabActivity.class);
+                intent.putExtra("title",getIntent().getStringExtra("title"));
+                startActivity(intent);
+                back();
+            }
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getResources().getColor(R.color.select_title));
         }
 
         back = (TextView) findViewById(R.id.back);
-        ok = (TextView) findViewById(R.id.ok);
+
         title = (TextView) findViewById(R.id.title);
         mRootView = (LinearLayout) findViewById(R.id.mRootView);
         mError = (ErrorLayout) findViewById(R.id.error_layout);
@@ -83,15 +97,11 @@ public class WsjcChooseSslActivity extends MyActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                back();
+                finish();
                 overridePendingTransition(0,R.anim.push_down_out);
-                tjintent();
+//                tjintent();
             }
         });
-
-        if (getIntent().getStringExtra("styles") != null && getIntent().getStringExtra("styles").equals("0")){
-            dealOK(true);
-        }
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
