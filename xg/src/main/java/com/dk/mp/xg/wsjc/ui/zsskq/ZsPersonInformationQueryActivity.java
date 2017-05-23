@@ -200,6 +200,8 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
                 bjId = "";
 
 //                mError.setErrorType(ErrorLayout.LOADDATA);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                 getList();
             }
         });

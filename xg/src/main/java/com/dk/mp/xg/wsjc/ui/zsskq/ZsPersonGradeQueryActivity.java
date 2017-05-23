@@ -176,18 +176,8 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
         mData2 = (List<InformationQuery>) bundle.getSerializable("gradelist");
         if (mData2 !=null && mData2.size()>0){
             mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
-            List<GradeQu> quList = new ArrayList<>();
             HashMap<String, InformationQuery> map = new HashMap();
             for(int i=0; i<mData2.size(); i++){
-//                mData.add(new GradeQu(mData2.get(i).getBjid(),mData2.get(i).getBjmc()));
-                /*for (int j = mData2.size()-1; j<i; j--){
-                    if (mData2.get(i).getBjmc().equals(mData2.get(j).getBjmc())){
-                        mData2.remove(j);
-                        quList.add(new GradeQu(mData2.get(i).getBjid(),mData2.get(i).getBjmc()));
-                        mData.addAll(quList);
-                    }
-                }*/
-
                 map.put(mData2.get(i).getBjmc(),mData2.get(i));
             }
             for (Object key : map.keySet()) {
