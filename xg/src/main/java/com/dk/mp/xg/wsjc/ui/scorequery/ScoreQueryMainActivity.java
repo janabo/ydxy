@@ -104,7 +104,7 @@ public class ScoreQueryMainActivity extends MyActivity implements View.OnTouchLi
         progress_check = (DrawCheckMarkView) findViewById(R.id.progress_check);
         progress_cross = (DrawCrossMarkView) findViewById(R.id.progress_cross);
         error_layout = (ErrorLayout) findViewById(R.id.error_layout);
-        error_layout.setTextColor(getResources().getColor(com.dk.mp.core.R.color.white));
+//        error_layout.setTextColor(getResources().getColor(com.dk.mp.core.R.color.white));
         mRootView = (RelativeLayout) findViewById(R.id.mRootView);
         schoolterm_lin = (LinearLayout) findViewById(R.id.schoolterm_lin);
         schoolyear_lin = (LinearLayout) findViewById(R.id.schoolyear_lin);

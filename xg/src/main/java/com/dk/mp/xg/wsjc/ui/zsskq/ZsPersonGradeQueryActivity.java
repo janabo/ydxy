@@ -27,6 +27,7 @@ import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.DeviceUtil;
+import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.xg.R;
 import com.dk.mp.xg.wsjc.entity.GradeQu;
@@ -37,10 +38,14 @@ import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by cobb on 2017/5/9.
@@ -171,8 +176,22 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
         mData2 = (List<InformationQuery>) bundle.getSerializable("gradelist");
         if (mData2 !=null && mData2.size()>0){
             mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+            List<GradeQu> quList = new ArrayList<>();
+            HashMap<String, InformationQuery> map = new HashMap();
             for(int i=0; i<mData2.size(); i++){
-                mData.add(new GradeQu(mData2.get(i).getBjid(),mData2.get(i).getBjmc()));
+//                mData.add(new GradeQu(mData2.get(i).getBjid(),mData2.get(i).getBjmc()));
+                /*for (int j = mData2.size()-1; j<i; j--){
+                    if (mData2.get(i).getBjmc().equals(mData2.get(j).getBjmc())){
+                        mData2.remove(j);
+                        quList.add(new GradeQu(mData2.get(i).getBjid(),mData2.get(i).getBjmc()));
+                        mData.addAll(quList);
+                    }
+                }*/
+
+                map.put(mData2.get(i).getBjmc(),mData2.get(i));
+            }
+            for (Object key : map.keySet()) {
+                mData.add(new GradeQu(map.get(key).getBjid(),map.get(key).getBjmc()));
             }
         }else {
             if(DeviceUtil.checkNet()){
@@ -201,6 +220,9 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
                         if (gsonData.getCode() == 200) {
                             List<GradeQu> dfxxes = gsonData.getData();
                             if(dfxxes.size()>0){//获取数据不为空
+//                                HashSet<GradeQu> hs = new HashSet<GradeQu>(dfxxes);
+//                                mData.addAll(hs);
+                                removeDuplicate(dfxxes);
                                 mData.addAll(dfxxes);
                                 Log.e("查询成功了","查询成功了" + mData.size());
                                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
@@ -224,6 +246,18 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
             }
         });
     }
+
+    private List<GradeQu> removeDuplicate(List<GradeQu> list) {
+                Set<GradeQu> set = new HashSet<GradeQu>();
+                List<GradeQu> newList = new ArrayList<GradeQu>();
+                 for (Iterator<GradeQu> iter = list.iterator(); iter.hasNext();) {
+                     GradeQu element = (GradeQu) iter.next();
+                         if (set.add(element))
+                                 newList.add(element);
+                     }
+                Log.e("sjadishudhcuicdssa",newList.size() + "a");
+                 return newList;
+             }
 
     @Override
     public void onClick(View v) {

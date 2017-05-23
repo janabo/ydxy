@@ -1,5 +1,6 @@
 package com.dk.mp.xg.wsjc.ui.zsskq;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -126,7 +127,7 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
 
                     stuname = name.getText().toString().trim();
 
-                    mError.setErrorType(ErrorLayout.LOADDATA);
+//                    mError.setErrorType(ErrorLayout.LOADDATA);
                     getList();
 
                     return true;
@@ -162,8 +163,9 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
                 name.setText("");
                 stuname = "";
                 nameclear.setVisibility(View.GONE);
-
-                mError.setErrorType(ErrorLayout.LOADDATA);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+//                mError.setErrorType(ErrorLayout.LOADDATA);
                 getList();
 
             }
@@ -197,7 +199,7 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
                 gradeclear.setVisibility(View.GONE);
                 bjId = "";
 
-                mError.setErrorType(ErrorLayout.LOADDATA);
+//                mError.setErrorType(ErrorLayout.LOADDATA);
                 getList();
             }
         });

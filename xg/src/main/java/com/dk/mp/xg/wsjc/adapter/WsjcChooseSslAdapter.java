@@ -3,6 +3,7 @@ package com.dk.mp.xg.wsjc.adapter;
 import android.content.Context;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,7 @@ public class WsjcChooseSslAdapter extends RecyclerView.Adapter<WsjcChooseSslAdap
         if(isSelected.get(bean.getId()) != null) {
             holder.mRadioButton.setChecked(true);
             isSelected.put(bean.getId(),bean);
+            Log.e("宿舍选择最后一条", position + "@" + bean.getId());
         }else{
             holder.mRadioButton.setChecked(false);
         }
@@ -104,7 +106,7 @@ public class WsjcChooseSslAdapter extends RecyclerView.Adapter<WsjcChooseSslAdap
             }else{
                 isSelected.clear();
                 isSelected.put(mData.get(getLayoutPosition()).getId(),mData.get(getLayoutPosition()));
-
+                Log.e("宿舍选择最后一条", getLayoutPosition() + "@@" + mData.get(getLayoutPosition()).getId());
             }
 
 //            if(isSelected.get(mData.get(getLayoutPosition()).getId()) != null){
