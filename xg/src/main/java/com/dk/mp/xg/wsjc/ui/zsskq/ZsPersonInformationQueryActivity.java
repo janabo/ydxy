@@ -220,6 +220,7 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
 
     public void getListT(){
         mData.clear();
+        mRecyclerView.setVisibility(View.VISIBLE);
         Map<String,Object> map = new HashMap<>();
         map.put("xm",stuname);
         map.put("bjId",bjId);
@@ -239,7 +240,9 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
                                 mAdapter.notifyDataSetChanged();
                                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                             }else{
+                                mRecyclerView.setVisibility(View.GONE);
                                 mError.setErrorType(ErrorLayout.SEARCHNODATA2);
+                                Log.e("sdakdskhsakn","没有数据");
                             }
                         } else {
                             mError.setErrorType(ErrorLayout.DATAFAIL);
