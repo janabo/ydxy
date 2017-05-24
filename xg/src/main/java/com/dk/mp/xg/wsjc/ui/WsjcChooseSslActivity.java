@@ -50,6 +50,7 @@ public class WsjcChooseSslActivity extends MyActivity {
 
     private CoreSharedPreferencesHelper preference;
 
+    private int load = 0;
 
     @Override
     protected int getLayoutID() {
@@ -110,7 +111,12 @@ public class WsjcChooseSslActivity extends MyActivity {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               tjintent();
+                if(load == 1){
+                    tjintent();
+                }else {
+                    showErrorMsg(mRootView,"请选择宿舍楼");
+                }
+
             }
         });
     }
@@ -153,6 +159,7 @@ public class WsjcChooseSslActivity extends MyActivity {
                                     }
                                 }
 
+                                load = 1;
                                 mAdapter.notifyDataSetChanged();
                                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
                             }else{

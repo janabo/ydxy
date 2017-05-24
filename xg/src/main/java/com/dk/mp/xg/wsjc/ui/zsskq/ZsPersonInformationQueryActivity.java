@@ -1,5 +1,6 @@
 package com.dk.mp.xg.wsjc.ui.zsskq;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,6 +47,8 @@ import java.util.Map;
 
 public class ZsPersonInformationQueryActivity extends MyActivity{
 
+    static Activity activity;
+
     private Button back;
     private TextView title;
 
@@ -60,7 +63,10 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
     List<InformationQuery> mData = new ArrayList<>();
 
     private String stuname = "";
+    private String sgrade = "";
     private String bjId = "";
+
+    private boolean isClick = true;
 
     @Override
     protected int getLayoutID() {
@@ -72,6 +78,7 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
         super.initView();
 
         getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        activity = this;
 
         back = (Button) findViewById(R.id.back);
         title = (TextView) findViewById(R.id.title);
@@ -104,17 +111,45 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
             }
         });
 
+
         gradequery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 gradequ();
             }
         });
+
+        if (getIntent().getStringExtra("t") != null && getIntent().getStringExtra("t").equals("0")){
+            stuname = getIntent().getStringExtra("name");
+            sgrade = getIntent().getStringExtra("grade");
+            if (sgrade != ""){
+                grade.setText(sgrade);
+                if (grade.getText().toString().length()>0){
+                    gradeclear.setVisibility(View.VISIBLE);
+                }
+            }
+            if (stuname != ""){
+                name.setText(stuname);
+                if(name.getText().toString().length()>0){
+                    nameclear.setVisibility(View.VISIBLE);
+                }
+            }
+            bjId = getIntent().getStringExtra("bjId");
+            getList();
+        }
 }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        gradequery.setEnabled(true);
+
+    }
 
     @Override
     protected void initialize() {
         super.initialize();
+        name.setEnabled(true);
 
         name.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -133,6 +168,7 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
 
                     return true;
                 }
+
                 return false;
             }
         });
@@ -161,14 +197,16 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
         nameclear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                name.setText("");
-                stuname = "";
-                nameclear.setVisibility(View.GONE);
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-//                mError.setErrorType(ErrorLayout.LOADDATA);
-                mRecyclerView.setVisibility(View.GONE);
-                getList();
+                if (isClick == true && mRecyclerView.getScrollState() == 0){
+                    name.setText("");
+                    stuname = "";
+                    nameclear.setVisibility(View.GONE);
+//                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+  //                mError.setErrorType(ErrorLayout.LOADDATA);
+                    mRecyclerView.setVisibility(View.GONE);
+                    getList();
+                }
 
             }
         });
@@ -197,15 +235,17 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
         gradeclear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                grade.setText("学生所在班级");
-                gradeclear.setVisibility(View.GONE);
-                bjId = "";
+                if (isClick == true && mRecyclerView.getScrollState() == 0){
+                    grade.setText("学生所在班级");
+                    gradeclear.setVisibility(View.GONE);
+                    bjId = "";
 
-//                mError.setErrorType(ErrorLayout.LOADDATA);
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-                mRecyclerView.setVisibility(View.GONE);
-                getList();
+//                  mError.setErrorType(ErrorLayout.LOADDATA);
+//                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                    mRecyclerView.setVisibility(View.GONE);
+                    getList();
+                }
             }
         });
 
@@ -214,6 +254,8 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
     public void getList(){
         if(DeviceUtil.checkNet()){
             mError.setErrorType(ErrorLayout.LOADDATA);
+            isClick = false;
+            name.setEnabled(false);
             getListT();
         }else{
             mError.setErrorType(ErrorLayout.NETWORK_ERROR);
@@ -243,6 +285,7 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
                                 Log.e("查询成功了","查询成功了" + mData.size());
                                 mAdapter.notifyDataSetChanged();
                                 mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
+
                             }else{
                                 mRecyclerView.setVisibility(View.GONE);
                                 mError.setErrorType(ErrorLayout.SEARCHNODATA2);
@@ -258,36 +301,53 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
                     e.printStackTrace();
                     mError.setErrorType(ErrorLayout.DATAFAIL);
                 }
+
+                isClick = true;
+                name.setEnabled(true);
+                Log.e("是否可以点击",isClick+"");
             }
+
             @Override
             public void onError(VolleyError error) {
                 mError.setErrorType(ErrorLayout.DATAFAIL);
+                isClick = true;
+                name.setEnabled(true);
             }
         });
     }
 
     public void gradequ(){
+        if (isClick == true && mRecyclerView.getScrollState() == 0){
+            gradequery.setEnabled(false);
+            Intent intent = new Intent(ZsPersonInformationQueryActivity.this,ZsPersonGradeQueryActivity.class);
+            Bundle bundle = new Bundle();
 
-        Intent intent = new Intent(ZsPersonInformationQueryActivity.this,ZsPersonGradeQueryActivity.class);
-        Bundle bundle = new Bundle();
-
-        List<GradeQu> list = new ArrayList<>();
-        for  (int i=0; i<mData.size(); i ++ ){
-            for  (int j=mData.size()-1; j>i; j -- )   {
-                if  (mData.get(j).getBjmc().equals(mData.get(i).getBjmc()))   {
-                    mData.remove(j);
+            List<GradeQu> list = new ArrayList<>();
+            for  (int i=0; i<mData.size(); i ++ ){
+                for  (int j=mData.size()-1; j>i; j -- )   {
+                    if  (mData.get(j).getBjmc().equals(mData.get(i).getBjmc()))   {
+                        mData.remove(j);
+                    }
                 }
+                list.add(new GradeQu(mData.get(i).getBjid(),mData.get(i).getBjmc()));
             }
-            list.add(new GradeQu(mData.get(i).getBjid(),mData.get(i).getBjmc()));
-        }
-        bundle.putSerializable("gradelist", (Serializable) list);
 
-        if (name.getText().toString() != null){
-            stuname = name.getText().toString();
+            if (name.getText().toString() != null){
+                stuname = name.getText().toString();
+            }
+
+            if (grade.getText().toString() != null){
+                sgrade = grade.getText().toString();
+            }
+
+            bundle.putSerializable("gradelist", (Serializable) list);
+            bundle.putString("name",stuname);
+            bundle.putString("grade",sgrade);
+            bundle.putString("bjId", bjId);
+            intent.putExtras(bundle);
+            startActivityForResult(intent,1);
         }
-        bundle.putString("name",stuname);
-        intent.putExtras(bundle);
-        startActivityForResult(intent,1);
+
     }
 
     @Override

@@ -76,11 +76,6 @@ public class WsjcTjTabActivity extends MyActivity {
     }
 
     @Override
-    protected void initView() {
-        super.initView();
-    }
-
-    @Override
     protected void initialize() {
         super.initialize();
         preference = getSharedPreferences();

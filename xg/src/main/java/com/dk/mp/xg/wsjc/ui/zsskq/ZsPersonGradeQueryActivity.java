@@ -1,9 +1,11 @@
 package com.dk.mp.xg.wsjc.ui.zsskq;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -47,6 +50,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static android.widget.AbsListView.OnScrollListener.SCROLL_STATE_FLING;
+import static android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
+import static android.widget.AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL;
+
 /**
  * Created by cobb on 2017/5/9.
  */
@@ -66,6 +73,9 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
     private ImageButton nameclear;
     private String bjmc = "";
 
+    private boolean isClick = true;
+    private boolean scrollFlag = false;// 标记是否滑动
+
     @Override
     protected int getLayoutID() {
         return R.layout.app_zs_person_grade_query;
@@ -79,12 +89,38 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
 
         colse = (LinearLayout) findViewById(R.id.colse);
         name = (EditText) findViewById(R.id.name);
+        name.setEnabled(true);
         nameclear = (ImageButton) findViewById(R.id.nameclear);
 
         mRecycle = (ListView) findViewById(R.id.listview);
         mError = (ErrorLayout) findViewById(R.id.error_layout);
         MyView myView = new MyView(this,mData);
         mRecycle.setAdapter(myView);
+
+        mRecycle.setOnScrollListener(new AbsListView.OnScrollListener() {
+                                         @Override
+                                         public void onScrollStateChanged(AbsListView view, int scrollState) {
+                                             switch (scrollState) {
+                                                 case SCROLL_STATE_TOUCH_SCROLL:
+                                                     scrollFlag = true;
+                                                     break;
+                                                 case SCROLL_STATE_FLING:
+                                                     scrollFlag = true;
+                                                     break;
+                                                 case SCROLL_STATE_IDLE:
+                                                     scrollFlag = false;
+                                                     break;
+                                                 default:
+                                                     break;
+                                             }
+                                         }
+
+                                         @Override
+                                         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                                         }
+                                     });
+
 
         mRecycle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -102,6 +138,15 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
         colse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = getIntent().getExtras();
+                Intent intent = new Intent(ZsPersonGradeQueryActivity.this,ZsPersonInformationQueryActivity.class);
+                intent.putExtra("name",bundle.getString("name"));
+                intent.putExtra("grade",bundle.getString("grade"));
+                intent.putExtra("bjId", bundle.getString("bjId"));
+                intent.putExtra("t","0");
+                startActivity(intent);
+                ZsPersonInformationQueryActivity.activity.finish();
+
                 back();
 
             }
@@ -158,12 +203,15 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
         nameclear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                name.setText("");
-                bjmc = "";
-                nameclear.setVisibility(View.GONE);
+                if (isClick == true && scrollFlag == false){
+                    name.setText("");
+                    bjmc = "";
+                    nameclear.setVisibility(View.GONE);
 
-                mError.setErrorType(ErrorLayout.LOADDATA);
-                getList();
+                    mError.setErrorType(ErrorLayout.LOADDATA);
+                    getList();
+
+                }
 
             }
         });
@@ -177,22 +225,6 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
         if (mData2 !=null && mData2.size()>0){
             mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
             mData.addAll(mData2);
-//            HashMap<String, InformationQuery> map = new HashMap();
-//            for(int i=0; i<mData2.size(); i++){
-//                map.put(mData2.get(i).getBjmc(),mData2.get(i));
-//            }
-//            for (Object key : map.keySet()) {
-//                mData.add(new GradeQu(map.get(key).getBjid(),map.get(key).getBjmc()));
-//            }
-
-//            for  (int i=0; i<mData2.size(); i ++ ){
-//                for  (int j=mData2.size()-1; j>i; j -- )   {
-//                    if  (mData2.get(j).getBjmc().equals(mData2.get(i).getBjmc()))   {
-//                        mData2.remove(j);
-//                    }
-//                }
-//                mData.add(new GradeQu(mData2.get(i).getBjid(),mData2.get(i).getBjmc()));
-//            }
         }else {
             if(DeviceUtil.checkNet()){
                 getList();
@@ -201,12 +233,11 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
             }
         }
 
-
-
-
     }
 
     public void getList(){
+        isClick = false;
+        name.setEnabled(false);
         mData.clear();
         mData2.clear();
         Map<String,Object> map = new HashMap<>();
@@ -243,10 +274,14 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
                     e.printStackTrace();
                     mError.setErrorType(ErrorLayout.DATAFAIL);
                 }
+                isClick = true;
+                name.setEnabled(true);
             }
             @Override
             public void onError(VolleyError error) {
                 mError.setErrorType(ErrorLayout.DATAFAIL);
+                isClick = true;
+                name.setEnabled(true);
             }
         });
     }
