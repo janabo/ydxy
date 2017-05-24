@@ -264,7 +264,8 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
     }
 
     public void getListT(){
-        mData.clear();
+        mData.removeAll(mData);
+
         mRecyclerView.setVisibility(View.VISIBLE);
         Map<String,Object> map = new HashMap<>();
         map.put("xm",stuname);
@@ -346,6 +347,7 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
             bundle.putString("bjId", bjId);
             intent.putExtras(bundle);
             startActivityForResult(intent,1);
+
         }
 
     }
