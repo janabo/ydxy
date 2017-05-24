@@ -32,6 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.dk.mp.xg.wsjc.ui.WsjcTjTabActivity.ActivityA;
+
 /**
  * Created by cobb on 2017/5/8.
  */
@@ -62,17 +64,13 @@ public class WsjcChooseSslActivity extends MyActivity {
 
         ok = (TextView) findViewById(R.id.ok);
 
-        if (getIntent().getStringExtra("styles") != null && getIntent().getStringExtra("styles").equals("0")){
-            dealOK(true);
-        }else {
-            String tjSslId = preference.getValue("tjSslId");
-            if ( tjSslId != null || tjSslId != ""){
-                Intent intent = new Intent(this,WsjcTjTabActivity.class);
-                intent.putExtra("title",getIntent().getStringExtra("title"));
-                startActivity(intent);
-                back();
+        String tjSslId = preference.getValue("tjSslId");
+        if ( tjSslId != null || tjSslId != ""){
+            if (getIntent().getStringExtra("styles") != null && getIntent().getStringExtra("styles").equals("0")){
+                dealOK(true);
             }
         }
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getResources().getColor(R.color.select_title));
@@ -97,9 +95,15 @@ public class WsjcChooseSslActivity extends MyActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-                overridePendingTransition(0,R.anim.push_down_out);
-//                tjintent();
+                if (preference.getValue("tjSslId") != null && preference.getValue("tjSslId") != ""){
+//                    back();
+//                    overridePendingTransition(0,R.anim.push_down_out);
+                      tjintent();
+                }else {
+                    finish();
+                    WsjcTjTabActivity.ActivityA.finish();
+                    overridePendingTransition(0,R.anim.push_down_out);
+                }
             }
         });
 
@@ -206,6 +210,7 @@ public class WsjcChooseSslActivity extends MyActivity {
         Map<String,Object> map =  mAdapter.getIsSelected();
         if(map.isEmpty()){
             showErrorMsg(mRootView,"请选择宿舍楼");
+            return;
         }else{
             ChooseSsl s = null;
             for(Map.Entry<String,Object> entry : map.entrySet()){
@@ -214,7 +219,6 @@ public class WsjcChooseSslActivity extends MyActivity {
                     preference.setValue("tjSslId",s.getId());
                     preference.setValue("tjSslName",s.getName());
                     Intent intent = new Intent(getApplicationContext(),WsjcTjTabActivity.class);
-                    intent.putExtra("role","4");
                     intent.putExtra("title",getIntent().getStringExtra("title"));
                     startActivity(intent);
                     finish();

@@ -1,5 +1,6 @@
 package com.dk.mp.xg.wsjc.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -39,6 +40,8 @@ import java.util.List;
  * 作者：janabo on 2017/1/13 16:12
  */
 public class WsjcTjTabActivity extends MyActivity {
+
+    static Activity ActivityA;
 
     TabLayout mTabLayout;
     MyViewpager mViewpager;
@@ -81,6 +84,14 @@ public class WsjcTjTabActivity extends MyActivity {
     protected void initialize() {
         super.initialize();
         preference = getSharedPreferences();
+        ActivityA=this;
+
+        if (preference.getValue("tjSslId") == null || preference.getValue("tjSslId") == ""){
+            Intent intent = new Intent(WsjcTjTabActivity.this,WsjcChooseSslActivity.class);
+            intent.putExtra("styles","0");
+            startActivity(intent);
+//            finish();
+        }
 
         findView();
 
