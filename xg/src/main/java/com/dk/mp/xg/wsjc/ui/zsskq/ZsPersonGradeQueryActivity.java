@@ -138,20 +138,32 @@ public class ZsPersonGradeQueryActivity extends MyActivity implements View.OnCli
         colse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = getIntent().getExtras();
-                Intent intent = new Intent(ZsPersonGradeQueryActivity.this,ZsPersonInformationQueryActivity.class);
-                intent.putExtra("name",bundle.getString("name"));
-                intent.putExtra("grade",bundle.getString("grade"));
-                intent.putExtra("bjId", bundle.getString("bjId"));
-                intent.putExtra("t","0");
-                startActivity(intent);
-                ZsPersonInformationQueryActivity.activity.finish();
-
-                back();
+               backback();
 
             }
         });
 
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            backback();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void backback(){
+        Bundle bundle = getIntent().getExtras();
+        Intent intent = new Intent(ZsPersonGradeQueryActivity.this,ZsPersonInformationQueryActivity.class);
+        intent.putExtra("name",bundle.getString("name"));
+        intent.putExtra("grade",bundle.getString("grade"));
+        intent.putExtra("bjId", bundle.getString("bjId"));
+        intent.putExtra("t","0");
+        startActivity(intent);
+        ZsPersonInformationQueryActivity.activity.finish();
+
+        back();
     }
 
     @Override
