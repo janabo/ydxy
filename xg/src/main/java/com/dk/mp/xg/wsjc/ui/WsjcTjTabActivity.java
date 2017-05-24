@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -391,7 +390,7 @@ public class WsjcTjTabActivity extends MyActivity {
                 if(resultCode == RESULT_OK){
                     semesterid = data.getStringExtra("xqsid");
                     setTitle(data.getStringExtra("xqs"));
-                    templetid = data.getStringExtra("mbs");
+                    templetid = data.getStringExtra("mbsid");
 //                    fragment3.setMUrl("apps/sswsdftj/tj" +
 //                            "?type=year&key="+semesterid+"&role="+1+"&pfmb="+templetid+"&name="+data.getStringExtra("xqs"));
                     fragment3.setMUrl(getUrl("year",semesterid,templetid,data.getStringExtra("xqs"),sslId));
