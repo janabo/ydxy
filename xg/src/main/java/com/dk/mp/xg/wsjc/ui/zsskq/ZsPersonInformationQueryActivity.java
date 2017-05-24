@@ -253,6 +253,7 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
 
     public void getList(){
         if(DeviceUtil.checkNet()){
+            mData.removeAll(mData);
             mError.setErrorType(ErrorLayout.LOADDATA);
             isClick = false;
             name.setEnabled(false);
@@ -264,7 +265,6 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
     }
 
     public void getListT(){
-        mData.removeAll(mData);
 
         mRecyclerView.setVisibility(View.VISIBLE);
         Map<String,Object> map = new HashMap<>();
