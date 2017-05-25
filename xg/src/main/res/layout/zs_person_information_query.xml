@@ -115,7 +115,8 @@
                 android:layout_marginRight="10dp"
                 android:gravity="center_vertical"
                 android:textColor="@color/white"
-                android:text="学生所在班级" />
+                android:textColorHint="@color/white"
+                android:hint="学生所在班级" />
 
             <ImageButton
                 android:id="@+id/gradeclear"

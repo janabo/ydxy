@@ -122,20 +122,22 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
         if (getIntent().getStringExtra("t") != null && getIntent().getStringExtra("t").equals("0")){
             stuname = getIntent().getStringExtra("name");
             sgrade = getIntent().getStringExtra("grade");
-            if (sgrade != ""){
-                grade.setText(sgrade);
-                if (grade.getText().toString().length()>0){
-                    gradeclear.setVisibility(View.VISIBLE);
+            if ((!stuname.equals("") && sgrade.equals("")) || (stuname.equals("") && !sgrade.equals("")) || (!stuname.equals("") && !sgrade.equals(""))){
+                if (sgrade != ""){
+                    grade.setText(sgrade);
+                    if (grade.getText().toString().length()>0){
+                        gradeclear.setVisibility(View.VISIBLE);
+                    }
                 }
-            }
-            if (stuname != ""){
-                name.setText(stuname);
-                if(name.getText().toString().length()>0){
-                    nameclear.setVisibility(View.VISIBLE);
+                if (stuname != ""){
+                    name.setText(stuname);
+                    if(name.getText().toString().length()>0){
+                        nameclear.setVisibility(View.VISIBLE);
+                    }
                 }
+                bjId = getIntent().getStringExtra("bjId");
+                getList();
             }
-            bjId = getIntent().getStringExtra("bjId");
-            getList();
         }
 }
 
@@ -236,7 +238,8 @@ public class ZsPersonInformationQueryActivity extends MyActivity{
             @Override
             public void onClick(View v) {
                 if (isClick == true && mRecyclerView.getScrollState() == 0){
-                    grade.setText("学生所在班级");
+                    grade.setText("");
+                    sgrade = "";
                     gradeclear.setVisibility(View.GONE);
                     bjId = "";
 
