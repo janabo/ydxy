@@ -25,7 +25,7 @@
         android:layout_marginRight="8dp"
         android:background="@color/document_detail_line" />
 
-    <com.dk.mp.apps.oa.widget.ScrollGridView
+    <com.dk.mp.oldoa.widget.ScrollGridView
         android:id="@+id/gridview_can_select"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
