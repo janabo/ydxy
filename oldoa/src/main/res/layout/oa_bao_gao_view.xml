@@ -169,11 +169,12 @@
 			            style="@style/txt"
 			            android:layout_width="fill_parent"
 			            android:layout_height="wrap_content"
-			            android:background="@color/white" 
+			            android:background="@color/white"
+						android:padding="10dp"
 			            android:scrollbars="none"
 			            android:minHeight="150dp"
-			            android:layout_marginLeft="5dip"
-	                    android:layout_marginTop="5dip"/>
+			            android:layout_marginLeft="10dip"
+	                    android:layout_marginTop="10dip"/>
                 </LinearLayout>
             </LinearLayout>
 
