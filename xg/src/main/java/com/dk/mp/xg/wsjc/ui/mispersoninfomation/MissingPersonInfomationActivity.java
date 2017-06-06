@@ -5,6 +5,7 @@ import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
 import com.dk.mp.core.util.DeviceUtil;
+import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.core.widget.OADetailView;
@@ -46,15 +47,18 @@ public class MissingPersonInfomationActivity extends MyActivity{
     public void getData(){
         Map<String,Object> map = new HashMap<>();
         map.put("sslid",sslid);
+        Logger.info("sslid="+sslid);
         HttpUtil.getInstance().postJsonObjectRequest("apps/zsscx/kqycryxx", map, new HttpListener<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
                     if(result != null && result.getInt("code") == 200){
                         String detail = result.getString("data");
+                        Logger.info("detail="+detail);
                         if(StringUtils.isNotEmpty(detail)) {
                             mError.setErrorType(ErrorLayout.HIDE_LAYOUT);
-                            content.setText(detail);
+//                            content.setText(detail);
+//                            content.loadUrl(detail);
                         }else {
                             mError.setErrorType(ErrorLayout.NODATA);
                         }

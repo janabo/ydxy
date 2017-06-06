@@ -337,9 +337,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.dk.mp.xg.wsjc.ui.mispersoninfomation.MissingPersonInfomationActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.dk.mp.xg.wsjc.ui.mispersoninfomation.MissingPersonActivity"
             android:screenOrientation="portrait">
         </activity>
 

@@ -15,10 +15,13 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.dk.mp.core.entity.GsonData;
+import com.dk.mp.core.entity.LoginMsg;
 import com.dk.mp.core.http.HttpUtil;
 import com.dk.mp.core.http.request.HttpListener;
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.DeviceUtil;
+import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.util.StringUtils;
 import com.dk.mp.core.view.RecycleViewDivider;
 import com.dk.mp.core.widget.ErrorLayout;
@@ -47,6 +50,9 @@ public class SelectDormitoryBuildingActivity extends MyActivity implements View.
     SelectDormitoryBuildingAdapter mAdapter;
     List<DormitoryBuilding> mData = new ArrayList<>();
     private String mTitle;
+    LoginMsg loginMsg;
+    private CoreSharedPreferencesHelper preference;
+
 
     @Override
     protected int getLayoutID() {
@@ -60,6 +66,8 @@ public class SelectDormitoryBuildingActivity extends MyActivity implements View.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getResources().getColor(R.color.select_title));
         }
+        preference = getSharedPreferences();
+        loginMsg = preference.getLoginMsg();
         back = (TextView) findViewById(R.id.back);
         ok = (TextView) findViewById(R.id.ok);
         title = (TextView) findViewById(R.id.title);
@@ -96,9 +104,13 @@ public class SelectDormitoryBuildingActivity extends MyActivity implements View.
                             break;
                         }
                     }
-                    Intent in = new Intent(mContext,MissingPersonInfomationActivity.class);
+
+                    Intent in = new Intent(mContext, MissingPersonActivity.class);
                     in.putExtra("title",mTitle);
-                    in.putExtra("sslid",sslid);
+                    in.putExtra("url",getUrl(sslid));
+//                    Intent in = new Intent(mContext,MissingPersonInfomationActivity.class);
+//                    in.putExtra("title",mTitle);
+//                    in.putExtra("sslid",sslid);
                     startActivity(in);
                 }
             }
@@ -190,5 +202,14 @@ public class SelectDormitoryBuildingActivity extends MyActivity implements View.
         } else {
             return super.onKeyDown(keyCode, event);
         }
+    }
+
+    public String getUrl(String sslId){
+        String mUrl = mContext.getString(R.string.rootUrl)+"apps/zsscx/kqycryxx?sslid="+sslId;
+        if(loginMsg != null){
+            mUrl += "&uid="+loginMsg.getUid()+"&pwd="+ loginMsg.getPsw()+"&userId="+loginMsg.getUid();
+        }
+        Logger.info("######murl="+mUrl);
+        return mUrl;
     }
 }
