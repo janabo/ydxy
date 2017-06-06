@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.Logger;
+import com.dk.mp.core.widget.ErrorLayout;
 import com.dk.mp.oldoa.R;
 import com.dk.mp.oldoa.adapter.GridViewSelectedAdapter;
 import com.dk.mp.oldoa.entity.Department;
@@ -65,6 +66,8 @@ public class NextStepActivity extends MyActivity {
 	private String childurl;
 	private String message;
 	private String suggestion;
+
+    private ErrorLayout errorLayout;
 
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
@@ -160,7 +163,8 @@ public class NextStepActivity extends MyActivity {
 			default:
 				break;
 			}
-			hideProgressDialog();
+//			hideProgressDialog();
+			errorLayout.setErrorType(ErrorLayout.HIDE_LAYOUT);
 		}
 
 	};
@@ -184,15 +188,19 @@ public class NextStepActivity extends MyActivity {
 		setTitle("下一步");
 		url = getIntent().getStringExtra("url");
 		suggestion = getIntent().getStringExtra("opinions");
+
+		init();
 		Logger.info(url);
 		if(DeviceUtil.checkNet()){
 			getOperate();
 		}
-		init();
+
 	}
 
 	private void init() {
-		listview = (ListView) this.findViewById(R.id.person_can_select_listview);
+        errorLayout = (ErrorLayout) findViewById(R.id.error_layout);
+
+        listview = (ListView) this.findViewById(R.id.person_can_select_listview);
 		listview.setDividerHeight(1);
 		listview.setDivider(getResources().getDrawable(R.color.transparent));
 		rg_operate = (LinearLayout) this.findViewById(R.id.rg_operate);
@@ -218,7 +226,8 @@ public class NextStepActivity extends MyActivity {
 	}
 
 	public void getOperate() {
-		showProgressDialog();
+//		showProgressDialog();
+        errorLayout.setErrorType(ErrorLayout.LOADDATA);
 		Map<String, String> map = OAManager.getIntence().getMap(url);
 		HttpClientUtil.post("apps/oa/queryOperations", map, new RequestCallBack<String>() {
 			@Override
@@ -229,7 +238,8 @@ public class NextStepActivity extends MyActivity {
 			
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
-				hideProgressDialog();
+//				hideProgressDialog();
+                errorLayout.setErrorType(ErrorLayout.HIDE_LAYOUT);
 				showMessage(R.string.data_fail);
 			}
 		});
@@ -320,7 +330,8 @@ public class NextStepActivity extends MyActivity {
 	 */
 	private void getData(final String childurl) {
 		Logger.info(childurl + "+++++++++++++++++++++++++");
-		showProgressDialog();
+//		showProgressDialog();
+        errorLayout.setErrorType(ErrorLayout.LOADDATA);
 		Map<String, String> map = OAManager.getIntence().getMap(childurl);
 		HttpClientUtil.post("apps/oa/queryNodeUsers", map, new RequestCallBack<String>() {
 			@Override
@@ -330,7 +341,8 @@ public class NextStepActivity extends MyActivity {
 			}
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
-				hideProgressDialog();
+//				hideProgressDialog();
+				errorLayout.setErrorType(ErrorLayout.HIDE_LAYOUT);
 				showMessage(R.string.data_fail);
 			}
 		});
@@ -340,7 +352,8 @@ public class NextStepActivity extends MyActivity {
 	 * 上传提交的内容
 	 */
 	private void UploadCommit() {
-		showProgressDialog();
+//		showProgressDialog();
+        errorLayout.setErrorType(ErrorLayout.LOADDATA);
 		if (lists.size() > 0) {
 			StringBuffer userIdString = new StringBuffer();
 			for (int i = 0; i < lists.size(); i++) {
@@ -371,12 +384,14 @@ public class NextStepActivity extends MyActivity {
 				
 				@Override
 				public void onFailure(HttpException arg0, String arg1) {
-					hideProgressDialog();
+//					hideProgressDialog();
+					errorLayout.setErrorType(ErrorLayout.HIDE_LAYOUT);
 					showMessage(R.string.data_fail);
 				}
 			});
 		}else{
-			hideProgressDialog();
+//			hideProgressDialog();
+			errorLayout.setErrorType(ErrorLayout.HIDE_LAYOUT);
 			handler.sendEmptyMessage(3);
 		}
 	}
