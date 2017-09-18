@@ -39,6 +39,8 @@ public class BaoGaoDetailActivity extends DetailActivity {
 	String id;
 	String title;
 	CoreSharedPreferencesHelper shareHelper;
+
+	public static BaoGaoDetailActivity instance;
 	private Handler mHandler = new Handler() {
 
 		public void handleMessage(Message msg) {
@@ -68,6 +70,7 @@ public class BaoGaoDetailActivity extends DetailActivity {
 	@Override
 	protected void initView() {
 		super.initView();
+		instance = this;
 		shareHelper = new CoreSharedPreferencesHelper(this);
 		dealState = getIntent().getStringExtra("dealState");
 		id = getIntent().getStringExtra(Constant.TYPE_URL);

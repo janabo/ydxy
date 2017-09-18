@@ -1,5 +1,7 @@
 package com.dk.mp.oldoa.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.dk.mp.core.entity.PageMsg;
 import com.dk.mp.core.ui.BaseFragment;
+import com.dk.mp.core.util.BroadcastUtil;
 import com.dk.mp.core.util.CoreSharedPreferencesHelper;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.SnackBarUtil;
@@ -38,7 +41,7 @@ import java.util.Map;
  * 作者：janabo on 2017/4/1 15:04
  */
 public class OAListFragment extends BaseFragment implements View.OnClickListener,XListView.IXListViewListener{
-    public static final String ACTION_REFRESH = "com.test.action.refresh";
+    public static final String ACTION_REFRESH = "com.test.action.refresh.oldoa";
     public static final String ARGS_TABS = "args_tabs";
     private OATab mOaTabs;
     private ErrorLayout mError;
@@ -65,8 +68,6 @@ public class OAListFragment extends BaseFragment implements View.OnClickListener
         super.onCreate(savedInstanceState);
         mOaTabs = getArguments().getParcelable(ARGS_TABS);
     }
-
-
       @Override
     protected void initialize(View view) {
         super.initialize(view);
@@ -119,9 +120,19 @@ public class OAListFragment extends BaseFragment implements View.OnClickListener
           if (DeviceUtil.checkNet()) {
               getListData();
           }
+          BroadcastUtil.registerReceiver(mContext, receiver, ACTION_REFRESH);
     }
 
-
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (ACTION_REFRESH.equals(intent.getAction())) {
+                mList.clear();
+                curPage =1 ;
+                getListData();
+            }
+        }
+    };
 
     @Override
     public void onFirstUserVisible() {
@@ -149,6 +160,7 @@ public class OAListFragment extends BaseFragment implements View.OnClickListener
             }
             @Override
             public void onSuccess(ResponseInfo<String> arg0) {
+                mList.clear();
                 PageMsg page = OAManager.getIntence().getOAListInfos(arg0);
                 mList.addAll(page.getList());
                 countPage = (int) page.getTotalPages();

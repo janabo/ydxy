@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dk.mp.core.ui.MyActivity;
+import com.dk.mp.core.util.BroadcastUtil;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.util.StringUtils;
@@ -98,25 +99,29 @@ public class DetailActivity extends MyActivity implements EasyPermissions.Permis
 					intent.putExtra("url", url);
 					intent.putExtra("opinions", opinions);
 					startActivity(intent);
+
+//					BroadcastUtil.sendBroadcast(mContext, "com.test.action.refresh.oldoa");
 					// finish();
 					break;
 				case 2:
 					if ("操作成功".equals(message) || "流程已经结束".equals(message)
 							|| "数据已经失效".equals(message)) {
 
-						Intent intentMain = new Intent(DetailActivity.this,
-								MainActivity.class);
-						intentMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						startActivity(intentMain);
+//						Intent intentMain = new Intent(DetailActivity.this,
+//								MainActivity.class);
+//						intentMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//						startActivity(intentMain);
+						BroadcastUtil.sendBroadcast(mContext, "com.test.action.refresh.oldoa");
 						finish();
 					}
 
 					break;
 				case 3:
-					Intent intentMain = new Intent(DetailActivity.this,
-							MainActivity.class);
-					intentMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					startActivity(intentMain);
+//					Intent intentMain = new Intent(DetailActivity.this,
+//							MainActivity.class);
+//					intentMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//					startActivity(intentMain);
+					BroadcastUtil.sendBroadcast(mContext, "com.test.action.refresh.oldoa");
 					finish();
 
 				default:

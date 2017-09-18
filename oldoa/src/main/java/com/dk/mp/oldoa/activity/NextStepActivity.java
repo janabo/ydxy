@@ -1,7 +1,6 @@
 package com.dk.mp.oldoa.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -20,6 +19,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.dk.mp.core.util.BroadcastUtil;
 import com.dk.mp.core.util.DeviceUtil;
 import com.dk.mp.core.util.Logger;
 import com.dk.mp.core.widget.ErrorLayout;
@@ -41,6 +41,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.dk.mp.core.http.HttpUtil.mContext;
 
 /**
  * @since 
@@ -85,9 +87,13 @@ public class NextStepActivity extends MyActivity {
 			case 2:
 				showMessage(message);
 				if ("操作成功".equals(message) || "流程已经结束".equals(message) || "数据已经失效".equals(message)) {
-					Intent intent = new Intent(NextStepActivity.this, MainActivity.class);
-					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					startActivity(intent);
+//					Intent intent = new Intent(NextStepActivity.this, OldOaTabActivity.class);
+//					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//					startActivity(intent);
+					BroadcastUtil.sendBroadcast(mContext, "com.test.action.refresh.oldoa");
+					if(BaoGaoDetailActivity.instance != null){
+						BaoGaoDetailActivity.instance.finish();
+					}
 					finish();
 				}
 				break;

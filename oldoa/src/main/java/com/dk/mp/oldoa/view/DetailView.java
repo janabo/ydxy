@@ -38,24 +38,33 @@ public class DetailView extends LinearLayout {
 		super(context, attrs);
 		this.context = context;
 		w = new WebView(context);
-		w.setInitialScale(100);
 		WebSettings webSetting = w.getSettings();
 		//设置js可用  
 		webSetting.setUseWideViewPort(true);
 		webSetting.setLoadWithOverviewMode(true);
 		webSetting.setJavaScriptEnabled(true);
-		webSetting.setBuiltInZoomControls(true);
 		webSetting.setSupportZoom(true);
+		webSetting.setBuiltInZoomControls(true);
+//		webSetting.setJavaScriptCanOpenWindowsAutomatically(true);
+
+//		webSetting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
 
 		//不显示webview缩放按钮
 		webSetting.setDisplayZoomControls(false);
-
 		w.setWebViewClient(new HttpWebViewClient());
 		w.setDownloadListener(new DownloadListener() {
 			@Override
 			public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype,
 					long contentLength) {
 				filename(url);
+			}
+		});
+
+		w.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				v.getParent().requestDisallowInterceptTouchEvent(true);
+				return false;
 			}
 		});
 	}
@@ -185,8 +194,9 @@ public class DetailView extends LinearLayout {
 		removeAllViews();
 		w.clearCache(true);
 		w.clearHistory();
-		StringBuffer s = new StringBuffer();
+		StringBuffer s = new StringBuffer("<!DOCTYPE html><html><head><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no\" /></head><style> html,body{min-height:100px;padding-top:0px;} p{font-size:16px;}</style><body>");
 		s.append(html);
+		s.append("</body></html>");
 		w.isHardwareAccelerated();
 		w.loadDataWithBaseURL(null, s.toString(), "text/html", "utf-8", null);
 		this.addView(w);

@@ -17,7 +17,7 @@
 		android:id="@+id/error_layout">
 	</com.dk.mp.core.widget.ErrorLayout>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@+id/next"
@@ -168,13 +168,9 @@
 			            android:id="@+id/nr_txt"
 			            style="@style/txt"
 			            android:layout_width="fill_parent"
-			            android:layout_height="wrap_content"
+			            android:layout_height="150dp"
 			            android:background="@color/white"
-						android:padding="10dp"
-			            android:scrollbars="none"
-			            android:minHeight="150dp"
-			            android:layout_marginLeft="10dip"
-	                    android:layout_marginTop="10dip"/>
+			            android:scrollbars="none"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -187,7 +183,7 @@
 
             <include layout="@layout/oa_detail_bottom" />
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
     <include
         android:id="@+id/next"

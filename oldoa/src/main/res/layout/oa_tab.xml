@@ -48,7 +48,7 @@
                             android:layout_height="50dp"
                             android:layout_weight="1"
                             android:text="待办"
-                            android:textSize="?attr/textSize16"
+                            android:textSize="16sp"
                             android:gravity="center"
                             android:textColor="@color/old_tab_oa_selected"
                             android:checked="true"/>
@@ -61,7 +61,7 @@
                             android:layout_height="50dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:textSize="?attr/textSize16"
+                            android:textSize="16sp"
                             android:textColor="@color/old_tab_oa_unselected"
                             android:text="已办" />
                     </RadioGroup>
